@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Create Anything with AI | Dukktape Studios</title>
+<meta name="description" content="A simple, friendly beginner course on using AI to learn, solve problems, and create in every medium.">
+<style>
+body{margin:0;background:#16181d;color:#eee;font-family:system-ui,Arial,sans-serif;font-size:19px;line-height:1.55}
+main{max-width:820px;margin:0 auto;padding:10px 16px}
+h1{text-align:center;font-size:1.8em;margin:18px 0 4px}h2{color:#e0a64a;margin-top:0}a{color:#8fc8ff}
+nav{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:12px 0}
+nav a{background:#252a33;padding:6px 12px;border-radius:16px;text-decoration:none;font-size:.85em}
+section{background:#1f232b;border-radius:14px;padding:16px 18px;margin:16px 0}
+.loop{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;font-weight:bold}
+.loop span{background:#2b5d9c;padding:8px 14px;border-radius:20px}
+.tip{background:#2a2f3a;border-left:4px solid #e0a64a;padding:8px 12px;border-radius:6px}
+label{display:block;margin-top:10px;font-weight:bold}
+input,textarea{width:100%;box-sizing:border-box;font-size:1em;padding:10px;border-radius:8px;border:2px solid #555;background:#111418;color:#eee}
+button{font-size:1em;padding:10px 16px;border-radius:10px;border:0;background:#c98a2b;color:#111;font-weight:bold;cursor:pointer;margin-top:10px}
+pre{white-space:pre-wrap;background:#111418;padding:12px;border-radius:8px}
+details{background:#252a33;border-radius:10px;padding:10px 14px;margin:8px 0}summary{font-weight:bold;cursor:pointer;font-size:1.05em}
+.chk label{font-weight:normal;display:flex;gap:10px;align-items:flex-start;margin:8px 0}.chk input{width:24px;height:24px;flex:none}
+footer{text-align:center;padding:24px;color:#999}
+</style></head><body><main>
+<h1>✨ Create Anything with AI</h1>
+<p style="text-align:center">A simple beginner course. Short steps. Try each one as you go.</p>
+<nav><a href="#learn">1 Learn</a><a href="#problem">2 Problems</a><a href="#proto">3 Prototype</a><a href="#prompt">4 Prompts</a><a href="#media">5 Create</a><a href="#test">6 Test</a><a href="#safe">7 Safety</a><a href="#week">8 Challenge</a></nav>
+
+<section id="learn"><h2>1. How to learn how to learn</h2>
+<p>You don't need to know everything first. Use the <b>curiosity loop</b>:</p>
+<div class="loop"><span>Ask</span>→<span>Try</span>→<span>Check</span>→<span>Adjust</span>→<span>repeat</span></div>
+<ul><li><b>Ask:</b> "Explain ___ like I'm new to it."</li><li><b>Try:</b> do one small thing right away.</li><li><b>Check:</b> did it work? What surprised you?</li><li><b>Adjust:</b> ask a follow-up and try again.</li></ul>
+<p class="tip">Mistakes are data. Each loop makes you a little better.</p></section>
+
+<section id="problem"><h2>2. Attacking a problem</h2>
+<ol><li><b>Say it in one sentence.</b> "I want ___ so that ___."</li><li><b>Break it into small steps.</b> Each step should take 15 minutes or less.</li><li><b>Ask AI for options.</b> "Give me 3 ways to do this, with pros and cons."</li><li><b>Pick one and start.</b> Start doing. You can change course later.</li></ol>
+<p class="tip">Stuck? Ask: "What is the smallest next step I can do right now?"</p></section>
+
+<section id="proto"><h2>3. Idea to prototype</h2>
+<div class="loop"><span>Idea</span>→<span>Prompt</span>→<span>Test</span>→<span>Modify</span></div>
+<details open><summary>Worked example: a feed-time reminder poster</summary>
+<p><b>Idea:</b> A poster for the barn showing feeding times.</p>
+<p><b>Prompt:</b> "Make a simple printable schedule for feeding 3 horses at 6 AM and 5 PM. Big text, easy to read."</p>
+<p><b>Test:</b> Print it. Is it readable from across the barn? No, the text is too small.</p>
+<p><b>Modify:</b> "Make the times twice as big and add a checkbox for each feeding."</p>
+<p>Two or three loops later, you have something real.</p></details></section>
+
+<section id="prompt"><h2>4. Prompting basics</h2>
+<ul><li><b>Role:</b> who the AI should act as.</li><li><b>Goal:</b> what you want.</li><li><b>Context:</b> details that matter.</li><li><b>Format:</b> how the answer should look.</li><li><b>Examples:</b> show what good looks like.</li><li><b>Iterate:</b> the first answer is a draft. Ask for changes.</li></ul>
+<h3>Prompt builder</h3>
+<label>Role <input id="p-role" placeholder="a friendly woodworking teacher"></label>
+<label>Goal <input id="p-goal" placeholder="help me build a simple shelf"></label>
+<label>Context <textarea id="p-ctx" rows="2" placeholder="I'm a beginner with basic hand tools"></textarea></label>
+<label>Format <input id="p-fmt" placeholder="a numbered step list with a shopping list"></label>
+<label>Example (optional) <input id="p-ex" placeholder="like a recipe card"></label>
+<pre id="p-out"></pre><button id="copy">Copy prompt</button> <span id="copied"></span></section>
+
+<section id="media"><h2>5. Creating in every medium</h2>
+<details><summary>✍️ Writing</summary><p><b>Good for:</b> drafts, emails, stories, outlines, editing.</p><p><b>Starter prompt:</b> "Write a short, friendly post about ___. Then give me 3 other versions."</p><p><b>Tools:</b> chat assistants such as ChatGPT, Claude, Gemini, Grok.</p></details>
+<details><summary>🖼️ Images</summary><p><b>Good for:</b> logos, concept art, thumbnails, mockups.</p><p><b>Starter prompt:</b> "A ___ in the style of ___, bright colors, plain background."</p><p><b>Tools:</b> image generators such as Midjourney, DALL·E (in ChatGPT), Adobe Firefly.</p></details>
+<details><summary>🎬 Video</summary><p><b>Good for:</b> short clips, b-roll, ideas for scenes.</p><p><b>Starter prompt:</b> "5-second shot of ___, slow camera move, sunset light."</p><p><b>Tools:</b> video generators such as Runway, Sora, Google Veo.</p></details>
+<details><summary>🎵 Music and voice</summary><p><b>Good for:</b> background music, jingles, voiceovers.</p><p><b>Starter prompt:</b> "Upbeat country instrumental, 30 seconds, for a ranch video intro."</p><p><b>Tools:</b> Suno, Udio (music); ElevenLabs (voice).</p></details>
+<details><summary>💻 Code and websites</summary><p><b>Good for:</b> small web pages, tools, scripts, fixing errors.</p><p><b>Starter prompt:</b> "Make a one-page website for ___ with a title, 3 sections, and a contact link. Explain each part simply."</p><p><b>Tools:</b> chat assistants, Cursor, GitHub Copilot; free hosting like GitHub Pages.</p></details>
+<details><summary>🧊 3D and printing</summary><p><b>Good for:</b> ideas, simple parts, fixing measurements.</p><p><b>Starter prompt:</b> "Help me design a simple ___ holder. List the measurements I need to take."</p><p><b>Tools:</b> Tinkercad and Fusion 360 for modeling; slicers like Cura, PrusaSlicer, Chitubox for printing.</p></details>
+<p class="tip">Tools change fast. Learn the loop, and it will work with any tool.</p></section>
+
+<section id="test"><h2>6. Testing and improving</h2>
+<div class="chk"><label><input type="checkbox">Does it do what my one-sentence goal said?</label><label><input type="checkbox">Did I try it for real (print it, run it, read it out loud)?</label><label><input type="checkbox">Would a stranger understand it?</label><label><input type="checkbox">What is the ONE biggest thing to fix next?</label><label><input type="checkbox">Did I ask AI: "What's wrong with this, and how can I make it better?"</label></div></section>
+
+<section id="safe"><h2>7. Safety and honesty</h2>
+<ul><li><b>AI makes mistakes.</b> It can sound sure and still be wrong.</li><li><b>Check facts</b> on important things (health, money, law, animals) with a trusted source or expert.</li><li><b>Protect your info.</b> Don't paste passwords, card numbers, or private details.</li><li><b>Be honest.</b> Say when something was made with AI, and respect other people's work.</li></ul></section>
+
+<section id="week"><h2>8. 7-day practice challenge</h2><p>Check off each day. Your progress saves on this device.</p>
+<div class="chk" id="days"></div><button id="clr">Clear progress</button></section>
+</main>
+<p style="text-align:center"><a href="/">← Back to Dukktape Studios</a></p>
+<footer>© 2026 Dukktape Studios</footer>
+<script>
+const f=['role','goal','ctx','fmt','ex'].map(k=>document.getElementById('p-'+k));
+function build(){const v=f.map(x=>x.value.trim()||x.placeholder);let s=`You are ${v[0]}. My goal: ${v[1]}.\nContext: ${v[2]}.\nPlease answer as ${v[3]}.`;if(f[4].value.trim())s+=`\nExample of what I like: ${v[4]}.`;s+=`\nAsk me questions if anything is unclear.`;document.getElementById('p-out').textContent=s}
+f.forEach(x=>x.addEventListener('input',build));build();
+document.getElementById('copy').onclick=()=>{navigator.clipboard.writeText(document.getElementById('p-out').textContent).then(()=>{document.getElementById('copied').textContent='Copied!'})};
+const D=["Day 1: Ask AI to explain something you're curious about. Ask 3 follow-ups.","Day 2: Write one sentence describing a problem you have. Ask AI for 3 options.","Day 3: Use the prompt builder above for a real task.","Day 4: Make an image of an idea. Change it 3 times.","Day 5: Make a tiny web page or printable sheet with AI.","Day 6: Check one AI answer against a trusted source.","Day 7: Do a full Idea → Prompt → Test → Modify loop on something you'll actually use."];
+const box=document.getElementById('days'),KEY='aiCreate7';let st=JSON.parse(localStorage.getItem(KEY)||'[]');
+function render(){box.innerHTML='';D.forEach((d,i)=>{const l=document.createElement('label');const c=document.createElement('input');c.type='checkbox';c.checked=!!st[i];c.onchange=()=>{st[i]=c.checked;localStorage.setItem(KEY,JSON.stringify(st))};l.append(c,document.createTextNode(d));box.appendChild(l)})}
+render();document.getElementById('clr').onclick=()=>{st=[];localStorage.removeItem(KEY);render()};
+</script></body></html>

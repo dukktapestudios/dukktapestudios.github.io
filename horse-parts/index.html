@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Horse Parts Identifier | Dukktape Studios</title>
+<meta name="description" content="Drag-and-drop practice for learning horse body parts, Western and English saddle parts, and hoof parts.">
+<style>
+body{margin:0;background:#16181d;color:#eee;font-family:system-ui,Arial,sans-serif;font-size:18px}
+header{padding:14px 16px;text-align:center}h1{margin:0;font-size:1.6em}a{color:#8fc8ff}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:8px}
+.tabs button,.ctl button{font-size:1em;padding:10px 14px;border-radius:10px;border:2px solid #555;background:#252a33;color:#eee;cursor:pointer}
+.tabs button.on{background:#c98a2b;border-color:#c98a2b;color:#111;font-weight:bold}
+main{max-width:1000px;margin:0 auto;padding:0 10px}
+.ctl{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin:8px 0}
+#score{font-size:1.2em;font-weight:bold}
+svg{width:100%;height:auto;background:#1f232b;border-radius:12px;touch-action:none}
+.draw{fill:none;stroke:#ddd;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.thin{fill:none;stroke:#aaa;stroke-width:2}.dash{stroke-dasharray:8 6}
+.t circle{fill:#2b5d9c;stroke:#fff;stroke-width:2}.t text{fill:#fff;font-size:15px;font-weight:bold;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.t.ok circle{fill:#2e9d4a}.t.hot circle{fill:#c98a2b}
+.lbl{fill:#7ee08f;font-size:14px;font-weight:bold;paint-order:stroke;stroke:#111;stroke-width:4px;pointer-events:none}
+#chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px 0;min-height:50px}
+.chip{padding:10px 14px;border-radius:20px;background:#3a4150;border:2px solid #777;cursor:grab;user-select:none;touch-action:none;font-size:1em}
+.chip.sel{border-color:#c98a2b;background:#5a4a2a}
+.ghost{position:fixed;pointer-events:none;z-index:9;opacity:.9;transform:translate(-50%,-50%)}
+.shake{animation:sh .4s}@keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+#key{columns:2 220px;font-size:.95em;color:#ccc}
+p.help{text-align:center;color:#bbb;margin:4px}
+footer{text-align:center;padding:24px;color:#999}
+</style></head><body>
+<header><h1>🐴 Horse Parts Identifier</h1><p class="help">Drag each name onto its numbered spot (or tap a name, then tap a number). Green = right!</p></header>
+<main>
+<div class="tabs" id="tabs"></div>
+<div class="ctl"><span id="score"></span><button id="reset">Reset</button><button id="show">Show answers</button></div>
+<svg id="pic" viewBox="0 0 600 420"></svg>
+<div id="chips"></div>
+<ol id="key" hidden></ol>
+<p class="help"><a href="/">← Back to Dukktape Studios</a></p>
+</main>
+<footer>© 2026 Dukktape Studios</footer>
+<script>
+const NS="http://www.w3.org/2000/svg";
+const MODES={
+"Horse body":{art:`<path class="draw" d="M150,75 L150,50 L162,72 C190,78 215,85 240,100 C255,108 265,115 285,118 C320,130 360,132 400,130 C430,126 450,124 470,130 C488,135 500,145 505,165 C508,190 500,210 492,228 C485,250 482,270 478,290 C474,305 478,318 470,330 C466,345 466,355 465,368 L466,392 L438,392 L446,368 C448,350 446,330 444,318 C440,300 438,285 432,262 C420,262 410,268 395,270 L270,272 C255,270 240,262 228,256 C215,262 210,280 208,300 C206,320 206,345 206,368 L208,392 L182,392 L192,368 C192,345 192,320 190,300 C188,285 184,265 182,250 C178,232 175,220 170,205 C160,190 148,175 135,165 C115,180 95,192 80,200 C68,206 55,200 52,188 C50,175 62,165 75,150 C90,130 110,100 135,85 Z"/>
+<path class="draw" d="M505,165 C530,200 535,250 520,300"/><path class="thin" d="M135,85 C128,90 122,100 118,112"/>
+<path class="thin" d="M206,368 L192,368 M465,368 L446,368"/><circle class="thin" cx="215" cy="285" r="5"/>`,
+t:[["Poll",150,62],["Forelock",120,112],["Muzzle",55,192],["Throatlatch",128,148],["Crest",205,90],["Withers",280,105],["Back",340,118],["Loin",405,118],["Croup",475,118],["Dock",515,160],["Buttock",515,215],["Hip",445,145],["Flank",420,215],["Barrel",330,240],["Stifle",432,255],["Gaskin",470,275],["Hock",478,325],["Shoulder",215,165],["Chest (breast)",165,225],["Elbow",228,250],["Forearm",180,272],["Chestnut",230,290],["Knee",205,315],["Cannon",180,340],["Fetlock",210,360],["Pastern",178,375],["Coronet",218,386],["Hoof",195,408]]},
+"Western saddle":{art:`<path class="draw" d="M120,175 C135,150 150,125 160,100 L182,100 C200,125 230,150 280,158 C330,160 370,135 395,95 L415,85 C425,95 428,110 425,130 C420,150 450,160 470,170"/>
+<rect class="draw" x="152" y="62" width="38" height="12" rx="6"/><path class="draw" d="M164,74 L164,100 M178,74 L178,100"/>
+<path class="draw" d="M100,175 L480,175 Q490,230 470,240 L120,240 Q95,230 100,175 Z"/>
+<path class="draw" d="M375,130 L440,140 L450,175 L380,175 Z"/>
+<path class="dash thin" d="M130,195 L450,195"/>
+<path class="draw" d="M255,175 L310,175 L330,320 L235,320 Z"/>
+<path class="draw" d="M240,320 L325,320 L330,375 L235,375 Z M248,335 L318,335 L320,368 L246,368"/>
+<path class="draw" d="M170,182 L170,250 M180,182 L180,250"/><path class="draw" d="M160,250 L195,250 L192,410 L163,410 Z"/>
+<path class="draw" d="M420,240 L420,320 L440,320 L440,240"/>
+<path class="thin" d="M455,150 L465,190 M460,150 L478,188"/>
+<path class="thin" d="M140,170 Q150,160 160,170"/>`,
+t:[["Horn",172,48],["Pommel (swell)",130,128],["Gullet",150,158],["Seat",285,140],["Cantle",425,70],["Jockey",410,155],["Skirt",440,225],["Tree / bars",300,207],["Fender",282,250],["Stirrup",282,395],["Latigo",200,215],["Cinch",210,330],["Rear cinch",460,290],["Saddle strings",490,175]]},
+"English saddle":{art:`<path class="draw" d="M130,170 C140,140 150,118 165,105 C200,135 240,150 290,150 C340,150 380,120 410,90 C430,100 440,130 445,170"/>
+<path class="draw" d="M115,175 Q110,215 160,222 L410,222 Q465,215 455,175 Z"/>
+<path class="draw" d="M175,160 L330,160 Q345,250 325,320 L215,320 Q190,250 175,160 Z"/>
+<path class="draw" d="M178,170 Q165,240 205,315"/>
+<path class="draw" d="M205,140 L255,148 L250,185 L210,180 Z"/>
+<path class="draw" d="M232,150 L238,330 M244,150 L250,330"/>
+<path class="draw" d="M220,330 Q244,315 268,330 L262,372 L226,372 Z"/>
+<path class="draw" d="M270,315 L270,340 M295,315 L295,340"/><path class="draw" d="M262,340 L305,340 L300,410 L268,410 Z"/>`,
+t:[["Pommel",155,95],["Twist",215,122],["Seat",295,128],["Cantle",425,75],["Gullet",140,145],["Skirt",230,200],["Panel",420,200],["Flap",300,260],["Knee roll",168,255],["Stirrup leather",270,235],["Stirrup iron",205,365],["Billets",318,325],["Girth",330,395]]},
+"Hoof (bottom)":{art:`<path class="draw" d="M190,330 C150,280 140,200 170,130 C200,70 260,45 300,45 C340,45 400,70 430,130 C460,200 450,280 410,330"/>
+<path class="draw" d="M202,322 C166,276 158,200 186,138 C212,85 262,62 300,62 C338,62 388,85 414,138 C442,200 434,276 398,322" stroke-dasharray="3 5"/>
+<path class="draw" d="M300,150 C285,200 260,270 245,340 C260,350 285,345 300,320 C315,345 340,350 355,340 C340,270 315,200 300,150 Z"/>
+<path class="thin" d="M300,240 L300,320"/><path class="thin" d="M298,165 C278,220 252,280 236,340 M302,165 C322,220 348,280 364,340"/>
+<path class="draw" d="M190,330 L240,275 M410,330 L360,275"/>
+<path class="draw" d="M190,330 C200,385 290,385 300,345 C310,385 400,385 410,330"/>`,
+t:[["Toe",300,25],["Wall",450,120],["White line",395,100],["Sole",220,170],["Quarters",145,235],["Frog",300,225],["Central sulcus",300,290],["Collateral grooves",357,260],["Bars",205,290],["Heel",425,330],["Bulbs of heel",255,395]]}
+};
+let cur=Object.keys(MODES)[0],done={},sel=null;
+const pic=document.getElementById('pic'),chips=document.getElementById('chips'),score=document.getElementById('score'),key=document.getElementById('key');
+const tabs=document.getElementById('tabs');
+Object.keys(MODES).forEach(m=>{const b=document.createElement('button');b.textContent=m;b.onclick=()=>{cur=m;load()};tabs.appendChild(b)});
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function load(){done={};sel=null;[...tabs.children].forEach(b=>b.classList.toggle('on',b.textContent==cur));
+ const M=MODES[cur];pic.innerHTML=M.art;key.hidden=true;key.innerHTML='';
+ M.t.forEach((t,i)=>{const g=document.createElementNS(NS,'g');g.setAttribute('class','t');g.dataset.name=t[0];
+  g.innerHTML=`<circle cx="${t[1]}" cy="${t[2]}" r="14"/><text x="${t[1]}" y="${t[2]}">${i+1}</text>`;
+  g.addEventListener('click',()=>{if(sel)tryDrop(sel,g)});pic.appendChild(g);
+  const li=document.createElement('li');li.textContent=t[0];key.appendChild(li)});
+ chips.innerHTML='';shuffle(M.t.map(t=>t[0])).forEach(n=>{const c=document.createElement('div');c.className='chip';c.textContent=n;c.dataset.name=n;drag(c);chips.appendChild(c)});upd()}
+function upd(){const n=MODES[cur].t.length,k=Object.keys(done).length;score.textContent=k==n?`🎉 ${k} / ${n} - all done!`:`Score: ${k} / ${n}`}
+function mark(g){g.classList.add('ok');const c=g.querySelector('circle');const x=+c.getAttribute('cx'),y=+c.getAttribute('cy');
+ const t=document.createElementNS(NS,'text');t.setAttribute('class','lbl');t.setAttribute('x',x>440?x-18:x+18);t.setAttribute('y',y+5);if(x>440)t.setAttribute('text-anchor','end');t.textContent=g.dataset.name;pic.appendChild(t);done[g.dataset.name]=1}
+function shake(c){c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake')}
+function tryDrop(chip,g){if(g.classList.contains('ok'))return;
+ if(g.dataset.name==chip.dataset.name){mark(g);chip.remove();sel=null;upd()}else shake(chip)}
+function targetAt(x,y){let best=null,bd=1e9;pic.querySelectorAll('.t:not(.ok) circle').forEach(c=>{const r=c.getBoundingClientRect();const d=Math.hypot(r.x+r.width/2-x,r.y+r.height/2-y);if(d<bd){bd=d;best=c.parentNode}});
+ return bd<30?best:null}
+function drag(c){let gh=null,sx,sy,moved=false,hot=null;
+ c.addEventListener('pointerdown',e=>{e.preventDefault();sx=e.clientX;sy=e.clientY;moved=false;c.setPointerCapture(e.pointerId)});
+ c.addEventListener('pointermove',e=>{if(!c.hasPointerCapture(e.pointerId))return;
+  if(!moved&&Math.hypot(e.clientX-sx,e.clientY-sy)>6){moved=true;gh=c.cloneNode(true);gh.classList.add('ghost');document.body.appendChild(gh)}
+  if(moved){gh.style.left=e.clientX+'px';gh.style.top=e.clientY+'px';const t=targetAt(e.clientX,e.clientY);if(hot&&hot!=t)hot.classList.remove('hot');if(t)t.classList.add('hot');hot=t}});
+ c.addEventListener('pointerup',e=>{if(hot)hot.classList.remove('hot');
+  if(moved){gh.remove();gh=null;const t=targetAt(e.clientX,e.clientY);if(t)tryDrop(c,t);else shake(c)}
+  else{document.querySelectorAll('.chip.sel').forEach(x=>x.classList.remove('sel'));if(sel===c)sel=null;else{sel=c;c.classList.add('sel')}}
+  moved=false;hot=null});
+ c.addEventListener('pointercancel',()=>{if(gh)gh.remove();gh=null;moved=false})}
+document.getElementById('reset').onclick=load;
+document.getElementById('show').onclick=()=>{pic.querySelectorAll('.t:not(.ok)').forEach(mark);chips.innerHTML='';key.hidden=false;upd()};
+load();
+</script></body></html>
