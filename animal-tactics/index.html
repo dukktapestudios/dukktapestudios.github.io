@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Animal Tactics - Dukktape Studios</title>
+<style>
+body{background:#14161c;color:#ddd;font-family:Segoe UI,Arial,sans-serif;margin:0;padding:12px}
+h1{margin:4px 0 10px;font-size:22px;color:#ffcc4d}
+#wrap{display:flex;gap:14px;flex-wrap:wrap}
+#board{display:grid;grid-template-columns:repeat(12,48px);gap:2px;background:#0b0c10;padding:4px;border-radius:6px}
+.c{width:48px;height:48px;background:#2a3b2a;position:relative;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;border-radius:3px}
+.c.reach{background:#2f5d8a}.c.tgt{background:#8a2f2f}.c.sel{outline:3px solid #ffcc4d}
+.c .t{position:absolute;font-size:22px;opacity:.9}
+.u{position:relative;z-index:2}.u.done{opacity:.45}
+.hp{position:absolute;bottom:1px;left:3px;right:3px;height:4px;background:#400;z-index:3}.hp i{display:block;height:100%;background:#4c4}
+.team1{text-shadow:0 0 6px #4af}.team2{text-shadow:0 0 6px #f54}
+.side{width:330px}.box{background:#1e2129;border-radius:6px;padding:10px;margin-bottom:10px;font-size:14px}
+button{background:#ffcc4d;border:0;padding:8px 12px;margin:3px;border-radius:4px;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.4}#log{height:200px;overflow:auto;font-family:monospace;font-size:12px}
+#dice{font-size:34px;min-height:40px}
+</style></head><body>
+<h1>🦆 Animal Tactics <small style="color:#888;font-size:13px">a Dukktape Studios concept</small></h1>
+<div id="wrap"><div id="board"></div><div class="side">
+<div class="box"><b id="turn"></b><br><label><input type="checkbox" id="ai" checked> Computer plays Red team</label><br>
+<button id="shoot" disabled>🎯 Shoot</button><button id="melee" disabled>⚔️ Melee</button><button id="wait">Done with unit</button><button id="end">End turn</button><button id="restart">Restart</button>
+<div id="dice"></div></div>
+<div class="box" id="info">Click one of your units.</div>
+<div class="box"><b>Combat log</b><div id="log"></div></div>
+<div class="box"><b>Legend</b><br>🪨 Rock / 🪵 Log / 🌳 Bush: cover. Shooting a unit standing on it needs +1 to hit. Rocks and logs block movement; bushes don't.<br>🍄 Mushroom / ⛰️ High ground: power spot. Units standing here get +1 to hit.</div>
+<div class="box"><b>How to play</b><br>1. Click your unit. Blue squares = where it can move. Click one to move (or skip).<br>2. If an enemy is in range it turns red. Press Shoot or Melee (melee = next to it).<br>3. Roll d6 per attack die: meet the To-Hit number to hit. Each hit = 1 damage. Wipe out the other team to win.</div>
+</div></div>
+<script>
+const N=12,$=id=>document.getElementById(id);
+const TYPES={Bear:{e:'🐻',hp:10,mv:3,rr:0,rd:0,md:4,hit:3},Hawk:{e:'🦅',hp:4,mv:5,rr:7,rd:2,md:1,hit:3},Fox:{e:'🦊',hp:6,mv:4,rr:4,rd:2,md:2,hit:4},Boar:{e:'🐗',hp:8,mv:5,rr:0,rd:0,md:3,hit:4},Raccoon:{e:'🦝',hp:5,mv:3,rr:5,rd:3,md:1,hit:4}};
+const TER={rock:{e:'🪨',cover:1,block:1},log:{e:'🪵',cover:1,block:1},bush:{e:'🌳',cover:1,block:0},shroom:{e:'🍄',pow:1},high:{e:'⛰️',pow:1}};
+let units,terr,team,sel,phase,reach,busy;
+function init(){terr={};const put=(x,y,t)=>terr[x+','+y]=t;
+[[3,3,'rock'],[8,8,'rock'],[5,6,'log'],[6,5,'log'],[2,8,'bush'],[9,3,'bush'],[4,9,'bush'],[7,2,'bush'],[1,5,'rock'],[10,6,'rock'],[5,2,'shroom'],[6,9,'shroom'],[0,0,'high'],[11,11,'high']].forEach(a=>put(...a));
+units=[];const names=Object.keys(TYPES);
+names.forEach((n,i)=>{units.push(mk(n,1,1+i*2+ (i>2?1:0),0));units.push(mk(n,2,10-i*2-(i>2?1:0),11));});
+team=1;sel=null;phase='pick';reach=[];busy=false;$('log').innerHTML='';log('Blue team (glow blue) goes first.');draw();}
+function mk(n,t,x,y){const s=TYPES[n];return{n,t,x,y,hp:s.hp,...s,max:s.hp,moved:0,acted:0};}
+const at=(x,y)=>units.find(u=>u.hp>0&&u.x==x&&u.y==y);
+const dist=(a,b)=>Math.max(Math.abs(a.x-b.x),Math.abs(a.y-b.y));
+function log(s){$('log').innerHTML='<div>'+s+'</div>'+$('log').innerHTML;}
+function calcReach(u){const seen={[u.x+','+u.y]:0},q=[[u.x,u.y]],out=[];
+while(q.length){const[x,y]=q.shift(),d=seen[x+','+y];if(d>=u.mv)continue;
+for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy,k=nx+','+ny;if(nx<0||ny<0||nx>=N||ny>=N||k in seen)continue;
+const t=terr[k];if(t&&TER[t].block)continue;if(at(nx,ny))continue;seen[k]=d+1;q.push([nx,ny]);out.push(k);}}return out;}
+function targets(u,kind){return units.filter(e=>e.hp>0&&e.t!=u.t&&(kind=='melee'?u.md&&dist(u,e)==1:u.rr&&dist(u,e)<=u.rr&&dist(u,e)>1));}
+function draw(){const b=$('board');b.innerHTML='';const tg=sel&&phase=='act'?[...targets(sel,'shoot'),...targets(sel,'melee')]:[];
+for(let y=0;y<N;y++)for(let x=0;x<N;x++){const c=document.createElement('div');c.className='c';c.dataset.x=x;c.dataset.y=y;const k=x+','+y;
+if(terr[k])c.innerHTML='<span class="t">'+TER[terr[k]].e+'</span>';if(reach.includes(k))c.classList.add('reach');
+const u=at(x,y);if(u){c.innerHTML+='<span class="u team'+u.t+(u.t==team&&u.acted?' done':'')+'">'+u.e+'</span><div class="hp"><i style="width:'+(u.hp/u.max*100)+'%"></i></div>';
+if(u==sel)c.classList.add('sel');if(tg.includes(u))c.classList.add('tgt');}
+c.onclick=()=>click(x,y);b.appendChild(c);}
+$('turn').textContent=(team==1?'🔵 Blue':'🔴 Red')+" team's turn";
+$('shoot').disabled=!(sel&&phase=='act'&&targets(sel,'shoot').length);$('melee').disabled=!(sel&&phase=='act'&&targets(sel,'melee').length);}
+function info(u){const t=terr[u.x+','+u.y];$('info').innerHTML=`<b>${u.e} ${u.n}</b> (${u.t==1?'Blue':'Red'})<br>HP ${u.hp}/${u.max} · Move ${u.mv}<br>Shoot: ${u.rr?'range '+u.rr+', '+u.rd+' dice':'none'}<br>Melee: ${u.md} dice · To-hit ${u.hit}+<br>${t?'Standing on '+TER[t].e:''}`;}
+function click(x,y){if(busy||(team==2&&$('ai').checked))return;const u=at(x,y),k=x+','+y;
+if(u)info(u);
+if(phase=='act'&&u&&u.t!=team){const m=targets(sel,'melee').includes(u),s=targets(sel,'shoot').includes(u);if(m)attack(sel,u,'melee');else if(s)attack(sel,u,'shoot');return;}
+if(u&&u.t==team&&!u.acted&&(phase=='pick'||(phase=='move'))){sel=u;phase='move';reach=calcReach(u);draw();return;}
+if(phase=='move'&&reach.includes(k)){sel.x=x;sel.y=y;reach=[];phase='act';info(sel);afterMove();return;}
+if(phase=='move'&&sel&&x==sel.x&&y==sel.y){reach=[];phase='act';afterMove();}}
+function afterMove(){draw();if(!targets(sel,'shoot').length&&!targets(sel,'melee').length){log(sel.e+' moved. No enemy in range.');finishUnit();}}
+function finishUnit(){if(sel)sel.acted=1;sel=null;phase='pick';reach=[];draw();if(!units.some(u=>u.t==team&&u.hp>0&&!u.acted))endTurn();}
+function roll(){return 1+Math.floor(Math.random()*6);}
+function attack(a,d,kind){const n=kind=='melee'?a.md:a.rd;let need=a.hit;const tA=terr[a.x+','+a.y],tD=terr[d.x+','+d.y];
+if(tA&&TER[tA].pow)need--;if(kind=='shoot'&&tD&&TER[tD].cover)need++;need=Math.max(2,Math.min(6,need));
+const rolls=[];for(let i=0;i<n;i++)rolls.push(roll());const hits=rolls.filter(r=>r>=need).length;busy=true;
+let f=0;const face='⚀⚁⚂⚃⚄⚅';const iv=setInterval(()=>{$('dice').textContent=rolls.map(()=>face[roll()-1]).join(' ');if(++f>6){clearInterval(iv);
+$('dice').textContent=rolls.map(r=>face[r-1]).join(' ');d.hp=Math.max(0,d.hp-hits);
+log(`${a.e} ${kind=='melee'?'⚔️ melees':'🎯 shoots'} ${d.e}: need ${need}+, rolled [${rolls}] → ${hits} hit${hits==1?'':'s'}${d.hp==0?' 💀 '+d.n+' is out!':' ('+d.hp+' HP left)'}`);
+busy=false;if(!units.some(u=>u.t==d.t&&u.hp>0)){draw();log('🏆 '+(a.t==1?'Blue':'Red')+' team wins!');$('turn').textContent='🏆 '+(a.t==1?'Blue':'Red')+' team wins! Press Restart.';team=0;return;}
+finishUnit();}},80);}
+function endTurn(){if(!team)return;units.forEach(u=>u.acted=0);team=team==1?2:1;sel=null;phase='pick';reach=[];log('--- '+(team==1?'Blue':'Red')+' turn ---');draw();if(team==2&&$('ai').checked)setTimeout(aiStep,500);}
+function aiStep(){if(team!=2)return;if(busy)return setTimeout(aiStep,200);const u=units.find(u=>u.t==2&&u.hp>0&&!u.acted);if(!u)return endTurn();
+sel=u;const foes=units.filter(e=>e.t==1&&e.hp>0);let best=null,bs=-1e9;
+for(const k of [u.x+','+u.y,...calcReach(u)]){const[x,y]=k.split(',').map(Number),p={x,y};let s=-Math.min(...foes.map(f=>dist(p,f)))*(u.rr?0.3:1);
+if(u.md&&foes.some(f=>dist(p,f)==1))s+=10;if(u.rr&&foes.some(f=>dist(p,f)<=u.rr&&dist(p,f)>1))s+=8;const t=terr[k];if(t&&TER[t].pow)s+=1;if(t&&TER[t].cover)s+=1;if(s>bs){bs=s;best=p;}}
+u.x=best.x;u.y=best.y;phase='act';draw();
+setTimeout(()=>{const m=targets(u,'melee'),s=targets(u,'shoot');if(m.length)attack(u,m.sort((a,b)=>a.hp-b.hp)[0],'melee');else if(s.length)attack(u,s.sort((a,b)=>a.hp-b.hp)[0],'shoot');else{log(u.e+' moves up.');finishUnit();}
+setTimeout(aiStep,900);},400);}
+$('shoot').onclick=()=>{const t=targets(sel,'shoot');if(t.length==1)attack(sel,t[0],'shoot');else log('Click a red enemy to shoot it.');};
+$('melee').onclick=()=>{const t=targets(sel,'melee');if(t.length==1)attack(sel,t[0],'melee');else log('Click a red enemy next to you.');};
+$('wait').onclick=()=>{if(sel&&!busy)finishUnit();};
+$('end').onclick=()=>{if(!busy)endTurn();};$('restart').onclick=init;init();
+</script></body></html>
