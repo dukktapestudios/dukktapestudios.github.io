@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Round Pen – Pressure & Release Trainer</title>
+<style>
+html,body{margin:0;height:100%;background:#2b2118;color:#f3e9d8;font-family:system-ui,Segoe UI,Arial,sans-serif;overflow:hidden;touch-action:none}
+canvas{display:block;width:100vw;height:100vh}
+#hud{position:fixed;top:8px;left:8px;background:#0008;padding:8px 10px;border-radius:10px;font-size:14px;min-width:190px;pointer-events:none}
+.bar{height:9px;background:#0006;border-radius:5px;margin:2px 0 6px;overflow:hidden}.bar i{display:block;height:100%}
+#lesson{position:fixed;top:8px;right:8px;max-width:330px;background:#0009;padding:10px 12px;border-radius:10px;font-size:14px;line-height:1.35}
+#lesson b{color:#ffd27a}#tip{color:#cfe8c8;margin-top:6px}
+#btns{position:fixed;bottom:12px;right:12px;display:flex;gap:10px}
+button{font-size:16px;padding:14px 18px;border-radius:12px;border:0;background:#c9832e;color:#fff;font-weight:700}
+#flag.on{background:#d33}
+#help{position:fixed;bottom:12px;left:12px;font-size:12px;background:#0008;padding:6px 9px;border-radius:8px;max-width:55vw}
+#msg{position:fixed;top:45%;left:50%;transform:translate(-50%,-50%);font-size:22px;font-weight:800;color:#ffe9a8;text-shadow:0 2px 6px #000;pointer-events:none;text-align:center}
+</style></head><body>
+<canvas id="c"></canvas>
+<div id="hud"><div>Gait: <b id="gait">Halt</b> · <span id="dirt">→</span></div>
+Pressure<div class="bar"><i id="pb" style="background:#e9a23b"></i></div>
+Stress<div class="bar"><i id="sb" style="background:#e04b3b"></i></div>
+Trust<div class="bar"><i id="tb" style="background:#5fc06a"></i></div>
+<div id="sign" style="font-size:12px;color:#cfe8c8"></div></div>
+<div id="lesson"><div><b id="lt">Lesson</b></div><div id="lg"></div><div id="tip"></div></div>
+<div id="btns"><button id="next">Skip ▶</button><button id="flag">Raise flag</button></div>
+<div id="help">Move: drag / tap-hold or WASD · Raise flag: hold Space or button · Pressure comes only from your body position and the flag — no hitting.</div>
+<div id="msg"></div>
+<script>
+(()=>{
+const cv=document.getElementById('c'),cx=cv.getContext('2d');
+const R=200,RAIL=178; // pen radius, horse rail radius (world units)
+let W,H,S;function rs(){W=cv.width=innerWidth*devicePixelRatio;H=cv.height=innerHeight*devicePixelRatio;S=Math.min(W,H)/(2*R+60);}addEventListener('resize',rs);rs();
+const GAITS=['Halt','Walk','Trot','Lope','BOLTING'],GSPD=[0,0.28,0.6,1.0,1.45];
+const st={t:{x:0,y:0,vx:0,vy:0,face:0},flag:false,
+ h:{a:Math.PI/2,dir:1,spd:0,gait:0,x:0,y:RAIL,head:0,mode:'rail',turnT:0,lick:0},
+ pressure:0,stress:5,trust:0,dirChanges:0,gatePasses:0,lastGate:null,peakP:0,relCd:0,joined:0,maxGait:0,slowed:false,lastHigh:0,turnType:''};
+window.__st=st;
+const GATE=0; // gate on east side, angle 0
+// ---- input
+const keys={};let ptr=null;
+addEventListener('keydown',e=>{keys[e.code]=1;if(e.code==='Space'){st.flag=true;e.preventDefault();}});
+addEventListener('keyup',e=>{keys[e.code]=0;if(e.code==='Space')st.flag=false;});
+function w2(e){const r=cv.getBoundingClientRect();return{x:((e.clientX-r.left)*devicePixelRatio-W/2)/S,y:((e.clientY-r.top)*devicePixelRatio-H/2)/S};}
+cv.addEventListener('pointerdown',e=>{ptr=w2(e);});cv.addEventListener('pointermove',e=>{if(ptr||e.pointerType==='mouse'&&e.buttons)ptr=w2(e);});
+addEventListener('pointerup',()=>ptr=null);
+const fb=document.getElementById('flag');
+fb.addEventListener('pointerdown',e=>{e.stopPropagation();st.flag=true;fb.classList.add('on')});
+['pointerup','pointerleave','pointercancel'].forEach(k=>fb.addEventListener(k,()=>{st.flag=false;fb.classList.remove('on')}));
+// ---- lessons
+const L=[
+ {t:'1. Get a walk',g:'Ask the horse to walk on the rail.',tip:'Stand a bit behind the horse\'s shoulder (the "drive line") and step toward its hip. When it walks off, stop and soften — that release is the reward.',ok:()=>st.h.gait>=1&&st.hold>1.5},
+ {t:'2. Get a trot',g:'Raise the energy to a trot.',tip:'Step closer toward the hip or lift the flag a little. Ask with the least pressure that works, then ease off the moment it trots.',ok:()=>st.h.gait==2&&st.hold>2},
+ {t:'3. Change direction 3 times',g:()=>'Direction changes: '+st.dirChanges+'/3',tip:'Move ahead of the shoulder to block the path. Soft block + step back = horse turns IN toward you (a good sign). Hard block = turns away to the outside.',ok:()=>st.dirChanges>=3},
+ {t:'4. Send past the gate',g:()=>'Trot past the gate: '+st.gatePasses+'/2',tip:'Horses like to suck toward or stall at the gate. Keep steady pressure behind the drive line as it nears the gate, then release once it carries past.',ok:()=>st.gatePasses>=2},
+ {t:'5. Slow down to a walk',g:'Bring it back down to a walk from a trot or lope.',tip:'Release is the brake: drop the flag, stop moving, and step back toward the center. Let the horse find the slower gait on its own.',ok:()=>st.slowed},
+ {t:'6. Join up',g:()=>'Build trust to 70+, then turn and walk away. Trust: '+Math.round(st.trust),tip:'Watch for the inside ear on you, licking and chewing, and a lowered head. Then drop the flag, turn your back, and walk off quietly. A trusting horse will choose to follow.',ok:()=>st.joined>2},
+ {t:'Free practice',g:'All lessons done! Keep practicing.',tip:'Good horsemanship: pressure motivates, release teaches. Timing of the release is everything.',ok:()=>false}];
+let li=0;st.hold=0;
+function setL(i){li=Math.min(i,L.length-1);if(li==2)st.dirChanges=0;if(li==3)st.gatePasses=0;if(li==4)st.slowed=false;if(li==5)st.joined=0;}
+document.getElementById('next').onclick=e=>{e.stopPropagation();setL(li+1)};
+let msgT=0;function msg(s){document.getElementById('msg').textContent=s;msgT=2.2;}
+const na=a=>{while(a>Math.PI)a-=2*Math.PI;while(a<-Math.PI)a+=2*Math.PI;return a};
+// ---- sim
+function step(dt){
+ const t=st.t,h=st.h;
+ // trainer move
+ let mx=0,my=0;if(keys.KeyW||keys.ArrowUp)my--;if(keys.KeyS||keys.ArrowDown)my++;if(keys.KeyA||keys.ArrowLeft)mx--;if(keys.KeyD||keys.ArrowRight)mx++;
+ if(ptr){const dx=ptr.x-t.x,dy=ptr.y-t.y,d=Math.hypot(dx,dy);if(d>4){mx=dx/d;my=dy/d;}}
+ const m=Math.hypot(mx,my);const TS=95;
+ if(m){t.vx=mx/m*TS;t.vy=my/m*TS;t.face=Math.atan2(my,mx);}else{t.vx=t.vy=0;}
+ t.x+=t.vx*dt;t.y+=t.vy*dt;const tr=Math.hypot(t.x,t.y);if(tr>R-30){t.x*=(R-30)/tr;t.y*=(R-30)/tr;}
+ const tm=m?1:0;
+ // pressure geometry
+ const dx=h.x-t.x,dy=h.y-t.y,dist=Math.hypot(dx,dy);
+ let p=Math.max(0,1-dist/230);p=p*p*1.3; // closeness
+ if(tm){ // moving toward horse adds pressure, away reduces
+  const tow=(t.vx*dx+t.vy*dy)/(TS*dist+1e-6);p*=1+0.6*tow;}else p*=0.75;
+ if(st.flag)p+=0.35*Math.max(0.3,1-dist/300);
+ p=Math.max(0,Math.min(1.2,p));
+ st.pressure+= (p-st.pressure)*Math.min(1,dt*4);
+ const P=st.pressure;
+ // drive line: angular position of trainer relative to horse along travel direction
+ const ta=Math.atan2(t.y,t.x);const rel=na(ta-h.a)*h.dir; // >0 = trainer ahead of horse
+ const ahead=tr>25&&rel>0.12, behind=!ahead;
+ h.turnT=Math.max(0,h.turnT-dt);st.relCd=Math.max(0,st.relCd-dt);
+ if(h.mode==='rail'){
+  // join-up check
+  const away=tm&&((t.vx*dx+t.vy*dy)<0)&&!st.flag;
+  if(st.trust>=70&&away&&P<0.35&&st.stress<35){st.joinT=(st.joinT||0)+dt;if(st.joinT>1.2){h.mode='follow';msg('Join-up! The horse chooses you.');}}else st.joinT=0;
+  let target=0;
+  if(behind){target=P<0.12?0:P<0.38?1:P<0.65?2:P<0.92?3:4;}
+  else {target=P<0.25?Math.min(h.gait,1):h.gait;
+   if(P>0.3&&h.turnT<=0){ // blocked -> turn
+    h.dir*=-1;h.turnT=1.6;st.dirChanges++;const inside=P<0.6&&!st.flag;st.turnType=inside?'inside':'outside';
+    msg(inside?'Inside turn — facing you. Nice!':'Outside turn (blocked hard)');
+    if(inside)st.trust=Math.min(100,st.trust+4);else st.stress=Math.min(100,st.stress+6);
+    h.spd*=0.4;}}
+  if(st.stress>85)target=4;
+  if(target<h.gait&&h.gait>=2&&P<0.25)st.slowed=true;
+  // gait smoothing
+  const prev=h.gait;
+  if(target>h.gait)h.gait=Math.min(target,h.gait+(Math.random()<dt*2.5?1:0));
+  else if(target<h.gait)h.gait=Math.max(target,h.gait-(Math.random()<dt*1.2?1:0));
+  if(h.gait!=prev&&h.gait<prev&&prev>=2&&h.gait>=1&&P<0.25)st.slowed=true;
+  st.maxGait=Math.max(st.maxGait,h.gait);
+  h.spd+=(GSPD[h.gait]-h.spd)*Math.min(1,dt*2);
+  const pa=h.a;h.a+=h.dir*h.spd*dt;h.x=Math.cos(h.a)*RAIL;h.y=Math.sin(h.a)*RAIL;
+  // gate passes
+  const ga=na(h.a-GATE),gp=na(pa-GATE);if(Math.abs(ga)<0.5&&Math.sign(ga)!=Math.sign(gp)&&h.gait>=2){st.gatePasses++;msg('Carried past the gate!');}
+  // gate magnetism: horse slows near gate if pressure too low
+  if(Math.abs(ga)<0.6&&P<0.2&&h.gait>0&&Math.random()<dt*0.8)h.gait--;
+  // stress & trust
+  if(P>0.85)st.stress+=dt*(P-0.7)*60;else st.stress-=dt*(P<0.3?9:3);
+  if(st.flag&&P>0.6)st.stress+=dt*4;
+  st.stress=Math.max(0,Math.min(100,st.stress));
+  if(P>st.peakP)st.peakP=P;
+  // release reward: pressure dropped after horse responded (moving) 
+  if(st.peakP>0.3&&P<st.peakP-0.25&&h.gait>=1&&h.gait<4&&st.relCd<=0){st.trust=Math.min(100,st.trust+(st.stress<50?6:2));st.relCd=2.5;st.peakP=P;h.lick=2.5;}
+  if(P<0.1)st.peakP=Math.min(st.peakP,0.1);
+  if(h.gait==4)st.trust=Math.max(0,st.trust-dt*3);
+  h.head=(h.dir>0?h.a+Math.PI/2:h.a-Math.PI/2);
+  // inside ear: trust & low stress
+  h.ear=st.trust>25&&st.stress<50;
+ } else { // following
+  const d=dist;h.gait=d>60?1:0;const sp=d>60?55:0;
+  if(d>1){h.x-=dx/d*sp*dt;h.y-=dy/d*sp*dt;h.head=Math.atan2(-dy,-dx);}
+  h.a=Math.atan2(h.y,h.x);st.joined+=dt;st.stress=Math.max(0,st.stress-dt*8);h.ear=true;
+  if(st.flag&&P>0.5){h.mode='rail';st.trust-=10;msg('Flag up — horse goes back to work');h.a=Math.atan2(h.y,h.x);}
+  if(h.mode==='follow'&&Math.hypot(h.x,h.y)>RAIL)0;
+ }
+ h.lick=Math.max(0,h.lick-dt);
+ st.hold=(L[li].ok&&(li==0?h.gait>=1:li==1?h.gait==2:true))?st.hold+dt:0;
+ if(L[li].ok()){msg('✔ '+L[li].t.replace(/^\d\. /,'')+' — done!');setL(li+1);st.hold=0;}
+}
+window.__step=step;window.__setL=setL;
+// ---- draw
+function horse(x,y,ang,g){cx.save();cx.translate(x,y);cx.rotate(ang);
+ const st2=st;const low=st2.stress<30&&st2.h.gait<=1;
+ cx.fillStyle='#00000033';cx.beginPath();cx.ellipse(3,4,26,11,0,0,7);cx.fill();
+ const bob=g?Math.sin(performance.now()/(g>2?90:160))*1.5:0;
+ cx.fillStyle='#8b5a2b';cx.beginPath();cx.ellipse(0,0,24,10,0,0,7);cx.fill();// body
+ cx.strokeStyle='#3a2410';cx.lineWidth=4;cx.beginPath();cx.moveTo(-24,0);cx.quadraticCurveTo(-34,bob*2,-38,bob*3);cx.stroke();// tail
+ cx.fillStyle='#7a4c22';cx.beginPath();cx.ellipse(low?27:25,0,9,6,0,0,7);cx.fill();// neck
+ const hx=low?40:36;cx.fillStyle=low?'#7a4c22':'#8b5a2b';cx.beginPath();cx.ellipse(hx,bob,9,5,0,0,7);cx.fill();// head
+ cx.strokeStyle='#2a1a0a';cx.lineWidth=3;cx.beginPath();cx.moveTo(14,0);cx.lineTo(30,0);cx.stroke();// mane
+ // ears: inside ear points toward center if attentive
+ const ins=st.h.dir>0?1:-1; cx.fillStyle='#5a3515';
+ const ear=(side,tilt)=>{cx.save();cx.translate(hx-6,side*4+bob);cx.rotate(tilt);cx.beginPath();cx.moveTo(0,0);cx.lineTo(-7,side*2);cx.lineTo(-1,side*4);cx.fill();cx.restore();};
+ ear(ins,st.h.ear?ins*1.0:0);ear(-ins,st.stress>60?-ins*0.6:0);
+ if(st.h.lick>0&&Math.sin(performance.now()/90)>0){cx.fillStyle='#e88';cx.fillRect(hx+8,bob-1,4,2);}
+ cx.restore();}
+function draw(){const h=st.h,t=st.t;cx.setTransform(1,0,0,1,0,0);cx.fillStyle='#3d6b35';cx.fillRect(0,0,W,H);
+ cx.setTransform(S,0,0,S,W/2,H/2);
+ const gr=cx.createRadialGradient(0,0,20,0,0,R);gr.addColorStop(0,'#c9a26b');gr.addColorStop(1,'#a97f4c');cx.fillStyle=gr;cx.beginPath();cx.arc(0,0,R,0,7);cx.fill();
+ cx.strokeStyle='#8f6a3c55';cx.lineWidth=14;cx.beginPath();cx.arc(0,0,RAIL,0,7);cx.stroke();// worn track
+ // fence panels
+ const N=24;for(let k=0;k<N;k++){const a=k/N*2*Math.PI;const gate=Math.abs(na(a-GATE))<0.14;
+  cx.fillStyle='#5b3b1e';cx.beginPath();cx.arc(Math.cos(a)*R,Math.sin(a)*R,4,0,7);cx.fill();}
+ for(const rr of [R-2,R+4]){cx.strokeStyle='#d8c7a3';cx.lineWidth=3;cx.beginPath();cx.arc(0,0,rr,GATE+0.14,GATE+2*Math.PI-0.14);cx.stroke();}
+ cx.strokeStyle='#c0392b';cx.lineWidth=5;cx.beginPath();cx.arc(0,0,R+1,GATE-0.14,GATE+0.14);cx.stroke();
+ cx.fillStyle='#fff';cx.font='bold 13px sans-serif';cx.fillText('GATE',R+10,5);
+ // drive line indicator
+ const da=h.mode==='rail'?h.a:Math.atan2(h.y,h.x);
+ cx.setLineDash([5,6]);cx.strokeStyle='#ffffff66';cx.lineWidth=1.5;cx.beginPath();cx.moveTo(0,0);cx.lineTo(h.x,h.y);cx.stroke();cx.setLineDash([]);
+ // pressure aura
+ cx.fillStyle=`rgba(255,${180-st.pressure*150|0},60,${0.12+st.pressure*0.25})`;cx.beginPath();cx.arc(t.x,t.y,30+st.pressure*60,0,7);cx.fill();
+ horse(h.x,h.y,h.head,h.gait);
+ // trainer
+ cx.fillStyle='#244a7a';cx.beginPath();cx.arc(t.x,t.y,9,0,7);cx.fill();cx.fillStyle='#e8c39e';cx.beginPath();cx.arc(t.x+Math.cos(t.face)*3,t.y+Math.sin(t.face)*3,5,0,7);cx.fill();
+ if(st.flag){const fx=t.x+Math.cos(t.face)*30,fy=t.y+Math.sin(t.face)*30;cx.strokeStyle='#333';cx.lineWidth=2;cx.beginPath();cx.moveTo(t.x,t.y);cx.lineTo(fx,fy);cx.stroke();
+  cx.fillStyle='#e74c3c';cx.beginPath();cx.moveTo(fx,fy);cx.lineTo(fx+8+Math.sin(performance.now()/80)*3,fy+8);cx.lineTo(fx-4,fy+10);cx.fill();}
+ // HUD
+ document.getElementById('gait').textContent=h.mode==='follow'?'Following you':GAITS[h.gait];
+ document.getElementById('dirt').textContent=h.dir>0?'clockwise ↻':'counter-clockwise ↺';
+ document.getElementById('pb').style.width=Math.min(100,st.pressure*100)+'%';
+ document.getElementById('sb').style.width=st.stress+'%';document.getElementById('tb').style.width=st.trust+'%';
+ const s=[];if(h.ear)s.push('👂 inside ear on you');if(h.lick>0)s.push('👅 licking & chewing');if(st.stress<30&&h.gait<=1)s.push('⬇ head lowering');if(st.stress>60)s.push('⚠ tense, head high');
+ document.getElementById('sign').textContent=s.join(' · ');
+ const l=L[li];document.getElementById('lt').textContent=l.t;document.getElementById('lg').textContent=typeof l.g=='function'?l.g():l.g;document.getElementById('tip').textContent='Tip: '+l.tip;
+}
+let last=performance.now();
+function loop(n){const dt=Math.min(0.05,(n-last)/1000);last=n;step(dt);draw();if(msgT>0){msgT-=dt;if(msgT<=0)document.getElementById('msg').textContent='';}requestAnimationFrame(loop);}
+requestAnimationFrame(loop);
+})();
+</script></body></html>
