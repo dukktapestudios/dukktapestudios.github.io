@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Spur Pressure Trainer — Dukktape Studios</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Segoe UI,Arial;background:#1d1a16;color:#f3eadb;touch-action:manipulation}
+header{padding:8px 12px;background:#2b241c;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+h1{font-size:18px;margin:0}a{color:#f0b85a}
+#wrap{max-width:900px;margin:auto;padding:8px}
+canvas{width:100%;background:#cfe3f0;border-radius:10px;display:block}
+.row{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0;align-items:center}
+button{background:#3a3026;color:#f3eadb;border:2px solid #6b5a45;border-radius:8px;padding:10px 12px;font-size:15px;cursor:pointer}
+button.on{background:#c4862d;border-color:#f0b85a;color:#1d1a16;font-weight:700}
+#press{flex:1;min-width:160px;padding:18px;font-size:18px;background:#5a3f22;user-select:none;-webkit-user-select:none}
+#press.down{background:#c4862d;color:#1d1a16}
+.meter{flex:1;min-width:130px;font-size:13px}.bar{height:12px;background:#3a3026;border-radius:6px;overflow:hidden}.bar i{display:block;height:100%}
+#tip{background:#2b241c;border-left:4px solid #c4862d;padding:8px 10px;border-radius:6px;font-size:14px}
+#msg{min-height:22px;font-weight:600}
+small{opacity:.75}
+</style></head><body>
+<header><h1>🐴 Spur Pressure Trainer</h1><a href="https://dukktapestudios.github.io/">Dukktape Studios</a></header>
+<div id="wrap">
+<div class="row" id="lessons"></div>
+<div id="tip"></div>
+<canvas id="c" width="900" height="380"></canvas>
+<div id="msg"></div>
+<div class="row"><b>Aid:</b>
+<button data-aid="0" class="aid on">1 Seat</button><button data-aid="1" class="aid">2 Leg</button><button data-aid="2" class="aid">3 Spur</button></div>
+<div class="row"><b>Spur spot:</b><button data-pl="cinch" class="pl on">At the cinch</button><button data-pl="back" class="pl">Too far back</button>
+<b>Touch:</b><button data-st="roll" class="st on">Roll / brush</button><button data-st="jab" class="st">Jab / gouge</button></div>
+<div class="row"><button id="press">HOLD to apply pressure (Space)</button></div>
+<div class="row">
+<div class="meter">Pressure<div class="bar"><i id="mP" style="background:#e07a3a"></i></div></div>
+<div class="meter">Calm ↔ Tense<div class="bar"><i id="mT" style="background:#d94b4b"></i></div></div>
+<div class="meter">Light ↔ Dull<div class="bar"><i id="mD" style="background:#8a8a8a"></i></div></div>
+<div class="meter">Timing score <span id="ts">–</span><div class="bar"><i id="mS" style="background:#5fbf6a"></i></div></div>
+</div>
+<p><small>Keys: 1/2/3 pick seat, leg, spur · Space hold = pressure · Q/W spur spot · E/R touch style. Ask with the lightest aid first, add more only if the horse ignores you, and release the moment it tries.</small></p>
+</div>
+<script>
+const L=[
+{n:"Walk-off",act:"walk",tip:"Ask with your seat first, then a calf squeeze. Most horses should walk off before you ever need a spur. Release the instant the feet move: the release is what teaches."},
+{n:"Yield hindquarters",act:"yield",tip:"Leg back a little and ask. Spurs refine a cue; they don't force it. If you need the spur, roll it lightly at the cinch area and quit the moment the hip steps over."},
+{n:"Sidepass",act:"side",tip:"Sidepass takes patience. Ask, wait, and reward one good step with a release. Don't nag: constant bumping makes a horse dull."},
+{n:"Lope departure",act:"lope",tip:"Seat, then leg, then a light roll if needed. Never jab: a jab makes a horse tense, and a tense horse humps up or crow-hops instead of loping off soft."},
+{n:"Stop (remove leg)",act:"stop",tip:"To stop, sit deep and take your leg OFF. Pick Seat only. Any leg or spur here says 'go' and confuses the horse."}];
+const S={les:0,aid:0,pl:"cinch",st:"roll",held:false,p:0,tense:.1,dull:.2,score:null,scores:[],state:"idle",respT:null,maxAid:-1,holdT:0,aidT:[0,0,0],presses:[],x:300,gait:"stand",anim:0,mood:0,moodT:0,t:0,log:[]};
+const W=[.55,.85,1.25],$=id=>document.getElementById(id);
+function msg(m){$("msg").textContent=m;S.log.push(m)}
+function setLesson(i){S.les=i;S.state="idle";S.respT=null;S.gait=L[i].act=="stop"?"lope":"stand";S.x=300;
+ document.querySelectorAll("#lessons button").forEach((b,j)=>b.classList.toggle("on",j==i));$("tip").innerHTML="<b>"+L[i].n+":</b> "+L[i].tip;msg("Lesson: "+L[i].n+". Start with your seat.")}
+L.forEach((l,i)=>{const b=document.createElement("button");b.textContent=(i+1)+". "+l.n;b.onclick=()=>setLesson(i);$("lessons").appendChild(b)});
+function pick(cls,attr,val){document.querySelectorAll("."+cls).forEach(b=>b.classList.toggle("on",b.dataset[attr]==val))}
+function setAid(a){if(S.held&&a>S.aid&&S.aidT[S.aid]<.6&&S.state!="resp"){S.tense+=.08;msg("Too fast! Give each aid a moment before adding more.")}S.aid=a;pick("aid","aid",a)}
+function setPl(v){S.pl=v;pick("pl","pl",v)}function setSt(v){S.st=v;pick("st","st",v)}
+document.querySelectorAll(".aid").forEach(b=>b.onclick=()=>setAid(+b.dataset.aid));
+document.querySelectorAll(".pl").forEach(b=>b.onclick=()=>setPl(b.dataset.pl));
+document.querySelectorAll(".st").forEach(b=>b.onclick=()=>setSt(b.dataset.st));
+function down(){if(S.held)return;S.held=true;$("press").classList.add("down");S.aidT=[0,0,0];S.maxAid=-1;S.holdT=0;
+ S.presses=S.presses.filter(t=>S.t-t<6);S.presses.push(S.t);
+ if(S.presses.length>=4&&S.state!="resp"){S.dull=Math.min(1,S.dull+.06);msg("Nagging! Constant bumping teaches the horse to tune you out (duller).")}
+ if(S.state=="idle"&&L[S.les].act!="stop")S.state="ask";if(L[S.les].act=="stop"&&S.gait!="stand")S.state="ask";
+ if(S.aid>0){S.tense=Math.min(1,S.tense+.12*S.aid);mood(1,"Skipped the seat! Always start light.");}
+ if(S.aid==2)spurTouch()}
+function up(){if(!S.held)return;S.held=false;$("press").classList.remove("down");
+ if(S.state=="resp"){const dt=S.t-S.respT;let sc=dt<=.5?100:dt<=1?75:dt<=2?45:15;rate(sc,dt)}
+ else if(S.state=="ask"){S.state="idle"}}
+function rate(sc,dt){S.scores.push(sc);S.score=Math.round(S.scores.reduce((a,b)=>a+b)/S.scores.length);
+ if(sc>=75){S.dull=Math.max(0,S.dull-.08);S.tense=Math.max(0,S.tense-.1);msg("Good release ("+dt.toFixed(2)+"s)! The release taught the horse. It's getting lighter.")}
+ else{S.dull=Math.min(1,S.dull+.1);msg("Late release ("+dt.toFixed(2)+"s). Holding pressure after the horse answers makes it dull.")}
+ S.state="done"}
+function spurTouch(){if(S.st=="jab"){S.tense=Math.min(1,S.tense+.25);mood(2,"Jab! Horse tosses its head and humps up. Roll the spur, don't jab.")}
+ if(S.pl=="back"){S.tense=Math.min(1,S.tense+.15);mood(2,"Spur too far back. That's the flank: ears pinned, tail swishing.")}}
+function mood(m,t){S.mood=Math.max(S.mood,m);S.moodT=1.5;if(t)msg(t)}
+$("press").addEventListener("pointerdown",e=>{e.preventDefault();down()});["pointerup","pointerleave","pointercancel"].forEach(ev=>$("press").addEventListener(ev,up));
+addEventListener("keydown",e=>{if(e.code=="Space"){e.preventDefault();if(!e.repeat)down()}if(e.key=="1")setAid(0);if(e.key=="2")setAid(1);if(e.key=="3")setAid(2);
+ if(e.key=="q")setPl("cinch");if(e.key=="w")setPl("back");if(e.key=="e")setSt("roll");if(e.key=="r")setSt("jab")});
+addEventListener("keyup",e=>{if(e.code=="Space")up()});
+function step(dt){S.t+=dt;S.anim+=dt;const a=L[S.les].act;
+ S.p+=((S.held?1:0)-S.p)*Math.min(1,dt*(S.held?2.5:8));
+ if(S.held){S.aidT[S.aid]+=dt;S.holdT+=dt;
+  if(S.aid>S.maxAid){if(S.aid>S.maxAid+1&&S.maxAid>=0){S.tense+=.1;mood(1,"Skipped a step! Seat, then leg, then spur.")}
+   else if(S.maxAid>=0&&S.aidT[S.maxAid]<.6){S.tense+=.05}
+   if(S.aid==2&&S.maxAid>=0)spurTouch();S.maxAid=S.aid}
+  if(S.state=="resp"){S.dull=Math.min(1,S.dull+dt*.05);if(S.t-S.respT>1)msg("Release! It already answered. Keep holding and it gets dull.")}
+  if(S.state=="ask"){
+   if(a=="stop"){if(S.aid>0){S.tense=Math.min(1,S.tense+dt*.3);mood(1,"Leg means GO. Take your leg off to stop.")}
+    else if(S.p*W[0]>.3+S.dull*.3){respond("stop")}}
+   else{const need=.35+S.dull*.75+(a=="lope"?.15:0)+(a=="side"?.1:0);
+    let eff=S.p*W[S.aid]*(S.pl=="back"&&S.aid==2?.6:1)-(S.tense>.6?.25:0);
+    if(S.aid==2&&S.st=="jab"&&S.tense>.5)mood(2);
+    if(eff>=need&&S.holdT>.4)respond(a);
+    if(S.holdT>4&&S.aid==2){S.dull=Math.min(1,S.dull+dt*.05)}}}}
+ else{S.tense=Math.max(.05,S.tense-dt*.04)}
+ if(S.tense>.75&&S.held)mood(2);
+ S.moodT-=dt;if(S.moodT<=0)S.mood=S.tense>.55?1:0;
+ const sp={stand:0,walk:40,yield:0,side:0,lope:130}[S.gait]||0;S.x+=sp*dt;if(S.x>820)S.x=80}
+function respond(a){S.state="resp";S.respT=S.t;S.gait=a=="stop"?"stand":a;
+ msg({walk:"It walked off! RELEASE now.",yield:"Hip stepped over! RELEASE now.",side:"A sidepass step! RELEASE now.",lope:"Loped off! RELEASE now.",stop:"It stopped! RELEASE now."}[a])}
+const c=$("c"),g=c.getContext("2d");
+function draw(){const t=S.anim,x=S.x,y=230,gt=S.gait,mv=gt!="stand",bob=mv?Math.sin(t*(gt=="lope"?9:5))*3:0;
+ g.clearRect(0,0,900,380);g.fillStyle="#b9925c";g.fillRect(0,300,900,80);g.fillStyle="#8a6a3f";for(let i=0;i<900;i+=60)g.fillRect((i-x*0)%900,300,2,80);
+ g.save();g.translate(x,y+bob);
+ const tense=S.mood;
+ // legs
+ g.strokeStyle="#5a3a1e";g.lineWidth=12;g.lineCap="round";
+ const sw=k=>mv||gt=="yield"||gt=="side"&&S.state!="idle"?Math.sin(t*(gt=="lope"?9:5)+k)*14:0;
+ [[-70,0],[-50,2],[60,1],[80,3]].forEach(([lx,k])=>{g.beginPath();g.moveTo(lx,20);g.lineTo(lx+sw(k),75);g.stroke()});
+ // tail
+ g.strokeStyle="#2b1a0c";g.lineWidth=9;g.beginPath();g.moveTo(-95,-15);const ts=tense?Math.sin(t*14)*25:Math.sin(t*2)*4;g.quadraticCurveTo(-125,10,-115+ts,55);g.stroke();
+ // body (hump)
+ const hump=tense==2?-14*Math.abs(Math.sin(t*8)):0;
+ g.fillStyle="#7b4a24";g.beginPath();g.ellipse(0,0+hump/2,105,40,0,0,7);g.fill();
+ // neck/head
+ const toss=tense==2?Math.sin(t*10)*0.35:0;g.save();g.translate(85,-15);g.rotate(-0.9+toss);
+ g.fillRect(-15,-10,75,32);g.restore();
+ g.save();g.translate(85+Math.cos(-0.9+toss)*65,-15+Math.sin(-0.9+toss)*65);g.rotate(0.5+toss);g.beginPath();g.ellipse(25,0,32,15,0,0,7);g.fill();
+ // ears
+ g.fillStyle="#5a3a1e";const ea=tense?1.3:-0.2;g.save();g.translate(0,-10);g.rotate(ea-1.4);g.fillRect(0,-4,18,7);g.restore();
+ g.fillStyle="#111";g.beginPath();g.arc(18,-4,3,0,7);g.fill();g.restore();
+ // mane
+ g.fillStyle="#2b1a0c";
+ // saddle
+ g.fillStyle="#3b2412";g.beginPath();g.ellipse(5,-40+hump/2,42,12,0,0,7);g.fill();g.fillRect(-2,-60+hump/2,10,20);
+ g.fillStyle="#6b4a2a";g.fillRect(-10,-38,30,40);// fender
+ // cinch marker
+ g.fillStyle="#d8c9a3";g.fillRect(28,-30,8,60);
+ // rider
+ const ry=-75+hump/2-(S.held&&S.aid==0?-4:0);
+ g.fillStyle="#2c4a6b";g.fillRect(-8,ry-55,22,55);g.fillStyle="#e2b48a";g.beginPath();g.arc(3,ry-68,12,0,7);g.fill();
+ g.fillStyle="#3a2a1a";g.fillRect(-14,ry-84,34,8);g.fillRect(-6,ry-96,18,14);
+ // leg: thigh + calf; calf moves in for leg/spur; heel back if placement back
+ const lin=S.held&&S.aid>=1?S.p:0,heelX=S.aid==2&&S.held?(S.pl=="back"?-40:12):6;
+ g.strokeStyle="#24384f";g.lineWidth=12;g.beginPath();g.moveTo(2,ry);g.lineTo(18,ry+38);g.lineTo(heelX,ry+80+lin*4);g.stroke();
+ g.fillStyle="#2a1a0c";g.fillRect(heelX-6,ry+78+lin*4,24,10);
+ // spur rowel
+ const sx=heelX-10,sy2=ry+84+lin*4;g.strokeStyle="#cfcfcf";g.lineWidth=2;g.save();g.translate(sx,sy2);g.rotate(S.held&&S.aid==2&&S.st=="roll"?t*6:0);
+ for(let i=0;i<6;i++){g.rotate(Math.PI/3);g.beginPath();g.moveTo(0,0);g.lineTo(6,0);g.stroke()}g.restore();
+ if(S.held&&S.aid==2){g.strokeStyle=S.st=="jab"?"#ff3b3b":"#ffd36b";g.lineWidth=3;g.beginPath();g.arc(sx,sy2,10+S.p*8,0,7);g.stroke()}
+ g.restore();
+ g.fillStyle="#1d1a16";g.font="bold 18px system-ui";g.fillText(L[S.les].n+" — "+({stand:"standing",walk:"walking",yield:"yielding hip",side:"sidepassing",lope:"loping"}[gt]),14,28);
+ g.font="15px system-ui";g.fillText(tense==2?"😣 Ears pinned, tail swishing, humping up":tense==1?"😠 Ears back, getting tense":"🙂 Soft and listening",14,52);
+ $("mP").style.width=S.p*100+"%";$("mT").style.width=S.tense*100+"%";$("mD").style.width=S.dull*100+"%";
+ $("mS").style.width=(S.score||0)+"%";$("ts").textContent=S.score==null?"–":S.score}
+let last=performance.now();function loop(n){const dt=Math.min(.05,(n-last)/1000);last=n;step(dt);draw();requestAnimationFrame(loop)}
+setLesson(0);requestAnimationFrame(loop);
+if(location.hash=="#selftest"){window.selftest=()=>{const run=(f)=>{Object.assign(S,{tense:.1,dull:.2,scores:[],score:null,state:"idle",gait:"stand",presses:[],mood:0});setLesson(0);f();return {tense:+S.tense.toFixed(2),dull:+S.dull.toFixed(2),score:S.score,gait:S.gait,mood:S.mood}};
+ const sim=s=>{for(let i=0;i<s*60;i++)step(1/60)};
+ const good=run(()=>{setAid(0);down();for(let i=0;i<180&&S.state!="resp";i++){step(1/60);if(S.holdT>.7&&S.aid==0)setAid(1);if(S.aidT[1]>.7)setAid(2)}sim(.2);up()});
+ const harsh=run(()=>{setSt("jab");setPl("back");setAid(2);down();sim(3);up();for(let k=0;k<4;k++){down();sim(.3);up();sim(.3)}});
+ const late=run(()=>{setSt("roll");setPl("cinch");setAid(0);down();for(let i=0;i<180&&S.state!="resp";i++){step(1/60);if(S.holdT>.7)setAid(1)}sim(2.5);up()});
+ return JSON.stringify({good,harsh,late})};document.title="RESULT "+selftest()}
+</script></body></html>
