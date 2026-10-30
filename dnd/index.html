@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dungeon Night</title>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script src="https://js.puter.com/v2/"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:#1b1622;color:#eee}
+h1{text-align:center;margin:14px 0 6px}.wrap{max-width:1000px;margin:auto;padding:8px}
+button{font-size:18px;padding:12px 16px;margin:4px;border:0;border-radius:10px;background:#7a4ce0;color:#fff;cursor:pointer}
+button:disabled{opacity:.4}button.alt{background:#3a3350}
+input,select{font-size:18px;padding:10px;border-radius:8px;border:1px solid #555;background:#2a2335;color:#fff;margin:4px}
+.card{background:#251f30;border-radius:12px;padding:14px;margin:8px 0}.hide{display:none}
+#game{display:flex;flex-wrap:wrap;gap:10px}#left{flex:1 1 420px}#right{flex:1 1 300px}
+#map{display:grid;grid-template-columns:repeat(16,1fr);width:100%;max-width:560px;aspect-ratio:16/12;background:#000;border-radius:8px;overflow:hidden}
+.t{display:flex;align-items:center;justify-content:center;font-size:min(4.5vw,26px);border:1px solid #0003}
+.w{background:#3b3442}.f{background:#6b5d4f;cursor:pointer}.f.reach{background:#7d7a4f}
+#log{height:300px;overflow-y:auto;background:#120f17;padding:8px;border-radius:8px;font-size:15px}
+#log p{margin:4px 0}.dm{color:#ffd77a}.sys{color:#9ad}.roll{color:#8f8}
+.big{font-size:22px;padding:16px 24px}#code{font-size:28px;letter-spacing:4px;color:#ffd77a}
+.pl{font-size:15px;margin:2px 0}.cur{color:#ffd77a;font-weight:bold}
+.emo button{font-size:24px;padding:6px 10px;background:#3a3350}.emo button.sel{background:#7a4ce0}
+</style></head><body><div class="wrap">
+<h1>🐉 Dungeon Night</h1>
+
+<div id="s-char" class="card">
+<h2>1. Make your hero</h2>
+<input id="cname" placeholder="Hero name" maxlength="16"><br>
+<select id="ccls"><option>Fighter</option><option>Rogue</option><option>Wizard</option><option>Cleric</option></select>
+<span id="clsinfo"></span>
+<div class="emo" id="emo"></div>
+<h2>2. Play</h2>
+<button class="big" id="bhost">Host game</button>
+<input id="jcode" placeholder="Room code" maxlength="6" style="text-transform:uppercase;width:150px">
+<button class="big alt" id="bjoin">Join game</button>
+<p id="status"></p>
+</div>
+
+<div id="s-game" class="hide">
+<div class="card"><span id="roominfo"></span> <button id="bai" class="alt hide">Turn on AI DM (free Puter sign-in)</button></div>
+<div id="game">
+<div id="left"><div id="map"></div>
+<div class="card"><div id="turn"></div>
+<button id="bend">End my turn</button>
+<button class="alt" onclick="sendRoll(20)">Roll d20</button><button class="alt" onclick="sendRoll(6)">Roll d6</button>
+<p style="font-size:14px;opacity:.8">On your turn: tap a lit tile to move (up to 5). Tap a monster next to you to attack.</p></div>
+</div>
+<div id="right"><div id="log"></div>
+<input id="act" placeholder="What do you do?" style="width:70%"><button id="bact">Send</button>
+<div class="card" id="party"></div></div>
+</div></div>
+</div>
+<script>
+const CLS={Fighter:{hp:14,ac:16,atk:5,dmg:8},Rogue:{hp:10,ac:14,atk:5,dmg:6},Wizard:{hp:8,ac:12,atk:5,dmg:10},Cleric:{hp:11,ac:15,atk:4,dmg:6}};
+const EMO=['🧙','🧝','🧔','👸','🤺','🐺','🦊','🐻','🤖','🐸'];
+const MAP=[
+"################",
+"#....#.........#",
+"#....#.........#",
+"#..........#####",
+"#....#.....#...#",
+"######.#####...#",
+"#......#.......#",
+"#..............#",
+"#......#####.###",
+"###.####.......#",
+"#..............#",
+"################"];
+const W=16,H=12,isFloor=(x,y)=>MAP[y]&&MAP[y][x]==='.';
+let myEmo=EMO[0],peer,conns=[],hostConn,isHost=false,myId,S=null,aiOK=false;
+const $=id=>document.getElementById(id);
+EMO.forEach(e=>{const b=document.createElement('button');b.textContent=e;b.onclick=()=>{myEmo=e;[...$('emo').children].forEach(c=>c.classList.toggle('sel',c===b))};$('emo').appendChild(b)});
+$('emo').children[0].classList.add('sel');
+const showCls=()=>{const c=CLS[$('ccls').value];$('clsinfo').textContent=`HP ${c.hp} · AC ${c.ac} · Hit +${c.atk} · Dmg d${c.dmg}`};$('ccls').onchange=showCls;showCls();
+function myChar(){const cls=$('ccls').value,c=CLS[cls];return{name:($('cname').value.trim()||'Hero').slice(0,16),cls,emoji:myEmo,hp:c.hp,maxhp:c.hp,ac:c.ac,atk:c.atk,dmg:c.dmg}}
+const d=n=>1+Math.floor(Math.random()*n);
+function status(t){$('status').textContent=t}
+
+// ---------- HOST ----------
+$('bhost').onclick=()=>{
+ isHost=true;const code=Array.from({length:5},()=>'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[d(31)-1]).join('');
+ status('Opening room...');
+ peer=new Peer('dnight-'+code);
+ peer.on('open',id=>{myId=id;
+  S={code,players:{},order:[],turn:0,monsters:[],log:[],round:1,pending:null};
+  spawnMonsters();addPlayer(myId,myChar());
+  log('sys',`Room ${code} is open. Share the code with friends.`);
+  startGame();dmIntro();});
+ peer.on('connection',c=>{c.on('data',m=>hostHandle(c.peer,m,c));c.on('open',()=>conns.push(c));
+  c.on('close',()=>{conns=conns.filter(x=>x!==c);if(S.players[c.peer]){log('sys',S.players[c.peer].name+' left.');S.order=S.order.filter(x=>x!==c.peer);delete S.players[c.peer];fixTurn();bc()}})});
+ peer.on('error',e=>status('Error: '+e.type+' (try again)'));
+};
+function spawnMonsters(){const M=[['Goblin','👺',7,12,4,6],['Giant Rat','🐀',5,11,3,4],['Skeleton','💀',10,13,4,6],['Orc','👹',14,13,5,8]];
+ const spots=[[10,2],[13,6],[9,10],[13,10],[3,7]];
+ S.monsters=spots.map((p,i)=>{const m=M[i%M.length];return{id:'m'+i,name:m[0],emoji:m[1],hp:m[2],maxhp:m[2],ac:m[3],atk:m[4],dmg:m[5],x:p[0],y:p[1]}})}
+function addPlayer(id,ch){const starts=[[1,1],[2,1],[1,2],[2,2],[3,1],[3,2],[4,1],[4,2]];const p=starts.find(s=>!occupied(s[0],s[1]))||[1,1];
+ S.players[id]=Object.assign(ch,{x:p[0],y:p[1],moved:false});S.order.push(id);log('sys',`${ch.emoji} ${ch.name} the ${ch.cls} joined.`)}
+function occupied(x,y){return Object.values(S.players).some(p=>p.x===x&&p.y===y&&p.hp>0)||S.monsters.some(m=>m.x===x&&m.y===y&&m.hp>0)}
+function log(cls,t){S.log.push([cls,t]);if(S.log.length>150)S.log.shift()}
+function bc(){const msg={type:'state',S};conns.forEach(c=>c.open&&c.send(msg));render()}
+function curId(){return S.order[S.turn]}
+function fixTurn(){if(S.turn>=S.order.length){S.turn=0;monstersAct()}}
+function hostHandle(id,m,c){
+ if(m.type==='join'){if(Object.keys(S.players).length>=8){c.send({type:'full'});return}addPlayer(id,m.ch);bc();return}
+ const p=S.players[id];if(!p)return;
+ if(m.type==='roll'){const r=d(m.n);log('roll',`🎲 ${p.name} rolls d${m.n}: ${r}`);
+   if(S.pending&&S.pending.id===id&&m.n===20){const q=S.pending;S.pending=null;bc();dmAsk(`${p.name} rolled ${r} on a d20 for: "${q.text}". Narrate the result (10+ is success, 20 is amazing, 1 is a funny failure).`)}else bc();return}
+ if(m.type==='act'){const t=String(m.text).slice(0,200);log('',`${p.emoji} ${p.name}: ${t}`);bc();dmAsk(`${p.name} the ${p.cls} says/does: "${t}"`,id,t);return}
+ if(id!==curId()||p.hp<=0)return;
+ if(m.type==='move'&&!p.moved&&isFloor(m.x,m.y)&&!occupied(m.x,m.y)&&Math.abs(m.x-p.x)+Math.abs(m.y-p.y)<=5){p.x=m.x;p.y=m.y;p.moved=true;bc()}
+ if(m.type==='attack'&&!p.attacked){const mo=S.monsters.find(x=>x.id===m.mid&&x.hp>0);if(!mo||Math.abs(mo.x-p.x)+Math.abs(mo.y-p.y)!==1)return;
+   p.attacked=true;const r=d(20);if(r+p.atk>=mo.ac||r===20){const dm=d(p.dmg)*(r===20?2:1);mo.hp=Math.max(0,mo.hp-dm);log('roll',`⚔️ ${p.name} attacks ${mo.name}: ${r}+${p.atk} vs AC ${mo.ac} — HIT for ${dm}!`+(mo.hp?'':` ${mo.name} is defeated!`))}
+   else log('roll',`⚔️ ${p.name} attacks ${mo.name}: ${r}+${p.atk} vs AC ${mo.ac} — miss.`);
+   if(S.monsters.every(x=>x.hp<=0))log('dm','🏆 The dungeon is cleared! You win!');bc()}
+ if(m.type==='end'){p.moved=p.attacked=false;nextTurn()}
+}
+function nextTurn(){S.turn++;if(S.turn>=S.order.length){S.turn=0;monstersAct()}
+ let guard=0;while(S.order.length&&S.players[curId()].hp<=0&&guard++<10){S.turn++;if(S.turn>=S.order.length){S.turn=0;monstersAct()}}bc()}
+function monstersAct(){S.round++;const alive=Object.values(S.players).filter(p=>p.hp>0);if(!alive.length)return;
+ S.monsters.filter(m=>m.hp>0).forEach(m=>{let t=alive.reduce((a,b)=>dist(m,a)<=dist(m,b)?a:b);if(dist(m,t)>8)return;
+  for(let s=0;s<3&&dist(m,t)>1;s++){const opts=[[1,0],[-1,0],[0,1],[0,-1]].map(([a,b])=>[m.x+a,m.y+b]).filter(([x,y])=>isFloor(x,y)&&!occupied(x,y));
+   opts.sort((a,b)=>Math.abs(a[0]-t.x)+Math.abs(a[1]-t.y)-(Math.abs(b[0]-t.x)+Math.abs(b[1]-t.y)));if(!opts.length)break;
+   if(Math.abs(opts[0][0]-t.x)+Math.abs(opts[0][1]-t.y)>=dist(m,t))break;[m.x,m.y]=opts[0]}
+  if(dist(m,t)===1){const r=d(20);if(r+m.atk>=t.ac){const dm=d(m.dmg);t.hp=Math.max(0,t.hp-dm);log('roll',`${m.emoji} ${m.name} hits ${t.name} for ${dm}!`+(t.hp?'':` ${t.name} is knocked out!`))}else log('roll',`${m.emoji} ${m.name} attacks ${t.name} and misses.`)}});
+ if(Object.values(S.players).every(p=>p.hp<=0))log('dm','💀 The whole party is down. Game over!')}
+const dist=(a,b)=>Math.abs(a.x-b.x)+Math.abs(a.y-b.y);
+
+// ---------- DM ----------
+const SYS="You are a fun, family-friendly Dungeon Master for a short simple D&D-style game. Reply in 1-3 short sentences. If the player's action is risky or uncertain, end your reply with exactly: ROLL d20. Don't decide combat damage; the game handles fights.";
+async function aiChat(prompt){
+ if(aiOK===false||typeof puter==='undefined')throw 0;
+ const recent=S.log.slice(-12).map(l=>l[1]).join('\n');
+ const r=await Promise.race([puter.ai.chat(SYS+"\n\nRecent story:\n"+recent+"\n\n"+prompt),new Promise((_,j)=>setTimeout(()=>j('timeout'),45000))]);
+ const t=typeof r==='string'?r:(r?.message?.content?.[0]?.text||r?.message?.content||String(r));
+ if(!t||typeof t!=='string')throw 0;aiOK=true;return t.trim()}
+const SCRIPT={intro:["You wake in a damp stone dungeon. Torches flicker, and somewhere ahead you hear growling. Find the monsters and clear the dungeon!"],
+ act:["The shadows shift as you try. Let's see how it goes... ROLL d20","You find a few copper coins and an old torn map.","A cold wind blows out a nearby torch. Something is watching.","Nothing happens... for now.","You hear scratching in the walls. Careful! ROLL d20"],
+ res:{good:["It works! Well done, hero.","Success! The dungeon seems a little less scary."],bad:["Oops, that didn't work. Maybe try something else.","You slip and land on your bottom. The rats laugh."]}};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+async function dmAsk(prompt,id,text){let t;
+ try{t=await aiChat(prompt)}catch(e){
+  const m=prompt.match(/rolled (\d+)/);t=m?pick(+m[1]>=10?SCRIPT.res.good:SCRIPT.res.bad):pick(SCRIPT.act)}
+ const roll=/ROLL d20/i.test(t);t=t.replace(/ROLL d20\.?/ig,'').trim();
+ log('dm','🧙 DM: '+t);if(roll&&id){S.pending={id,text};log('sys',`${S.players[id]?.name} — tap "Roll d20"!`)}bc()}
+function dmIntro(){log('dm','🧙 DM: '+SCRIPT.intro[0]);log('sys','Using the built-in DM. Host can tap "Turn on AI DM" for a smarter one.');bc();$('bai').classList.remove('hide')}
+$('bai').onclick=async()=>{$('bai').textContent='Signing in...';try{if(!puter.auth.isSignedIn())await puter.auth.signIn();aiOK=null;const t=await aiChat('Say hello to the party in one short sentence as the Dungeon Master.');log('dm','🧙 DM: '+t);log('sys','AI DM is ON.');$('bai').classList.add('hide')}catch(e){aiOK=false;$('bai').textContent='AI DM failed — tap to retry';log('sys','AI DM could not start. Still using built-in DM.')}bc()};
+
+// ---------- JOIN ----------
+$('bjoin').onclick=()=>{const code=$('jcode').value.trim().toUpperCase();if(code.length<4)return status('Type the room code first.');
+ status('Connecting...');peer=new Peer();
+ peer.on('open',id=>{myId=id;hostConn=peer.connect('dnight-'+code,{reliable:true});
+  hostConn.on('open',()=>{hostConn.send({type:'join',ch:myChar()});startGame()});
+  hostConn.on('data',m=>{if(m.type==='state'){S=m.S;render()}if(m.type==='full')status('Room is full.')});
+  hostConn.on('close',()=>alert('The host left the game.'))});
+ peer.on('error',e=>status(e.type==='peer-unavailable'?'No room with that code.':'Error: '+e.type));};
+function send(m){if(isHost)hostHandle(myId,m);else hostConn&&hostConn.send(m)}
+function sendRoll(n){send({type:'roll',n})}
+$('bend').onclick=()=>send({type:'end'});
+$('bact').onclick=()=>{const t=$('act').value.trim();if(t){send({type:'act',text:t});$('act').value=''}};
+$('act').onkeydown=e=>{if(e.key==='Enter')$('bact').click()};
+
+// ---------- RENDER ----------
+function startGame(){$('s-char').classList.add('hide');$('s-game').classList.remove('hide');render()}
+function render(){if(!S)return;const me=S.players[myId],myTurn=curId()===myId&&me&&me.hp>0;
+ $('roominfo').innerHTML=`Room code: <span id="code">${S.code}</span> ${isHost?'(you are the host — keep this page open)':''}`;
+ const cur=S.players[curId()];$('turn').innerHTML=myTurn?'<b class="cur">Your turn!</b>':`Waiting for ${cur?cur.emoji+' '+cur.name:'...'}`;
+ $('bend').disabled=!myTurn;
+ let h='';for(let y=0;y<H;y++)for(let x=0;x<W;x++){const f=isFloor(x,y);let c='',cls=f?'f':'w';
+  const p=Object.values(S.players).find(p=>p.x===x&&p.y===y);const m=S.monsters.find(m=>m.x===x&&m.y===y&&m.hp>0);
+  if(m)c=m.emoji;else if(p)c=p.hp>0?p.emoji:'🪦';
+  if(f&&myTurn&&!me.moved&&!c&&dist(me,{x,y})<=5)cls+=' reach';
+  h+=`<div class="t ${cls}" data-x="${x}" data-y="${y}">${c}</div>`}
+ $('map').innerHTML=h;
+ $('log').innerHTML=S.log.map(l=>`<p class="${l[0]}">${esc(l[1])}</p>`).join('');$('log').scrollTop=1e9;
+ $('party').innerHTML='<b>Party</b>'+S.order.map((id,i)=>{const p=S.players[id];return`<div class="pl ${i===S.turn?'cur':''}">${p.emoji} ${esc(p.name)} (${p.cls}) HP ${p.hp}/${p.maxhp} AC ${p.ac}</div>`}).join('')
+  +'<b>Monsters</b>'+S.monsters.map(m=>`<div class="pl">${m.emoji} ${m.name} ${m.hp>0?'HP '+m.hp+'/'+m.maxhp:'defeated'}</div>`).join('');}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+$('map').onclick=e=>{const t=e.target.closest('.t');if(!t||!S)return;const x=+t.dataset.x,y=+t.dataset.y;
+ const m=S.monsters.find(m=>m.x===x&&m.y===y&&m.hp>0);if(m)send({type:'attack',mid:m.id});else send({type:'move',x,y})};
+</script><footer style="text-align:center;font-size:12px;opacity:.6;padding:10px">&copy; 2026 Dukktape Studios</footer>
+</body></html>
