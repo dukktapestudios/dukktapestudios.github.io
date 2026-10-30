@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rural Self-Reliance Checklist | Dukktape Studios</title>
+<meta name="description" content="A simple, free rural self-reliance checklist: water, heat, power, food, first aid, and more. Check items off as you go.">
+<style>
+body{font-family:system-ui,sans-serif;background:#f6f1e7;color:#2b2418;margin:0;line-height:1.5}
+header{background:#3b4a2a;color:#fff;padding:24px 16px;text-align:center}header h1{margin:0 0 6px}
+main{max-width:760px;margin:0 auto;padding:16px}
+.bar{background:#ddd3bf;border-radius:8px;height:18px;overflow:hidden;margin:8px 0 4px}.bar i{display:block;height:100%;background:#6b8f3a;width:0;transition:width .3s}
+section{background:#fff;border-radius:10px;padding:12px 16px;margin:14px 0;box-shadow:0 1px 3px #0002}
+h2{margin:4px 0 8px;font-size:1.2em}
+label{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #eee;cursor:pointer}label:last-child{border:0}
+input{width:20px;height:20px;flex:none;margin-top:2px}
+input:checked+span{color:#888;text-decoration:line-through}
+button{background:#3b4a2a;color:#fff;border:0;border-radius:6px;padding:8px 14px;cursor:pointer;margin:4px}
+.note{font-size:.9em;color:#665}
+footer{text-align:center;padding:20px;font-size:.9em;color:#665}
+@media print{button,.bar{display:none}}
+</style></head><body>
+<header><h1>🏡 Rural Self-Reliance Checklist</h1><div>The basics every rural household should shoot for. Check them off as you go. Your progress saves in this browser.</div></header>
+<main>
+<div class="bar"><i id="fill"></i></div><div id="count" class="note"></div>
+<div id="list"></div>
+<p style="text-align:center"><button onclick="print()">🖨️ Print</button><button onclick="if(confirm('Clear all checkmarks?')){localStorage.removeItem(K);render()}">Reset</button></p>
+<p class="note">This is a general starting list, not professional advice. Adjust it for your home, climate, family, and animals.</p>
+</main>
+<footer>© 2026 Dukktape Studios · <a href="https://dukktapestudios.github.io/">More projects</a></footer>
+<script>
+const L={"💧 Water":["Store at least 1 gallon per person per day for 2 weeks","Have a way to get water if the power is out (hand pump, generator for the well, or a nearby source)","Have a water filter or a way to boil water","Get your well water tested once a year"],
+"🔥 Heat & Shelter":["Have a backup heat source that doesn't need electricity (wood stove, propane heater)","Keep a season of firewood or a full propane tank before winter","Working smoke and carbon monoxide detectors","Extra blankets and cold-weather sleeping bags","Know how to shut off your water, power, and gas"],
+"⚡ Power & Light":["Flashlights or headlamps for everyone, with spare batteries","A battery or hand-crank emergency radio","A generator or battery bank, plus safely stored fuel","Phone power banks kept charged","Know how to safely connect a generator (transfer switch, never backfeed)"],
+"🥫 Food":["2 weeks of food that doesn't need a fridge","A manual can opener","A way to cook without power (camp stove, grill, wood stove)","Start a small garden or learn to preserve food","Sealed bins so feed and food stay safe from pests"],
+"🩹 Health & Safety":["A stocked first aid kit, and know how to use it","A 2-week supply of prescriptions and important meds","Take a basic first aid / CPR / stop-the-bleed class","Fire extinguishers in the kitchen, garage, and barn"],
+"🐴 Animals":["2 weeks of feed and water for every animal","Vet records and a basic animal first aid kit","A plan to move or shelter animals in a storm or fire"],
+"🚜 Vehicles & Tools":["Keep vehicle gas tanks at least half full","Basic tool kit, chainsaw, and shovel","Spare tire, jumper cables, and tow strap","Vehicle emergency kit (blanket, water, snacks, light)"],
+"📋 Plans & Papers":["Copies of IDs, insurance, deeds, and medical info in a safe, waterproof place","Written list of emergency contacts and neighbors' numbers","A meeting spot and plan if family gets separated","Some cash on hand in small bills","Know your neighbors, they're your first responders out here"]};
+const K="selfrel_v1";
+function render(){const s=JSON.parse(localStorage.getItem(K)||"{}");let h="",tot=0,done=0;
+for(const [cat,items] of Object.entries(L)){h+=`<section><h2>${cat}</h2>`;items.forEach((it,i)=>{const id=cat+i;tot++;if(s[id])done++;h+=`<label><input type="checkbox" data-id="${id}" ${s[id]?"checked":""}><span>${it}</span></label>`});h+="</section>"}
+document.getElementById("list").innerHTML=h;document.getElementById("fill").style.width=(done/tot*100)+"%";
+document.getElementById("count").textContent=`${done} of ${tot} done`+(done==tot?" 🎉 You're ready!":"");
+document.querySelectorAll("[data-id]").forEach(c=>c.onchange=()=>{const s=JSON.parse(localStorage.getItem(K)||"{}");s[c.dataset.id]=c.checked;localStorage.setItem(K,JSON.stringify(s));render()})}
+render();
+</script></body></html>
