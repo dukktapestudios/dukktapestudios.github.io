@@ -197,7 +197,8 @@
     ["namib", "Namib Desert Horse", "Breed", "Rare", "Namib Desert", "A feral horse that survives in the desert near Aus, Namibia.", 7, 10, 9, "chestnut"],
     ["karabakh", "Karabakh", "Breed", "Uncommon", "Azerbaijan", "A mountain horse of Azerbaijan, often a golden chestnut.", 8, 8, 8, "palomino"],
     ["kabarda", "Kabarda", "Breed", "Common", "North Caucasus", "A sure-footed mountain horse of the North Caucasus.", 7, 9, 8, "bay"],
-    ["manipuri", "Manipuri Pony", "Breed", "Uncommon", "Manipur, India", "A pony of Manipur, long used for polo.", 7, 7, 8, "bay"]
+    ["manipuri", "Manipuri Pony", "Breed", "Uncommon", "Manipur, India", "A pony of Manipur, long used for polo.", 7, 7, 8, "bay"],
+    ["riverton", "Riverton", "Personal", "Legendary", "Home", "Skye thinks he's just a baby. A 2,000 lb baby.", 5, 7, 10, "gray"]
   ];
 
   var out = cards.map(function (row, i) {
