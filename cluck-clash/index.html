@@ -17,35 +17,47 @@
 </header>
 <details class="howto">
   <summary>How to play</summary>
-  <h2>The point</h2>
-  <p>Giant monsters are at the farm town, and the roosters have to settle who leads the defense. Each player fields 3 roosters and a 30-card support deck. Knock out all 3 enemy roosters. You also win if the other player cannot draw a card at the start of their turn.</p>
-  <h2>Your turn</h2>
-  <ol>
-    <li><b>Draw</b> 1 card. The first player skips this on turn 1.</li>
-    <li><b>Feed.</b> Attach 1 Grain from your hand to any of your roosters. If you have Grain, you attach it.</li>
-    <li><b>Support.</b> Play any number of Actions and Gear, and 1 Coop. Counters are for the other player's turn.</li>
-    <li><b>Switch</b> once, if you want. Discard Grain from the active rooster equal to its switch cost, then swap with a bench rooster.</li>
-    <li><b>Attack</b> once. You need at least that much Grain on the rooster. Grain stays attached. The first player cannot attack on turn 1. Your turn ends after the attack.</li>
-  </ol>
-  <h2>Dice</h2>
-  <ul>
-    <li>Roll a d6 for each attack die. Meet the Hit number to deal that attack's full damage. A miss does nothing.</li>
-    <li>A natural 6 always hits and adds +20 once. A natural 1 always misses.</li>
-    <li>Extra dice each deal the full damage again. Only one critical +20 is added.</li>
-    <li>+1 to hit lowers the number you need. −1 raises it. The target number never goes below 2+ or above 6+.</li>
-    <li>A die can be rerolled only once. You keep the second roll.</li>
-    <li>Weakness is +20 once when an attack from that flock hits. It is not added per die.</li>
-  </ul>
-  <h2>Other rules on this table</h2>
-  <ul>
-    <li>Damage stays on a rooster when it goes to the bench. At 0 HP it is knocked out, and its owner picks a bench rooster to send in.</li>
-    <li>Gear: 1 per rooster, discarded when that rooster is knocked out. A new Coop replaces the old one.</li>
-    <li>Flock cards need one of your living roosters of that flock. Buffs and Grain from those cards go on that flock.</li>
-    <li>Golden Grain counts as 2 only on your main flock (the flock you brought the most of). On anyone else it is not played.</li>
-    <li>Signature moves are once per game, on your turn, before the attack. Roll 3+. A miss still uses the move up. Only one Signature a turn.</li>
-    <li>Traits are always on. Counters are played when their trigger happens.</li>
-  </ul>
-  <p>Dawn Patrol is the fast flock. Night Forest is the slow one. The other lineups are one flock each.</p>
+  <section class="rule" data-speak-root>
+    <button type="button" class="speak" hidden data-speak="rules-point" aria-label="Read this section aloud">Read</button>
+    <h2>The point</h2>
+    <p>Giant monsters are at the farm town, and the roosters have to settle who leads the defense. Each player fields 3 roosters and a 30-card support deck. Knock out all 3 enemy roosters. You also win if the other player cannot draw a card at the start of their turn.</p>
+  </section>
+  <section class="rule" data-speak-root>
+    <button type="button" class="speak" hidden data-speak="rules-turn" aria-label="Read this section aloud">Read</button>
+    <h2>Your turn</h2>
+    <ol>
+      <li><b>Draw</b> 1 card. The first player skips this on turn 1.</li>
+      <li><b>Feed.</b> Attach 1 Grain from your hand to any of your roosters. If you have Grain, you attach it.</li>
+      <li><b>Support.</b> Play any number of Actions and Gear, and 1 Coop. Counters are for the other player's turn.</li>
+      <li><b>Switch</b> once, if you want. Discard Grain from the active rooster equal to its switch cost, then swap with a bench rooster.</li>
+      <li><b>Attack</b> once. You need at least that much Grain on the rooster. Grain stays attached. The first player cannot attack on turn 1. Your turn ends after the attack.</li>
+    </ol>
+  </section>
+  <section class="rule" data-speak-root>
+    <button type="button" class="speak" hidden data-speak="rules-dice" aria-label="Read this section aloud">Read</button>
+    <h2>Dice</h2>
+    <ul>
+      <li>Roll a d6 for each attack die. Meet the Hit number to deal that attack's full damage. A miss does nothing.</li>
+      <li>A natural 6 always hits and adds +20 once. A natural 1 always misses.</li>
+      <li>Extra dice each deal the full damage again. Only one critical +20 is added.</li>
+      <li>+1 to hit lowers the number you need. −1 raises it. The target number never goes below 2+ or above 6+.</li>
+      <li>A die can be rerolled only once. You keep the second roll.</li>
+      <li>Weakness is +20 once when an attack from that flock hits. It is not added per die.</li>
+    </ul>
+  </section>
+  <section class="rule" data-speak-root>
+    <button type="button" class="speak" hidden data-speak="rules-table" aria-label="Read this section aloud">Read</button>
+    <h2>Other rules on this table</h2>
+    <ul>
+      <li>Damage stays on a rooster when it goes to the bench. At 0 HP it is knocked out, and its owner picks a bench rooster to send in.</li>
+      <li>Gear: 1 per rooster, discarded when that rooster is knocked out. A new Coop replaces the old one.</li>
+      <li>Flock cards need one of your living roosters of that flock. Buffs and Grain from those cards go on that flock.</li>
+      <li>Golden Grain counts as 2 only on your main flock (the flock you brought the most of). On anyone else it is not played.</li>
+      <li>Signature moves are once per game, on your turn, before the attack. Roll 3+. A miss still uses the move up. Only one Signature a turn.</li>
+      <li>Traits are always on. Counters are played when their trigger happens.</li>
+    </ul>
+    <p>Dawn Patrol is the fast flock. Night Forest is the slow one. The other lineups are one flock each.</p>
+  </section>
 </details>
 <section class="setup" id="setup">
   <label>Your lineup
@@ -59,6 +71,7 @@
 <div class="board" id="board" hidden></div>
 <footer>© 2026 Dukktape Studios</footer>
 <script src="cards.js"></script>
+<script src="art.js"></script>
 <script src="engine.js"></script>
 <script src="ui.js"></script>
 </body>
