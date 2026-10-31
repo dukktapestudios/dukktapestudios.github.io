@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rivethull | Dukktape Studios</title>
+<meta name="description" content="Rivethull: a bare-bones walker prototype. Heavy movement, a cannon, and an arc blade, in the browser or a headset.">
+<link rel="stylesheet" href="style.css?v=2026103117">
+</head>
+<body>
+<header class="top">
+  <div>
+    <p class="eyebrow">Dukktape Studios</p>
+    <h1>Rivethull</h1>
+    <p class="tagline">A heavy box walker in a block city. Slow to start, harder to stop.</p>
+  </div>
+  <a class="home" href="../">← Dukktape Studios</a>
+</header>
+<div id="stage">
+  <div id="hud">Hull <b id="hp">100</b> · Hostiles <b id="foes">0</b></div>
+  <button type="button" id="enter-vr">Enter VR</button>
+</div>
+<p class="note">Click the view, then use the mouse to look. W A S D walks with momentum. Q and E snap the hull. Left click fires the cannon. Hold F or the right mouse button to swing the arc blade. On a headset, Enter VR: the left stick walks, the right stick snap-turns, the right trigger fires, and the left grip swings.</p>
+<section id="feedback" class="site-feedback">
+  <h2>Feedback &amp; Suggestions</h2>
+  <p>What should I fix, add, or leave alone?</p>
+  <div id="feedback-box"><script src="https://giscus.app/client.js" data-repo="dukktapestudios/dukktapestudios.github.io" data-repo-id="R_kgDOVcgvLw" data-category="General" data-category-id="DIC_kwDOVcgvL84DKFnn" data-mapping="pathname" data-strict="0" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script></div>
+</section>
+<footer>© 2026 Dukktape Studios</footer>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.169.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module" src="main.js?v=2026103117"></script>
+</body>
+</html>
