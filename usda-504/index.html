@@ -140,8 +140,7 @@ footer{text-align:center;padding:20px;color:#667;font-size:.9em}
 <div class="disclaimer" style="background:#f7f8f6;border:1px solid #c9d1c8;border-left:4px solid #2f5d50;border-radius:10px;padding:12px 16px;margin:18px 0;font-size:.95em;color:#334"><strong>Disclaimer:</strong> This page is for help and guidance only. It may not be up to date or 100% accurate. Rules, forms, and contacts are always changing, so double-check everything thoroughly with USDA Rural Development before you submit your application.</div>
 <section id="feedback"><h2>Feedback</h2>
 <p>Did this guide help, or did something not match what your office said? Leave a note.</p>
-<p id="feedback-wait" class="note" hidden>Comments aren't available yet.</p>
-<div id="feedback-box"></div></section>
+<div id="feedback-box"><script src="https://giscus.app/client.js" data-repo="dukktapestudios/dukktapestudios.github.io" data-repo-id="R_kgDOVcgvLw" data-category="General" data-category-id="DIC_kwDOVcgvL84DKFnn" data-mapping="pathname" data-strict="0" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script></div></section>
 </main>
 <div class="visitor-wrap"><p id="visitor-badge" class="visitor-badge" role="status" aria-live="polite" hidden></p></div>
 <footer>© 2026 Dukktape Studios</footer>
@@ -213,43 +212,6 @@ r.className=c;r.textContent=m;r.style.display="block"};
       .catch(function () { try { localStorage.removeItem(storageKey); } catch (err) {} })
       .finally(function () { clearTimeout(timer); });
   }
-
-  var repo = "dukktapestudios/dukktapestudios.github.io";
-  var repoId = "R_kgDOVcgvLw";
-  var wait = document.getElementById("feedback-wait");
-  var box = document.getElementById("feedback-box");
-  function showWait() { if (wait) wait.hidden = false; }
-  fetch("https://api.github.com/repos/" + repo + "/discussions/categories", { credentials: "omit", referrerPolicy: "no-referrer" })
-    .then(function (res) { if (!res.ok) throw new Error("off"); return res.json(); })
-    .then(function (cats) {
-      if (!cats || !cats.length) throw new Error("off");
-      var names = ["Feedback", "General", "Q&A", "Ideas"];
-      var cat = null;
-      names.forEach(function (name) {
-        if (cat) return;
-        cats.forEach(function (item) { if (!cat && item.name === name) cat = item; });
-      });
-      if (!cat) cat = cats[0];
-      if (!cat.node_id) throw new Error("off");
-      var script = document.createElement("script");
-      script.src = "https://giscus.app/client.js";
-      script.async = true;
-      script.crossOrigin = "anonymous";
-      script.setAttribute("data-repo", repo);
-      script.setAttribute("data-repo-id", repoId);
-      script.setAttribute("data-category", cat.name);
-      script.setAttribute("data-category-id", cat.node_id);
-      script.setAttribute("data-mapping", "pathname");
-      script.setAttribute("data-strict", "0");
-      script.setAttribute("data-reactions-enabled", "0");
-      script.setAttribute("data-emit-metadata", "0");
-      script.setAttribute("data-input-position", "top");
-      script.setAttribute("data-theme", "light");
-      script.setAttribute("data-lang", "en");
-      script.setAttribute("data-loading", "lazy");
-      box.appendChild(script);
-    })
-    .catch(showWait);
 })();
 </script>
 </body></html>
