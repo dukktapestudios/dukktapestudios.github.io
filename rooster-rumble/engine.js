@@ -30,6 +30,8 @@
     opts = opts || {};
     this.rng = rngFrom(opts.seed || 1);
     this.logLines = [];
+    this.reveals = [];
+    this._revealGroup = 0;
     this.turnId = 0;
     this.winner = null;
     this.winReason = "";
@@ -51,6 +53,8 @@
       for (var i = 0; i < 5; i++) this.drawTo(p, true);
     }, this);
     var flip = this.coin();
+    this.openRevealGroup();
+    this.recordCoin(flip, null);
     this.firstPlayer = opts.first == null ? (flip === "heads" ? 0 : 1) : opts.first;
     var starter = this.firstPlayer === 0 ? "You go" : "Rival goes";
     this.log("Coin flip: " + flip + ". " + starter + " first and skips the first draw. No attack on that first turn.");
@@ -131,6 +135,28 @@
 
   Game.prototype.d6 = function () { return 1 + Math.floor(this.rng() * 6); };
   Game.prototype.coin = function () { return this.rng() < 0.5 ? "heads" : "tails"; };
+
+  Game.prototype.openRevealGroup = function () {
+    this._revealGroup = (this._revealGroup || 0) + 1;
+  };
+
+  Game.prototype.recordDie = function (value, need, mode) {
+    var ok = this.isHit(value, need);
+    var word = mode === "hit" ? (ok ? "hit" : "miss") : (ok ? "success" : "fail");
+    var line = "Rolled " + value + ", needed " + need + "+, " + word + ".";
+    this.reveals.push({ kind: "die", value: value, need: need, word: word, ok: ok, group: this._revealGroup, line: line });
+    this.log(line);
+  };
+
+  Game.prototype.recordCoin = function (face, needFace) {
+    var ok = !needFace || face === needFace;
+    var word = needFace ? (ok ? "success" : "fail") : face;
+    var line = needFace
+      ? "Rolled " + face + ", needed " + needFace + ", " + word + "."
+      : "Rolled " + face + ".";
+    this.reveals.push({ kind: "coin", value: face, needFace: needFace || "", word: word, ok: ok, group: this._revealGroup, line: line });
+    this.log(line);
+  };
   Game.prototype.cur = function () { return this.players[this.turn]; };
   Game.prototype.opp = function () { return this.players[1 - this.turn]; };
 
@@ -557,7 +583,9 @@
       if (ctx.attack && target.flock === "Ironbeak") {
         var owner = this.ownerOf(target);
         if (owner.coop && owner.coop.id === "ironroost") {
+          this.openRevealGroup();
           var roll = this.d6();
+          this.recordDie(roll, 5, "check");
           this.log("Armor roll for " + target.name + ": " + roll + ".");
           if (roll >= 5) dmg = Math.floor(dmg / 2);
         }
@@ -772,9 +800,19 @@
     return value >= need;
   };
 
+  Game.prototype.rollMode = function (spec) {
+    return spec && spec.purpose === "attack" ? "hit" : "check";
+  };
+
   Game.prototype.beginRoll = function (spec) {
     var dice = [];
-    for (var i = 0; i < spec.diceN; i++) dice.push({ value: this.d6(), rerolled: false });
+    var mode = this.rollMode(spec);
+    this.openRevealGroup();
+    for (var i = 0; i < spec.diceN; i++) {
+      var value = this.d6();
+      dice.push({ value: value, rerolled: false });
+      this.recordDie(value, spec.need, mode);
+    }
     this.roll = { spec: spec, dice: dice, stage: "built" };
     this.log(spec.label + " rolls " + dice.map(function (d) { return d.value; }).join(", ") + " (need " + spec.need + "+).");
     this.advanceRoll();
@@ -787,10 +825,13 @@
     var self = this;
     if (roll.stage === "built") {
       if (spec.rerollMiss) {
+        var openedReroll = false;
         roll.dice.forEach(function (d) {
           if (!self.isHit(d.value, spec.need) && !d.rerolled) {
+            if (!openedReroll) { self.openRevealGroup(); openedReroll = true; }
             d.value = self.d6();
             d.rerolled = true;
+            self.recordDie(d.value, spec.need, self.rollMode(spec));
           }
         });
         this.log("Built-in reroll: " + roll.dice.map(function (d) { return d.value; }).join(", ") + ".");
@@ -802,9 +843,11 @@
       var miss = roll.dice.filter(function (d) { return !self.isHit(d.value, spec.need) && !d.rerolled; })[0];
       if (miss && owner.coop && owner.coop.id === "stormloft" && spec.attacker.flock === "Stormfeather" && !owner.loftUsed) {
         if (owner.index !== this.human) {
+          this.openRevealGroup();
           miss.value = this.d6();
           miss.rerolled = true;
           owner.loftUsed = true;
+          this.recordDie(miss.value, spec.need, this.rollMode(spec));
           this.log("Storm Loft rerolls a miss to " + miss.value + ".");
         } else {
           roll.stage = "lucky";
@@ -822,8 +865,13 @@
       var fresh = roll.dice.some(function (d) { return !d.rerolled; });
       if (owner2.feather && fresh) {
         if (owner2.index !== this.human) {
+          this.openRevealGroup();
           roll.dice.forEach(function (d) {
-            if (!d.rerolled && !self.isHit(d.value, spec.need)) { d.value = self.d6(); d.rerolled = true; }
+            if (!d.rerolled && !self.isHit(d.value, spec.need)) {
+              d.value = self.d6();
+              d.rerolled = true;
+              self.recordDie(d.value, spec.need, self.rollMode(spec));
+            }
           });
           owner2.feather = false;
           this.log("Lucky Feather rerolls: " + roll.dice.map(function (d) { return d.value; }).join(", ") + ".");
@@ -871,8 +919,15 @@
     player.discard.push(player.hand.splice(idx, 1)[0]);
     var self = this;
     var changed = false;
+    var openedScare = false;
     this.roll.dice.forEach(function (d) {
-      if (!d.rerolled) { d.value = self.d6(); d.rerolled = true; changed = true; }
+      if (!d.rerolled) {
+        if (!openedScare) { self.openRevealGroup(); openedScare = true; }
+        d.value = self.d6();
+        d.rerolled = true;
+        changed = true;
+        self.recordDie(d.value, self.roll.spec.need, self.rollMode(self.roll.spec));
+      }
     });
     this.log(player.name + " plays Scarecrow Decoy. New roll: " + this.roll.dice.map(function (d) { return d.value; }).join(", ") + ".");
     return changed;
@@ -1054,7 +1109,9 @@
       }
     }
     if (used && !c.negated && effects.indexOf("coinTails20") >= 0) {
+      this.openRevealGroup();
       var flip = this.coin();
+      this.recordCoin(flip, "heads");
       this.log("Wild Swing coin: " + flip + ".");
       if (flip === "tails") this.deal(c.attacker, 20, { attack: false });
     }
@@ -1284,7 +1341,14 @@
         var miss = this.roll.dice.filter(function (d) { return d.value === 1 || (d.value < this.roll.spec.need && d.value !== 6); }, this)[0];
         var self = this;
         miss = this.roll.dice.filter(function (d) { return !self.isHit(d.value, self.roll.spec.need) && !d.rerolled; })[0];
-        if (miss) { miss.value = this.d6(); miss.rerolled = true; this.ownerOf(this.roll.spec.attacker).loftUsed = true; this.log("Storm Loft rerolls to " + miss.value + "."); }
+        if (miss) {
+          this.openRevealGroup();
+          miss.value = this.d6();
+          miss.rerolled = true;
+          this.ownerOf(this.roll.spec.attacker).loftUsed = true;
+          this.recordDie(miss.value, this.roll.spec.need, this.rollMode(this.roll.spec));
+          this.log("Storm Loft rerolls to " + miss.value + ".");
+        }
       }
       this.roll.stage = "lucky";
       this.advanceRoll();
@@ -1293,7 +1357,14 @@
     if (pending.kind === "lucky") {
       if (opt.id === "yes") {
         var self2 = this;
-        this.roll.dice.forEach(function (d) { if (!d.rerolled) { d.value = self2.d6(); d.rerolled = true; } });
+        this.openRevealGroup();
+        this.roll.dice.forEach(function (d) {
+          if (!d.rerolled) {
+            d.value = self2.d6();
+            d.rerolled = true;
+            self2.recordDie(d.value, self2.roll.spec.need, self2.rollMode(self2.roll.spec));
+          }
+        });
         this.ownerOf(this.roll.spec.attacker).feather = false;
         this.log("Lucky Feather rerolls: " + this.roll.dice.map(function (d) { return d.value; }).join(", ") + ".");
       } else this.ownerOf(this.roll.spec.attacker).feather = false;

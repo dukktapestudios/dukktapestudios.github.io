@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rooster Rumble | Dukktape Studios</title>
 <meta name="description" content="Rooster Rumble: a rooster battle card game. Knock out all 3 enemy roosters.">
-<link rel="stylesheet" href="style.css?v=2026103102">
+<link rel="stylesheet" href="style.css?v=2026103105">
 </head>
 <body>
 <header class="top">
@@ -13,7 +13,10 @@
     <h1>ROOSTER RUMBLE</h1>
     <p class="tagline">Three roosters. A handful of Grain. Last flock crowing wins.</p>
   </div>
-  <a href="../">← Dukktape Studios</a>
+  <div class="top-actions">
+    <button type="button" id="sound-toggle" class="sound-toggle" aria-pressed="true">Sound on</button>
+    <a href="../">← Dukktape Studios</a>
+  </div>
 </header>
 <details class="howto">
   <summary>How to play</summary>
@@ -69,10 +72,12 @@
   <button type="button" id="start">Flip a coin and start</button>
 </section>
 <div class="board" id="board" hidden></div>
+<div id="dice-banner" class="dice-banner" hidden></div>
 <footer>© 2026 Dukktape Studios</footer>
-<script src="cards.js?v=2026103102"></script>
-<script src="art.js?v=2026103102"></script>
-<script src="engine.js?v=2026103102"></script>
-<script src="ui.js?v=2026103102"></script>
+<script src="cards.js?v=2026103105"></script>
+<script src="art.js?v=2026103105"></script>
+<script src="engine.js?v=2026103105"></script>
+<script src="dice.js?v=2026103105"></script>
+<script src="ui.js?v=2026103105"></script>
 </body>
 </html>

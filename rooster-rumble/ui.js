@@ -220,6 +220,7 @@
 
   function pump() {
     render();
+    if (window.CLUCK_DICE && game) window.CLUCK_DICE.take(game);
     if (!game || game.winner != null) return;
     if (game.pending && game.pending.player === 1) {
       setTimeout(function () {
