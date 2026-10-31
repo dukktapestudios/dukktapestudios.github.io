@@ -87,12 +87,26 @@
     parent.appendChild(el);
   }
 
+  function escHtml(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
   function fill(parent, card, big) {
-    addText(parent, "num", numberOf(card));
-    var flockEl = document.createElement("span");
-    flockEl.className = "flock " + card.flock;
-    flockEl.textContent = card.flock;
-    parent.appendChild(flockEl);
+    var body = document.createElement("div");
+    addText(body, "stats", card.type + " · Energy " + (card.energy || 0));
+    if (card.hp != null) {
+      addText(body, "stats", card.hp + " HP · Switch " + card.retreat + " · Weak " + card.weak);
+    }
+    if (card.special) {
+      addText(body, "ability", labelType(card.special.type) + ": " + card.special.name + ". " + card.special.text);
+    }
+    card.attacks.forEach(function (a) {
+      addText(body, "atk", a.name + " (" + a.cost + " Grain). " + a.text + " Hit " + a.hit + "+. Dice " + a.dice + ".");
+    });
+    if (card.text) addText(body, "rules", card.text);
+    if (card.flavor) addText(body, "flavor", card.flavor);
     var img = document.createElement("img");
     img.className = "illu";
     img.src = card.src;
@@ -101,27 +115,19 @@
     img.height = 800;
     img.decoding = "async";
     img.loading = big ? "eager" : "lazy";
-    parent.appendChild(img);
-    if (big) {
-      var title = document.createElement("h2");
-      title.id = "zoom-title";
-      title.textContent = card.name;
-      parent.appendChild(title);
-    } else {
-      addText(parent, "name", card.name);
-    }
-    addText(parent, "stats", card.type + " · Energy " + (card.energy || 0));
-    if (card.hp != null) {
-      addText(parent, "stats", card.hp + " HP · Switch " + card.retreat + " · Weak " + card.weak);
-    }
-    if (card.special) {
-      addText(parent, "ability", labelType(card.special.type) + ": " + card.special.name + ". " + card.special.text);
-    }
-    card.attacks.forEach(function (a) {
-      addText(parent, "atk", a.name + " (" + a.cost + " Grain). " + a.text + " Hit " + a.hit + "+. Dice " + a.dice + ".");
+    var keep = parent.classList.contains("card") ? "card " : "";
+    parent.className = keep + window.CLUCK_FRAME.classes(card.flock, card.energy);
+    parent.innerHTML = window.CLUCK_FRAME.html({
+      esc: escHtml,
+      name: card.name,
+      nameTag: big ? "h2" : "div",
+      nameId: big ? "zoom-title" : "",
+      energy: card.energy || 0,
+      typeLine: card.type + " · " + card.flock,
+      artHtml: img.outerHTML,
+      bodyHtml: body.innerHTML,
+      number: numberOf(card)
     });
-    if (card.text) addText(parent, "rules", card.text);
-    if (card.flavor) addText(parent, "flavor", card.flavor);
   }
 
   function render() {
