@@ -30,6 +30,12 @@ summary{cursor:pointer;font-weight:bold;color:#2f5d50}
 .note{font-size:.92em;color:#556}
 table{border-collapse:collapse;width:100%}td{border-bottom:1px solid #e3e8e4;padding:6px}
 footer{text-align:center;padding:20px;color:#667;font-size:.9em}
+.visitor-wrap{text-align:center;padding:6px 16px 0}
+.visitor-badge{display:inline-block;margin:0 auto;padding:8px 14px;background:#fff7e0;color:#2f5d50;border:2px solid #ecd78a;border-radius:999px;font-weight:bold}
+.visitor-badge[hidden]{display:none !important}
+.visitor-count{color:#8a5a12}
+#feedback-box{margin-top:8px;max-width:100%}
+#feedback-box .giscus,#feedback-box .giscus-frame{max-width:100%}
 </style></head><body>
 <header><h1>USDA 504 Repair Helper</h1><p>A simple, step-by-step guide to the USDA Section 504 Home Repair loan and grant.</p></header>
 <nav><a href="#eligible">Am I eligible?</a><a href="#get">What you can get</a><a href="#steps">Step by step</a><a href="#mistakes">Mistakes</a><a href="#contacts">Contacts</a><a href="#links">Official links</a></nav>
@@ -132,7 +138,12 @@ footer{text-align:center;padding:20px;color:#667;font-size:.9em}
 <section><h2>Disclaimer</h2><p class="note">This site is not affiliated with, endorsed by, or run by USDA or any government agency. It is not legal or financial advice. Rules, limits, and forms change, so always verify with your local Rural Development office and the official links above. Information checked October 2026.</p></section>
 <div class="ad" aria-label="Advertisement">Advertisement</div>
 <div class="disclaimer" style="background:#f7f8f6;border:1px solid #c9d1c8;border-left:4px solid #2f5d50;border-radius:10px;padding:12px 16px;margin:18px 0;font-size:.95em;color:#334"><strong>Disclaimer:</strong> This page is for help and guidance only. It may not be up to date or 100% accurate. Rules, forms, and contacts are always changing, so double-check everything thoroughly with USDA Rural Development before you submit your application.</div>
+<section id="feedback"><h2>Feedback</h2>
+<p>Did this guide help, or did something not match what your office said? Leave a note.</p>
+<p id="feedback-wait" class="note" hidden>Comments aren't available yet.</p>
+<div id="feedback-box"></div></section>
 </main>
+<div class="visitor-wrap"><p id="visitor-badge" class="visitor-badge" role="status" aria-live="polite" hidden></p></div>
 <footer>© 2026 Dukktape Studios</footer>
 <script>
 var DOCS=["Form RD 410-4, signed","Form RD 3550-1, signed by each adult in the home","Form RD 3550-4, signed","Attachment 12-E Checklist, completed","Photo ID (driver's license or state ID)","Social Security card","Proof of income for each adult (pay stubs, benefit or award letters)","Last 2 years of federal tax returns, or an IRS non-filer letter","Last 2 bank statements for every account","Deed or proof you own the home","Property tax statement","Latest mortgage statement (if you have a mortgage)","Homeowners insurance proof","Repair estimate from a contractor","Photos of the repair area, front, and back of the house"];
@@ -153,5 +164,92 @@ else if(cr=="n"){m="Likely not eligible: 504 is for people who can't get afforda
 else if(ru=="u"||inc=="u"){m="Possibly eligible. Check your address and income on the USDA eligibility site, then contact your local office.";c="maybe"}
 else{m=a=="y"?"You may qualify for a loan, and possibly a grant if your income is very-low. Contact your local office to pre-qualify.":"You may qualify for a repair loan (grants require age 62+). Contact your local office to pre-qualify.";c="good"}
 r.className=c;r.textContent=m;r.style.display="block"};
+</script>
+<script>
+(function () {
+  var storageKey = "dukktape-usda-504-visitor-number";
+  var badge = document.getElementById("visitor-badge");
+  var hitUrl = "https://abacus.jasoncameron.dev/hit/dukktapestudios.github.io/usda-504-uniques";
+
+  function showVisitor(n) {
+    var count = document.createElement("span");
+    count.className = "visitor-count";
+    count.textContent = String(n);
+    badge.replaceChildren(document.createTextNode("You're visitor #"), count, document.createTextNode(", welcome!"));
+    badge.hidden = false;
+  }
+  function savedNumber() {
+    try {
+      var raw = localStorage.getItem(storageKey);
+      var n = Number(raw);
+      if (!raw || !Number.isInteger(n) || n < 1) return null;
+      return n;
+    } catch (err) { return null; }
+  }
+  function remember(n) {
+    try { localStorage.setItem(storageKey, String(n)); return true; } catch (err) { return false; }
+  }
+  function canStore() {
+    try {
+      var probe = storageKey + "-probe";
+      localStorage.setItem(probe, "1");
+      localStorage.removeItem(probe);
+      return true;
+    } catch (err) { return false; }
+  }
+  var already = savedNumber();
+  if (already) showVisitor(already);
+  else if (canStore()) {
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, 8000);
+    fetch(hitUrl, { signal: controller.signal, credentials: "omit", cache: "no-store", referrerPolicy: "no-referrer" })
+      .then(function (res) { if (!res.ok) throw new Error("count"); return res.json(); })
+      .then(function (data) {
+        var n = Number(data && data.value);
+        if (!Number.isInteger(n) || n < 1) throw new Error("count");
+        if (!remember(n)) throw new Error("count");
+        showVisitor(n);
+      })
+      .catch(function () { try { localStorage.removeItem(storageKey); } catch (err) {} })
+      .finally(function () { clearTimeout(timer); });
+  }
+
+  var repo = "dukktapestudios/dukktapestudios.github.io";
+  var repoId = "R_kgDOVcgvLw";
+  var wait = document.getElementById("feedback-wait");
+  var box = document.getElementById("feedback-box");
+  function showWait() { if (wait) wait.hidden = false; }
+  fetch("https://api.github.com/repos/" + repo + "/discussions/categories", { credentials: "omit", referrerPolicy: "no-referrer" })
+    .then(function (res) { if (!res.ok) throw new Error("off"); return res.json(); })
+    .then(function (cats) {
+      if (!cats || !cats.length) throw new Error("off");
+      var names = ["Feedback", "General", "Q&A", "Ideas"];
+      var cat = null;
+      names.forEach(function (name) {
+        if (cat) return;
+        cats.forEach(function (item) { if (!cat && item.name === name) cat = item; });
+      });
+      if (!cat) cat = cats[0];
+      if (!cat.node_id) throw new Error("off");
+      var script = document.createElement("script");
+      script.src = "https://giscus.app/client.js";
+      script.async = true;
+      script.crossOrigin = "anonymous";
+      script.setAttribute("data-repo", repo);
+      script.setAttribute("data-repo-id", repoId);
+      script.setAttribute("data-category", cat.name);
+      script.setAttribute("data-category-id", cat.node_id);
+      script.setAttribute("data-mapping", "pathname");
+      script.setAttribute("data-strict", "0");
+      script.setAttribute("data-reactions-enabled", "0");
+      script.setAttribute("data-emit-metadata", "0");
+      script.setAttribute("data-input-position", "top");
+      script.setAttribute("data-theme", "light");
+      script.setAttribute("data-lang", "en");
+      script.setAttribute("data-loading", "lazy");
+      box.appendChild(script);
+    })
+    .catch(showWait);
+})();
 </script>
 </body></html>
