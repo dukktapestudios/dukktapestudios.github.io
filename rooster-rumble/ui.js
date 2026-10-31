@@ -144,6 +144,28 @@
 
   function remaining(r) { return Math.max(0, game.remaining(r)); }
 
+  function setNumber(kind, id) {
+    var roosters = window.CLUCK_CARDS.roosters;
+    var supports = window.CLUCK_CARDS.supports;
+    var list = kind === "rooster" ? roosters : supports;
+    var i = 0;
+    for (; i < list.length; i++) if (list[i].id === id) break;
+    var n = kind === "rooster" ? i + 1 : roosters.length + i + 1;
+    return n + "/" + (roosters.length + supports.length);
+  }
+
+  function frameWrap(flock, energy, name, typeLine, artHtml, bodyHtml, number) {
+    return window.CLUCK_FRAME.html({
+      esc: esc,
+      name: name,
+      energy: energy || 0,
+      typeLine: typeLine,
+      artHtml: artHtml,
+      bodyHtml: bodyHtml,
+      number: number
+    });
+  }
+
   function roosterCard(r, activeId, owner) {
     var tags = [];
     if (r.burn) tags.push("Burn");
@@ -162,16 +184,14 @@
       return '<div class="atk"' + dragAtk + '><b>' + esc(a.name) + " (" + a.cost + ").</b> " + esc(a.text) + " Hit " + a.hit + "+.</div>";
     }).join("");
     var specialDrag = isYou && isActive && !r.ko && r.special.type === "signature" && !r.sigUsed ? ' data-drag="signature"' : "";
-    return '<article class="rooster' + (r.ko ? " ko" : "") + (isActive ? " is-active" : "") + '" data-speak-root' + attrs + ">" +
-      '<div class="flock ' + esc(r.flock) + '"><span>' + esc(r.flock) + "</span></div>" +
-      '<div class="art">' + art.forRooster(r.defId, !isActive) + "</div>" +
-      '<div class="speak-row">' + speakBtn("rooster-" + r.uid) + "</div>" +
-      '<div class="name">' + esc(r.name) + "</div>" +
+    var body = '<div class="speak-row">' + speakBtn("rooster-" + r.uid) + "</div>" +
       '<div class="hp">' + (r.ko ? "KO" : remaining(r) + "/" + game.maxHp(r)) + " HP</div>" +
       '<div class="meta">Energy ' + (r.energy || 0) + " · Grain " + grain + " · Switch " + game.retreatCost(r) + " · Weak " + esc(r.weak) + "</div>" +
       '<div class="special"' + specialDrag + "><b>" + esc(r.special.name) + ".</b> " + esc(r.special.text) + "</div>" +
       attacks +
-      (tags.length ? '<div class="meta">' + esc(tags.join(" · ")) + "</div>" : "") +
+      (tags.length ? '<div class="meta">' + esc(tags.join(" · ")) + "</div>" : "");
+    return '<article class="rooster ' + window.CLUCK_FRAME.classes(r.flock, r.energy) + (r.ko ? " ko" : "") + (isActive ? " is-active" : "") + '" data-speak-root' + attrs + ">" +
+      frameWrap(r.flock, r.energy, r.name, "Rooster · " + r.flock, art.forRooster(r.defId, !isActive), body, setNumber("rooster", r.defId)) +
       "</article>";
   }
 
@@ -179,12 +199,12 @@
     var cost = c.energy || 0;
     var cant = payer && payer.energy < cost;
     var drag = cant ? "" : ' data-drag="hand" data-card="' + esc(c.id) + '"';
-    return '<article class="support' + (cant ? " cant-pay" : "") + '" data-speak-root' + drag + ">" +
-      '<div class="art">' + art.forSupport(c.id, true) + "</div>" +
-      '<div class="speak-row">' + speakBtn("card-" + c.id) + "</div>" +
-      '<div class="name">' + esc(c.name) + "</div>" +
+    var body = '<div class="speak-row">' + speakBtn("card-" + c.id) + "</div>" +
       '<div class="meta">' + esc(c.type) + " · " + cost + " energy · " + esc(c.flock) + "</div>" +
-      '<div class="atk">' + esc(c.text) + "</div></article>";
+      '<div class="atk">' + esc(c.text) + "</div>";
+    return '<article class="support ' + window.CLUCK_FRAME.classes(c.flock, cost) + (cant ? " cant-pay" : "") + '" data-speak-root' + drag + ">" +
+      frameWrap(c.flock, cost, c.name, c.type + " · " + c.flock, art.forSupport(c.id, true), body, setNumber("support", c.id)) +
+      "</article>";
   }
 
   function render() {
