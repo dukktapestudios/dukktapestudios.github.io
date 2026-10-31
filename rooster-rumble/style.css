@@ -212,6 +212,34 @@ select { background: #fff; width: 100%; min-width: 0; max-width: 100%; }
   padding: 10px; margin: 0 -10px -10px;
 }
 .prompt { flex: 1 1 100%; margin: 0; font-weight: 800; }
+.choices-summary { display: none; }
+.choices-body { display: contents; }
+.tap-hint { display: none; margin: 0 0 8px; font-weight: 800; color: #fff3cf; }
+#play-zoom {
+  width: min(440px, calc(100vw - 20px));
+  max-height: min(92vh, 900px);
+  overflow: auto;
+  border: 4px solid #1a1a1a;
+  border-radius: 12px;
+  padding: 10px;
+  background: #14381f;
+  color: #fff8e8;
+}
+#play-zoom::backdrop { background: rgba(8, 20, 12, .72); }
+.zoom-close { margin: 0 0 8px; }
+#play-zoom .rooster.tcard,
+#play-zoom .support.tcard { width: 100%; max-width: 100%; }
+#play-zoom .atk,
+#play-zoom .special,
+#play-zoom .meta,
+#play-zoom .typeline,
+#play-zoom .speak-row,
+#play-zoom .textbox { display: block; }
+#play-zoom .footbar { display: flex; }
+#play-zoom .illu { height: 200px; }
+#play-zoom .cname { font-size: 1.15rem; }
+#play-zoom .hp { font-size: 1.6rem; }
+#play-zoom .textbox { font-size: .95rem; }
 .log {
   max-height: 420px; overflow: auto;
   background: #102214; border: 3px solid #07140c; border-radius: 8px;
@@ -232,9 +260,98 @@ footer {
   .die.spin { animation: none; }
 }
 @media (max-width: 600px) {
-  .rooster { width: 148px; }
+  html, body { overflow-x: hidden; max-width: 100%; }
+  .top, .howto, .setup, .board, .layout, .play, .lane, .row { max-width: 100%; min-width: 0; }
   .log { max-height: 180px; }
-  .top { padding-right: 9.5rem; }
-  .sound-toggle { position: fixed; top: 10px; right: 10px; z-index: 35; }
-  .dice-banner { top: 128px; }
+  .sound-toggle {
+    position: static;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    flex: 0 0 44px;
+    font-size: 0;
+    line-height: 0;
+    background-color: var(--gold);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231c140c' d='M3 9h4l5-4v14l-5-4H3z'/%3E%3Cpath fill='none' stroke='%231c140c' stroke-width='2' stroke-linecap='round' d='M16 9a4 4 0 0 1 0 6M18.5 6.5a7 7 0 0 1 0 11'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 22px 22px;
+  }
+  .sound-toggle[aria-pressed="false"] {
+    background-color: #efe6d2;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231c140c' d='M3 9h4l5-4v14l-5-4H3z'/%3E%3Cpath fill='none' stroke='%231c140c' stroke-width='2' stroke-linecap='round' d='M16 10l5 5M21 10l-5 5'/%3E%3C/svg%3E");
+  }
+  .dice-banner { top: 8px; }
+  .tap-hint { display: block; font-size: .8rem; }
+  .row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow-x: hidden;
+    gap: 6px;
+  }
+  .play-mat { font-size: .75rem; padding: 6px; margin: 4px 0; }
+  .play { padding-bottom: 72px; }
+  .top-actions { width: 100%; justify-content: flex-end; }
+  .choices {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    width: auto;
+    margin: 0;
+    padding: 6px;
+    gap: 6px;
+    box-shadow: 0 -4px 0 #0c2414;
+  }
+  .choices-summary {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: .82rem;
+    line-height: 1.25;
+    text-align: left;
+    padding: 8px 28px 8px 8px;
+    margin: 0;
+    color: #fff8e8;
+    background: #0f2e1a;
+    border-color: #0f2e1a;
+    box-shadow: none;
+    border-radius: 8px;
+    position: relative;
+  }
+  .choices-summary::after {
+    content: "▾";
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    color: #ffe14a;
+  }
+  .choices.is-open .choices-summary::after { content: "▴"; }
+  .choices-body { display: none; }
+  .choices.is-open {
+    max-height: 42vh;
+    overflow: auto;
+  }
+  .choices.is-open .choices-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    align-content: start;
+    margin-top: 6px;
+  }
+  .choices.is-open .prompt { display: none; }
+  .choices.is-open .drag-hint { grid-column: 1 / -1; font-size: .72rem; margin: 0; }
+  .choices-body button {
+    min-height: 36px;
+    padding: .28rem .4rem;
+    font-size: .75rem;
+    line-height: 1.2;
+    border-width: 2px;
+    box-shadow: 2px 2px 0 #111;
+  }
 }

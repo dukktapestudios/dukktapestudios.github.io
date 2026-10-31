@@ -137,10 +137,41 @@ dialog .tcard .illu { height: min(62vh, 480px); object-fit: contain; object-posi
 .rooster.tcard .namebar, .support.tcard .namebar { padding-right: 26px; }
 .rooster.is-active.tcard { outline: 3px solid var(--gold); outline-offset: 2px; }
 @media (max-width: 600px) {
-  .rooster.tcard { width: 156px; }
-  .support.tcard { width: 142px; }
-  .rooster.tcard .cname, .support.tcard .cname,
+  .rooster.tcard, .support.tcard {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 4px;
+    border-radius: 12px;
+  }
+  .rooster.tcard .cname, .support.tcard .cname {
+    font-size: .68rem;
+    overflow-wrap: anywhere;
+  }
   .rooster.tcard .textbox, .support.tcard .textbox { font-size: .72rem; }
+  .rooster.tcard .illu { height: 72px; }
+  .support.tcard .illu { height: 56px; }
+  .rooster.tcard .gem, .support.tcard .gem {
+    width: 22px;
+    height: 22px;
+    font-size: .85rem;
+  }
+  .rooster.tcard .hp { font-size: 1.05rem; line-height: 1.1; }
+  .rooster.tcard .namebar, .support.tcard .namebar { margin: 4px 4px 0; padding: 3px 22px 3px 5px; }
+  .rooster.tcard .artwin, .support.tcard .artwin,
+  .rooster.tcard .textbox, .support.tcard .textbox { margin: 4px; }
+  .rooster.tcard .atk,
+  .rooster.tcard .special,
+  .rooster.tcard .meta,
+  .rooster.tcard .typeline,
+  .rooster.tcard .footbar,
+  .rooster.tcard .speak-row,
+  .support.tcard .atk,
+  .support.tcard .meta,
+  .support.tcard .typeline,
+  .support.tcard .footbar,
+  .support.tcard .speak-row,
+  .support.tcard .textbox { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .tcard.rarity-rare:hover::after, .tcard.rarity-legendary:hover::after,

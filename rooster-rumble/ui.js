@@ -254,9 +254,13 @@
       win = '<p class="winner">' + (game.winner === 0 ? "You win the coop!" : "Rival wins the coop.") + "</p><p>" + esc(game.winReason) + '</p><button type="button" id="again">Play again</button>';
     }
     var peek = game.peek === 1;
+    var summary = "Actions";
+    if (game.winner == null && game.pending && game.pending.player === 0) summary = game.pending.prompt;
+    else if (game.winner == null) summary = "Rival is thinking…";
     board.hidden = false;
     board.innerHTML =
       '<div class="layout"><div class="play">' + win +
+      '<p class="tap-hint">Tap a card to read the full text.</p>' +
       '<section class="lane"><h2>Rival · ' + esc(rival.deckName) + " · energy " + rival.energy + "/" + rival.energyMax + " · deck " + rival.deck.length + " · discard " + rival.discard.length + (rival.coop ? " · Coop: " + esc(rival.coop.name) : "") + "</h2>" +
       '<div class="row">' + rival.lineup.map(function (r) { return roosterCard(r, rival.activeId, 1); }).join("") + "</div>" +
       (peek ? '<div class="row">' + rival.hand.map(function (c) { return handCard(c, rival); }).join("") + "</div>" : '<p class="backs">Hand: ' + rival.hand.length + " card backs</p>") +
@@ -265,7 +269,7 @@
       '<div class="row">' + you.lineup.map(function (r) { return roosterCard(r, you.activeId, 0); }).join("") + "</div>" +
       '<div class="play-mat" data-drop="play">Drop a Coop or a ready Action here</div>' +
       '<div class="row" id="hand">' + you.hand.map(function (c) { return handCard(c, you); }).join("") + "</div></section>" +
-      '<div class="choices" id="choices">' + choices + "</div></div>" +
+      '<div class="choices" id="choices"><button type="button" class="choices-summary" aria-expanded="false">' + esc(summary) + '</button><div class="choices-body">' + choices + "</div></div></div>" +
       '<aside class="side"><div class="log-head"><h2>Game log</h2>' + speakBtn("log") + '</div><div class="log" id="log" aria-live="polite">' + log + "</div></aside></div>";
     var logEl = document.getElementById("log");
     if (logEl) logEl.scrollTop = logEl.scrollHeight;
@@ -278,7 +282,48 @@
     });
     var again = document.getElementById("again");
     if (again) again.addEventListener("click", start);
+    var choiceBox = document.getElementById("choices");
+    var choiceToggle = choiceBox && choiceBox.querySelector(".choices-summary");
+    if (choiceToggle) {
+      choiceToggle.addEventListener("click", function () {
+        var open = choiceBox.classList.toggle("is-open");
+        choiceToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+    }
   }
+
+  function phoneLayout() {
+    return window.matchMedia("(max-width: 600px)").matches;
+  }
+
+  var zoom = document.getElementById("play-zoom");
+  var zoomBody = document.getElementById("play-zoom-body");
+  var zoomBlock = false;
+
+  function openZoom(card) {
+    if (!zoom || !zoomBody || !phoneLayout()) return;
+    var clone = card.cloneNode(true);
+    clone.querySelectorAll("[data-drag]").forEach(function (el) { el.removeAttribute("data-drag"); });
+    zoomBody.innerHTML = "";
+    zoomBody.appendChild(clone);
+    if (typeof zoom.showModal === "function" && !zoom.open) zoom.showModal();
+  }
+
+  if (zoom) {
+    document.getElementById("zoom-close").addEventListener("click", function () { zoom.close(); });
+    zoom.addEventListener("click", function (e) {
+      if (e.target === zoom) zoom.close();
+    });
+  }
+
+  board.addEventListener("click", function (e) {
+    if (zoomBlock) return;
+    if (!phoneLayout()) return;
+    if (e.target.closest(".speak, [data-choice], summary, button")) return;
+    var card = e.target.closest(".tcard");
+    if (!card || !board.contains(card)) return;
+    openZoom(card);
+  });
 
   function pump() {
     render();
@@ -443,6 +488,10 @@
     if (!drag || (e && e.pointerId !== drag.pointerId)) return;
     var info = drag;
     drag = null;
+    if (info.started) {
+      zoomBlock = true;
+      setTimeout(function () { zoomBlock = false; }, 0);
+    }
     if (!info.started) return;
     var hit = zoneAt(e.clientX, e.clientY, info.zones);
     clearMarks();
