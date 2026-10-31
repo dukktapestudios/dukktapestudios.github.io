@@ -3,25 +3,41 @@
     "id": "bucephalus",
     "name": "Bucephalus",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/bucephalus.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "incitatus",
     "name": "Incitatus",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/incitatus.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "babieca",
     "name": "Babieca",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/babieca.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "chetak",
     "name": "Chetak",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/chetak.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "morzillo",
@@ -63,37 +79,61 @@
     "id": "darley-arabian",
     "name": "Darley Arabian",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/darley-arabian.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "godolphin-arabian",
     "name": "Godolphin Arabian",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/godolphin-arabian.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "figure",
     "name": "Figure",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/figure.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "messenger",
     "name": "Messenger",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/messenger.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "nelson",
     "name": "Nelson",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/nelson.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "blueskin",
     "name": "Blueskin",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/blueskin.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "copenhagen",
@@ -111,19 +151,31 @@
     "id": "marengo",
     "name": "Marengo",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/marengo.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "vizir",
     "name": "Vizir",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/vizir.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "palomo",
     "name": "Palomo",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/palomo.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "little-sorrel",
@@ -141,7 +193,11 @@
     "id": "traveller",
     "name": "Traveller",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/traveller.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "cincinnati",
@@ -159,7 +215,11 @@
     "id": "winchester",
     "name": "Winchester",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/winchester.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "comanche",
@@ -177,13 +237,21 @@
     "id": "little-texas",
     "name": "Little Texas",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/little-texas.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "beautiful-jim-key",
     "name": "Beautiful Jim Key",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/beautiful-jim-key.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "clever-hans",
@@ -201,43 +269,71 @@
     "id": "steamboat",
     "name": "Steamboat",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/steamboat.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "trigger",
     "name": "Trigger",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/trigger.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "buttermilk",
     "name": "Buttermilk",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/buttermilk.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "tony",
     "name": "Tony",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/tony.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "fritz",
     "name": "Fritz",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/fritz.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "champion",
     "name": "Champion",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/champion.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "black-jack",
     "name": "Black Jack",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/black-jack.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "sergeant-reckless",
@@ -255,13 +351,21 @@
     "id": "sefton",
     "name": "Sefton",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/sefton.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "snowman",
     "name": "Snowman",
     "cat": "History",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/snowman.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "eclipse",
@@ -303,25 +407,41 @@
     "id": "man-o-war",
     "name": "Man o' War",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/man-o-war.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "gallant-fox",
     "name": "Gallant Fox",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/gallant-fox.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "omaha",
     "name": "Omaha",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/omaha.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "war-admiral",
     "name": "War Admiral",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/war-admiral.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "seabiscuit",
@@ -339,7 +459,11 @@
     "id": "whirlaway",
     "name": "Whirlaway",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/whirlaway.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "count-fleet",
@@ -357,13 +481,21 @@
     "id": "assault",
     "name": "Assault",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/assault.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "citation",
     "name": "Citation",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/citation.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "native-dancer",
@@ -381,13 +513,21 @@
     "id": "swaps",
     "name": "Swaps",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/swaps.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "kelso",
     "name": "Kelso",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/kelso.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "northern-dancer",
@@ -405,13 +545,21 @@
     "id": "nijinsky",
     "name": "Nijinsky",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/nijinsky.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "secretariat",
     "name": "Secretariat",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/secretariat.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "ruffian",
@@ -429,7 +577,11 @@
     "id": "forego",
     "name": "Forego",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/forego.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "seattle-slew",
@@ -447,7 +599,11 @@
     "id": "affirmed",
     "name": "Affirmed",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/affirmed.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "alydar",
@@ -465,13 +621,21 @@
     "id": "john-henry",
     "name": "John Henry",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/john-henry.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "spectacular-bid",
     "name": "Spectacular Bid",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/spectacular-bid.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "sunday-silence",
@@ -489,7 +653,11 @@
     "id": "easy-goer",
     "name": "Easy Goer",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/easy-goer.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "cigar",
@@ -531,7 +699,11 @@
     "id": "barbaro",
     "name": "Barbaro",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/barbaro.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "american-pharoah",
@@ -549,7 +721,11 @@
     "id": "justify",
     "name": "Justify",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/justify.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "california-chrome",
@@ -579,13 +755,21 @@
     "id": "sea-the-stars",
     "name": "Sea The Stars",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/sea-the-stars.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "enable",
     "name": "Enable",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/enable.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "treve",
@@ -603,7 +787,11 @@
     "id": "ribot",
     "name": "Ribot",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/ribot.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "sea-bird",
@@ -621,19 +809,31 @@
     "id": "mill-reef",
     "name": "Mill Reef",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/mill-reef.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "brigadier-gerard",
     "name": "Brigadier Gerard",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/brigadier-gerard.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "shergar",
     "name": "Shergar",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/shergar.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "phar-lap",
@@ -651,7 +851,11 @@
     "id": "carbine",
     "name": "Carbine",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/carbine.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "makybe-diva",
@@ -693,31 +897,51 @@
     "id": "kingston-town",
     "name": "Kingston Town",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/kingston-town.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "sunline",
     "name": "Sunline",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/sunline.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "red-rum",
     "name": "Red Rum",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/red-rum.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "arkle",
     "name": "Arkle",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/arkle.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "desert-orchid",
     "name": "Desert Orchid",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/desert-orchid.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "best-mate",
@@ -747,13 +971,21 @@
     "id": "aldaniti",
     "name": "Aldaniti",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/aldaniti.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "foinavon",
     "name": "Foinavon",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/foinavon.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "golden-miller",
@@ -771,19 +1003,31 @@
     "id": "tiger-roll",
     "name": "Tiger Roll",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/tiger-roll.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "dont-push-it",
     "name": "Don't Push It",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/dont-push-it.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "lottery",
     "name": "Lottery",
     "cat": "Racing",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/lottery.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "arabian",
@@ -873,7 +1117,11 @@
     "id": "missouri-fox-trotter",
     "name": "Missouri Fox Trotter",
     "cat": "Breed",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/missouri-fox-trotter.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "appaloosa",
@@ -1395,13 +1643,21 @@
     "id": "don-horse",
     "name": "Don Horse",
     "cat": "Breed",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/don-horse.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "budyonny",
     "name": "Budyonny",
     "cat": "Breed",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/budyonny.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "trakehner",
@@ -1419,7 +1675,11 @@
     "id": "hanoverian",
     "name": "Hanoverian",
     "cat": "Breed",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/hanoverian.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "holsteiner",
@@ -1437,7 +1697,11 @@
     "id": "oldenburg",
     "name": "Oldenburg",
     "cat": "Breed",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/oldenburg.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "selle-francais",
@@ -1455,7 +1719,11 @@
     "id": "dutch-warmblood",
     "name": "Dutch Warmblood",
     "cat": "Breed",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/dutch-warmblood.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "finnhorse",
@@ -1629,8 +1897,12 @@
     "id": "gotland",
     "name": "Gotland Pony",
     "cat": "Breed",
-    "status": "needs-art",
-    "reason": "HTTP Error 429: Too many requests - please contact noc@wikimedia.org to discuss a less disruptive approach or instead use thumbnail images in sizes listed on https://w.wiki/GHai. (0c640b1)"
+    "status": "found",
+    "reason": "HTTP Error 429: Too many requests - please contact noc@wikimedia.org to discuss a less disruptive approach or instead use thumbnail images in sizes listed on https://w.wiki/GHai. (0c640b1)",
+    "file": "photos/gotland.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "jeju",
@@ -1648,7 +1920,11 @@
     "id": "misaki",
     "name": "Misaki",
     "cat": "Breed",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/misaki.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "nokota",
@@ -1666,7 +1942,11 @@
     "id": "kiger",
     "name": "Kiger Mustang",
     "cat": "Breed",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/kiger.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "sable-island",
@@ -1708,7 +1988,11 @@
     "id": "chilean",
     "name": "Chilean Horse",
     "cat": "Breed",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/chilean.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "nonius",
@@ -1750,7 +2034,11 @@
     "id": "alter-real",
     "name": "Alter Real",
     "cat": "Breed",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/alter-real.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "sorraia",
@@ -1792,7 +2080,11 @@
     "id": "black-forest",
     "name": "Black Forest Horse",
     "cat": "Breed",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/black-forest.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "gelderlander",
@@ -1870,12 +2162,20 @@
     "id": "kabarda",
     "name": "Kabarda",
     "cat": "Breed",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/kabarda.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   },
   {
     "id": "manipuri",
     "name": "Manipuri Pony",
     "cat": "Breed",
-    "status": "needs-art"
+    "status": "found",
+    "file": "photos/manipuri.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   }
 ]
