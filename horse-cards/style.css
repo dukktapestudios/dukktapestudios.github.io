@@ -59,6 +59,16 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
   padding: 10px;
   margin-top: 12px;
 }
+.filters-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+}
+.filters-arrow { font-size: 1rem; line-height: 1; }
+.filter-panel { margin-top: 10px; }
 .search { display: block; font-weight: 700; }
 .search input {
   display: block;
