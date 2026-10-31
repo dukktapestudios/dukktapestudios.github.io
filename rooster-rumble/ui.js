@@ -218,6 +218,7 @@
       attacks +
       (tags.length ? '<div class="meta">' + esc(tags.join(" · ")) + "</div>" : "");
     return '<article class="rooster ' + window.CLUCK_FRAME.classes(r.flock, r.energy) + (r.ko ? " ko" : "") + (isActive ? " is-active" : "") + '" data-speak-root' + attrs + ">" +
+      (isActive ? '<span class="active-ribbon">ACTIVE</span>' : "") +
       frameWrap(r.flock, r.energy, r.name, "Rooster · " + r.flock, art.forRooster(r.defId, !isActive), body, setNumber("rooster", r.defId)) +
       "</article>";
   }
@@ -262,11 +263,11 @@
       '<div class="layout"><div class="play">' + win +
       '<p class="tap-hint">Tap a card to read the full text.</p>' +
       '<section class="lane"><h2>Rival · ' + esc(rival.deckName) + " · energy " + rival.energy + "/" + rival.energyMax + " · deck " + rival.deck.length + " · discard " + rival.discard.length + (rival.coop ? " · Coop: " + esc(rival.coop.name) : "") + "</h2>" +
-      '<div class="row">' + rival.lineup.map(function (r) { return roosterCard(r, rival.activeId, 1); }).join("") + "</div>" +
+      '<div class="row lineup">' + rival.lineup.map(function (r) { return roosterCard(r, rival.activeId, 1); }).join("") + "</div>" +
       (peek ? '<div class="row">' + rival.hand.map(function (c) { return handCard(c, rival); }).join("") + "</div>" : '<p class="backs">Hand: ' + rival.hand.length + " card backs</p>") +
       "</section>" +
       '<section class="lane" id="you-lane"><h2>You · ' + esc(you.deckName) + " · energy " + you.energy + "/" + you.energyMax + " · main flock " + esc(you.mainFlock) + " · deck " + you.deck.length + (you.coop ? " · Coop: " + esc(you.coop.name) : "") + "</h2>" +
-      '<div class="row">' + you.lineup.map(function (r) { return roosterCard(r, you.activeId, 0); }).join("") + "</div>" +
+      '<div class="row lineup">' + you.lineup.map(function (r) { return roosterCard(r, you.activeId, 0); }).join("") + "</div>" +
       '<div class="play-mat" data-drop="play">Drop a Coop or a ready Action here</div>' +
       '<div class="row" id="hand">' + you.hand.map(function (c) { return handCard(c, you); }).join("") + "</div></section>" +
       '<div class="choices" id="choices"><button type="button" class="choices-summary" aria-expanded="false">' + esc(summary) + '</button><div class="choices-body">' + choices + "</div></div></div>" +

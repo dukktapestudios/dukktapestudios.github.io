@@ -160,7 +160,7 @@ select { background: #fff; width: 100%; min-width: 0; max-width: 100%; }
   position: relative;
 }
 .rooster.ko { filter: grayscale(1); opacity: .72; }
-.rooster.is-active { outline: 4px solid var(--gold); outline-offset: 2px; }
+.drag-ghost.rooster { transform: none; filter: none; }
 .flock {
   display: flex; justify-content: space-between; align-items: center;
   font-size: .75rem; font-weight: 800; color: white;

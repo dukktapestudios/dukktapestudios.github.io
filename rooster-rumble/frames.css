@@ -135,7 +135,52 @@ dialog .tcard .illu { height: min(62vh, 480px); object-fit: contain; object-posi
 .rooster.tcard .textbox, .support.tcard .textbox { font-size: .75rem; }
 .rooster.tcard .gem, .support.tcard .gem { width: 24px; height: 24px; font-size: .8rem; top: 2px; right: 2px; }
 .rooster.tcard .namebar, .support.tcard .namebar { padding-right: 26px; }
-.rooster.is-active.tcard { outline: 3px solid var(--gold); outline-offset: 2px; }
+.row.lineup {
+  overflow: visible;
+  align-items: flex-start;
+  padding-top: 28px;
+  padding-bottom: 46px;
+}
+.lineup .rooster:not(.is-active) {
+  transform: scale(0.94);
+  transform-origin: center top;
+  filter: brightness(0.84) saturate(0.78);
+}
+.lineup .rooster.ko:not(.is-active) {
+  transform: scale(0.94);
+  transform-origin: center top;
+  filter: grayscale(1) brightness(0.9);
+  opacity: .68;
+}
+.rooster.is-active.tcard {
+  z-index: 4;
+  outline: none;
+  transform: translateY(-10px) scale(1.1);
+  transform-origin: center top;
+  box-shadow:
+    0 0 0 3px #ffe14a,
+    0 0 16px 3px rgba(255, 214, 60, .9),
+    0 18px 22px rgba(0, 0, 0, .55);
+}
+.active-ribbon {
+  position: absolute;
+  z-index: 5;
+  top: 8px;
+  left: 8px;
+  padding: 2px 8px 1px;
+  border-radius: 999px;
+  background: #ffe14a;
+  color: #1c140c;
+  border: 2px solid #1a1a1a;
+  box-shadow: 2px 2px 0 #111;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: .74rem;
+  letter-spacing: .08em;
+  line-height: 1.15;
+  pointer-events: none;
+}
+.rooster.is-active.tcard .namebar { margin-top: 24px; }
+.rooster.is-active.tcard .gem { z-index: 6; }
 @media (max-width: 600px) {
   .rooster.tcard, .support.tcard {
     width: 100%;
@@ -156,6 +201,10 @@ dialog .tcard .illu { height: min(62vh, 480px); object-fit: contain; object-posi
     height: 22px;
     font-size: .85rem;
   }
+  .row.lineup { padding-top: 18px; padding-bottom: 22px; }
+  .rooster.is-active.tcard { transform: translateY(-6px) scale(1.08); }
+  .active-ribbon { top: 4px; left: 4px; font-size: .62rem; padding: 1px 5px; letter-spacing: .04em; }
+  .rooster.is-active.tcard .namebar { margin-top: 18px; }
   .rooster.tcard .hp { font-size: 1.05rem; line-height: 1.1; }
   .rooster.tcard .namebar, .support.tcard .namebar { margin: 4px 4px 0; padding: 3px 22px 3px 5px; }
   .rooster.tcard .artwin, .support.tcard .artwin,
