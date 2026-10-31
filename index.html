@@ -1,50 +1,521 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dukktape Studios</title>
+<meta name="description" content="Teaching myself the internet and AI, one duct-taped idea at a time.">
+<link rel="preload" href="assets/fonts/nunito-latin-800.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#0f1a2e;color:#eef;line-height:1.6}
-header{text-align:center;padding:30px 20px 10px}
-header img{width:140px;background:#fff;border-radius:12px;padding:10px}
-h1{margin:10px 0 0;font-size:2.4em}
-.tag{color:#e33b3b;font-weight:bold;font-size:1.2em}
-.banner{width:100%;max-height:420px;object-fit:cover;display:block}
-section{max-width:760px;margin:auto;padding:20px}
-h2{color:#e33b3b;border-bottom:2px solid #233a63}
-ul{padding-left:20px}
-a{color:#7fb2ff}
-footer{text-align:center;padding:20px;color:#889;font-size:.9em}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.card{background:#16243f;border:1px solid #233a63;border-radius:10px;padding:14px}
-.card h3{margin:0 0 6px}
-.card p{margin:0}
-</style></head><body>
-<header><img src="logo.jpg" alt="Dukktape Studios logo"><h1>Dukktape Studios</h1>
-<p class="tag">Teaching myself the internet and AI, one duct-taped idea at a time.</p></header>
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/nunito-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/nunito-latin-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("assets/fonts/nunito-latin-800.woff2") format("woff2");
+}
+:root {
+  --paper: #f6efe3;
+  --card: #fffaf3;
+  --ink: #2c241c;
+  --ink-soft: #5c4636;
+  --green: #1d6840;
+  --green-deep: #143f28;
+  --orange: #e07a2f;
+  --orange-deep: #8d3f10;
+  --brown: #6b442c;
+  --silver: #c5ced6;
+  --silver-dark: #8e99a4;
+  --line: #eadcc8;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Nunito, ui-rounded, "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background:
+    radial-gradient(1100px 480px at 50% -120px, #ffe3c4 0%, transparent 70%),
+    radial-gradient(700px 380px at 100% 0%, #e5f3e4 0%, transparent 55%),
+    radial-gradient(640px 360px at -10% 12%, #f8e4d0 0%, transparent 50%),
+    var(--paper);
+}
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: #fff;
+  color: var(--green-deep);
+  padding: 8px 12px;
+  border-radius: 10px;
+  z-index: 3;
+  font-weight: 800;
+}
+.skip:focus { top: 12px; }
+a { color: var(--green-deep); text-underline-offset: .16em; text-decoration-thickness: 2px; }
+a:hover, a:focus-visible { color: var(--orange-deep); }
+img { max-width: 100%; height: auto; }
+.hero {
+  text-align: center;
+  padding: 22px 16px 6px;
+  background: radial-gradient(circle at 50% 46%, rgba(255, 206, 156, .5), transparent 26rem);
+}
+.logo {
+  width: 108px;
+  height: auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 8px 10px;
+  box-shadow: 0 6px 16px rgba(92, 58, 28, .1);
+}
+.say {
+  min-height: 4.8rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin: .85rem auto .15rem;
+  max-width: 40rem;
+  padding: 0 12px;
+}
+.hint {
+  margin: 0;
+  color: var(--ink-soft);
+  font-weight: 800;
+}
+.bubble {
+  position: relative;
+  margin: 0 0 14px;
+  max-width: min(92vw, 28rem);
+  padding: .7rem 1rem .75rem;
+  background: #fffdf8;
+  color: var(--ink);
+  border: 2px solid var(--silver-dark);
+  border-radius: 18px;
+  font-weight: 800;
+  box-shadow: 0 8px 18px rgba(92, 58, 28, .1);
+}
+.bubble::before,
+.bubble::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  border: 10px solid transparent;
+}
+.bubble::after {
+  bottom: -20px;
+  margin-left: -10px;
+  border-top-color: var(--silver-dark);
+}
+.bubble::before {
+  bottom: -16px;
+  margin-left: -10px;
+  border-top-color: #fffdf8;
+  z-index: 1;
+}
+.bubble[hidden],
+.hint[hidden],
+.visitor-badge[hidden] { display: none !important; }
+.duck-btn {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 0;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 6px #e7ecef,
+    0 0 0 11px #b7c2cb,
+    0 16px 28px rgba(110, 64, 24, .28);
+}
+.duck-btn img {
+  width: min(72vw, 320px);
+  height: auto;
+  display: block;
+  border-radius: 50%;
+}
+.duck-btn:focus { outline: none; }
+.duck-btn:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 8px;
+}
+h1 {
+  margin: .85rem 0 0;
+  font-size: clamp(2.15rem, 6vw, 3.35rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--green-deep);
+}
+.studio {
+  margin: .2rem 0 .55rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--brown);
+}
+.tag {
+  display: inline-block;
+  max-width: min(92vw, 36rem);
+  margin: .15rem auto .4rem;
+  padding: .45rem .9rem;
+  background: linear-gradient(#f7f8f9, #d7dee5);
+  color: #3e342c;
+  font-weight: 800;
+  border-radius: 7px;
+  box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(70, 50, 30, .08);
+  transform: rotate(-0.5deg);
+}
+.banner {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  display: block;
+}
+main { padding-bottom: 8px; }
+section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 18px 22px 6px;
+}
+h2 {
+  margin: 0 0 .7rem;
+  color: var(--green);
+  font-size: 1.5rem;
+  font-weight: 800;
+  border-bottom: 3px solid var(--silver);
+  padding-bottom: .35rem;
+  position: relative;
+}
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 4.6rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--orange);
+}
+.building { list-style: none; margin: 0; padding: 0; }
+.building li {
+  position: relative;
+  padding: .22rem 0 .22rem 1.45rem;
+}
+.building li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .72rem;
+  width: .85rem;
+  height: .42rem;
+  border-radius: 2px;
+  background: linear-gradient(#f4f6f8, #c5ced6);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(80, 55, 30, .12);
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 14px 16px 15px;
+}
+.card h3 { margin: 0 0 6px; font-size: 1.08rem; font-weight: 800; }
+.card p { margin: 0; color: var(--ink-soft); }
+.card:hover,
+.card:focus-within {
+  border-color: var(--silver-dark);
+  background: #fff;
+}
+.contact a {
+  display: inline-block;
+  margin: 2px 0;
+  padding: .05rem .45rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  font-weight: 800;
+}
+.contact a:hover,
+.contact a:focus-visible {
+  background: #fff1e2;
+  border-color: var(--orange);
+  outline: none;
+}
+.farewell {
+  text-align: center;
+  margin-top: 18px;
+  padding: 8px 16px 4px;
+}
+.farewell::before {
+  content: "";
+  display: block;
+  width: min(168px, 42vw);
+  height: 10px;
+  margin: 0 auto 16px;
+  border-radius: 2px;
+  background: linear-gradient(#f5f7f8, #c5ced6 55%, #eef1f4);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(80, 55, 30, .12);
+}
+.visitor-badge {
+  display: inline-block;
+  margin: 0 auto 4px;
+  padding: .5rem 1rem;
+  background: linear-gradient(#fff, #f3f8f4);
+  color: var(--green-deep);
+  border: 2px solid var(--silver);
+  border-radius: 999px;
+  font-weight: 800;
+  box-shadow: 0 3px 0 #e7b07a;
+}
+.visitor-count { color: var(--orange-deep); }
+footer {
+  text-align: center;
+  padding: 14px 20px 28px;
+  color: var(--ink-soft);
+  font-size: .95rem;
+  font-weight: 700;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .duck-btn { transform-origin: 50% 75%; }
+  .duck-btn:hover,
+  .duck-btn:focus-visible { animation: bob .85s ease-in-out; }
+  .duck-btn.is-wiggling,
+  .duck-btn.is-wiggling:hover,
+  .duck-btn.is-wiggling:focus-visible { animation: wiggle .5s ease-in-out; }
+  .bubble:not([hidden]) { animation: pop .28s ease-out; }
+  .card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease; }
+  .card:hover,
+  .card:focus-within {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(92, 58, 28, .12);
+  }
+  a { transition: color .15s ease, background-color .15s ease, border-color .15s ease; }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  40% { transform: translateY(-8px) rotate(-2.4deg); }
+  72% { transform: translateY(-3px) rotate(2deg); }
+}
+@keyframes wiggle {
+  0% { transform: rotate(0deg); }
+  22% { transform: rotate(-6deg) translateY(-4px); }
+  48% { transform: rotate(5deg) translateY(-2px); }
+  72% { transform: rotate(-3deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes pop {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@media (max-width: 420px) {
+  section { padding: 16px 14px 4px; }
+  .duck-btn img { width: min(74vw, 280px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tag { transform: none; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#about">Skip to content</a>
+<main>
+<header class="hero">
+  <img class="logo" src="logo.jpg" width="300" height="169" alt="Dukktape Studios logo">
+  <div class="say">
+    <p id="duck-hint" class="hint">Click the duck for a hello.</p>
+    <p id="quip" class="bubble" role="status" aria-live="polite" hidden></p>
+  </div>
+  <button type="button" class="duck-btn" id="duck-btn" aria-controls="quip" aria-describedby="duck-hint" aria-expanded="false">
+    <picture>
+      <source srcset="assets/dukktape-duck.webp" type="image/webp">
+      <img src="assets/dukktape-duck.png" width="800" height="800" alt="Dukktape, a cartoon green duck with brown hair and beard, a headset, and a roll of duct tape" decoding="async" fetchpriority="high">
+    </picture>
+  </button>
+  <h1>Hey, I'm Dukktape</h1>
+  <p class="studio">Dukktape Studios</p>
+  <p class="tag">Teaching myself the internet and AI, one duct-taped idea at a time.</p>
+</header>
 <img class="banner" src="banner.jpg" alt="Dukktape building a house with boards and duct tape" onerror="this.style.display='none'">
-<section><h2>About</h2>
-<p>Hi, I'm Dukktape. I'm a veteran in northern Illinois teaching myself how the internet and AI work by turning my ideas into real things: websites, programs, and games. I use AI to patchwork them together. They're usually held together with duct tape, but working is working.</p>
-<p>My goal is to show you that you can just start. It doesn't have to be pretty or perfect. Build it rough, hobble it together, and figure it out as you go.</p></section>
-<section><h2>What I'm Building</h2><ul>
-<li>Websites from my own ideas</li>
-<li>Small programs and tools</li>
-<li>Games</li>
-<li>Live streams of the build, start to finish</li></ul></section>
-<section><h2>Projects</h2><div class="cards">
-<div class="card"><h3><a href="https://dukktapestudios.github.io/irl-armory/">IRL Armory</a></h3><p>WoW-style character page you can share.</p></div>
-<div class="card"><h3><a href="https://dukktapestudios.github.io/space/">NETSPACE</a></h3><p>Space game where every website is a star system.</p></div>
-<div class="card"><h3><a href="https://dukktapestudios.github.io/animal-tactics/">Animal Tactics</a></h3><p>Simple animal tabletop battle game.</p></div>
-<div class="card"><h3><a href="https://dukktapestudios.github.io/horse-genetics/">Horse Genetics</a></h3><p>Free foal coat color calculator.</p></div>
-<div class="card"><h3><a href="https://dukktapestudios.github.io/roundpen/">Round Pen</a></h3><p>Pressure and release horse training game.</p></div>
-<div class="card"><h3><a href="https://dukktapestudios.github.io/dnd/">Dungeon Night</a></h3><p>Simple online D&amp;D game with friends and an AI DM.</p></div>
-<div class="card"><h3><a href="https://dukktapestudios.github.io/spurs/">Spur Trainer</a></h3><p>Learn proper, light spur use with pressure and release.</p></div>
-<div class="card"><h3><a href="https://dukktapestudios.github.io/usda-504/">USDA 504 Repair Helper</a></h3><p>Simple step-by-step guide to the USDA home repair loan and grant.</p></div>
-<div class="card"><h3><a href="https://dukktapestudios.github.io/self-reliance/">Rural Self-Reliance Checklist</a></h3><p>Basic checklist every rural household should shoot for: water, heat, power, food, and more.</p></div>
-</div></section>
-<section><h2>Follow &amp; Contact</h2>
-<p>Twitch (games and whatever I'm into): <a href="https://twitch.tv/dukktapetv">dukktapetv</a><br>
-YouTube: <a href="https://www.youtube.com/@dukktapestudios">@dukktapestudios</a><br>
-X: <a href="https://x.com/dukktapeStudios">@dukktapeStudios</a><br>
-GitHub (my code): <a href="https://github.com/dukktapestudios">dukktapestudios</a><br>
-Email: <a href="mailto:dukktapestudios@gmail.com">dukktapestudios@gmail.com</a></p></section>
-<footer>© 2026 Dukktape Studios. All rights reserved.</footer>
-</body></html>
+<section id="about">
+  <h2>About</h2>
+  <p>Hi, I'm Dukktape. I'm a veteran in northern Illinois teaching myself how the internet and AI work by turning my ideas into real things: websites, programs, and games. I use AI to patchwork them together. They're usually held together with duct tape, but working is working.</p>
+  <p>My goal is to show you that you can just start. It doesn't have to be pretty or perfect. Build it rough, hobble it together, and figure it out as you go.</p>
+</section>
+<section>
+  <h2>What I'm Building</h2>
+  <ul class="building">
+    <li>Websites from my own ideas</li>
+    <li>Small programs and tools</li>
+    <li>Games</li>
+    <li>Live streams of the build, start to finish</li>
+  </ul>
+</section>
+<section>
+  <h2>Projects</h2>
+  <div class="cards">
+    <div class="card"><h3><a href="https://dukktapestudios.github.io/irl-armory/">IRL Armory</a></h3><p>WoW-style character page you can share.</p></div>
+    <div class="card"><h3><a href="https://dukktapestudios.github.io/space/">NETSPACE</a></h3><p>Space game where every website is a star system.</p></div>
+    <div class="card"><h3><a href="https://dukktapestudios.github.io/animal-tactics/">Animal Tactics</a></h3><p>Simple animal tabletop battle game.</p></div>
+    <div class="card"><h3><a href="https://dukktapestudios.github.io/horse-genetics/">Horse Genetics</a></h3><p>Free foal coat color calculator.</p></div>
+    <div class="card"><h3><a href="https://dukktapestudios.github.io/roundpen/">Round Pen</a></h3><p>Pressure and release horse training game.</p></div>
+    <div class="card"><h3><a href="https://dukktapestudios.github.io/dnd/">Dungeon Night</a></h3><p>Simple online D&amp;D game with friends and an AI DM.</p></div>
+    <div class="card"><h3><a href="https://dukktapestudios.github.io/spurs/">Spur Trainer</a></h3><p>Learn proper, light spur use with pressure and release.</p></div>
+    <div class="card"><h3><a href="https://dukktapestudios.github.io/usda-504/">USDA 504 Repair Helper</a></h3><p>Simple step-by-step guide to the USDA home repair loan and grant.</p></div>
+    <div class="card"><h3><a href="https://dukktapestudios.github.io/self-reliance/">Rural Self-Reliance Checklist</a></h3><p>Basic checklist every rural household should shoot for: water, heat, power, food, and more.</p></div>
+  </div>
+</section>
+<section>
+  <h2>Follow &amp; Contact</h2>
+  <p class="contact">Twitch (games and whatever I'm into): <a href="https://twitch.tv/dukktapetv">dukktapetv</a><br>
+  YouTube: <a href="https://www.youtube.com/@dukktapestudios">@dukktapestudios</a><br>
+  X: <a href="https://x.com/dukktapeStudios">@dukktapeStudios</a><br>
+  GitHub (my code): <a href="https://github.com/dukktapestudios">dukktapestudios</a><br>
+  Email: <a href="mailto:dukktapestudios@gmail.com">dukktapestudios@gmail.com</a></p>
+</section>
+</main>
+<div class="farewell">
+  <p id="visitor-badge" class="visitor-badge" role="status" aria-live="polite" hidden></p>
+  <footer>© 2026 Dukktape Studios. All rights reserved.</footer>
+</div>
+<script>
+(function () {
+  var quips = [
+    "You can just start.",
+    "It doesn't have to be pretty or perfect.",
+    "Working is working.",
+    "One duct-taped idea at a time.",
+    "Build it rough, hobble it together, and figure it out as you go.",
+    "Websites, programs, and games."
+  ];
+  var quipIndex = -1;
+  var btn = document.getElementById("duck-btn");
+  var quip = document.getElementById("quip");
+  var hint = document.getElementById("duck-hint");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function sayHello() {
+    quipIndex = (quipIndex + 1) % quips.length;
+    quip.textContent = quips[quipIndex];
+    quip.hidden = false;
+    hint.hidden = true;
+    btn.setAttribute("aria-expanded", "true");
+    if (reduceMotion) return;
+    btn.classList.remove("is-wiggling");
+    void btn.offsetWidth;
+    btn.classList.add("is-wiggling");
+  }
+
+  btn.addEventListener("click", sayHello);
+  btn.addEventListener("animationend", function () {
+    btn.classList.remove("is-wiggling");
+  });
+
+  /* Unique visitors via Abacus. The service stores only a public integer.
+     No API key, no cookies, and no personal data is sent. Each browser
+     increments once. The visitor number stays in localStorage (not a cookie)
+     so a return visit still reads "You're visitor #N" without counting again. */
+  var storageKey = "dukktape-studios-visitor-number";
+  var badge = document.getElementById("visitor-badge");
+  var hitUrl = "https://abacus.jasoncameron.dev/hit/dukktapestudios.github.io/homepage-uniques";
+
+  function showVisitor(n) {
+    var count = document.createElement("span");
+    count.className = "visitor-count";
+    count.textContent = String(n);
+    badge.replaceChildren(
+      document.createTextNode("You're visitor #"),
+      count,
+      document.createTextNode(", welcome!")
+    );
+    badge.hidden = false;
+  }
+
+  function savedNumber() {
+    try {
+      var raw = localStorage.getItem(storageKey);
+      var n = Number(raw);
+      if (!raw || !Number.isInteger(n) || n < 1) return null;
+      return n;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function remember(n) {
+    try {
+      localStorage.setItem(storageKey, String(n));
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function canStore() {
+    try {
+      var probe = storageKey + "-probe";
+      localStorage.setItem(probe, "1");
+      localStorage.removeItem(probe);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  var already = savedNumber();
+  if (already) {
+    showVisitor(already);
+    return;
+  }
+  if (!canStore()) return;
+
+  var controller = new AbortController();
+  var timer = setTimeout(function () { controller.abort(); }, 8000);
+  fetch(hitUrl, {
+    signal: controller.signal,
+    credentials: "omit",
+    cache: "no-store",
+    referrerPolicy: "no-referrer"
+  }).then(function (res) {
+    if (!res.ok) throw new Error("count");
+    return res.json();
+  }).then(function (data) {
+    var n = Number(data && data.value);
+    if (!Number.isInteger(n) || n < 1) throw new Error("count");
+    if (!remember(n)) throw new Error("count");
+    showVisitor(n);
+  }).catch(function () {
+    try { localStorage.removeItem(storageKey); } catch (err) {}
+  }).finally(function () {
+    clearTimeout(timer);
+  });
+})();
+</script>
+</body>
+</html>
