@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hoofprint Legends | Dukktape Studios</title>
 <meta name="description" content="A printable catalog of 194 real horse cards: history, racing, and breeds.">
-<link rel="stylesheet" href="style.css?v=2026103114">
+<link rel="stylesheet" href="style.css?v=2026103115">
 </head>
 <body>
 <header class="top">
@@ -18,7 +18,7 @@
     <a href="../">← Dukktape Studios</a>
   </div>
 </header>
-<p class="note">Speed, Stamina, and Heart are made-up ratings, not measurements. The one-line notes are real. Print this page for nine cards on a letter sheet.</p>
+<p class="note">Speed, Stamina, and Heart are made-up ratings, not measurements. The one-line notes are real. Choose a tier, then print: nine cards fit on a letter sheet.</p>
 <div class="controls">
   <label class="search">Search
     <input type="search" id="q" placeholder="Name or fact" autocomplete="off">
@@ -36,7 +36,24 @@
     <button type="button" data-rarity="Rare">Rare</button>
     <button type="button" data-rarity="Legendary">Legendary</button>
   </div>
+  <div class="filters" role="group" aria-label="Print tier">
+    <button type="button" data-tier="base" aria-pressed="true">Base</button>
+    <button type="button" data-tier="silver" aria-pressed="false">Silver Foil</button>
+    <button type="button" data-tier="gold" aria-pressed="false">Gold Foil</button>
+    <button type="button" data-tier="holo" aria-pressed="false">Holo Rainbow</button>
+    <button type="button" data-tier="champion" aria-pressed="false">Champion</button>
+  </div>
 </div>
+<section class="legend" aria-labelledby="tier-legend">
+  <h2 id="tier-legend">Rarity tiers</h2>
+  <ul>
+    <li><b>Base.</b> The standard frame.</li>
+    <li><b>Silver Foil.</b> A silver metal border with a light shimmer.</li>
+    <li><b>Gold Foil.</b> A gold border and an embossed face.</li>
+    <li><b>Holo Rainbow.</b> A rainbow sheen across the art.</li>
+    <li><b>Champion.</b> Black-and-gold full art, stamped as a short run out of 25.</li>
+  </ul>
+</section>
 <div class="grid" id="grid"></div>
 <p id="empty" class="empty" hidden>No cards match.</p>
 <dialog id="zoom">
@@ -49,7 +66,7 @@
   <div id="feedback-box"><script src="https://giscus.app/client.js" data-repo="dukktapestudios/dukktapestudios.github.io" data-repo-id="R_kgDOVcgvLw" data-category="General" data-category-id="DIC_kwDOVcgvL84DKFnn" data-mapping="pathname" data-strict="0" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script></div>
 </section>
 <footer>© 2026 Dukktape Studios</footer>
-<script src="data.js?v=2026103114"></script>
-<script src="app.js?v=2026103114"></script>
+<script src="data.js?v=2026103115"></script>
+<script src="app.js?v=2026103115"></script>
 </body>
 </html>
