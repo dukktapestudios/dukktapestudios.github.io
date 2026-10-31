@@ -32,6 +32,7 @@
       hp: r.hp,
       retreat: r.retreat,
       weak: r.weak,
+      energy: r.energy,
       special: r.special,
       attacks: r.attacks,
       text: "",
@@ -52,6 +53,7 @@
       attacks: [],
       text: s.text,
       flavor: s.flavor,
+      energy: s.energy,
       src: artSrc("support", s.id)
     };
   }));
@@ -62,6 +64,7 @@
 
   function haystack(card) {
     var bits = [card.name, card.flock, card.type, card.text, card.flavor, String(card.n)];
+    if (card.energy != null) bits.push(String(card.energy));
     if (card.hp != null) bits.push(String(card.hp), card.weak, String(card.retreat));
     if (card.special) bits.push(card.special.name, card.special.text, card.special.type);
     card.attacks.forEach(function (a) {
@@ -107,7 +110,7 @@
     } else {
       addText(parent, "name", card.name);
     }
-    addText(parent, "stats", card.type);
+    addText(parent, "stats", card.type + " · Energy " + (card.energy || 0));
     if (card.hp != null) {
       addText(parent, "stats", card.hp + " HP · Switch " + card.retreat + " · Weak " + card.weak);
     }
