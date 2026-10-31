@@ -2782,5 +2782,15 @@
     "author": "Art: Dukktape Studios (AI-assisted)",
     "license": "Art: Dukktape Studios (AI-assisted)",
     "sourceUrl": ""
+  },
+  {
+    "id": "kali",
+    "name": "Kali",
+    "cat": "Personal",
+    "status": "found",
+    "file": "photos/kali.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   }
 ]
