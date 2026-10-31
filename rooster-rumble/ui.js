@@ -10,6 +10,18 @@
   var speechOk = !!(window.speechSynthesis && window.SpeechSynthesisUtterance);
   var speakingKey = null;
   var speakToken = 0;
+  var heardLog = 0;
+
+  function playNewSounds() {
+    var sfx = window.CLUCK_SFX;
+    if (!game || !sfx) return;
+    var lines = game.logLines;
+    var i;
+    for (i = heardLog; i < lines.length; i++) {
+      sfx.cuesFor(lines[i]).forEach(function (name) { sfx.play(name); });
+    }
+    heardLog = lines.length;
+  }
 
   function speakerIcon(stop) {
     if (stop) return '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="4" width="8" height="8" rx="1" fill="#1c140c"/></svg>';
@@ -220,6 +232,8 @@
 
   function pump() {
     render();
+    playNewSounds();
+    if (window.CLUCK_DICE && game) window.CLUCK_DICE.take(game);
     if (!game || game.winner != null) return;
     if (game.pending && game.pending.player === 1) {
       setTimeout(function () {
@@ -405,6 +419,7 @@
   }
 
   function start() {
+    heardLog = 0;
     game = engine.createGame({
       seed: (Date.now() ^ (Math.floor(Math.random() * 99999))) >>> 0,
       deck0: youSel.value,
