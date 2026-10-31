@@ -187,6 +187,15 @@
     document.getElementById("zoom-close").focus();
   }
 
+  var filtersToggle = document.getElementById("filters-toggle");
+  var filterPanel = document.getElementById("filter-panel");
+  filtersToggle.addEventListener("click", function () {
+    var open = filtersToggle.getAttribute("aria-expanded") === "true";
+    filtersToggle.setAttribute("aria-expanded", open ? "false" : "true");
+    filterPanel.hidden = open;
+    filtersToggle.querySelector(".filters-arrow").textContent = open ? "▼" : "▲";
+  });
+
   document.querySelectorAll("[data-cat]").forEach(function (btn) {
     btn.addEventListener("click", function () {
       cat = btn.getAttribute("data-cat");
