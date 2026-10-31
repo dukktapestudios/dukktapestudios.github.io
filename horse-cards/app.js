@@ -80,11 +80,20 @@
       "</svg>";
   }
 
-  function bars(card) {
-    function row(label, n) {
-      return "<div>" + label + " " + n + '<div class="bar"><i style="width:' + (n * 10) + '%"></i></div></div>';
-    }
-    return '<div class="bars">' + row("Speed", card.speed) + row("Stamina", card.stamina) + row("Heart", card.heart) + "</div>";
+  var photoById = {};
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  function artBlock(card) {
+    var photo = photoById[card.id];
+    if (!photo) return '<span class="artwin"><span class="needs-art">Needs art</span></span>';
+    var who = photo.author || "Wikimedia Commons";
+    return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="' + photo.file + '"></span>' +
+      '<span class="credit">Photo: ' + esc(who) + ", " + esc(photo.license) + "</span>";
   }
 
   function face(card, which) {
@@ -93,10 +102,8 @@
     return '<span class="head"><span><span class="num">' + card.n + "/" + total + "</span>" +
       '<span class="rarity">' + card.rarity + "</span></span>" +
       '<span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + "</span> " + spec.label + serial + "</span></span>" +
-      '<span class="artwin">' + horseSvg(card, which) + "</span>" +
+      artBlock(card) +
       '<span class="name">' + card.name + "</span>" +
-      '<span class="meta">' + card.cat + " · " + card.when + "</span>" +
-      bars(card) +
       '<span class="fact">' + card.fact + "</span>";
   }
 
@@ -210,5 +217,10 @@
   zoom.addEventListener("click", function (e) { if (e.target === zoom) zoom.close(); });
   zoom.addEventListener("close", function () { if (lastFocus) lastFocus.focus(); });
 
-  render();
+  fetch("image-credits.json").then(function (res) { return res.json(); }).then(function (rows) {
+    rows.forEach(function (row) {
+      if (row.status === "found" && row.file) photoById[row.id] = row;
+    });
+    render();
+  }).catch(function () { render(); });
 })();

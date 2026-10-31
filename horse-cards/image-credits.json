@@ -1,0 +1,1881 @@
+[
+  {
+    "id": "bucephalus",
+    "name": "Bucephalus",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "incitatus",
+    "name": "Incitatus",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "babieca",
+    "name": "Babieca",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "chetak",
+    "name": "Chetak",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "morzillo",
+    "name": "Morzillo",
+    "cat": "History",
+    "status": "found",
+    "file": "photos/morzillo.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:El_Morzillo.jpg",
+    "commonsTitle": "File:El Morzillo.jpg",
+    "author": "Frimu",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "streiff",
+    "name": "Streiff",
+    "cat": "History",
+    "status": "found",
+    "file": "photos/streiff.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Streiff_the_horse.jpg",
+    "commonsTitle": "File:Streiff the horse.jpg",
+    "author": "Nils Azelius",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "byerley-turk",
+    "name": "Byerley Turk",
+    "cat": "History",
+    "status": "found",
+    "file": "photos/byerley-turk.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Byerley_Turk,_attributed_to_Thomas_Spencer_(head_detail).jpg",
+    "commonsTitle": "File:Byerley Turk, attributed to Thomas Spencer (head detail).jpg",
+    "author": "Thomas Spencer",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "darley-arabian",
+    "name": "Darley Arabian",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "godolphin-arabian",
+    "name": "Godolphin Arabian",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "figure",
+    "name": "Figure",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "messenger",
+    "name": "Messenger",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "nelson",
+    "name": "Nelson",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "blueskin",
+    "name": "Blueskin",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "copenhagen",
+    "name": "Copenhagen",
+    "cat": "History",
+    "status": "found",
+    "file": "photos/copenhagen.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Copenhagen_(Wellington%27s_horse).jpg",
+    "commonsTitle": "File:Copenhagen (Wellington's horse).jpg",
+    "author": "Samuel Spode",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "marengo",
+    "name": "Marengo",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "vizir",
+    "name": "Vizir",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "palomo",
+    "name": "Palomo",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "little-sorrel",
+    "name": "Little Sorrel",
+    "cat": "History",
+    "status": "found",
+    "file": "photos/little-sorrel.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Little-Sorrel-1863-V2-Stonewall-Jackson-horse.png",
+    "commonsTitle": "File:Little-Sorrel-1863-V2-Stonewall-Jackson-horse.png",
+    "author": "Unknown author Unknown author",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "traveller",
+    "name": "Traveller",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "cincinnati",
+    "name": "Cincinnati",
+    "cat": "History",
+    "status": "found",
+    "file": "photos/cincinnati.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:General_Grant_and_horse,_Cincinnati,_photo.jpg",
+    "commonsTitle": "File:General Grant and horse, Cincinnati, photo.jpg",
+    "author": "Unknown photographer",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "winchester",
+    "name": "Winchester",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "comanche",
+    "name": "Comanche",
+    "cat": "History",
+    "status": "found",
+    "file": "photos/comanche.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:%27Comanche,%27_Captain_Keogh%27s_horse_(G._W._Peters).jpg",
+    "commonsTitle": "File:'Comanche,' Captain Keogh's horse (G. W. Peters).jpg",
+    "author": "George W. Peters",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "little-texas",
+    "name": "Little Texas",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "beautiful-jim-key",
+    "name": "Beautiful Jim Key",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "clever-hans",
+    "name": "Clever Hans",
+    "cat": "History",
+    "status": "found",
+    "file": "photos/clever-hans.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:CleverHans.jpg",
+    "commonsTitle": "File:CleverHans.jpg",
+    "author": "Karl Krall",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "steamboat",
+    "name": "Steamboat",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "trigger",
+    "name": "Trigger",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "buttermilk",
+    "name": "Buttermilk",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "tony",
+    "name": "Tony",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "fritz",
+    "name": "Fritz",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "champion",
+    "name": "Champion",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "black-jack",
+    "name": "Black Jack",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "sergeant-reckless",
+    "name": "Sergeant Reckless",
+    "cat": "History",
+    "status": "found",
+    "file": "photos/sergeant-reckless.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:MG_John_T._Selden_and_Sgt._Reckless_at_Camp_Pendleton,_1954.jpg",
+    "commonsTitle": "File:MG John T. Selden and Sgt. Reckless at Camp Pendleton, 1954.jpg",
+    "author": "Unknown Military Photographer of the Signal Corps",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "sefton",
+    "name": "Sefton",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "snowman",
+    "name": "Snowman",
+    "cat": "History",
+    "status": "needs-art"
+  },
+  {
+    "id": "eclipse",
+    "name": "Eclipse",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/eclipse.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Eclipse(horse).jpg",
+    "commonsTitle": "File:Eclipse(horse).jpg",
+    "author": "George Stubbs",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "sir-barton",
+    "name": "Sir Barton",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/sir-barton.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sir_Barton,_first_winner_of_the_Triple_Crown_in_horse_racing.png",
+    "commonsTitle": "File:Sir Barton, first winner of the Triple Crown in horse racing.png",
+    "author": "Unknown author Unknown author",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "exterminator",
+    "name": "Exterminator",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/exterminator.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Exterminator,_winner_of_the_1918_Kentucky_Derby.png",
+    "commonsTitle": "File:Exterminator, winner of the 1918 Kentucky Derby.png",
+    "author": "Unknown author Unknown author",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "man-o-war",
+    "name": "Man o' War",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "gallant-fox",
+    "name": "Gallant Fox",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "omaha",
+    "name": "Omaha",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "war-admiral",
+    "name": "War Admiral",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "seabiscuit",
+    "name": "Seabiscuit",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/seabiscuit.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Seabiscuit_Charles_Howard.jpg",
+    "commonsTitle": "File:Seabiscuit Charles Howard.jpg",
+    "author": "Seabiscuit Heritage Foundation",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "whirlaway",
+    "name": "Whirlaway",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "count-fleet",
+    "name": "Count Fleet",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/count-fleet.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:1943_Kentucky_Derby_-_Count_Fleet_victory.jpg",
+    "commonsTitle": "File:1943 Kentucky Derby - Count Fleet victory.jpg",
+    "author": "Ralph Schroder",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  {
+    "id": "assault",
+    "name": "Assault",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "citation",
+    "name": "Citation",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "native-dancer",
+    "name": "Native Dancer",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/native-dancer.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Native_Dancer_(USA).jpg",
+    "commonsTitle": "File:Native Dancer (USA).jpg",
+    "author": "Unknown author Unknown author",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "swaps",
+    "name": "Swaps",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "kelso",
+    "name": "Kelso",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "northern-dancer",
+    "name": "Northern Dancer",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/northern-dancer.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:NorthernDancer.jpg",
+    "commonsTitle": "File:NorthernDancer.jpg",
+    "author": "JDG",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "nijinsky",
+    "name": "Nijinsky",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "secretariat",
+    "name": "Secretariat",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "ruffian",
+    "name": "Ruffian",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/ruffian.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ruffian_na_torze_Aqueduct_Racetrack_w_Nowym_Jorku.png",
+    "commonsTitle": "File:Ruffian na torze Aqueduct Racetrack w Nowym Jorku.png",
+    "author": "Unknown author Unknown author",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "forego",
+    "name": "Forego",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "seattle-slew",
+    "name": "Seattle Slew",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/seattle-slew.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Seattle_Slew.jpg",
+    "commonsTitle": "File:Seattle Slew.jpg",
+    "author": "Pawneese",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "affirmed",
+    "name": "Affirmed",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "alydar",
+    "name": "Alydar",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/alydar.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Alydar_Racing.jpg",
+    "commonsTitle": "File:Alydar Racing.jpg",
+    "author": "Diamondcowgirl10",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "john-henry",
+    "name": "John Henry",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "spectacular-bid",
+    "name": "Spectacular Bid",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "sunday-silence",
+    "name": "Sunday Silence",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/sunday-silence.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sundaysilence.jpg",
+    "commonsTitle": "File:Sundaysilence.jpg",
+    "author": "\u306f\u306e\u3044",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "id": "easy-goer",
+    "name": "Easy Goer",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "cigar",
+    "name": "Cigar",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/cigar.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cigar_at_Kentucky_Horse_Park.jpg",
+    "commonsTitle": "File:Cigar at Kentucky Horse Park.jpg",
+    "author": "Jean Ogden Just Chaos Photography",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "rachel-alexandra",
+    "name": "Rachel Alexandra",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/rachel-alexandra.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rachel_Alexandra_Horse_of_the_Year.jpg",
+    "commonsTitle": "File:Rachel Alexandra Horse of the Year.jpg",
+    "author": "Erin Aiken",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "zenyatta",
+    "name": "Zenyatta",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/zenyatta.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Zenyatta2009_parading1.jpg",
+    "commonsTitle": "File:Zenyatta2009 parading1.jpg",
+    "author": "Dave Cooper from Yorba Linda, CA, United States",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "barbaro",
+    "name": "Barbaro",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "american-pharoah",
+    "name": "American Pharoah",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/american-pharoah.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:American_Pharoah_Travers.jpg",
+    "commonsTitle": "File:American Pharoah Travers.jpg",
+    "author": "Jlvsclrk",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "justify",
+    "name": "Justify",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "california-chrome",
+    "name": "California Chrome",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/california-chrome.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:California_Chrome_and_Victor_Espinoza_at_2014_Preakness_Stakes.jpg",
+    "commonsTitle": "File:California Chrome and Victor Espinoza at 2014 Preakness Stakes.jpg",
+    "author": "Maryland GovPics",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "frankel",
+    "name": "Frankel",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/frankel.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Frankel_(horse).jpg",
+    "commonsTitle": "File:Frankel (horse).jpg",
+    "author": "RacingKel",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "sea-the-stars",
+    "name": "Sea The Stars",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "enable",
+    "name": "Enable",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "treve",
+    "name": "Treve",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/treve.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Treve.jpg",
+    "commonsTitle": "File:Treve.jpg",
+    "author": "France Sire",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+  },
+  {
+    "id": "ribot",
+    "name": "Ribot",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "sea-bird",
+    "name": "Sea-Bird",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/sea-bird.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sea-Bird.jpg",
+    "commonsTitle": "File:Sea-Bird.jpg",
+    "author": "Rimondo",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "mill-reef",
+    "name": "Mill Reef",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "brigadier-gerard",
+    "name": "Brigadier Gerard",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "shergar",
+    "name": "Shergar",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "phar-lap",
+    "name": "Phar Lap",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/phar-lap.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Phar_Lap_205.jpg",
+    "commonsTitle": "File:Phar Lap 205.jpg",
+    "author": "Charles P S Boyer",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "carbine",
+    "name": "Carbine",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "makybe-diva",
+    "name": "Makybe Diva",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/makybe-diva.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Makybe_Diva_-_trackwork.jpg",
+    "commonsTitle": "File:Makybe Diva - trackwork.jpg",
+    "author": "osedgman",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "winx",
+    "name": "Winx",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/winx.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:20160917_Winx_(horse).jpg",
+    "commonsTitle": "File:20160917 Winx (horse).jpg",
+    "author": "Cherry He ( http://www.godolphinflyingstart.com/trainees/cherry-he/ )",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5"
+  },
+  {
+    "id": "black-caviar",
+    "name": "Black Caviar",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/black-caviar.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Black_Caviar_Ascot.jpg",
+    "commonsTitle": "File:Black Caviar Ascot.jpg",
+    "author": "Grousehouse",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "id": "kingston-town",
+    "name": "Kingston Town",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "sunline",
+    "name": "Sunline",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "red-rum",
+    "name": "Red Rum",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "arkle",
+    "name": "Arkle",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "desert-orchid",
+    "name": "Desert Orchid",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "best-mate",
+    "name": "Best Mate",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/best-mate.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Best_Mate_-_His_Last_Race_-_geograph.org.uk_-_1292602.jpg",
+    "commonsTitle": "File:Best Mate - His Last Race - geograph.org.uk - 1292602.jpg",
+    "author": "Chris Reynolds",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "kauto-star",
+    "name": "Kauto Star",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/kauto-star.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kauto_Star.jpg",
+    "commonsTitle": "File:Kauto Star.jpg",
+    "author": "Carine06",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "aldaniti",
+    "name": "Aldaniti",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "foinavon",
+    "name": "Foinavon",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "golden-miller",
+    "name": "Golden Miller",
+    "cat": "Racing",
+    "status": "found",
+    "file": "photos/golden-miller.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Golden_Miller_(IRE).jpg",
+    "commonsTitle": "File:Golden Miller (IRE).jpg",
+    "author": "Unknown author Unknown author",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "tiger-roll",
+    "name": "Tiger Roll",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "dont-push-it",
+    "name": "Don't Push It",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "lottery",
+    "name": "Lottery",
+    "cat": "Racing",
+    "status": "needs-art"
+  },
+  {
+    "id": "arabian",
+    "name": "Arabian",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/arabian.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:AL_Sham_International_Arabian_Horse_Festival_2019_in_Damascus.jpg",
+    "commonsTitle": "File:AL Sham International Arabian Horse Festival 2019 in Damascus.jpg",
+    "author": "Tmnadili",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "thoroughbred",
+    "name": "Thoroughbred",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/thoroughbred.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chestnut_Thoroughbred_Horse_(3433223374).jpg",
+    "commonsTitle": "File:Chestnut Thoroughbred Horse (3433223374).jpg",
+    "author": "Rennett Stowe from USA",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "quarter-horse",
+    "name": "American Quarter Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/quarter-horse.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:American_quarter_horse.jpg",
+    "commonsTitle": "File:American quarter horse.jpg",
+    "author": "evelynbelgium",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "standardbred",
+    "name": "Standardbred",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/standardbred.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Adios_(Standardbred).jpg",
+    "commonsTitle": "File:Adios (Standardbred).jpg",
+    "author": "Unknown author Unknown author",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "morgan",
+    "name": "Morgan",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/morgan.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:American_Morgan_Horse_cropped.jpg",
+    "commonsTitle": "File:American Morgan Horse cropped.jpg",
+    "author": "missing8519",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "tennessee-walking-horse",
+    "name": "Tennessee Walking Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/tennessee-walking-horse.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Three_Tennessee_Walking_Horses.png",
+    "commonsTitle": "File:Three Tennessee Walking Horses.png",
+    "author": "Jackie O Photography",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+  },
+  {
+    "id": "american-saddlebred",
+    "name": "American Saddlebred",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/american-saddlebred.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:American_Saddlebred_(2994999953).jpg",
+    "commonsTitle": "File:American Saddlebred (2994999953).jpg",
+    "author": "Heather Moreton from Louisville, KY, USA",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "missouri-fox-trotter",
+    "name": "Missouri Fox Trotter",
+    "cat": "Breed",
+    "status": "needs-art"
+  },
+  {
+    "id": "appaloosa",
+    "name": "Appaloosa",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/appaloosa.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Appaloosa_Horse_from_the_Nez_Perce_Appaloosa_Horse_Club_(62378854-1dd8-b71b-0bbf-ea704cc86dcd).jpg",
+    "commonsTitle": "File:Appaloosa Horse from the Nez Perce Appaloosa Horse Club (62378854-1dd8-b71b-0bbf-ea704cc86dcd).jpg",
+    "author": "NPS",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "paint-horse",
+    "name": "American Paint Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/paint-horse.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brennan_Wells;_on_the_black_horse,_Kayla_McShane,_on_the_paint_29278v.jpg",
+    "commonsTitle": "File:Brennan Wells; on the black horse, Kayla McShane, on the paint 29278v.jpg",
+    "author": "Carol M. Highsmith",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "mustang",
+    "name": "Mustang",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/mustang.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Adopted_mustang_Kilchii_(24874040734).jpg",
+    "commonsTitle": "File:Adopted mustang Kilchii (24874040734).jpg",
+    "author": "BLMIdaho",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "friesian",
+    "name": "Friesian",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/friesian.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Den_Helder_-_Friesian_horses_on_the_beach.jpg",
+    "commonsTitle": "File:Den Helder - Friesian horses on the beach.jpg",
+    "author": "Lars van der Heide",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "clydesdale",
+    "name": "Clydesdale",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/clydesdale.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:3_Clydesdale_horses.JPG",
+    "commonsTitle": "File:3 Clydesdale horses.JPG",
+    "author": "Geni",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "shire",
+    "name": "Shire",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/shire.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dyfed_Shire_Horse_Farm_-_geograph.org.uk_-_13986.jpg",
+    "commonsTitle": "File:Dyfed Shire Horse Farm - geograph.org.uk - 13986.jpg",
+    "author": "Garth Newton",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "suffolk-punch",
+    "name": "Suffolk Punch",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/suffolk-punch.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:%27Suffolk_Punch%27_horses_-_geograph.org.uk_-_943381.jpg",
+    "commonsTitle": "File:'Suffolk Punch' horses - geograph.org.uk - 943381.jpg",
+    "author": "Dr Neil Clifton",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "percheron",
+    "name": "Percheron",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/percheron.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_Percheron_horse_-_geograph.org.uk_-_1541914.jpg",
+    "commonsTitle": "File:A Percheron horse - geograph.org.uk - 1541914.jpg",
+    "author": "Evelyn Simak",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "belgian-draft",
+    "name": "Belgian Draft",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/belgian-draft.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Belgian_draft_horse_(41735902232).jpg",
+    "commonsTitle": "File:Belgian draft horse (41735902232).jpg",
+    "author": "Luc.T from Buggenhout, Belgi\u00eb",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "haflinger",
+    "name": "Haflinger",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/haflinger.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Haflinger_horse_in_a_field_on_%C3%8Ele_d%27Orl%C3%A9ans.jpg",
+    "commonsTitle": "File:Haflinger horse in a field on \u00cele d'Orl\u00e9ans.jpg",
+    "author": "Hayden Soloviev",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  {
+    "id": "icelandic",
+    "name": "Icelandic Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/icelandic.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:IcelandicHorseInWinter.jpg",
+    "commonsTitle": "File:IcelandicHorseInWinter.jpg",
+    "author": "Andreas Tille",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "id": "fjord",
+    "name": "Fjord Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/fjord.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fjord_Horses_-_geograph.org.uk_-_620818.jpg",
+    "commonsTitle": "File:Fjord Horses - geograph.org.uk - 620818.jpg",
+    "author": "Evelyn Simak",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "shetland",
+    "name": "Shetland Pony",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/shetland.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_friendly_Shetland_Pony_-_geograph.org.uk_-_1137339.jpg",
+    "commonsTitle": "File:A friendly Shetland Pony - geograph.org.uk - 1137339.jpg",
+    "author": "Stanley Howe",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "welsh-mountain",
+    "name": "Welsh Mountain Pony",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/welsh-mountain.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Welsh_Mountain_Pony_-_geograph.org.uk_-_7010184.jpg",
+    "commonsTitle": "File:Welsh Mountain Pony - geograph.org.uk - 7010184.jpg",
+    "author": "Colin Smith",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "welsh-cob",
+    "name": "Welsh Cob",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/welsh-cob.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Welsh_Cob_Horse_Aberaeron_-_geograph.org.uk_-_2518878.jpg",
+    "commonsTitle": "File:Welsh Cob Horse Aberaeron - geograph.org.uk - 2518878.jpg",
+    "author": "Jo Turner",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "connemara",
+    "name": "Connemara",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/connemara.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Connemara_Pony,_Inis_Ni-Inishnee_-_geograph.org.uk_-_1290370.jpg",
+    "commonsTitle": "File:Connemara Pony, Inis Ni-Inishnee - geograph.org.uk - 1290370.jpg",
+    "author": "Trish Steel",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "irish-draught",
+    "name": "Irish Draught",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/irish-draught.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Irish_Draught_Breed_Show_2015,_Lincolnshire_Showground_-_geograph.org.uk_-_4660519.jpg",
+    "commonsTitle": "File:Irish Draught Breed Show 2015, Lincolnshire Showground - geograph.org.uk - 4660519.jpg",
+    "author": "Chris",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "exmoor",
+    "name": "Exmoor Pony",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/exmoor.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Exmoor-Ponys_(LIK.Nord)_2021-01-17_(03).jpg",
+    "commonsTitle": "File:Exmoor-Ponys (LIK.Nord) 2021-01-17 (03).jpg",
+    "author": "Simon Mannweiler",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "new-forest",
+    "name": "New Forest Pony",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/new-forest.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:New_Forest_Pony_-_geograph.org.uk_-_311922.jpg",
+    "commonsTitle": "File:New Forest Pony - geograph.org.uk - 311922.jpg",
+    "author": "Hugh Venables",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "fell",
+    "name": "Fell Pony",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/fell.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fell_Pony,_Hollow_Moor_-_geograph.org.uk_-_2112822.jpg",
+    "commonsTitle": "File:Fell Pony, Hollow Moor - geograph.org.uk - 2112822.jpg",
+    "author": "Mick Garratt",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "dales",
+    "name": "Dales Pony",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/dales.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Champion_Dales_Pony.jpg",
+    "commonsTitle": "File:Champion Dales Pony.jpg",
+    "author": "Annapennell",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "highland",
+    "name": "Highland Pony",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/highland.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Highland_Pony._-_geograph.org.uk_-_120063.jpg",
+    "commonsTitle": "File:Highland Pony. - geograph.org.uk - 120063.jpg",
+    "author": "Stuart Meek",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "eriskay",
+    "name": "Eriskay Pony",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/eriskay.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Eriskay_pony_beinn_sciathan.jpg",
+    "commonsTitle": "File:Eriskay pony beinn sciathan.jpg",
+    "author": "Mipmapped",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "id": "cleveland-bay",
+    "name": "Cleveland Bay",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/cleveland-bay.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Horse_(Cleveland_Bay)_Drawn_Clarence_(Brougham)_Carriage_%26_Victoria_Memorial,_Buckingham_Palace,_Westminster,_London_(3795290693).jpg",
+    "commonsTitle": "File:Horse (Cleveland Bay) Drawn Clarence (Brougham) Carriage & Victoria Memorial, Buckingham Palace, Westminster, London (3795290693).jpg",
+    "author": "nikoretro from Ft. Myers, FL, USA",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "hackney",
+    "name": "Hackney",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/hackney.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:EB1911_Horse_-_hackney_stallion.jpg",
+    "commonsTitle": "File:EB1911 Horse - hackney stallion.jpg",
+    "author": "F. Babbage",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "andalusian",
+    "name": "Andalusian",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/andalusian.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:I_believe_that_this_is_the_Andalusian_Stallion_Pecos_(5966346891).jpg",
+    "commonsTitle": "File:I believe that this is the Andalusian Stallion Pecos (5966346891).jpg",
+    "author": "Heather Moreton from Louisville, KY, USA",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "lusitano",
+    "name": "Lusitano",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/lusitano.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Grey_lusitano.jpg",
+    "commonsTitle": "File:Grey lusitano.jpg",
+    "author": "Daisyree Bakker",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "lipizzan",
+    "name": "Lipizzan",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/lipizzan.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Photo_Lipizzan_horse_1967_-_Touring_Club_Italiano_1.3713.jpg",
+    "commonsTitle": "File:Photo Lipizzan horse 1967 - Touring Club Italiano 1.3713.jpg",
+    "author": "Unknown author Unknown author",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "akhal-teke",
+    "name": "Akhal-Teke",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/akhal-teke.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Golden_Akhalteke_horse._Photo_by_Artur_Baboev.jpg",
+    "commonsTitle": "File:Golden Akhalteke horse. Photo by Artur Baboev.jpg",
+    "author": "Photo by Artur Baboev - https://artur.baboev.com/",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "marwari",
+    "name": "Marwari",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/marwari.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Marwari_(2134271556).jpg",
+    "commonsTitle": "File:Marwari (2134271556).jpg",
+    "author": "Christopher Macsurak",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "kathiawari",
+    "name": "Kathiawari",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/kathiawari.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kanayo_kathiawari_stallion.jpg",
+    "commonsTitle": "File:Kanayo kathiawari stallion.jpg",
+    "author": "Raghvendra99674010",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "caspian",
+    "name": "Caspian",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/caspian.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Caspian_Stallion_grey.jpg",
+    "commonsTitle": "File:Caspian Stallion grey.jpg",
+    "author": "Heather Moreton",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "przewalski",
+    "name": "Przewalski's Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/przewalski.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Portrait_of_Przewalski%27s_Horse.jpg",
+    "commonsTitle": "File:Portrait of Przewalski's Horse.jpg",
+    "author": "Joe Ravi",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "id": "mongolian",
+    "name": "Mongolian Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/mongolian.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mongolian_horse_01.JPG",
+    "commonsTitle": "File:Mongolian horse 01.JPG",
+    "author": "Br\u00fccke-Osteuropa",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "barb",
+    "name": "Barb",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/barb.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Barbe_horse.jpg",
+    "commonsTitle": "File:Barbe horse.jpg",
+    "author": "Belkheir Soufiane",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "criollo",
+    "name": "Criollo",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/criollo.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Caballo_criollo_(10620218994).jpg",
+    "commonsTitle": "File:Caballo criollo (10620218994).jpg",
+    "author": "Fernando Flores from Caracas, Venezuela",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "peruvian-paso",
+    "name": "Peruvian Paso",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/peruvian-paso.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:CABALLOS_DE_PASO_PERUANO_PREMIADOS_EN_CONCURSO_REALIZADO_EN_ARGENTINA_(5620056487).jpg",
+    "commonsTitle": "File:CABALLOS DE PASO PERUANO PREMIADOS EN CONCURSO REALIZADO EN ARGENTINA (5620056487).jpg",
+    "author": "Ministerio de Relaciones Exteriores from Per\u00fa",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "paso-fino",
+    "name": "Paso Fino",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/paso-fino.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Puerto_rican-Paso-Fino-Horse-chestnut.jpg",
+    "commonsTitle": "File:Puerto rican-Paso-Fino-Horse-chestnut.jpg",
+    "author": "Arsdelicata",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "id": "mangalarga",
+    "name": "Mangalarga Marchador",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/mangalarga.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mangalarga_Marchador_Conforma%C3%A7%C3%A3o_Delante_Anatom%C3%ADa.jpg",
+    "commonsTitle": "File:Mangalarga Marchador Conforma\u00e7\u00e3o Delante Anatom\u00eda.jpg",
+    "author": "derivative work: Blood1976 ( talk ) Mangalarga_Marchador_Conforma\u00e7\u00e3o.jpg : Bill Vidigal",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5"
+  },
+  {
+    "id": "falabella",
+    "name": "Falabella",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/falabella.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Falabella_on_pasture.jpg",
+    "commonsTitle": "File:Falabella on pasture.jpg",
+    "author": "Karri Huhtanen",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "camargue",
+    "name": "Camargue",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/camargue.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Saint-Laurent-d%27Aigouze_-_Camargue_horses_-_03.jpg",
+    "commonsTitle": "File:Saint-Laurent-d'Aigouze - Camargue horses - 03.jpg",
+    "author": "Benjamin Smith",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "knabstrupper",
+    "name": "Knabstrupper",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/knabstrupper.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Knabstrupper_Baron.jpg",
+    "commonsTitle": "File:Knabstrupper Baron.jpg",
+    "author": "User Hackmann on de.wikipedia",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  {
+    "id": "orlov-trotter",
+    "name": "Orlov Trotter",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/orlov-trotter.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Grey_Orlov_Trotter.jpg",
+    "commonsTitle": "File:Grey Orlov Trotter.jpg",
+    "author": "Alexander",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "don-horse",
+    "name": "Don Horse",
+    "cat": "Breed",
+    "status": "needs-art"
+  },
+  {
+    "id": "budyonny",
+    "name": "Budyonny",
+    "cat": "Breed",
+    "status": "needs-art"
+  },
+  {
+    "id": "trakehner",
+    "name": "Trakehner",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/trakehner.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Trakehner_Horse.jpg",
+    "commonsTitle": "File:Trakehner Horse.jpg",
+    "author": "Kathleen Conklin",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "hanoverian",
+    "name": "Hanoverian",
+    "cat": "Breed",
+    "status": "needs-art"
+  },
+  {
+    "id": "holsteiner",
+    "name": "Holsteiner",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/holsteiner.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:HolsteinerOE.jpg",
+    "commonsTitle": "File:HolsteinerOE.jpg",
+    "author": "Otto Erelman",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "oldenburg",
+    "name": "Oldenburg",
+    "cat": "Breed",
+    "status": "needs-art"
+  },
+  {
+    "id": "selle-francais",
+    "name": "Selle Fran\u00e7ais",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/selle-francais.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Selle1.jpg",
+    "commonsTitle": "File:Selle1.jpg",
+    "author": "Jebulon",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "id": "dutch-warmblood",
+    "name": "Dutch Warmblood",
+    "cat": "Breed",
+    "status": "needs-art"
+  },
+  {
+    "id": "finnhorse",
+    "name": "Finnhorse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/finnhorse.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Finnhorse_Yyterin_lietteet_1.jpg",
+    "commonsTitle": "File:Finnhorse Yyterin lietteet 1.jpg",
+    "author": "kallerna",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "canadian",
+    "name": "Canadian Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/canadian.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Canadian_horse,_Central_Experimental_Farm.jpg",
+    "commonsTitle": "File:Canadian horse, Central Experimental Farm.jpg",
+    "author": "Deinocheirus",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "chincoteague",
+    "name": "Chincoteague Pony",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/chincoteague.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chincoteague_Pony.jpg",
+    "commonsTitle": "File:Chincoteague Pony.jpg",
+    "author": "Judy Gallagher",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "florida-cracker",
+    "name": "Florida Cracker Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/florida-cracker.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cracker_horse.jpg",
+    "commonsTitle": "File:Cracker horse.jpg",
+    "author": "Geoff Gallice",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "waler",
+    "name": "Waler",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/waler.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Light_horse_walers-crop.jpg",
+    "commonsTitle": "File:Light horse walers-crop.jpg",
+    "author": "derivative work: Una Smith ( talk ) Light_horse_walers.jpg : Sydney Mail",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "stock-horse",
+    "name": "Australian Stock Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/stock-horse.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Australian_Stock_Horse_and_Water_towers_in_Jerilderie,_2023.jpg",
+    "commonsTitle": "File:Australian Stock Horse and Water towers in Jerilderie, 2023.jpg",
+    "author": "Kgbo",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "brumby",
+    "name": "Brumby",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/brumby.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Perlino_brumby.JPG",
+    "commonsTitle": "File:Perlino brumby.JPG",
+    "author": "Cgoodwin",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "gypsy-cob",
+    "name": "Gypsy Cob",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/gypsy-cob.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gypsy_Cob_mare_and_foal_in_wintry_pasture_-_geograph.org.uk_-_1655461.jpg",
+    "commonsTitle": "File:Gypsy Cob mare and foal in wintry pasture - geograph.org.uk - 1655461.jpg",
+    "author": "Evelyn Simak",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "miniature",
+    "name": "American Miniature Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/miniature.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ashley_River_Road_-_Miniature_Horses_at_the_Plantation_House_-_NARA_-_7717063.jpg",
+    "commonsTitle": "File:Ashley River Road - Miniature Horses at the Plantation House - NARA - 7717063.jpg",
+    "author": "K. Armstrong, U.S. Department of Transportation",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "cream-draft",
+    "name": "American Cream Draft",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/cream-draft.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:AmericanCreamDrafthorse.jpg",
+    "commonsTitle": "File:AmericanCreamDrafthorse.jpg",
+    "author": "Ashley Wann",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "poa",
+    "name": "Pony of the Americas",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/poa.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pony_of_the_Americas.jpg",
+    "commonsTitle": "File:Pony of the Americas.jpg",
+    "author": "Just chaos",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "noriker",
+    "name": "Noriker",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/noriker.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Noriker_horse.JPG",
+    "commonsTitle": "File:Noriker horse.JPG",
+    "author": "No machine-readable author provided. Niora assumed (based on copyright claims).",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "frederiksborg",
+    "name": "Frederiksborg",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/frederiksborg.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Prince_George_riding_a_Frederiksborg_horse.jpg",
+    "commonsTitle": "File:Prince George riding a Frederiksborg horse.jpg",
+    "author": "unspecified",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "jutland",
+    "name": "Jutland",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/jutland.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cheval_du_Jutland_1900.jpg",
+    "commonsTitle": "File:Cheval du Jutland 1900.jpg",
+    "author": "J. Jensen",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "gotland",
+    "name": "Gotland Pony",
+    "cat": "Breed",
+    "status": "needs-art",
+    "reason": "HTTP Error 429: Too many requests - please contact noc@wikimedia.org to discuss a less disruptive approach or instead use thumbnail images in sizes listed on https://w.wiki/GHai. (0c640b1)"
+  },
+  {
+    "id": "jeju",
+    "name": "Jeju Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/jeju.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jeju_horse.jpg",
+    "commonsTitle": "File:Jeju horse.jpg",
+    "author": "\uc81c\uc8fc\ub9c8\uc721\uc131\ud300",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "misaki",
+    "name": "Misaki",
+    "cat": "Breed",
+    "status": "needs-art"
+  },
+  {
+    "id": "nokota",
+    "name": "Nokota",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/nokota.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nokota_Horse_Stud_Band.jpg",
+    "commonsTitle": "File:Nokota Horse Stud Band.jpg",
+    "author": "Seth Zeigler",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  {
+    "id": "kiger",
+    "name": "Kiger Mustang",
+    "cat": "Breed",
+    "status": "needs-art"
+  },
+  {
+    "id": "sable-island",
+    "name": "Sable Island Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/sable-island.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sable_Island_Horse.jpg",
+    "commonsTitle": "File:Sable Island Horse.jpg",
+    "author": "Derek Hatfield",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "banker",
+    "name": "Banker Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/banker.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:3_Banker_horses.jpg",
+    "commonsTitle": "File:3 Banker horses.jpg",
+    "author": "Joye~",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "azteca",
+    "name": "Azteca",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/azteca.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:AztecaHorse.jpg",
+    "commonsTitle": "File:AztecaHorse.jpg",
+    "author": "Luis H. Saldana anadlas@hotmail.com",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "chilean",
+    "name": "Chilean Horse",
+    "cat": "Breed",
+    "status": "needs-art"
+  },
+  {
+    "id": "nonius",
+    "name": "Nonius",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/nonius.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nonius_na_MESAP-u_2018.jpg",
+    "commonsTitle": "File:Nonius na MESAP-u 2018.jpg",
+    "author": "Silverije",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "shagya",
+    "name": "Shagya Arabian",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/shagya.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Elevage-shagya-1.JPG",
+    "commonsTitle": "File:Elevage-shagya-1.JPG",
+    "author": "V\u00e9ronique Mestre Gibaud (Association fran\u00e7aise du Cheval Arabe-Shagya)",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "id": "kladruber",
+    "name": "Kladruber",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/kladruber.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nebanice,_Kladruber_horse.jpg",
+    "commonsTitle": "File:Nebanice, Kladruber horse.jpg",
+    "author": "This file is available under Creative Commons BY-SA license . Basically: You can use\u2026",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "id": "alter-real",
+    "name": "Alter Real",
+    "cat": "Breed",
+    "status": "needs-art"
+  },
+  {
+    "id": "sorraia",
+    "name": "Sorraia",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/sorraia.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rewildered_Sorraia_horses.jpg",
+    "commonsTitle": "File:Rewildered Sorraia horses.jpg",
+    "author": "Dulundum",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "id": "pottok",
+    "name": "Pottok",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/pottok.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pottok-Ainhoa.jpg",
+    "commonsTitle": "File:Pottok-Ainhoa.jpg",
+    "author": "self-made photo by Spiggot",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  {
+    "id": "kerry-bog",
+    "name": "Kerry Bog Pony",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/kerry-bog.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kerry_Bog_Pony,_Bog_Village,_Kerry,_Ireland.jpg",
+    "commonsTitle": "File:Kerry Bog Pony, Bog Village, Kerry, Ireland.jpg",
+    "author": "Jim Linwood",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "black-forest",
+    "name": "Black Forest Horse",
+    "cat": "Breed",
+    "status": "needs-art"
+  },
+  {
+    "id": "gelderlander",
+    "name": "Gelderlander",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/gelderlander.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gelderlander.jpg",
+    "commonsTitle": "File:Gelderlander.jpg",
+    "author": "Otto Erelman",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "breton",
+    "name": "Breton",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/breton.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Breton_draft_horse.jpg",
+    "commonsTitle": "File:Breton draft horse.jpg",
+    "author": "Hayden Soloviev",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  {
+    "id": "ardennais",
+    "name": "Ardennais",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/ardennais.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:ConcoursardennaisPoussay88.jpg",
+    "commonsTitle": "File:ConcoursardennaisPoussay88.jpg",
+    "author": "jean-louis zimmermann",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "id": "comtois",
+    "name": "Comtois",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/comtois.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_pair_of_Comtois_horses_being_walked_in_the_street_-_geograph.org.uk_-_2215814.jpg",
+    "commonsTitle": "File:A pair of Comtois horses being walked in the street - geograph.org.uk - 2215814.jpg",
+    "author": "Adrian S Pye",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "id": "namib",
+    "name": "Namib Desert Horse",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/namib.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Namibie_Chevaux_Sauvages_01.jpg",
+    "commonsTitle": "File:Namibie Chevaux Sauvages 01.jpg",
+    "author": "GIRAUD Patrick",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5"
+  },
+  {
+    "id": "karabakh",
+    "name": "Karabakh",
+    "cat": "Breed",
+    "status": "found",
+    "file": "photos/karabakh.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Karabakh_horse_-_Alyetmez,_photo_1867.jpg",
+    "commonsTitle": "File:Karabakh horse - Alyetmez, photo 1867.jpg",
+    "author": "The original uploader was Tabib at English Wikipedia .",
+    "license": "Public domain",
+    "licenseUrl": ""
+  },
+  {
+    "id": "kabarda",
+    "name": "Kabarda",
+    "cat": "Breed",
+    "status": "needs-art"
+  },
+  {
+    "id": "manipuri",
+    "name": "Manipuri Pony",
+    "cat": "Breed",
+    "status": "needs-art"
+  }
+]
