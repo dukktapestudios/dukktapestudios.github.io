@@ -107,7 +107,34 @@ select { background: #fff; width: 100%; min-width: 0; max-width: 100%; }
 .flock.Stormfeather { background: var(--storm); }
 .flock.Wildroost { background: var(--wild); }
 .flock.Duskcomb { background: var(--dusk); }
-.art { font-size: 2rem; text-align: center; line-height: 1; }
+.art { text-align: center; line-height: 0; }
+.illu { width: 100%; height: 58px; display: block; }
+.support .illu { height: 48px; }
+[data-drag] { touch-action: none; cursor: grab; user-select: none; }
+.drag-ghost {
+  position: fixed; z-index: 40; pointer-events: none; margin: 0;
+  opacity: .94; box-shadow: 6px 6px 0 #111;
+}
+.drag-ghost.snap { transition: left .16s ease, top .16s ease; }
+.drop-ok { outline: 3px dashed #ffe14a; outline-offset: 2px; }
+.drop-hot { outline: 3px solid #fff; background: #fff6cc; }
+.play-mat {
+  margin: 6px 0; padding: 8px; border: 3px dashed rgba(255, 225, 74, .45);
+  border-radius: 8px; color: #fff3cf; font-size: .85rem; font-weight: 700;
+}
+.drag-hint { flex: 1 1 100%; margin: 0; font-size: .82rem; color: #fff3cf; }
+.rule { margin-top: 10px; }
+.speak {
+  width: 32px; height: 32px; min-width: 32px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-width: 2px; box-shadow: 2px 2px 0 #111; background: #fff8e6;
+}
+.speak[hidden] { display: none !important; }
+.speak svg { width: 16px; height: 16px; display: block; pointer-events: none; }
+.speak.is-speaking { background: #ffd166; }
+.speak-row { line-height: 0; margin: 0 0 4px; }
+.log-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.log-head h2 { margin: 0; }
 .name { font-weight: 800; font-size: .92rem; line-height: 1.15; min-height: 2.2em; }
 .hp { font-family: Impact, sans-serif; font-size: 1.6rem; }
 .meta, .atk, .special { font-size: .75rem; line-height: 1.3; margin-top: 3px; }
@@ -136,6 +163,7 @@ footer {
 }
 @media (prefers-reduced-motion: reduce) {
   button:hover, button:focus-visible { transform: none; }
+  .drag-ghost.snap { transition: none; }
 }
 @media (max-width: 600px) {
   .rooster { width: 148px; }
