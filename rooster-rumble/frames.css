@@ -102,6 +102,8 @@ button.tcard {
 }
 .tcard .setmark { width: 14px; height: 14px; display: block; }
 .tcard .rmark { min-width: 1em; text-align: right; color: #ffe14a; }
+.tcard .atk.line-ready, .tcard .special.line-ready { color: #0f6b32; font-weight: 800; }
+.tcard .atk.line-dim, .tcard .special.line-dim { opacity: .42; }
 .tcard.rarity-rare::after, .tcard.rarity-legendary::after {
   content: "";
   position: absolute;

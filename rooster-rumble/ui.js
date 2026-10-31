@@ -154,6 +154,31 @@
     return n + "/" + (roosters.length + supports.length);
   }
 
+  function yourTurn() {
+    return game.winner == null && game.turn === 0;
+  }
+
+  function attackUsable(r, isYou, isActive, atk) {
+    if (!isYou || !isActive || r.ko || !yourTurn()) return false;
+    if (game.turnId === 1 && game.firstPlayer === 0) return false;
+    if (!game.canAttackNow(r)) return false;
+    var cost = atk.cost + (r.hexOn === game.turnId ? 1 : 0);
+    return game.grainTotal(r) >= cost;
+  }
+
+  function signatureUsable(r, isYou, isActive) {
+    if (!isYou || !isActive || r.ko || !yourTurn()) return false;
+    if (!r.special || r.special.type !== "signature" || r.sigUsed) return false;
+    if (game.players[0].sigThisTurn) return false;
+    if (r.attackedTurn === game.turnId) return false;
+    return true;
+  }
+
+  function lineState(isYou, usable) {
+    if (!isYou) return "";
+    return usable ? " line-ready" : " line-dim";
+  }
+
   function frameWrap(flock, energy, name, typeLine, artHtml, bodyHtml, number) {
     return window.CLUCK_FRAME.html({
       esc: esc,
@@ -181,13 +206,15 @@
     if (!r.ko && !isYou) attrs += ' data-drop="enemy"' + (isActive ? ' data-active="1"' : "");
     var attacks = r.attacks.map(function (a, idx) {
       var dragAtk = isYou && isActive && !r.ko ? ' data-drag="attack" data-index="' + idx + '"' : "";
-      return '<div class="atk"' + dragAtk + '><b>' + esc(a.name) + " (" + a.cost + ").</b> " + esc(a.text) + " Hit " + a.hit + "+.</div>";
+      var state = lineState(isYou, attackUsable(r, isYou, isActive, a));
+      return '<div class="atk' + state + '"' + dragAtk + '><b>' + esc(a.name) + " (" + a.cost + ").</b> " + esc(a.text) + " Hit " + a.hit + "+.</div>";
     }).join("");
     var specialDrag = isYou && isActive && !r.ko && r.special.type === "signature" && !r.sigUsed ? ' data-drag="signature"' : "";
+    var specialState = r.special && r.special.type === "signature" ? lineState(isYou, signatureUsable(r, isYou, isActive)) : "";
     var body = '<div class="speak-row">' + speakBtn("rooster-" + r.uid) + "</div>" +
       '<div class="hp">' + (r.ko ? "KO" : remaining(r) + "/" + game.maxHp(r)) + " HP</div>" +
       '<div class="meta">Energy ' + (r.energy || 0) + " · Grain " + grain + " · Switch " + game.retreatCost(r) + " · Weak " + esc(r.weak) + "</div>" +
-      '<div class="special"' + specialDrag + "><b>" + esc(r.special.name) + ".</b> " + esc(r.special.text) + "</div>" +
+      '<div class="special' + specialState + '"' + specialDrag + "><b>" + esc(r.special.name) + ".</b> " + esc(r.special.text) + "</div>" +
       attacks +
       (tags.length ? '<div class="meta">' + esc(tags.join(" · ")) + "</div>" : "");
     return '<article class="rooster ' + window.CLUCK_FRAME.classes(r.flock, r.energy) + (r.ko ? " ko" : "") + (isActive ? " is-active" : "") + '" data-speak-root' + attrs + ">" +
