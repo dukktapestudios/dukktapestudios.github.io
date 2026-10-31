@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rooster Rumble | Dukktape Studios</title>
 <meta name="description" content="Rooster Rumble: a rooster battle card game. Knock out all 3 enemy roosters.">
-<link rel="stylesheet" href="style.css?v=2026103107">
+<link rel="stylesheet" href="style.css?v=2026103108">
 </head>
 <body>
 <header class="top">
@@ -31,10 +31,11 @@
     <h2>Your turn</h2>
     <ol>
       <li><b>Draw</b> 1 card. The first player skips this on turn 1.</li>
-      <li><b>Feed.</b> Attach 1 Grain from your hand to any of your roosters. If you have Grain, you attach it.</li>
-      <li><b>Support.</b> Play any number of Actions and Gear, and 1 Coop. Counters are for the other player's turn.</li>
+      <li><b>Energy.</b> On your first turn your max energy is 1. It goes up by 1 each of your turns, to a maximum of 10, and refills at the start of your turn.</li>
+      <li><b>Feed.</b> Attach 1 Grain from your hand if you can pay its energy cost.</li>
+      <li><b>Support.</b> Play Actions, Gear, and 1 Coop that you can afford. Counters also cost energy, on the other player's turn.</li>
       <li><b>Switch</b> once, if you want. Discard Grain from the active rooster equal to its switch cost, then swap with a bench rooster.</li>
-      <li><b>Attack</b> once. You need at least that much Grain on the rooster. Grain stays attached. The first player cannot attack on turn 1. Your turn ends after the attack.</li>
+      <li><b>Attack</b> once. Each rooster attacks only once on your turn. A rooster that just became active cannot attack yet, unless its card says so (Hothead's Short Fuse). You need enough Grain on the rooster. Grain stays attached. The first player cannot attack on turn 1. Your turn ends after the attack.</li>
     </ol>
   </section>
   <section class="rule" data-speak-root>
@@ -58,7 +59,8 @@
       <li>Flock cards need one of your living roosters of that flock. Buffs and Grain from those cards go on that flock.</li>
       <li>Golden Grain counts as 2 only on your main flock (the flock you brought the most of). On anyone else it is not played.</li>
       <li>Signature moves are once per game, on your turn, before the attack. Roll 3+. A miss still uses the move up. Only one Signature a turn.</li>
-      <li>Traits are always on. Counters are played when their trigger happens.</li>
+      <li>Every card has an energy cost. You cannot play a card you cannot afford.</li>
+      <li>Traits are always on. Counters are played when their trigger happens, if you can afford them.</li>
     </ul>
     <p>Dawn Patrol is the fast flock. Night Forest is the slow one. The other lineups are one flock each.</p>
   </section>
@@ -75,11 +77,11 @@
 <div class="board" id="board" hidden></div>
 <div id="dice-banner" class="dice-banner" hidden></div>
 <footer>© 2026 Dukktape Studios</footer>
-<script src="cards.js?v=2026103107"></script>
-<script src="art.js?v=2026103107"></script>
-<script src="engine.js?v=2026103107"></script>
-<script src="sfx.js?v=2026103107"></script>
-<script src="dice.js?v=2026103107"></script>
-<script src="ui.js?v=2026103107"></script>
+<script src="cards.js?v=2026103108"></script>
+<script src="art.js?v=2026103108"></script>
+<script src="engine.js?v=2026103108"></script>
+<script src="sfx.js?v=2026103108"></script>
+<script src="dice.js?v=2026103108"></script>
+<script src="ui.js?v=2026103108"></script>
 </body>
 </html>

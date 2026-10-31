@@ -203,6 +203,7 @@ select { background: #fff; width: 100%; min-width: 0; max-width: 100%; }
 .hp { font-family: Impact, sans-serif; font-size: 1.6rem; }
 .meta, .atk, .special { font-size: .75rem; line-height: 1.3; margin-top: 3px; }
 .support { width: 132px; }
+.support.cant-pay { filter: grayscale(1); opacity: .55; }
 .support .name { min-height: 0; }
 .choices {
   position: sticky; bottom: 0; z-index: 2;

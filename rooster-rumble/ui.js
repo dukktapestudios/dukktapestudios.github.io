@@ -168,19 +168,22 @@
       '<div class="speak-row">' + speakBtn("rooster-" + r.uid) + "</div>" +
       '<div class="name">' + esc(r.name) + "</div>" +
       '<div class="hp">' + (r.ko ? "KO" : remaining(r) + "/" + game.maxHp(r)) + " HP</div>" +
-      '<div class="meta">Grain ' + grain + " · Switch " + game.retreatCost(r) + " · Weak " + esc(r.weak) + "</div>" +
+      '<div class="meta">Energy ' + (r.energy || 0) + " · Grain " + grain + " · Switch " + game.retreatCost(r) + " · Weak " + esc(r.weak) + "</div>" +
       '<div class="special"' + specialDrag + "><b>" + esc(r.special.name) + ".</b> " + esc(r.special.text) + "</div>" +
       attacks +
       (tags.length ? '<div class="meta">' + esc(tags.join(" · ")) + "</div>" : "") +
       "</article>";
   }
 
-  function handCard(c) {
-    return '<article class="support" data-speak-root data-drag="hand" data-card="' + esc(c.id) + '">' +
+  function handCard(c, payer) {
+    var cost = c.energy || 0;
+    var cant = payer && payer.energy < cost;
+    var drag = cant ? "" : ' data-drag="hand" data-card="' + esc(c.id) + '"';
+    return '<article class="support' + (cant ? " cant-pay" : "") + '" data-speak-root' + drag + ">" +
       '<div class="art">' + art.forSupport(c.id, true) + "</div>" +
       '<div class="speak-row">' + speakBtn("card-" + c.id) + "</div>" +
       '<div class="name">' + esc(c.name) + "</div>" +
-      '<div class="meta">' + esc(c.type) + " · " + esc(c.flock) + "</div>" +
+      '<div class="meta">' + esc(c.type) + " · " + cost + " energy · " + esc(c.flock) + "</div>" +
       '<div class="atk">' + esc(c.text) + "</div></article>";
   }
 
@@ -207,14 +210,14 @@
     board.hidden = false;
     board.innerHTML =
       '<div class="layout"><div class="play">' + win +
-      '<section class="lane"><h2>Rival · ' + esc(rival.deckName) + " · deck " + rival.deck.length + " · discard " + rival.discard.length + (rival.coop ? " · Coop: " + esc(rival.coop.name) : "") + "</h2>" +
+      '<section class="lane"><h2>Rival · ' + esc(rival.deckName) + " · energy " + rival.energy + "/" + rival.energyMax + " · deck " + rival.deck.length + " · discard " + rival.discard.length + (rival.coop ? " · Coop: " + esc(rival.coop.name) : "") + "</h2>" +
       '<div class="row">' + rival.lineup.map(function (r) { return roosterCard(r, rival.activeId, 1); }).join("") + "</div>" +
-      (peek ? '<div class="row">' + rival.hand.map(handCard).join("") + "</div>" : '<p class="backs">Hand: ' + rival.hand.length + " card backs</p>") +
+      (peek ? '<div class="row">' + rival.hand.map(function (c) { return handCard(c, rival); }).join("") + "</div>" : '<p class="backs">Hand: ' + rival.hand.length + " card backs</p>") +
       "</section>" +
-      '<section class="lane" id="you-lane"><h2>You · ' + esc(you.deckName) + " · main flock " + esc(you.mainFlock) + " · deck " + you.deck.length + (you.coop ? " · Coop: " + esc(you.coop.name) : "") + "</h2>" +
+      '<section class="lane" id="you-lane"><h2>You · ' + esc(you.deckName) + " · energy " + you.energy + "/" + you.energyMax + " · main flock " + esc(you.mainFlock) + " · deck " + you.deck.length + (you.coop ? " · Coop: " + esc(you.coop.name) : "") + "</h2>" +
       '<div class="row">' + you.lineup.map(function (r) { return roosterCard(r, you.activeId, 0); }).join("") + "</div>" +
       '<div class="play-mat" data-drop="play">Drop a Coop or a ready Action here</div>' +
-      '<div class="row" id="hand">' + you.hand.map(handCard).join("") + "</div></section>" +
+      '<div class="row" id="hand">' + you.hand.map(function (c) { return handCard(c, you); }).join("") + "</div></section>" +
       '<div class="choices" id="choices">' + choices + "</div></div>" +
       '<aside class="side"><div class="log-head"><h2>Game log</h2>' + speakBtn("log") + '</div><div class="log" id="log" aria-live="polite">' + log + "</div></aside></div>";
     var logEl = document.getElementById("log");

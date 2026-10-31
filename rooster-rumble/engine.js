@@ -75,7 +75,7 @@
 
   Game.prototype.cloneCard = function (id) {
     var d = CARDS.supportById[id];
-    return { uid: "c" + (this.seq++), id: d.id, name: d.name, type: d.type, flock: d.flock, text: d.text, flavor: d.flavor, emoji: d.emoji };
+    return { uid: "c" + (this.seq++), id: d.id, name: d.name, type: d.type, flock: d.flock, text: d.text, flavor: d.flavor, emoji: d.emoji, energy: d.energy || 0 };
   };
 
   Game.prototype.cloneRooster = function (id, owner) {
@@ -88,6 +88,7 @@
       baseHp: d.hp,
       weak: d.weak,
       retreat: d.retreat,
+      energy: d.energy || 0,
       emoji: d.emoji,
       flavor: d.flavor,
       special: d.special,
@@ -98,6 +99,7 @@
       ko: false,
       sigUsed: false,
       becameActiveTurn: 0,
+      attackedTurn: 0,
       wontUsed: false,
       shoeUsed: false,
       burn: false,
@@ -121,7 +123,8 @@
       mainFlock: mainFlock(lineup), lineup: lineup, activeId: lineup[0].uid,
       deck: cards, hand: [], discard: [], coop: null,
       sigThisTurn: false, switched: false, hoarderUsed: false, loftUsed: false,
-      spur: 0, feather: false, coopPlayed: false, koTurn: -1
+      spur: 0, feather: false, coopPlayed: false, koTurn: -1,
+      energy: 0, energyMax: 0, turnsTaken: 0
     };
   };
 
@@ -228,6 +231,10 @@
     p.spur = 0;
     p.feather = false;
     p.coopPlayed = false;
+    p.turnsTaken = (p.turnsTaken || 0) + 1;
+    p.energyMax = Math.min(10, p.turnsTaken);
+    p.energy = p.energyMax;
+    this.log(p.name + " has " + p.energy + "/" + p.energyMax + " energy.");
     var skipDraw = this.turnId === 1 && this.turn === this.firstPlayer;
     if (!skipDraw) {
       if (!p.deck.length) {
@@ -254,7 +261,9 @@
     this.phase = "feed";
     var opts = this.feedOptions(this.cur());
     if (!opts.length) {
-      this.log(this.cur().name + " has no Grain to attach.");
+      var hungry = this.cur();
+      var holding = hungry.hand.some(function (c) { return c.type === "Grain"; });
+      this.log(holding ? hungry.name + " cannot afford to attach Grain." : hungry.name + " has no Grain to attach.");
       this.enterHoarder();
       return;
     }
@@ -267,8 +276,8 @@
     var golds = p.hand.some(function (c) { return c.id === "golden"; });
     var opts = [];
     this.living(p).forEach(function (r) {
-      if (plains) opts.push({ id: "feed:" + r.uid + ":grain", uid: r.uid, card: "grain", label: "Attach Grain to " + r.name });
-      if (golds && r.flock === p.mainFlock) opts.push({ id: "feed:" + r.uid + ":golden", uid: r.uid, card: "golden", label: "Attach Golden Grain to " + r.name + " (counts as 2)" });
+      if (plains && self.canAffordId(p, "grain")) opts.push({ id: "feed:" + r.uid + ":grain", uid: r.uid, card: "grain", label: "Attach Grain to " + r.name + " (" + CARDS.supportById.grain.energy + " energy)" });
+      if (golds && r.flock === p.mainFlock && self.canAffordId(p, "golden")) opts.push({ id: "feed:" + r.uid + ":golden", uid: r.uid, card: "golden", label: "Attach Golden Grain to " + r.name + " (" + CARDS.supportById.golden.energy + " energy, counts as 2)" });
     });
     return opts;
   };
@@ -277,7 +286,9 @@
     var idx = -1;
     for (var i = 0; i < p.hand.length; i++) if (p.hand[i].id === cardId) { idx = i; break; }
     if (idx < 0) return false;
-    var card = p.hand.splice(idx, 1)[0];
+    var card = p.hand[idx];
+    if (!this.spendEnergy(p, card.energy || 0)) return false;
+    p.hand.splice(idx, 1);
     rooster.grain.push(card);
     this.log(p.name + " attaches " + card.name + " to " + rooster.name + " (" + this.grainTotal(rooster) + " Grain).");
     return true;
@@ -297,7 +308,7 @@
     this.phase = "support";
     var opts = this.supportOptions(this.cur());
     opts.push({ id: "done", label: "Done with support cards" });
-    this.ask(this.turn, "support", "Play any number of Actions and Gear, and up to 1 Coop. Then press Done.", opts);
+    this.ask(this.turn, "support", "Play Actions, Gear, and up to 1 Coop that you can afford. Then press Done.", opts);
   };
 
   Game.prototype.hasFlock = function (p, flock) {
@@ -314,12 +325,34 @@
       if (c.type === "Grain" || c.type === "Counter") return;
       if (!self.canPlay(p, c)) return;
       seen[c.id] = true;
-      opts.push({ id: "play:" + c.id, card: c.id, label: "Play " + c.name });
+      opts.push({ id: "play:" + c.id, card: c.id, label: "Play " + c.name + " (" + (c.energy || 0) + " energy)" });
     });
     return opts;
   };
 
+  Game.prototype.canAffordId = function (p, id) {
+    var d = CARDS.supportById[id];
+    return !!d && p.energy >= (d.energy || 0);
+  };
+
+  Game.prototype.spendEnergy = function (p, n) {
+    n = n || 0;
+    if (n <= 0) return true;
+    if (p.energy < n) return false;
+    p.energy -= n;
+    this.log(p.name + " spends " + n + " energy (" + p.energy + "/" + p.energyMax + " left).");
+    return true;
+  };
+
+  Game.prototype.canAttackNow = function (r) {
+    if (!r || r.ko) return false;
+    if (r.attackedTurn === this.turnId) return false;
+    if (r.becameActiveTurn === this.turnId && (!r.special || r.special.key !== "shortFuse")) return false;
+    return true;
+  };
+
   Game.prototype.canPlay = function (p, card) {
+    if ((card.energy || 0) > p.energy) return false;
     if (!this.hasFlock(p, card.flock)) return false;
     if (card.type === "Coop" && p.coopPlayed) return false;
     if (card.id === "flame") {
@@ -389,6 +422,12 @@
     var card = null;
     for (var i = 0; i < p.hand.length; i++) if (p.hand[i].id === cardId) { card = p.hand.splice(i, 1)[0]; break; }
     if (!card) { this.enterSupport(); return; }
+    if (!this.spendEnergy(p, card.energy || 0)) {
+      p.hand.push(card);
+      this.log(p.name + " cannot afford " + card.name + ".");
+      this.enterSupport();
+      return;
+    }
     var targets = this.playTargets(p, card);
     if (targets === "instant") {
       this.holdOrApply(p, card, null);
@@ -396,6 +435,7 @@
     }
     if (!targets.length) {
       this.log(card.name + " has no legal target.");
+      p.energy += card.energy || 0;
       p.hand.push(card);
       this.enterSupport();
       return;
@@ -433,7 +473,7 @@
   Game.prototype.holdOrApply = function (p, card, target) {
     if (card.type === "Action") {
       var opp = this.players[1 - p.index];
-      if (opp.hand.some(function (c) { return c.id === "squawk"; }) && this.hasFlock(opp, "Stormfeather")) {
+      if (opp.hand.some(function (c) { return c.id === "squawk"; }) && this.hasFlock(opp, "Stormfeather") && this.canAffordId(opp, "squawk")) {
         this.held = { card: card, player: p.index, target: target };
         this.ask(opp.index, "squawk", p.name + " plays " + card.name + ". Play Squawk Back to cancel it?", [
           { id: "yes", label: "Play Squawk Back" },
@@ -741,6 +781,16 @@
       return;
     }
     var r = this.activeOf(p);
+    if (r && r.attackedTurn === this.turnId) {
+      this.log(r.name + " already attacked this turn.");
+      this.endTurn();
+      return;
+    }
+    if (r && !this.canAttackNow(r)) {
+      this.log(r.name + " just came in and cannot attack this turn.");
+      this.endTurn();
+      return;
+    }
     var opts = [];
     if (r && !r.ko) {
       var self = this;
@@ -757,6 +807,7 @@
 
   Game.prototype.startAttack = function (p, index, fromSignature, actor) {
     var r = actor || this.activeOf(p);
+    r.attackedTurn = this.turnId;
     var atk = r.attacks[index];
     var defender = this.activeOf(this.players[1 - this.ownerOf(r).index]);
     this.combat = { atk: atk, attacker: r, defender: defender, fromSignature: !!fromSignature, hits: 0, crit: false, negated: false };
@@ -888,7 +939,7 @@
     }
     if (roll.stage === "scare") {
       var defenderOwner = spec.purpose === "attack" ? this.ownerOf(this.combat.defender) : this.players[1 - this.ownerOf(spec.attacker).index];
-      var canScare = defenderOwner && defenderOwner.hand.some(function (c) { return c.id === "scarecrow"; });
+      var canScare = defenderOwner && defenderOwner.hand.some(function (c) { return c.id === "scarecrow"; }) && this.canAffordId(defenderOwner, "scarecrow");
       var anyFresh = roll.dice.some(function (d) { return !d.rerolled; });
       if (canScare && anyFresh && spec.purpose !== "armor") {
         var must = defenderOwner.index !== this.human
@@ -916,6 +967,7 @@
     var idx = -1;
     for (var i = 0; i < player.hand.length; i++) if (player.hand[i].id === "scarecrow") { idx = i; break; }
     if (idx < 0) return;
+    if (!this.spendEnergy(player, player.hand[idx].energy || 0)) return;
     player.discard.push(player.hand.splice(idx, 1)[0]);
     var self = this;
     var changed = false;
@@ -960,7 +1012,7 @@
   Game.prototype.offerLockdown = function () {
     var c = this.combat;
     var defOwner = this.ownerOf(c.defender);
-    if (c.hits > 0 && defOwner && defOwner.hand.some(function (card) { return card.id === "lockdown"; }) && this.hasFlock(defOwner, "Ironbeak")) {
+    if (c.hits > 0 && defOwner && defOwner.hand.some(function (card) { return card.id === "lockdown"; }) && this.hasFlock(defOwner, "Ironbeak") && this.canAffordId(defOwner, "lockdown")) {
       if (defOwner.index !== this.human) {
         var per = this.perHit(c.attacker, c.atk);
         var total = per * c.hits + (c.crit ? 20 : 0);
@@ -978,9 +1030,7 @@
   };
 
   Game.prototype.playLockdown = function (player) {
-    var idx = -1;
-    for (var i = 0; i < player.hand.length; i++) if (player.hand[i].id === "lockdown") { idx = i; break; }
-    if (idx >= 0) player.discard.push(player.hand.splice(idx, 1)[0]);
+    if (!this.spendCounter(player, "lockdown")) return;
     this.combat.negated = true;
     this.combat.hits = 0;
     this.log(player.name + " plays Coop Lockdown. The attack does 0 damage.");
@@ -1135,10 +1185,9 @@
     r.sigUsed = true;
     p.sigThisTurn = true;
     var opp = this.players[1 - p.index];
-    if (opp.hand.some(function (c) { return c.id === "hexward"; }) && this.hasFlock(opp, "Duskcomb")) {
+    if (opp.hand.some(function (c) { return c.id === "hexward"; }) && this.hasFlock(opp, "Duskcomb") && this.canAffordId(opp, "hexward")) {
       if (opp.index !== this.human) {
-        this.spendCounter(opp, "hexward");
-        this.log("Hex Ward cancels " + r.special.name + ". It is still used up.");
+        if (this.spendCounter(opp, "hexward")) this.log("Hex Ward cancels " + r.special.name + ". It is still used up.");
         this.enterAttack();
         return;
       }
@@ -1153,6 +1202,7 @@
 
   Game.prototype.spendCounter = function (p, id) {
     for (var i = 0; i < p.hand.length; i++) if (p.hand[i].id === id) {
+      if (!this.spendEnergy(p, p.hand[i].energy || 0)) return false;
       p.discard.push(p.hand.splice(i, 1)[0]);
       return true;
     }
@@ -1276,8 +1326,7 @@
     if (pending.kind === "squawk") {
       var held2 = this.held;
       this.held = null;
-      if (opt.id === "yes") {
-        this.spendCounter(p, "squawk");
+      if (opt.id === "yes" && this.spendCounter(p, "squawk")) {
         this.players[held2.player].discard.push(held2.card);
         this.log(p.name + " cancels " + held2.card.name + " with Squawk Back.");
         if (!this.winner) this.enterSupport();
@@ -1307,8 +1356,7 @@
       return;
     }
     if (pending.kind === "hex") {
-      if (opt.id === "yes") {
-        this.spendCounter(p, "hexward");
+      if (opt.id === "yes" && this.spendCounter(p, "hexward")) {
         this.log("Hex Ward cancels the Signature. It is still used up.");
         this.enterAttack();
       } else this.rollSignature(this.activeOf(this.cur()));
@@ -1460,11 +1508,11 @@
     }
     if (pending.kind === "switch") {
       var active2 = this.activeOf(p);
-      var canHit = active2 && active2.attacks.some(function (atk) { return self.grainTotal(active2) >= atk.cost + (active2.hexOn === self.turnId ? 1 : 0); });
+      var canHit = active2 && self.canAttackNow(active2) && active2.attacks.some(function (atk) { return self.grainTotal(active2) >= atk.cost + (active2.hexOn === self.turnId ? 1 : 0); });
       if (!canHit) {
         var ready = opts.filter(function (o) { return o.id.indexOf("switch:") === 0; }).filter(function (o) {
           var r = self.findRooster(o.uid);
-          return r.attacks.some(function (atk) { return self.grainTotal(r) >= atk.cost; });
+          return r.special && r.special.key === "shortFuse" && r.attacks.some(function (atk) { return self.grainTotal(r) >= atk.cost; });
         })[0];
         if (ready) return ready.id;
       }
@@ -1501,13 +1549,15 @@
       return best.id;
     }
     if (pending.kind === "squawk") {
+      if (!this.canAffordId(p, "squawk")) return "no";
       var name = pending.prompt;
       if (/Sunrise Crow|Midnight Scratch|Root and Rumble|Farmer's Thanks|Feed Frenzy|Flame Spur/.test(name)) return "yes";
       return "no";
     }
-    if (pending.kind === "hex") return "yes";
-    if (pending.kind === "lock") return "yes";
+    if (pending.kind === "hex") return this.canAffordId(p, "hexward") ? "yes" : "no";
+    if (pending.kind === "lock") return this.canAffordId(p, "lockdown") ? "yes" : "no";
     if (pending.kind === "scare") {
+      if (!this.canAffordId(p, "scarecrow")) return "no";
       var vals = this.roll.dice.map(function (d) { return d.value; });
       if (vals.some(function (v) { return self.isHit(v, self.roll.spec.need); }) && vals.some(function (v) { return v !== 6; })) return "yes";
       return "no";
