@@ -152,7 +152,7 @@
     var specialDrag = isYou && isActive && !r.ko && r.special.type === "signature" && !r.sigUsed ? ' data-drag="signature"' : "";
     return '<article class="rooster' + (r.ko ? " ko" : "") + (isActive ? " is-active" : "") + '" data-speak-root' + attrs + ">" +
       '<div class="flock ' + esc(r.flock) + '"><span>' + esc(r.flock) + "</span></div>" +
-      '<div class="art">' + art.forRooster(r.defId) + "</div>" +
+      '<div class="art">' + art.forRooster(r.defId, !isActive) + "</div>" +
       '<div class="speak-row">' + speakBtn("rooster-" + r.uid) + "</div>" +
       '<div class="name">' + esc(r.name) + "</div>" +
       '<div class="hp">' + (r.ko ? "KO" : remaining(r) + "/" + game.maxHp(r)) + " HP</div>" +
@@ -165,7 +165,7 @@
 
   function handCard(c) {
     return '<article class="support" data-speak-root data-drag="hand" data-card="' + esc(c.id) + '">' +
-      '<div class="art">' + art.forSupport(c.id) + "</div>" +
+      '<div class="art">' + art.forSupport(c.id, true) + "</div>" +
       '<div class="speak-row">' + speakBtn("card-" + c.id) + "</div>" +
       '<div class="name">' + esc(c.name) + "</div>" +
       '<div class="meta">' + esc(c.type) + " · " + esc(c.flock) + "</div>" +
