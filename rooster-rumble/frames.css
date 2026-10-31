@@ -139,7 +139,7 @@ dialog .tcard .illu { height: min(62vh, 480px); object-fit: contain; object-posi
   overflow: visible;
   align-items: flex-start;
   padding-top: 28px;
-  padding-bottom: 46px;
+  padding-bottom: 72px;
 }
 .lineup .rooster:not(.is-active) {
   transform: scale(0.94);
@@ -210,6 +210,7 @@ dialog .tcard .illu { height: min(62vh, 480px); object-fit: contain; object-posi
   .rooster.tcard .artwin, .support.tcard .artwin,
   .rooster.tcard .textbox, .support.tcard .textbox { margin: 4px; }
   .rooster.tcard .atk,
+  .rooster.tcard .atk-text,
   .rooster.tcard .special,
   .rooster.tcard .meta,
   .rooster.tcard .typeline,

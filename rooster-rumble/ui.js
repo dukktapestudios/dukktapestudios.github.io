@@ -7,6 +7,7 @@
   var game = null;
   var fast = /[?&]fast=1/.test(location.search);
   var drag = null;
+  var seenEnergy = [null, null];
   var speechOk = !!(window.speechSynthesis && window.SpeechSynthesisUtterance);
   var speakingKey = null;
   var speakToken = 0;
@@ -207,13 +208,14 @@
     var attacks = r.attacks.map(function (a, idx) {
       var dragAtk = isYou && isActive && !r.ko ? ' data-drag="attack" data-index="' + idx + '"' : "";
       var state = lineState(isYou, attackUsable(r, isYou, isActive, a));
-      return '<div class="atk' + state + '"' + dragAtk + '><b>' + esc(a.name) + " (" + a.cost + ").</b> " + esc(a.text) + " Hit " + a.hit + "+.</div>";
+      return '<div class="atk' + state + '"' + dragAtk + '><span class="atk-head"><b>' + esc(a.name) + "</b> " + grainIcons(a.cost) + '</span><span class="atk-text">' + esc(a.text) + " Hit " + a.hit + "+.</span></div>";
     }).join("");
     var specialDrag = isYou && isActive && !r.ko && r.special.type === "signature" && !r.sigUsed ? ' data-drag="signature"' : "";
     var specialState = r.special && r.special.type === "signature" ? lineState(isYou, signatureUsable(r, isYou, isActive)) : "";
     var body = '<div class="speak-row">' + speakBtn("rooster-" + r.uid) + "</div>" +
       '<div class="hp">' + (r.ko ? "KO" : remaining(r) + "/" + game.maxHp(r)) + " HP</div>" +
-      '<div class="meta">Energy ' + (r.energy || 0) + " · Grain " + grain + " · Switch " + game.retreatCost(r) + " · Weak " + esc(r.weak) + "</div>" +
+      grainIcons(grain) +
+      '<div class="meta">Switch ' + game.retreatCost(r) + " · Weak " + esc(r.weak) + "</div>" +
       '<div class="special' + specialState + '"' + specialDrag + "><b>" + esc(r.special.name) + ".</b> " + esc(r.special.text) + "</div>" +
       attacks +
       (tags.length ? '<div class="meta">' + esc(tags.join(" · ")) + "</div>" : "");
@@ -262,11 +264,13 @@
     board.innerHTML =
       '<div class="layout"><div class="play">' + win +
       '<p class="tap-hint">Tap a card to read the full text.</p>' +
-      '<section class="lane"><h2>Rival · ' + esc(rival.deckName) + " · energy " + rival.energy + "/" + rival.energyMax + " · deck " + rival.deck.length + " · discard " + rival.discard.length + (rival.coop ? " · Coop: " + esc(rival.coop.name) : "") + "</h2>" +
+      '<section class="lane"><h2>Rival · ' + esc(rival.deckName) + " · deck " + rival.deck.length + " · discard " + rival.discard.length + (rival.coop ? " · Coop: " + esc(rival.coop.name) : "") + "</h2>" +
+      energyBar(rival, 1) +
       '<div class="row lineup">' + rival.lineup.map(function (r) { return roosterCard(r, rival.activeId, 1); }).join("") + "</div>" +
       (peek ? '<div class="row">' + rival.hand.map(function (c) { return handCard(c, rival); }).join("") + "</div>" : '<p class="backs">Hand: ' + rival.hand.length + " card backs</p>") +
       "</section>" +
-      '<section class="lane" id="you-lane"><h2>You · ' + esc(you.deckName) + " · energy " + you.energy + "/" + you.energyMax + " · main flock " + esc(you.mainFlock) + " · deck " + you.deck.length + (you.coop ? " · Coop: " + esc(you.coop.name) : "") + "</h2>" +
+      '<section class="lane" id="you-lane"><h2>You · ' + esc(you.deckName) + " · main flock " + esc(you.mainFlock) + " · deck " + you.deck.length + (you.coop ? " · Coop: " + esc(you.coop.name) : "") + "</h2>" +
+      energyBar(you, 0) +
       '<div class="row lineup">' + you.lineup.map(function (r) { return roosterCard(r, you.activeId, 0); }).join("") + "</div>" +
       '<div class="play-mat" data-drop="play">Drop a Coop or a ready Action here</div>' +
       '<div class="row" id="hand">' + you.hand.map(function (c) { return handCard(c, you); }).join("") + "</div></section>" +
@@ -283,6 +287,7 @@
     });
     var again = document.getElementById("again");
     if (again) again.addEventListener("click", start);
+    seenEnergy = [you.energy, rival.energy];
     var choiceBox = document.getElementById("choices");
     var choiceToggle = choiceBox && choiceBox.querySelector(".choices-summary");
     if (choiceToggle) {
@@ -518,8 +523,35 @@
     setTimeout(remove, 220);
   }
 
+  function grainIcons(n) {
+    var count = Math.max(0, n | 0);
+    var bits = "";
+    var i;
+    if (!count) bits = '<i class="kernel empty"></i>';
+    for (i = 0; i < count; i++) bits += '<i class="kernel"></i>';
+    return '<span class="kernels" aria-label="' + count + ' Grain"><span class="sr">' + count + " Grain</span>" + bits + "</span>";
+  }
+
+  function energyBar(player, index) {
+    var available = player.energy;
+    var max = player.energyMax;
+    var prev = seenEnergy[index];
+    var html = '<div class="energy-readout"><div class="energy-pips" aria-hidden="true">';
+    var i;
+    for (i = 0; i < 10; i++) {
+      var kind = "locked";
+      if (i < available) kind = "filled";
+      else if (i < max) kind = "spent";
+      var drain = prev != null && i >= available && i < prev;
+      html += '<span class="pip ' + kind + (drain ? " drain" : "") + '"></span>';
+    }
+    html += '</div><p class="energy-count"><strong>' + available + "</strong> / " + max + " energy left</p></div>";
+    return html;
+  }
+
   function start() {
     heardLog = 0;
+    seenEnergy = [null, null];
     game = engine.createGame({
       seed: (Date.now() ^ (Math.floor(Math.random() * 99999))) >>> 0,
       deck0: youSel.value,
