@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Horse Watch | Dukktape Studios</title>
+<meta name="description" content="Horse Watch: browser notes for gait, saddle fit, and a horse health log. Pictures stay on your device.">
+<link rel="stylesheet" href="style.css?v=2026103119">
+</head>
+<body>
+<header class="top wrap">
+  <p class="eyebrow">Dukktape Studios</p>
+  <h1>Horse Watch</h1>
+  <p class="tagline">A starter notebook for what you see. Pictures stay on this device.</p>
+  <p><a class="home" href="../">← Dukktape Studios</a></p>
+</header>
+<div class="wrap">
+  <aside class="disclaimer">
+    <strong>Early-warning aid only. Not a vet. Not a saddle fitter.</strong>
+    <p>Do not use this page to diagnose lameness, choose a treatment, or decide that a saddle is safe. If a horse looks lame, sore, or unwell, call a veterinarian or a qualified saddle fitter.</p>
+  </aside>
+  <section class="method" aria-live="polite">
+    <p id="method">Loading the note about how points are found…</p>
+  </section>
+  <section class="stage-wrap">
+    <div class="sources">
+      <button type="button" class="primary" id="use-camera">Use camera</button>
+      <label class="file">Choose a video
+        <input id="video-file" type="file" accept="video/*">
+      </label>
+      <label class="file">Choose a photo
+        <input id="photo-file" type="file" accept="image/*">
+      </label>
+    </div>
+    <div class="stage" id="stage">
+      <p class="placeholder" id="placeholder">No picture yet. Use the camera, or choose a video or a photo. It is not uploaded.</p>
+      <div class="frame" id="frame" hidden>
+        <video id="video" playsinline muted hidden></video>
+        <img id="still" alt="" hidden>
+        <canvas id="overlay"></canvas>
+      </div>
+    </div>
+    <div class="point-list" id="point-list" role="group" aria-label="Point to place"></div>
+    <div class="actions">
+      <button type="button" id="clear-points">Clear points</button>
+    </div>
+  </section>
+  <div class="tabs" role="tablist" aria-label="Notes">
+    <button type="button" id="tab-gait" aria-pressed="true">Gait</button>
+    <button type="button" id="tab-saddle" aria-pressed="false">Saddle</button>
+    <button type="button" id="tab-health" aria-pressed="false">Health</button>
+  </div>
+  <section class="panel" id="panel-gait">
+    <h2>Gait</h2>
+    <p>While you watch, tap a button each time that hoof lands. Near and off are the two sides. A phone on one side may not see the far hooves. Head bob uses the top of the horse box when the box model sees a horse.</p>
+    <div class="limb-list" id="limb-list"></div>
+    <div class="actions"><button type="button" id="clear-steps">Clear footfalls</button></div>
+    <div id="gait-report"></div>
+    <h3>Head line</h3>
+    <canvas class="chart" id="bob-chart" width="640" height="140"></canvas>
+    <p id="bob-note"></p>
+  </section>
+  <section class="panel" id="panel-saddle" hidden>
+    <h2>Saddle fit checklist</h2>
+    <p id="tilt-note">Tap Saddle front and Saddle back on a side view. The horse box alone cannot show tilt.</p>
+    <div id="saddle-checks"></div>
+    <label>Notes
+      <textarea class="notes" id="saddle-notes"></textarea>
+    </label>
+    <div class="actions">
+      <button type="button" class="primary" id="save-saddle">Save saddle notes on this device</button>
+    </div>
+    <div id="saddle-log"></div>
+  </section>
+  <section class="panel" id="panel-health" hidden>
+    <h2>Health observation log</h2>
+    <form id="health-form">
+      <div class="health-row"><label for="health-date">Date</label><input id="health-date" type="date" required></div>
+      <div class="health-row"><label for="bcs">Body condition 1–9</label>
+        <select id="bcs"></select>
+      </div>
+      <div id="health-fields"></div>
+      <label>Notes
+        <textarea class="notes" id="health-notes"></textarea>
+      </label>
+      <div class="actions">
+        <button type="submit" class="primary">Save on this device</button>
+        <button type="button" id="export-csv">Download CSV</button>
+      </div>
+    </form>
+    <div id="health-log"></div>
+  </section>
+</div>
+<section id="feedback" class="site-feedback wrap">
+  <h2>Feedback &amp; Suggestions</h2>
+  <p>What should I fix, add, or leave alone?</p>
+  <div id="feedback-box"><script src="https://giscus.app/client.js" data-repo="dukktapestudios/dukktapestudios.github.io" data-repo-id="R_kgDOVcgvLw" data-category="General" data-category-id="DIC_kwDOVcgvL84DKFnn" data-mapping="pathname" data-strict="0" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script></div>
+</section>
+<footer>© 2026 Dukktape Studios</footer>
+<script src="config.js?v=2026103119"></script>
+<script src="app.js?v=2026103119"></script>
+</body>
+</html>
