@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rooster Rumble: Coop Quest | Dukktape Studios</title>
+<meta name="description" content="Rooster Rumble: Coop Quest is a small original flock game. Walk Hatchwick, meet stray birds, and keep a coop of six.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>Rooster Rumble: Coop Quest</h1>
+  <p class="tag">A small flock game set in Hatchwick.</p>
+</header>
+<details class="howto">
+  <summary>How to wander</summary>
+  <p>Pick a first bird, then walk the lane with the arrow keys or WASD. On a phone, use the pad. The A button talks, checks the feed bin, and confirms. B closes a list. Tall clover and the thicket can hide stray birds. Fight, toss a feed sack, call another bird, or slip away. The barn mends the flock. Save stores this coop in the browser.</p>
+</details>
+<div class="stage">
+  <canvas id="view" width="512" height="384"></canvas>
+  <div class="hud">
+    <span id="place">Hatchwick</span>
+    <span id="sacks"></span>
+    <button type="button" id="save">Save</button>
+    <button type="button" id="load">Load</button>
+  </div>
+  <p class="line" id="line" aria-live="polite">Choose a first bird to leave the lane.</p>
+  <div class="panel" id="panel"></div>
+  <div class="controls">
+    <div class="dpad" aria-label="Move">
+      <button type="button" class="n" data-dir="n" aria-label="North">N</button>
+      <button type="button" class="w" data-dir="w" aria-label="West">W</button>
+      <button type="button" class="e" data-dir="e" aria-label="East">E</button>
+      <button type="button" class="s" data-dir="s" aria-label="South">S</button>
+    </div>
+    <div class="ab">
+      <button type="button" id="btn-a" aria-label="A, confirm">A</button>
+      <button type="button" id="btn-b" aria-label="B, back">B</button>
+    </div>
+  </div>
+</div>
+<footer>© 2026 Dukktape Studios</footer>
+<script src="game.js"></script>
+</body>
+</html>
