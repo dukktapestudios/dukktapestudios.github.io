@@ -102,7 +102,7 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
   position: relative;
 }
 .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 4px; }
-.tier-mark { font-size: .62rem; font-weight: 700; line-height: 1.1; text-align: right; letter-spacing: .02em; }
+.tier-mark { font-size: calc(.62rem * 1.45); font-weight: 700; line-height: 1.1; text-align: right; letter-spacing: .02em; }
 .serial { display: block; letter-spacing: .04em; }
 .tier-switch { display: flex; gap: 4px; }
 .tier-switch button {
@@ -178,7 +178,7 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
 }
 .num, .rarity, .name, .meta, .fact { display: block; }
 .num, .rarity {
-  font-size: .68rem;
+  font-size: calc(.68rem * 1.45);
   font-weight: 700;
   letter-spacing: .03em;
   text-transform: uppercase;
@@ -192,8 +192,8 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
   background: #efe4cc; color: #5c5144; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: .78rem;
 }
 .credit { display: block; margin-top: 2px; font-size: .52rem; line-height: 1.15; color: #5c5144; }
-.name { font-weight: 700; font-size: .92rem; line-height: 1.1; }
-.meta, .fact, .bars { font-size: .68rem; line-height: 1.25; margin-top: 2px; }
+.name { font-weight: 700; font-size: calc(.92rem * 1.45); line-height: 1.1; }
+.meta, .fact, .bars { font-size: calc(.68rem * 1.45); line-height: 1.25; margin-top: 2px; }
 .fact {
   font-style: italic;
   display: -webkit-box;

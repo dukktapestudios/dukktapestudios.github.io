@@ -90,7 +90,7 @@
   function artBlock(card) {
     var photo = photoById[card.id];
     if (!photo) return '<span class="artwin"><span class="needs-art">Needs art</span></span>';
-    return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="' + photo.file + '?v=2026103125"></span>';
+    return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="' + photo.file + '?v=2026103131"></span>';
   }
 
   function shoeMark(which) {
