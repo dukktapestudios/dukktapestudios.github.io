@@ -214,12 +214,14 @@
   ];
 
   var numbered = 0;
+  var idNumbered = 0;
   var out = cards.map(function (row) {
     var idKind = row[10] === "color" || row[10] === "breed" ? row[10] : "";
     var idCard = idKind !== "";
-    if (!idCard) numbered += 1;
+    if (idCard) idNumbered += 1;
+    else numbered += 1;
     return {
-      n: idCard ? 0 : numbered,
+      n: idCard ? idNumbered : numbered,
       id: row[0],
       name: row[1],
       cat: row[2],

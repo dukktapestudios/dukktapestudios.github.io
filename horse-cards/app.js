@@ -1,6 +1,8 @@
 (function () {
   var cards = window.HOOF_CARDS || [];
   var total = cards.filter(function (card) { return !card.idCard; }).length;
+  var idTotal = cards.filter(function (card) { return card.idCard; }).length;
+  var setTotal = total + idTotal;
   var cat = "all";
   var rarity = "all";
   var query = "";
@@ -13,6 +15,13 @@
   var TIERS = [
     { id: "base", label: "Base", icon: "●" }
   ];
+  // One symbol per rarity. Edit this map to change them.
+  var RARITY_MARKS = {
+    Common: "●",
+    Uncommon: "◆",
+    Rare: "★",
+    Legendary: "♛"
+  };
   var tier = "base";
   var picks = {};
 
@@ -65,8 +74,6 @@
       "</svg>";
   }
 
-  var photoById = {};
-
   function esc(s) {
     return String(s).replace(/[&<>"]/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
@@ -74,20 +81,30 @@
   }
 
   function artBlock(card) {
-    var photo = photoById[card.id];
-    if (!photo) return '<span class="artwin"><span class="needs-art">Needs art</span></span>';
-    return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="' + photo.file + '?v=2026103133"></span>';
+    return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="photos/' + card.id + '.jpg?v=2026103133"></span>';
+  }
+
+  function rarityMark(card) {
+    var glyph = RARITY_MARKS[card.rarity];
+    if (!glyph) return "";
+    return '<span class="rarity-mark" aria-hidden="true">' + glyph + "</span>";
   }
 
   function face(card, which) {
     var spec = tierById(which);
-    var numText = card.idCard ? (card.idKind === "color" ? "ID · COLOR" : "ID") : (card.n + "/" + total);
-    return '<span class="head"><span><span class="num">' + numText + "</span>" +
-      '<span class="rarity">' + card.rarity + "</span></span>" +
-      '<span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + "</span> " + spec.label + "</span></span>" +
+    var numText = (card.idCard ? total + card.n : card.n) + "/" + setTotal;
+    var kind = card.idCard
+      ? '<span class="kind">' + (card.idKind === "color" ? "ID · COLOR" : "ID") + "</span>"
+      : "";
+    var spoken = spec.label + (RARITY_MARKS[card.rarity] ? ", " + card.rarity : "");
+    return '<span class="name">' + card.name + "</span>" +
+      kind +
       artBlock(card) +
-      '<span class="name">' + card.name + "</span>" +
-      '<span class="fact">' + card.fact + "</span>";
+      '<span class="fact">' + card.fact + "</span>" +
+      '<span class="foot"><span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + "</span>" +
+      rarityMark(card) +
+      '<span class="sr">' + esc(spoken) + "</span></span>" +
+      '<span class="num">' + numText + "</span></span>";
   }
 
   function switcher(card) {
@@ -217,10 +234,5 @@
   zoom.addEventListener("click", function (e) { if (e.target === zoom) zoom.close(); });
   zoom.addEventListener("close", function () { if (lastFocus) lastFocus.focus(); });
 
-  fetch("image-credits.json").then(function (res) { return res.json(); }).then(function (rows) {
-    rows.forEach(function (row) {
-      if (row.status === "found" && row.file) photoById[row.id] = row;
-    });
-    render();
-  }).catch(function () { render(); });
+  render();
 })();
