@@ -16,20 +16,6 @@ body {
   font-family: Palatino, "Palatino Linotype", Georgia, serif;
   background: #fff;
   min-height: 100vh;
-  padding-top: 28px;
-}
-.visit-count {
-  position: fixed;
-  top: 6px;
-  left: 6px;
-  z-index: 30;
-  line-height: 0;
-}
-.visit-count img {
-  display: block;
-  height: 18px;
-  width: auto;
-  border: 0;
 }
 a { color: #8a5a12; }
 button {
