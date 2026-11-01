@@ -106,7 +106,8 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
 .serial { display: block; letter-spacing: .04em; }
 .tier-switch { display: flex; gap: 4px; }
 .tier-switch button {
-  flex: 1;
+  flex: 1 1 0;
+  max-width: calc((100% - 12px) / 4);
   min-height: 36px;
   padding: 0;
   font-size: .9rem;
@@ -164,23 +165,25 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
 }
 .artwin { position: relative; }
 .card.tier-champion {
-  color: #f6e7bf;
-  border: 3px solid #e2b143;
-  background: #100e0c;
-  box-shadow: inset 0 0 0 1px #6e5420;
+  color: #f7f4ee;
+  border: 3px solid #000;
+  background: #000;
+  box-shadow: none;
 }
 .card.tier-champion .meta,
 .card.tier-champion .fact,
-.card.tier-champion .bars { color: #f0ddb0; }
-.card.tier-champion .bar { background: #3a3220; }
-.card.tier-champion .bar i { background: #e2b143; }
+.card.tier-champion .bars,
+.card.tier-champion .tier-mark { color: #f7f4ee; }
+.card.tier-champion .bar { background: #2a2a2a; }
+.card.tier-champion .bar i { background: #f7f4ee; }
 .card.tier-champion .artwin { flex: 1.35 1 0; }
 .card.tier-champion .serial {
   display: inline-block;
   margin-top: 2px;
   padding: 0 4px;
-  border: 1px solid #e2b143;
-  color: #e2b143;
+  border: 1px solid #f7f4ee;
+  background: #000;
+  color: #f7f4ee;
 }
 .num, .rarity, .name, .meta, .fact { display: block; }
 .num, .rarity {
