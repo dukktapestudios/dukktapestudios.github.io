@@ -143,7 +143,7 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
   padding: 7px 8px 8px;
   background: #fffaf0;
   color: var(--ink);
-  border-width: 3px;
+  border-width: 18px;
   border-radius: 8px;
   overflow: hidden;
   transform: scale(calc(100cqw / 360px));
@@ -156,7 +156,7 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
 .artwin { position: relative; }
 .card.tier-obsidian {
   color: #f7f4ee;
-  border: 3px solid #000;
+  border: 18px solid #000;
   background: #000;
   box-shadow: none;
 }
@@ -289,6 +289,7 @@ footer { text-align: center; padding: 18px 10px 28px; font-weight: 700; }
     page-break-inside: avoid;
     overflow: visible;
     min-height: 0;
+    border-width: 0.121in;
     border-radius: 0;
     box-shadow: none;
     background: #fffaf0;
@@ -296,6 +297,7 @@ footer { text-align: center; padding: 18px 10px 28px; font-weight: 700; }
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+  .card.tier-obsidian { border-width: 0.121in; }
   .card::after {
     content: "";
     position: absolute;
