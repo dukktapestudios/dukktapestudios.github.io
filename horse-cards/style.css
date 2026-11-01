@@ -250,7 +250,7 @@ dialog::backdrop { background: rgba(12, 24, 16, .78); }
 .boosters h2 { margin: 0 0 8px; font-size: 1.15rem; }
 .pack-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   align-items: start;
 }
@@ -260,9 +260,11 @@ dialog::backdrop { background: rgba(12, 24, 16, .78); }
   height: auto;
 }
 .pack-odds { margin-top: 14px; }
+.pack-note { margin: 14px 0 0; max-width: 46rem; line-height: 1.45; }
 footer { text-align: center; padding: 18px 10px 28px; font-weight: 700; }
 @media (max-width: 600px) {
   .grid { grid-template-columns: 1fr; gap: 12px; }
+  .pack-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media print {
   @page { size: letter portrait; margin: 0.22in; }
