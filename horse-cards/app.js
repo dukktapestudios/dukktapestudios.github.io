@@ -11,8 +11,7 @@
   var lastFocus = null;
 
   var TIERS = [
-    { id: "base", label: "Base", icon: "●" },
-    { id: "obsidian", label: "Obsidian", icon: "♛" }
+    { id: "base", label: "Base", icon: "●" }
   ];
   var tier = "base";
   var picks = {};
@@ -20,13 +19,6 @@
   function tierById(id) {
     for (var i = 0; i < TIERS.length; i++) if (TIERS[i].id === id) return TIERS[i];
     return TIERS[0];
-  }
-
-  function serialOf(card) {
-    var h = 0;
-    var i;
-    for (i = 0; i < card.id.length; i++) h = (h * 33 + card.id.charCodeAt(i)) >>> 0;
-    return ((h % 25) + 1) + "/25";
   }
 
   function tierOf(card) {
@@ -52,12 +44,8 @@
     var coat = pair[0];
     var mane = pair[1];
     var light = pair[2];
-    var bg = which === "obsidian"
-      ? "#1a1408"
-      : ({ History: "#1d3e52", Racing: "#6e3028", Breed: "#24543a" }[card.cat] || "#24543a");
-    var rim = which === "obsidian"
-      ? '<rect x="8" y="8" width="204" height="234" rx="10" fill="none" stroke="#e2b143" stroke-width="4"/>'
-      : "";
+    var bg = ({ History: "#1d3e52", Racing: "#6e3028", Breed: "#24543a" }[card.cat] || "#24543a");
+    var rim = "";
     var spots = card.coat === "spotted"
       ? '<circle cx="78" cy="132" r="7" fill="' + light + '"/><circle cx="108" cy="124" r="5" fill="' + light + '"/><circle cx="96" cy="148" r="4" fill="' + light + '"/>'
       : "";
@@ -93,11 +81,10 @@
 
   function face(card, which) {
     var spec = tierById(which);
-    var serial = which === "obsidian" ? '<span class="serial">' + serialOf(card) + "</span>" : "";
     var numText = card.idCard ? (card.idKind === "color" ? "ID · COLOR" : "ID") : (card.n + "/" + total);
     return '<span class="head"><span><span class="num">' + numText + "</span>" +
       '<span class="rarity">' + card.rarity + "</span></span>" +
-      '<span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + "</span> " + spec.label + serial + "</span></span>" +
+      '<span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + "</span> " + spec.label + "</span></span>" +
       artBlock(card) +
       '<span class="name">' + card.name + "</span>" +
       '<span class="fact">' + card.fact + "</span>";
