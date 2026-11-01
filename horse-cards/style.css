@@ -143,17 +143,13 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
   background: #fffaf0;
   color: var(--ink);
   border-style: solid;
-  border-color: #1a120c;
+  border-color: #000;
   border-width: 18px;
   border-radius: 8px;
   overflow: hidden;
   transform: scale(calc(100cqw / 360px));
   transform-origin: top left;
 }
-.card.Common { border-color: var(--common); }
-.card.Uncommon { border-color: var(--uncommon); }
-.card.Rare { border-color: var(--rare); }
-.card.Legendary { border-color: var(--legendary); }
 .artwin { position: relative; }
 .num, .rarity, .kind, .name, .meta, .fact { display: block; }
 .num, .rarity, .kind {

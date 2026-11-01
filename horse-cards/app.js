@@ -2,6 +2,7 @@
   var cards = window.HOOF_CARDS || [];
   var total = cards.filter(function (card) { return !card.idCard; }).length;
   var idTotal = cards.filter(function (card) { return card.idCard; }).length;
+  var setTotal = total + idTotal;
   var cat = "all";
   var rarity = "all";
   var query = "";
@@ -82,7 +83,7 @@
 
   function face(card, which) {
     var spec = tierById(which);
-    var numText = card.idCard ? ("ID " + card.n + "/" + idTotal) : (card.n + "/" + total);
+    var numText = (card.idCard ? total + card.n : card.n) + "/" + setTotal;
     var kind = card.idCard
       ? '<span class="kind">' + (card.idKind === "color" ? "ID · COLOR" : "ID") + "</span>"
       : "";
