@@ -1,6 +1,6 @@
 (function () {
   var cards = window.HOOF_CARDS || [];
-  var total = cards.length;
+  var total = cards.filter(function (card) { return !card.idCard; }).length;
   var cat = "all";
   var rarity = "all";
   var query = "";
@@ -90,7 +90,7 @@
   function artBlock(card) {
     var photo = photoById[card.id];
     if (!photo) return '<span class="artwin"><span class="needs-art">Needs art</span></span>';
-    return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="' + photo.file + '?v=2026103131"></span>';
+    return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="' + photo.file + '?v=2026103133"></span>';
   }
 
   function shoeMark(which) {
@@ -116,7 +116,8 @@
   function face(card, which) {
     var spec = tierById(which);
     var serial = which === "champion" ? '<span class="serial">' + serialOf(card) + "</span>" : "";
-    return '<span class="head"><span><span class="num">' + card.n + "/" + total + "</span>" +
+    var numText = card.idCard ? "ID" : (card.n + "/" + total);
+    return '<span class="head"><span><span class="num">' + numText + "</span>" +
       '<span class="rarity">' + card.rarity + "</span></span>" +
       '<span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + "</span> " + spec.label + serial + "</span></span>" +
       artBlock(card) +
@@ -155,7 +156,15 @@
   function render() {
     var shown = cards.filter(matches);
     grid.replaceChildren();
+    var labeled = false;
     shown.forEach(function (card) {
+      if (card.idCard && !labeled) {
+        var heading = document.createElement("h2");
+        heading.className = "group-label";
+        heading.textContent = "Colors & Breeds";
+        grid.appendChild(heading);
+        labeled = true;
+      }
       var slot = document.createElement("div");
       slot.className = "slot";
       slot.setAttribute("data-id", card.id);
