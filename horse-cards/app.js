@@ -85,7 +85,7 @@
   }
 
   function shoeSvg() {
-    return '<svg class="shoe" viewBox="0 0 18 16" aria-hidden="true"><path d="M3.2 14.6V8.2C3.2 3.8 14.8 3.8 14.8 8.2V14.6" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg>';
+    return '<svg class="shoe" viewBox="0 0 18 16" aria-hidden="true"><path d="M3.2 1.4V7.8C3.2 12.2 14.8 12.2 14.8 7.8V1.4" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg>';
   }
 
   function rarityMark(card) {
