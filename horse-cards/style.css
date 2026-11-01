@@ -30,7 +30,7 @@ button {
   cursor: pointer;
 }
 button[aria-pressed="true"] { background: #fffaf0; }
-.top, .note, .controls, .legend, .grid, .empty, .site-feedback {
+.top, .note, .controls, .legend, .grid, .empty, .card-back, .site-feedback {
   width: min(1100px, calc(100% - 20px));
   margin-left: auto;
   margin-right: auto;
@@ -239,6 +239,16 @@ dialog::backdrop { background: rgba(12, 24, 16, .78); }
 }
 .site-feedback h2 { margin: 0 0 6px; font-size: 1.3rem; }
 .site-feedback p { margin: 0 0 10px; }
+.card-back { margin-top: 8px; margin-bottom: 8px; color: var(--ink); }
+.card-back h2 { margin: 0 0 8px; font-size: 1.15rem; }
+.card-back img {
+  display: block;
+  width: 180px;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 2.5 / 3.5;
+  border-radius: 8px;
+}
 footer { text-align: center; padding: 18px 10px 28px; font-weight: 700; }
 @media (max-width: 600px) {
   .grid { grid-template-columns: 1fr; gap: 12px; }
@@ -250,7 +260,7 @@ footer { text-align: center; padding: 18px 10px 28px; font-weight: 700; }
     color: #000 !important;
     min-height: 0;
   }
-  .top, .note, .controls, .legend, .tier-switch, .site-feedback, footer, .empty, dialog { display: none !important; }
+  .top, .note, .controls, .legend, .tier-switch, .card-back, .site-feedback, footer, .empty, dialog { display: none !important; }
   .slot, .card-scale { display: contents; }
   .grid {
     display: grid !important;
