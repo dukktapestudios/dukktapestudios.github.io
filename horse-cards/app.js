@@ -94,7 +94,7 @@
   function face(card, which) {
     var spec = tierById(which);
     var serial = which === "champion" ? '<span class="serial">' + serialOf(card) + "</span>" : "";
-    var numText = card.idCard ? ("ID · " + (card.idKind === "breed" ? "BREED" : "COLOR")) : (card.n + "/" + total);
+    var numText = card.idCard ? (card.idKind === "color" ? "ID · COLOR" : "ID") : (card.n + "/" + total);
     return '<span class="head"><span><span class="num">' + numText + "</span>" +
       '<span class="rarity">' + card.rarity + "</span></span>" +
       '<span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + "</span> " + spec.label + serial + "</span></span>" +
