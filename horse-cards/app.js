@@ -12,9 +12,7 @@
 
   var TIERS = [
     { id: "base", label: "Base", icon: "●" },
-    { id: "silver", label: "Silver", icon: "◆" },
-    { id: "gold", label: "Gold", icon: "★" },
-    { id: "champion", label: "Champion", icon: "♛" }
+    { id: "champion", label: "Black", icon: "♛" }
   ];
   var tier = "base";
   var picks = {};
@@ -107,9 +105,7 @@
 
   function switcher(card) {
     var which = tierOf(card);
-    return TIERS.filter(function (spec) {
-      return spec.id === "base" || spec.id === "champion";
-    }).map(function (spec) {
+    return TIERS.map(function (spec) {
       var on = spec.id === which;
       return '<button type="button" data-tier-pick="' + spec.id + '" aria-pressed="' + (on ? "true" : "false") + '" aria-label="' + spec.label + '">' + spec.icon + "</button>";
     }).join("");
