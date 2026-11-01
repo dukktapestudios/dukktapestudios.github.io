@@ -154,20 +154,20 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
 .card.Rare { border-color: var(--rare); }
 .card.Legendary { border-color: var(--legendary); }
 .artwin { position: relative; }
-.card.tier-champion {
+.card.tier-obsidian {
   color: #f7f4ee;
   border: 3px solid #000;
   background: #000;
   box-shadow: none;
 }
-.card.tier-champion .meta,
-.card.tier-champion .fact,
-.card.tier-champion .bars,
-.card.tier-champion .tier-mark { color: #f7f4ee; }
-.card.tier-champion .bar { background: #2a2a2a; }
-.card.tier-champion .bar i { background: #f7f4ee; }
-.card.tier-champion .artwin { flex: 1.35 1 0; }
-.card.tier-champion .serial {
+.card.tier-obsidian .meta,
+.card.tier-obsidian .fact,
+.card.tier-obsidian .bars,
+.card.tier-obsidian .tier-mark { color: #f7f4ee; }
+.card.tier-obsidian .bar { background: #2a2a2a; }
+.card.tier-obsidian .bar i { background: #f7f4ee; }
+.card.tier-obsidian .artwin { flex: 1.35 1 0; }
+.card.tier-obsidian .serial {
   display: inline-block;
   margin-top: 2px;
   padding: 0 4px;
@@ -258,6 +258,7 @@ footer { text-align: center; padding: 18px 10px 28px; font-weight: 700; }
 @media (max-width: 600px) {
   .grid { grid-template-columns: 1fr; gap: 12px; }
   .pack-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pack-row .pack-back { grid-column: 1 / -1; width: min(100%, 440px); justify-self: center; }
 }
 @media print {
   @page { size: letter portrait; margin: 0.22in; }

@@ -12,7 +12,7 @@
 
   var TIERS = [
     { id: "base", label: "Base", icon: "●" },
-    { id: "champion", label: "Black", icon: "♛" }
+    { id: "obsidian", label: "Obsidian", icon: "♛" }
   ];
   var tier = "base";
   var picks = {};
@@ -52,10 +52,10 @@
     var coat = pair[0];
     var mane = pair[1];
     var light = pair[2];
-    var bg = which === "champion"
+    var bg = which === "obsidian"
       ? "#1a1408"
       : ({ History: "#1d3e52", Racing: "#6e3028", Breed: "#24543a" }[card.cat] || "#24543a");
-    var rim = which === "champion"
+    var rim = which === "obsidian"
       ? '<rect x="8" y="8" width="204" height="234" rx="10" fill="none" stroke="#e2b143" stroke-width="4"/>'
       : "";
     var spots = card.coat === "spotted"
@@ -93,7 +93,7 @@
 
   function face(card, which) {
     var spec = tierById(which);
-    var serial = which === "champion" ? '<span class="serial">' + serialOf(card) + "</span>" : "";
+    var serial = which === "obsidian" ? '<span class="serial">' + serialOf(card) + "</span>" : "";
     var numText = card.idCard ? (card.idKind === "color" ? "ID · COLOR" : "ID") : (card.n + "/" + total);
     return '<span class="head"><span><span class="num">' + numText + "</span>" +
       '<span class="rarity">' + card.rarity + "</span></span>" +
