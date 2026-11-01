@@ -74,8 +74,6 @@
       "</svg>";
   }
 
-  var photoById = {};
-
   function esc(s) {
     return String(s).replace(/[&<>"]/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
@@ -83,9 +81,7 @@
   }
 
   function artBlock(card) {
-    var photo = photoById[card.id];
-    if (!photo) return '<span class="artwin"><span class="needs-art">Needs art</span></span>';
-    return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="' + photo.file + '?v=2026103133"></span>';
+    return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="photos/' + card.id + '.jpg?v=2026103133"></span>';
   }
 
   function rarityMark(card) {
@@ -238,10 +234,5 @@
   zoom.addEventListener("click", function (e) { if (e.target === zoom) zoom.close(); });
   zoom.addEventListener("close", function () { if (lastFocus) lastFocus.focus(); });
 
-  fetch("image-credits.json").then(function (res) { return res.json(); }).then(function (rows) {
-    rows.forEach(function (row) {
-      if (row.status === "found" && row.file) photoById[row.id] = row;
-    });
-    render();
-  }).catch(function () { render(); });
+  render();
 })();
