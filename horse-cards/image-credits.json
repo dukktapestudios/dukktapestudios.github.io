@@ -1205,57 +1205,6 @@
     "sourceUrl": ""
   },
   {
-    "id": "arabian",
-    "name": "Arabian",
-    "cat": "Breed",
-    "status": "found",
-    "file": "photos/arabian.jpg",
-    "sourceUrl": "",
-    "author": "Art: Dukktape Studios (AI-assisted)",
-    "license": "Art: Dukktape Studios (AI-assisted)",
-    "reference": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:AL_Sham_International_Arabian_Horse_Festival_2019_in_Damascus.jpg",
-      "commonsTitle": "File:AL Sham International Arabian Horse Festival 2019 in Damascus.jpg",
-      "author": "Tmnadili",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
-  },
-  {
-    "id": "thoroughbred",
-    "name": "Thoroughbred",
-    "cat": "Breed",
-    "status": "found",
-    "file": "photos/thoroughbred.jpg",
-    "sourceUrl": "",
-    "author": "Art: Dukktape Studios (AI-assisted)",
-    "license": "Art: Dukktape Studios (AI-assisted)",
-    "reference": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chestnut_Thoroughbred_Horse_(3433223374).jpg",
-      "commonsTitle": "File:Chestnut Thoroughbred Horse (3433223374).jpg",
-      "author": "Rennett Stowe from USA",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
-    }
-  },
-  {
-    "id": "quarter-horse",
-    "name": "American Quarter Horse",
-    "cat": "Breed",
-    "status": "found",
-    "file": "photos/quarter-horse.jpg",
-    "sourceUrl": "",
-    "author": "Art: Dukktape Studios (AI-assisted)",
-    "license": "Art: Dukktape Studios (AI-assisted)",
-    "reference": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:American_quarter_horse.jpg",
-      "commonsTitle": "File:American quarter horse.jpg",
-      "author": "evelynbelgium",
-      "license": "CC BY-SA 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
-    }
-  },
-  {
     "id": "standardbred",
     "name": "Standardbred",
     "cat": "Breed",
@@ -1270,40 +1219,6 @@
       "author": "Unknown author Unknown author",
       "license": "Public domain",
       "licenseUrl": ""
-    }
-  },
-  {
-    "id": "morgan",
-    "name": "Morgan",
-    "cat": "Breed",
-    "status": "found",
-    "file": "photos/morgan.jpg",
-    "sourceUrl": "",
-    "author": "Art: Dukktape Studios (AI-assisted)",
-    "license": "Art: Dukktape Studios (AI-assisted)",
-    "reference": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:American_Morgan_Horse_cropped.jpg",
-      "commonsTitle": "File:American Morgan Horse cropped.jpg",
-      "author": "missing8519",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
-    }
-  },
-  {
-    "id": "tennessee-walking-horse",
-    "name": "Tennessee Walking Horse",
-    "cat": "Breed",
-    "status": "found",
-    "file": "photos/tennessee-walking-horse.jpg",
-    "sourceUrl": "",
-    "author": "Art: Dukktape Studios (AI-assisted)",
-    "license": "Art: Dukktape Studios (AI-assisted)",
-    "reference": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Three_Tennessee_Walking_Horses.png",
-      "commonsTitle": "File:Three Tennessee Walking Horses.png",
-      "author": "Jackie O Photography",
-      "license": "CC BY 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
     }
   },
   {
@@ -1332,91 +1247,6 @@
     "author": "Art: Dukktape Studios (AI-assisted)",
     "license": "Art: Dukktape Studios (AI-assisted)",
     "sourceUrl": ""
-  },
-  {
-    "id": "appaloosa",
-    "name": "Appaloosa",
-    "cat": "Breed",
-    "status": "found",
-    "file": "photos/appaloosa.jpg",
-    "sourceUrl": "",
-    "author": "Art: Dukktape Studios (AI-assisted)",
-    "license": "Art: Dukktape Studios (AI-assisted)",
-    "reference": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Appaloosa_Horse_from_the_Nez_Perce_Appaloosa_Horse_Club_(62378854-1dd8-b71b-0bbf-ea704cc86dcd).jpg",
-      "commonsTitle": "File:Appaloosa Horse from the Nez Perce Appaloosa Horse Club (62378854-1dd8-b71b-0bbf-ea704cc86dcd).jpg",
-      "author": "NPS",
-      "license": "Public domain",
-      "licenseUrl": ""
-    }
-  },
-  {
-    "id": "paint-horse",
-    "name": "American Paint Horse",
-    "cat": "Breed",
-    "status": "found",
-    "file": "photos/paint-horse.jpg",
-    "sourceUrl": "",
-    "author": "Art: Dukktape Studios (AI-assisted)",
-    "license": "Art: Dukktape Studios (AI-assisted)",
-    "reference": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brennan_Wells;_on_the_black_horse,_Kayla_McShane,_on_the_paint_29278v.jpg",
-      "commonsTitle": "File:Brennan Wells; on the black horse, Kayla McShane, on the paint 29278v.jpg",
-      "author": "Carol M. Highsmith",
-      "license": "Public domain",
-      "licenseUrl": ""
-    }
-  },
-  {
-    "id": "mustang",
-    "name": "Mustang",
-    "cat": "Breed",
-    "status": "found",
-    "file": "photos/mustang.jpg",
-    "sourceUrl": "",
-    "author": "Art: Dukktape Studios (AI-assisted)",
-    "license": "Art: Dukktape Studios (AI-assisted)",
-    "reference": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Adopted_mustang_Kilchii_(24874040734).jpg",
-      "commonsTitle": "File:Adopted mustang Kilchii (24874040734).jpg",
-      "author": "BLMIdaho",
-      "license": "Public domain",
-      "licenseUrl": ""
-    }
-  },
-  {
-    "id": "friesian",
-    "name": "Friesian",
-    "cat": "Breed",
-    "status": "found",
-    "file": "photos/friesian.jpg",
-    "sourceUrl": "",
-    "author": "Art: Dukktape Studios (AI-assisted)",
-    "license": "Art: Dukktape Studios (AI-assisted)",
-    "reference": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Den_Helder_-_Friesian_horses_on_the_beach.jpg",
-      "commonsTitle": "File:Den Helder - Friesian horses on the beach.jpg",
-      "author": "Lars van der Heide",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
-  },
-  {
-    "id": "clydesdale",
-    "name": "Clydesdale",
-    "cat": "Breed",
-    "status": "found",
-    "file": "photos/clydesdale.jpg",
-    "sourceUrl": "",
-    "author": "Art: Dukktape Studios (AI-assisted)",
-    "license": "Art: Dukktape Studios (AI-assisted)",
-    "reference": {
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:3_Clydesdale_horses.JPG",
-      "commonsTitle": "File:3 Clydesdale horses.JPG",
-      "author": "Geni",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
   },
   {
     "id": "shire",
