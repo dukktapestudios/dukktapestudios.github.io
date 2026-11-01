@@ -15,6 +15,13 @@
   var TIERS = [
     { id: "base", label: "Base", icon: "●" }
   ];
+  // One symbol per rarity. Edit this map to change them.
+  var RARITY_MARKS = {
+    Common: "●",
+    Uncommon: "◆",
+    Rare: "★",
+    Legendary: "♛"
+  };
   var tier = "base";
   var picks = {};
 
@@ -81,17 +88,26 @@
     return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="' + photo.file + '?v=2026103133"></span>';
   }
 
+  function rarityMark(card) {
+    var glyph = RARITY_MARKS[card.rarity];
+    if (!glyph) return "";
+    return '<span class="rarity-mark" aria-hidden="true">' + glyph + "</span>";
+  }
+
   function face(card, which) {
     var spec = tierById(which);
     var numText = (card.idCard ? total + card.n : card.n) + "/" + setTotal;
     var kind = card.idCard
       ? '<span class="kind">' + (card.idKind === "color" ? "ID · COLOR" : "ID") + "</span>"
       : "";
+    var spoken = spec.label + (RARITY_MARKS[card.rarity] ? ", " + card.rarity : "");
     return '<span class="name">' + card.name + "</span>" +
       kind +
       artBlock(card) +
       '<span class="fact">' + card.fact + "</span>" +
-      '<span class="foot"><span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + '</span><span class="sr">' + spec.label + "</span></span>" +
+      '<span class="foot"><span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + "</span>" +
+      rarityMark(card) +
+      '<span class="sr">' + esc(spoken) + "</span></span>" +
       '<span class="num">' + numText + "</span></span>";
   }
 
