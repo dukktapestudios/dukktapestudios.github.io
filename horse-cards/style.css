@@ -258,6 +258,7 @@ footer { text-align: center; padding: 18px 10px 28px; font-weight: 700; }
 @media (max-width: 600px) {
   .grid { grid-template-columns: 1fr; gap: 12px; }
   .pack-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pack-row .pack-back { grid-column: 1 / -1; width: min(100%, 440px); justify-self: center; }
 }
 @media print {
   @page { size: letter portrait; margin: 0.22in; }
