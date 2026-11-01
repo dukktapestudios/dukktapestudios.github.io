@@ -101,8 +101,7 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
   aspect-ratio: 2.5 / 3.5;
   position: relative;
 }
-.head { display: flex; justify-content: space-between; align-items: flex-start; gap: 4px; }
-.tier-mark { font-size: calc(.62rem * 1.45); font-weight: 700; line-height: 1.1; text-align: right; letter-spacing: .02em; }
+.tier-mark { font-size: calc(.62rem * 1.45); font-weight: 700; line-height: 1; letter-spacing: .02em; }
 .serial { display: block; letter-spacing: .04em; }
 .tier-switch { display: flex; gap: 4px; }
 .tier-switch button {
@@ -143,26 +142,24 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
   padding: 7px 8px 8px;
   background: #fffaf0;
   color: var(--ink);
+  border-style: solid;
+  border-color: #000;
   border-width: 18px;
   border-radius: 8px;
   overflow: hidden;
   transform: scale(calc(100cqw / 360px));
   transform-origin: top left;
 }
-.card.Common { border-color: var(--common); }
-.card.Uncommon { border-color: var(--uncommon); }
-.card.Rare { border-color: var(--rare); }
-.card.Legendary { border-color: var(--legendary); }
 .artwin { position: relative; }
-.num, .rarity, .name, .meta, .fact { display: block; }
-.num, .rarity {
+.num, .rarity, .kind, .name, .meta, .fact { display: block; }
+.num, .rarity, .kind {
   font-size: calc(.68rem * 1.45);
   font-weight: 700;
   letter-spacing: .03em;
   text-transform: uppercase;
   line-height: 1.15;
 }
-.rarity { margin-bottom: 2px; }
+.rarity, .kind { margin: 1px 0 2px; }
 .artwin { flex: 1 1 0; min-height: 0; margin: 4px 0; overflow: hidden; border-radius: 6px; }
 .photo, .art { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
 .needs-art {
@@ -170,14 +167,42 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
   background: #efe4cc; color: #5c5144; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: .78rem;
 }
 .credit { display: block; margin-top: 2px; font-size: .52rem; line-height: 1.15; color: #5c5144; }
-.name { font-weight: 700; font-size: calc(.92rem * 1.45); line-height: 1.1; }
+.name {
+  font-weight: 700;
+  font-size: calc(.92rem * 1.45);
+  line-height: 1.15;
+  overflow-wrap: break-word;
+}
+.foot {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-height: 1.15em;
+  margin-top: 2px;
+}
+.foot .num { position: absolute; right: 0; bottom: 0; text-align: right; white-space: nowrap; }
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 .meta, .fact, .bars { font-size: calc(.68rem * 1.45); line-height: 1.25; margin-top: 2px; }
 .fact {
+  font-weight: 700;
   font-style: italic;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   overflow: hidden;
+  overflow-wrap: break-word;
 }
 .bars { display: grid; gap: 1px; }
 .bar { height: 5px; background: #e4d3b4; border-radius: 99px; margin-top: 1px; }
@@ -295,5 +320,5 @@ footer { text-align: center; padding: 18px 10px 28px; font-weight: 700; }
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
-  .fact { -webkit-line-clamp: 3; }
+  .fact { -webkit-line-clamp: 4; font-weight: 700; font-style: italic; }
 }

@@ -1,6 +1,8 @@
 (function () {
   var cards = window.HOOF_CARDS || [];
   var total = cards.filter(function (card) { return !card.idCard; }).length;
+  var idTotal = cards.filter(function (card) { return card.idCard; }).length;
+  var setTotal = total + idTotal;
   var cat = "all";
   var rarity = "all";
   var query = "";
@@ -81,13 +83,16 @@
 
   function face(card, which) {
     var spec = tierById(which);
-    var numText = card.idCard ? (card.idKind === "color" ? "ID · COLOR" : "ID") : (card.n + "/" + total);
-    return '<span class="head"><span><span class="num">' + numText + "</span>" +
-      '<span class="rarity">' + card.rarity + "</span></span>" +
-      '<span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + "</span> " + spec.label + "</span></span>" +
+    var numText = (card.idCard ? total + card.n : card.n) + "/" + setTotal;
+    var kind = card.idCard
+      ? '<span class="kind">' + (card.idKind === "color" ? "ID · COLOR" : "ID") + "</span>"
+      : "";
+    return '<span class="name">' + card.name + "</span>" +
+      kind +
       artBlock(card) +
-      '<span class="name">' + card.name + "</span>" +
-      '<span class="fact">' + card.fact + "</span>";
+      '<span class="fact">' + card.fact + "</span>" +
+      '<span class="foot"><span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + '</span><span class="sr">' + spec.label + "</span></span>" +
+      '<span class="num">' + numText + "</span></span>";
   }
 
   function switcher(card) {
