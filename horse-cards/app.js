@@ -93,26 +93,6 @@
     return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="' + photo.file + '?v=2026103133"></span>';
   }
 
-  function shoeMark(which) {
-    if (which !== "silver" && which !== "gold") return "";
-    var metal = which === "gold"
-      ? { body: "#c9a227", edge: "#f4e4a8", hole: "#6a4c10", shade: "#8d6a12" }
-      : { body: "#c5ced8", edge: "#f5f8fb", hole: "#5c6773", shade: "#8b97a6" };
-    var band = "M30 10 C27 26 24 46 36 62 C44 74 56 74 64 62 C76 46 73 26 70 10";
-    return '<span class="shoe">' +
-      '<svg viewBox="0 0 100 86" aria-hidden="true">' +
-      '<path d="' + band + '" fill="none" stroke="' + metal.shade + '" stroke-width="18" stroke-linecap="butt"/>' +
-      '<path d="' + band + '" fill="none" stroke="' + metal.body + '" stroke-width="14" stroke-linecap="butt"/>' +
-      '<path d="' + band + '" fill="none" stroke="' + metal.edge + '" stroke-width="4" stroke-linecap="butt" opacity=".7"/>' +
-      '<circle cx="31" cy="22" r="2.5" fill="' + metal.hole + '"/>' +
-      '<circle cx="29" cy="34" r="2.5" fill="' + metal.hole + '"/>' +
-      '<circle cx="33" cy="46" r="2.4" fill="' + metal.hole + '"/>' +
-      '<circle cx="69" cy="22" r="2.5" fill="' + metal.hole + '"/>' +
-      '<circle cx="71" cy="34" r="2.5" fill="' + metal.hole + '"/>' +
-      '<circle cx="67" cy="46" r="2.4" fill="' + metal.hole + '"/>' +
-      "</svg></span>";
-  }
-
   function face(card, which) {
     var spec = tierById(which);
     var serial = which === "champion" ? '<span class="serial">' + serialOf(card) + "</span>" : "";
@@ -122,8 +102,7 @@
       '<span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + "</span> " + spec.label + serial + "</span></span>" +
       artBlock(card) +
       '<span class="name">' + card.name + "</span>" +
-      '<span class="fact">' + card.fact + "</span>" +
-      shoeMark(which);
+      '<span class="fact">' + card.fact + "</span>";
   }
 
   function switcher(card) {
