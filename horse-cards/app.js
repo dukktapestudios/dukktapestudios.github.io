@@ -159,7 +159,7 @@
       var slot = document.createElement("div");
       slot.className = "slot";
       slot.setAttribute("data-id", card.id);
-      slot.innerHTML = '<button type="button" class="card"></button><div class="tier-switch" role="group" aria-label="Tiers for ' + card.name + '"></div>';
+      slot.innerHTML = '<div class="card-scale"><button type="button" class="card"></button></div><div class="tier-switch" role="group" aria-label="Tiers for ' + card.name + '"></div>';
       paintSlot(slot, card);
       slot.querySelector(".card").addEventListener("click", function () { openZoom(card, slot.querySelector(".card")); });
       slot.querySelector(".tier-switch").addEventListener("click", function (e) {
@@ -177,7 +177,7 @@
   function fillZoom(card) {
     var which = tierOf(card);
     zoomBody.setAttribute("data-id", card.id);
-    zoomBody.innerHTML = '<div class="' + cardClass(card, which) + '">' + face(card, which) + '</div><div class="tier-switch" role="group" aria-label="Tiers for ' + card.name + '">' + switcher(card) + "</div>";
+    zoomBody.innerHTML = '<div class="card-scale"><div class="' + cardClass(card, which) + '">' + face(card, which) + '</div></div><div class="tier-switch" role="group" aria-label="Tiers for ' + card.name + '">' + switcher(card) + "</div>";
   }
 
   function openZoom(card, opener) {
