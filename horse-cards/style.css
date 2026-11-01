@@ -142,6 +142,8 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
   padding: 7px 8px 8px;
   background: #fffaf0;
   color: var(--ink);
+  border-style: solid;
+  border-color: #1a120c;
   border-width: 18px;
   border-radius: 8px;
   overflow: hidden;

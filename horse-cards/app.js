@@ -83,7 +83,6 @@
     var spec = tierById(which);
     var numText = card.idCard ? (card.idKind === "color" ? "ID · COLOR" : "ID") : (card.n + "/" + total);
     return '<span class="name">' + card.name + "</span>" +
-      '<span class="rarity">' + card.rarity + "</span>" +
       artBlock(card) +
       '<span class="fact">' + card.fact + "</span>" +
       '<span class="foot"><span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + '</span><span class="sr">' + spec.label + "</span></span>" +
