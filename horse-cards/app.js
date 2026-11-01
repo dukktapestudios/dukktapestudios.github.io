@@ -82,12 +82,12 @@
   function face(card, which) {
     var spec = tierById(which);
     var numText = card.idCard ? (card.idKind === "color" ? "ID · COLOR" : "ID") : (card.n + "/" + total);
-    return '<span class="head"><span><span class="num">' + numText + "</span>" +
-      '<span class="rarity">' + card.rarity + "</span></span>" +
-      '<span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + "</span> " + spec.label + "</span></span>" +
+    return '<span class="name">' + card.name + "</span>" +
+      '<span class="rarity">' + card.rarity + "</span>" +
       artBlock(card) +
-      '<span class="name">' + card.name + "</span>" +
-      '<span class="fact">' + card.fact + "</span>";
+      '<span class="fact">' + card.fact + "</span>" +
+      '<span class="foot"><span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + '</span><span class="sr">' + spec.label + "</span></span>" +
+      '<span class="num">' + numText + "</span></span>";
   }
 
   function switcher(card) {
