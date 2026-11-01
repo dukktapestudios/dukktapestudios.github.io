@@ -15,12 +15,12 @@
   var TIERS = [
     { id: "base", label: "Base", icon: "●" }
   ];
-  // One symbol per rarity. Edit this map to change them.
-  var RARITY_MARKS = {
-    Common: "●",
-    Uncommon: "◆",
-    Rare: "★",
-    Legendary: "♛"
+  // Horseshoe count and color per rarity. Open end points down.
+  var RARITY_SHOES = {
+    Common: 1,
+    Uncommon: 2,
+    Rare: 3,
+    Legendary: 4
   };
   var tier = "base";
   var picks = {};
@@ -84,26 +84,28 @@
     return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="photos/' + card.id + '.jpg?v=2026103133"></span>';
   }
 
-  function rarityMark(card) {
-    var glyph = RARITY_MARKS[card.rarity];
-    if (!glyph) return "";
-    return '<span class="rarity-mark" aria-hidden="true">' + glyph + "</span>";
+  function shoeSvg() {
+    return '<svg class="shoe" viewBox="0 0 18 16" aria-hidden="true"><path d="M3.2 14.6V8.2C3.2 3.8 14.8 3.8 14.8 8.2V14.6" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg>';
   }
 
-  function face(card, which) {
-    var spec = tierById(which);
+  function rarityMark(card) {
+    var count = RARITY_SHOES[card.rarity];
+    if (!count) return "";
+    var shoes = "";
+    for (var i = 0; i < count; i++) shoes += shoeSvg();
+    return '<span class="shoes">' + shoes + '<span class="sr">' + esc(card.rarity) + "</span></span>";
+  }
+
+  function face(card) {
     var numText = (card.idCard ? total + card.n : card.n) + "/" + setTotal;
     var kind = card.idCard
       ? '<span class="kind">' + (card.idKind === "color" ? "ID · COLOR" : "ID") + "</span>"
       : "";
-    var spoken = spec.label + (RARITY_MARKS[card.rarity] ? ", " + card.rarity : "");
     return '<span class="name">' + card.name + "</span>" +
       kind +
       artBlock(card) +
       '<span class="fact">' + card.fact + "</span>" +
-      '<span class="foot"><span class="tier-mark"><span class="tier-icon" aria-hidden="true">' + spec.icon + "</span>" +
-      rarityMark(card) +
-      '<span class="sr">' + esc(spoken) + "</span></span>" +
+      '<span class="foot">' + rarityMark(card) +
       '<span class="num">' + numText + "</span></span>";
   }
 
