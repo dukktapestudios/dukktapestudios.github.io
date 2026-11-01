@@ -2792,5 +2792,205 @@
     "author": "Art: Dukktape Studios (AI-assisted)",
     "license": "Art: Dukktape Studios (AI-assisted)",
     "sourceUrl": ""
+  },
+  {
+    "id": "id-appaloosa-color",
+    "name": "Appaloosa (Color)",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-appaloosa-color.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-bay",
+    "name": "Bay",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-bay.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-black",
+    "name": "Black",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-black.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-buckskin",
+    "name": "Buckskin",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-buckskin.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-chestnut",
+    "name": "Chestnut",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-chestnut.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-dun",
+    "name": "Dun",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-dun.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-gray",
+    "name": "Gray",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-gray.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-palomino",
+    "name": "Palomino",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-palomino.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-pinto",
+    "name": "Paint/Pinto",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-pinto.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-roan",
+    "name": "Roan",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-roan.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-american-paint",
+    "name": "American Paint Horse",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-american-paint.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-appaloosa-breed",
+    "name": "Appaloosa (Breed)",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-appaloosa-breed.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-arabian",
+    "name": "Arabian",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-arabian.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-clydesdale",
+    "name": "Clydesdale",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-clydesdale.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-friesian",
+    "name": "Friesian",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-friesian.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-morgan",
+    "name": "Morgan",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-morgan.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-mustang",
+    "name": "Mustang",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-mustang.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-quarter-horse",
+    "name": "Quarter Horse",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-quarter-horse.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-tennessee-walker",
+    "name": "Tennessee Walking Horse",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-tennessee-walker.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
+  },
+  {
+    "id": "id-thoroughbred",
+    "name": "Thoroughbred",
+    "cat": "Colors & Breeds",
+    "status": "found",
+    "file": "photos/id-thoroughbred.jpg",
+    "author": "Art: Dukktape Studios (AI-assisted)",
+    "license": "Art: Dukktape Studios (AI-assisted)",
+    "sourceUrl": ""
   }
 ]
