@@ -153,16 +153,6 @@ h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.2rem); line-height: .95; }
 .card.Uncommon { border-color: var(--uncommon); }
 .card.Rare { border-color: var(--rare); }
 .card.Legendary { border-color: var(--legendary); }
-.card.tier-silver {
-  color: #1b2430;
-  border: 3px solid #8e98a6;
-  background: #d5dbe3;
-}
-.card.tier-gold {
-  color: #3a2808;
-  border: 3px solid #8d6410;
-  background: #e6c15a;
-}
 .artwin { position: relative; }
 .card.tier-champion {
   color: #f7f4ee;
