@@ -16,20 +16,6 @@ body {
   font-family: Palatino, "Palatino Linotype", Georgia, serif;
   background: #fff;
   min-height: 100vh;
-  padding-top: 28px;
-}
-.visit-count {
-  position: fixed;
-  top: 6px;
-  left: 6px;
-  z-index: 30;
-  line-height: 0;
-}
-.visit-count img {
-  display: block;
-  height: 18px;
-  width: auto;
-  border: 0;
 }
 a { color: #8a5a12; }
 button {
@@ -295,7 +281,30 @@ dialog::backdrop { background: rgba(12, 24, 16, .78); }
   width: 100%;
   height: auto;
 }
+.pack-box { margin: 0; }
+.pack-box figcaption {
+  margin-top: 8px;
+  text-align: center;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.coming-soon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: 16px;
+  padding: .55rem 1.1rem;
+  background: var(--gold);
+  color: var(--ink);
+  border: 3px solid #1a120c;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.shop-cta { margin: 0; }
 .pack-odds { margin-top: 14px; }
+.pack-row .pack-back { grid-column: 1 / -1; width: min(100%, 440px); justify-self: center; }
 .pack-note { margin: 14px 0 0; max-width: 46rem; line-height: 1.45; }
 footer { text-align: center; padding: 18px 10px 28px; font-weight: 700; }
 @media (max-width: 600px) {

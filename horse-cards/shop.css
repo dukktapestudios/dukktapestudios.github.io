@@ -1,0 +1,83 @@
+.shop-page {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(226, 177, 67, .18), transparent 22rem),
+    #143524;
+  color: #fff8ea;
+}
+.shop-wrap {
+  width: min(980px, calc(100% - 24px));
+  margin: 0 auto;
+  padding: 18px 0 8px;
+}
+.shop-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.shop-nav a {
+  color: var(--gold);
+  font-weight: 700;
+  text-decoration: none;
+}
+.shop-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3px solid #1a120c;
+  background: #fff8ea;
+}
+.shop-page h1 {
+  margin: 18px 0 8px;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  line-height: 1.05;
+  text-align: center;
+}
+.shop-lead {
+  margin: 0 0 18px;
+  text-align: center;
+  color: #f4e7cf;
+}
+.shop-options {
+  display: grid;
+  grid-template-columns: 1.4fr .9fr;
+  gap: 16px;
+  align-items: stretch;
+}
+.shop-option {
+  margin: 0;
+  padding: 14px;
+  background: #10281c;
+  border: 4px solid #1a120c;
+  border-radius: 16px;
+  text-align: center;
+}
+.shop-packs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.shop-option img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.shop-option figcaption {
+  margin: 12px 0 10px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.shop-option button {
+  width: min(100%, 220px);
+  opacity: .72;
+  cursor: not-allowed;
+}
+.shop-page .site-feedback,
+.shop-page footer {
+  color: var(--ink);
+}
+@media (max-width: 700px) {
+  .shop-options { grid-template-columns: 1fr; }
+  .shop-logo { width: 56px; height: 56px; }
+}
