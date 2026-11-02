@@ -303,14 +303,15 @@ button[aria-pressed="true"] { background: #fffaf0; }
 .card.Legendary .shoes { color: #b8860b; }
 .shoe { width: 13px; height: 12px; display: block; flex: 0 0 auto; }
 .serial { display: block; letter-spacing: .04em; }
-.tier-switch { display: flex; gap: 4px; }
+.tier-switch { display: flex; flex-wrap: wrap; gap: 6px; }
+.tier-switch:empty { display: none; }
 .tier-switch button {
-  flex: 1 1 0;
-  max-width: calc((100% - 12px) / 4);
-  min-height: 36px;
-  padding: 0;
-  font-size: .9rem;
-  line-height: 1;
+  flex: 1 1 7rem;
+  min-height: 44px;
+  padding: .35rem .7rem;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.1;
   border-width: 2px;
   background: var(--field-dark);
   color: #fff8ea;
@@ -337,6 +338,8 @@ button[aria-pressed="true"] { background: #fffaf0; }
   object-fit: cover;
   display: block;
 }
+#zoom-body .chase-zoom { position: absolute; inset: 0; }
+#zoom-body .tier-switch { margin-top: 10px; }
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

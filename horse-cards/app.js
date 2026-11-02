@@ -46,6 +46,11 @@
     { file: "185_riverton.jpg", name: "Riverton" },
     { file: "186_kali.jpg", name: "Kali" }
   ];
+  var chaseById = {};
+  CHASE.forEach(function (item) {
+    item.id = item.file.replace(/^\d+_/, "").replace(/\.jpg$/, "");
+    chaseById[item.id] = item;
+  });
 
   function tierById(id) {
     for (var i = 0; i < TIERS.length; i++) if (TIERS[i].id === id) return TIERS[i];
@@ -127,11 +132,21 @@
       '<span class="num">' + numText + "</span></span>";
   }
 
+  function chaseOf(card) {
+    return chaseById[card.id] || null;
+  }
+
   function switcher(card) {
-    var which = tierOf(card);
-    return TIERS.map(function (spec) {
+    if (!chaseOf(card)) return "";
+    var which = tierOf(card) === "chase" ? "chase" : "base";
+    var specs = [
+      { id: "base", label: "Base" },
+      { id: "chase", label: "Chase" }
+    ];
+    return specs.map(function (spec) {
       var on = spec.id === which;
-      return '<button type="button" data-tier-pick="' + spec.id + '" aria-pressed="' + (on ? "true" : "false") + '" aria-label="' + spec.label + '">' + spec.icon + "</button>";
+      var aria = spec.id === "chase" ? "View chase version" : "View base version";
+      return '<button type="button" data-tier-pick="' + spec.id + '" aria-pressed="' + (on ? "true" : "false") + '" aria-label="' + aria + '">' + spec.label + "</button>";
     }).join("");
   }
 
@@ -146,11 +161,21 @@
     return "card " + card.rarity + " tier-" + which;
   }
 
+  function chaseFace(card) {
+    var item = chaseOf(card);
+    return '<img alt="' + esc(card.name) + ' full-art chase card" src="chase/' + item.file + '?v=2026110210" width="750" height="1050">';
+  }
+
   function paintSlot(slot, card) {
     var which = tierOf(card);
-    var btn = slot.querySelector(".card");
-    btn.className = cardClass(card, which);
-    btn.innerHTML = face(card, which);
+    var btn = slot.querySelector("button");
+    if (which === "chase" && chaseOf(card)) {
+      btn.className = "chase-card";
+      btn.innerHTML = chaseFace(card);
+    } else {
+      btn.className = cardClass(card, "base");
+      btn.innerHTML = face(card);
+    }
     slot.querySelector(".tier-switch").innerHTML = switcher(card);
   }
 
@@ -161,11 +186,24 @@
     empty.hidden = true;
     grid.replaceChildren();
     CHASE.forEach(function (item) {
+      var card = null;
+      cards.forEach(function (c) { if (c.id === item.id) card = c; });
+      if (!card) return;
+      if (!picks[card.id]) picks[card.id] = "chase";
       var slot = document.createElement("div");
       slot.className = "slot";
-      slot.innerHTML = '<div class="card-scale"><button type="button" class="chase-card"><img alt="' + esc(item.name) + ' chase card" src="chase/' + item.file + '?v=2026110202" width="750" height="1050"></button></div>';
+      slot.setAttribute("data-id", card.id);
+      slot.innerHTML = '<div class="card-scale"><button type="button" class="card"></button></div><div class="tier-switch" role="group" aria-label="Versions of ' + esc(card.name) + '"></div>';
+      paintSlot(slot, card);
       slot.querySelector("button").addEventListener("click", function () {
-        openChase(item, slot.querySelector("button"));
+        openZoom(card, slot.querySelector("button"));
+      });
+      slot.querySelector(".tier-switch").addEventListener("click", function (e) {
+        var pick = e.target.closest("[data-tier-pick]");
+        if (!pick) return;
+        picks[card.id] = pick.getAttribute("data-tier-pick");
+        paintSlot(slot, card);
+        if (zoom.open && zoomBody.getAttribute("data-id") === card.id) fillZoom(card);
       });
       grid.appendChild(slot);
     });
@@ -211,7 +249,10 @@
   function fillZoom(card) {
     var which = tierOf(card);
     zoomBody.setAttribute("data-id", card.id);
-    zoomBody.innerHTML = '<div class="card-scale"><div class="' + cardClass(card, which) + '">' + face(card, which) + '</div></div><div class="tier-switch" role="group" aria-label="Tiers for ' + card.name + '">' + switcher(card) + "</div>";
+    var art = which === "chase" && chaseOf(card)
+      ? '<div class="card-scale"><img class="chase-zoom" alt="' + esc(card.name) + ' full-art chase card" src="chase/' + chaseOf(card).file + '?v=2026110210" width="750" height="1050"></div>'
+      : '<div class="card-scale"><div class="' + cardClass(card, "base") + '">' + face(card) + "</div></div>";
+    zoomBody.innerHTML = art + '<div class="tier-switch" role="group" aria-label="Versions of ' + esc(card.name) + '">' + switcher(card) + "</div>";
   }
 
   function openChase(item, opener) {
