@@ -1,8 +1,6 @@
 (function () {
   var cards = window.HOOF_CARDS || [];
-  var total = cards.filter(function (card) { return !card.idCard; }).length;
-  var idTotal = cards.filter(function (card) { return card.idCard; }).length;
-  var setTotal = total + idTotal;
+  var setTotal = cards.length;
   var cat = "all";
   var rarity = "all";
   var query = "";
@@ -124,7 +122,7 @@
   }
 
   function face(card) {
-    var numText = (card.idCard ? total + card.n : card.n) + "/" + setTotal;
+    var numText = card.n + "/" + setTotal;
     return '<span class="name">' + card.name + "</span>" +
       artBlock(card) +
       '<span class="fact">' + card.fact + "</span>" +
@@ -219,15 +217,7 @@
     controls.hidden = false;
     var shown = cards.filter(matches);
     grid.replaceChildren();
-    var labeled = false;
     shown.forEach(function (card) {
-      if (card.idCard && !labeled) {
-        var heading = document.createElement("h2");
-        heading.className = "group-label";
-        heading.textContent = "Colors & Breeds";
-        grid.appendChild(heading);
-        labeled = true;
-      }
       var slot = document.createElement("div");
       slot.className = "slot";
       slot.setAttribute("data-id", card.id);
