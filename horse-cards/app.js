@@ -325,7 +325,27 @@
   });
   document.getElementById("zoom-close").addEventListener("click", function () { zoom.close(); });
   zoom.addEventListener("click", function (e) { if (e.target === zoom) zoom.close(); });
-  zoom.addEventListener("close", function () { if (lastFocus) lastFocus.focus(); });
+  zoom.addEventListener("close", function () {
+    zoom.classList.remove("zoom-wide");
+    if (lastFocus) lastFocus.focus();
+  });
+  document.querySelectorAll(".product-open").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var img = btn.querySelector("img");
+      if (!img) return;
+      lastFocus = btn;
+      zoomBody.removeAttribute("data-id");
+      zoomBody.replaceChildren();
+      var big = document.createElement("img");
+      big.className = "product-zoom";
+      big.alt = img.alt;
+      big.src = img.currentSrc || img.src;
+      zoomBody.appendChild(big);
+      zoom.classList.add("zoom-wide");
+      if (typeof zoom.showModal === "function") zoom.showModal();
+      document.getElementById("zoom-close").focus();
+    });
+  });
 
   document.querySelectorAll("[data-set]").forEach(function (btn) {
     btn.addEventListener("click", function () {
