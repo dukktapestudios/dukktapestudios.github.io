@@ -38,10 +38,35 @@ button[aria-pressed="true"] { background: #fffaf0; }
   margin-right: auto;
 }
 .hero {
-  background: var(--field-dark);
+  background-color: var(--field-dark);
+  background-image: url("img/hero-barn.jpg");
+  background-image: image-set(
+    url("img/hero-barn.webp") type("image/webp"),
+    url("img/hero-barn.jpg") type("image/jpeg")
+  );
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left center;
   color: #fff8ea;
   padding: 16px 0 22px;
   overflow-x: clip;
+}
+/* Scrim sits under the cards and type. On small screens the copy stacks
+   at the bottom, so the darkening falls there. Wide screens keep the barn
+   clear and darken the right side behind the title. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 16, 8, 0.04) 0%,
+    rgba(10, 16, 8, 0.14) 40%,
+    rgba(8, 14, 8, 0.58) 68%,
+    rgba(6, 10, 8, 0.78) 100%
+  );
 }
 .hero-inner {
   width: min(1100px, calc(100% - 28px));
@@ -244,6 +269,27 @@ button[aria-pressed="true"] { background: #fffaf0; }
 }
 @media (min-width: 860px) {
   .hero { padding: 28px 0 32px; }
+  .hero::before {
+    background: linear-gradient(
+      100deg,
+      rgba(8, 14, 8, 0.05) 0%,
+      rgba(8, 14, 8, 0.16) 34%,
+      rgba(8, 14, 8, 0.46) 56%,
+      rgba(6, 12, 8, 0.68) 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.45) 18%,
+      #000 42%
+    );
+    mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.45) 18%,
+      #000 42%
+    );
+  }
   .hero-inner {
     grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
     align-items: center;
