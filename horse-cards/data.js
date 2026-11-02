@@ -191,37 +191,33 @@
     ["riverton", "Riverton", "Personal", "Legendary", "Home", "He's just a baby. A 2,000 lb baby.", 5, 7, 10, "gray"],
     ["kali", "Kali", "Personal", "Legendary", "Home", "The silliest goose and the chunkiest of monkeys.", 4, 7, 10, "chestnut"],
 
-    ["id-appaloosa-color", "Appaloosa (Color)", "Colors & Breeds", "Common", "", "A spotted coat with mottled skin, white sclera around the eye and striped hooves.", 5, 5, 5, "spotted", "color"],
-    ["id-bay", "Bay", "Colors & Breeds", "Common", "", "Brown or reddish-brown body with black points: black mane, tail and lower legs.", 5, 5, 5, "bay", "color"],
-    ["id-black", "Black", "Colors & Breeds", "Common", "", "Solid black all over, including the muzzle and flanks, with no reddish or brown areas.", 5, 5, 5, "black", "color"],
-    ["id-buckskin", "Buckskin", "Colors & Breeds", "Common", "", "A tan or gold body with black points: black mane, tail and lower legs.", 5, 5, 5, "buckskin", "color"],
-    ["id-chestnut", "Chestnut", "Colors & Breeds", "Common", "", "Red to copper body with a mane and tail the same shade or lighter. No black points.", 5, 5, 5, "chestnut", "color"],
-    ["id-dun", "Dun", "Colors & Breeds", "Common", "", "A sandy body with a dark dorsal stripe down the spine, often with zebra bars on the legs.", 5, 5, 5, "dun", "color"],
-    ["id-gray", "Gray", "Colors & Breeds", "Common", "", "Dark skin under white hairs that grow in with age, often dappled, until the coat turns nearly white.", 5, 5, 5, "gray", "color"],
-    ["id-palomino", "Palomino", "Colors & Breeds", "Common", "", "A golden coat with a white or flaxen mane and tail.", 5, 5, 5, "palomino", "color"],
-    ["id-pinto", "Paint/Pinto", "Colors & Breeds", "Common", "", "Large patches of white and another color spread across the body.", 5, 5, 5, "spotted", "color"],
-    ["id-roan", "Roan", "Colors & Breeds", "Common", "", "White hairs evenly mixed through a colored body, while the head and legs stay solid and dark.", 5, 5, 5, "roan", "color"],
-    ["id-american-paint", "American Paint Horse", "Colors & Breeds", "Common", "", "A stock-horse build with pinto patches. Registered horses need Paint, Quarter Horse or Thoroughbred bloodlines.", 5, 5, 5, "spotted", "breed"],
-    ["id-appaloosa-breed", "Appaloosa (Breed)", "Colors & Breeds", "Common", "", "A sturdy breed developed by the Nez Perce people, known for its spotted coats and striped hooves.", 5, 5, 5, "spotted", "breed"],
-    ["id-arabian", "Arabian", "Colors & Breeds", "Common", "", "A dished face, large eyes, an arched neck and a tail carried high.", 5, 5, 5, "bay", "breed"],
-    ["id-clydesdale", "Clydesdale", "Colors & Breeds", "Common", "", "A huge draft horse, often bay, with white markings and long white feathering on the legs.", 5, 5, 5, "bay", "breed"],
-    ["id-friesian", "Friesian", "Colors & Breeds", "Common", "", "Jet black, with a long, thick, wavy mane and tail and feathered lower legs.", 5, 5, 5, "black", "breed"],
-    ["id-morgan", "Morgan", "Colors & Breeds", "Common", "", "A compact, versatile horse with an upright, arched neck and an expressive head.", 5, 5, 5, "bay", "breed"],
-    ["id-mustang", "Mustang", "Colors & Breeds", "Common", "", "A free-roaming horse of the American West: small, hardy and sure-footed.", 5, 5, 5, "dun", "breed"],
-    ["id-quarter-horse", "Quarter Horse", "Colors & Breeds", "Common", "", "A compact stock horse: short head, broad chest and big, muscular hindquarters built for sprinting.", 5, 5, 5, "chestnut", "breed"],
-    ["id-tennessee-walker", "Tennessee Walking Horse", "Colors & Breeds", "Common", "", "Known for its smooth, gliding running walk, with a head that nods in rhythm.", 5, 5, 5, "chestnut", "breed"],
-    ["id-thoroughbred", "Thoroughbred", "Colors & Breeds", "Common", "", "A tall, lean racehorse with long legs, a deep chest and a refined head.", 5, 5, 5, "bay", "breed"]
+    ["id-appaloosa-color", "Appaloosa (Color)", "Colors & Breeds", "Common", "", "A spotted coat with mottled skin, white sclera around the eye and striped hooves.", 5, 5, 5, "spotted"],
+    ["id-bay", "Bay", "Colors & Breeds", "Common", "", "Brown or reddish-brown body with black points: black mane, tail and lower legs.", 5, 5, 5, "bay"],
+    ["id-black", "Black", "Colors & Breeds", "Common", "", "Solid black all over, including the muzzle and flanks, with no reddish or brown areas.", 5, 5, 5, "black"],
+    ["id-buckskin", "Buckskin", "Colors & Breeds", "Common", "", "A tan or gold body with black points: black mane, tail and lower legs.", 5, 5, 5, "buckskin"],
+    ["id-chestnut", "Chestnut", "Colors & Breeds", "Common", "", "Red to copper body with a mane and tail the same shade or lighter. No black points.", 5, 5, 5, "chestnut"],
+    ["id-dun", "Dun", "Colors & Breeds", "Common", "", "A sandy body with a dark dorsal stripe down the spine, often with zebra bars on the legs.", 5, 5, 5, "dun"],
+    ["id-gray", "Gray", "Colors & Breeds", "Common", "", "Dark skin under white hairs that grow in with age, often dappled, until the coat turns nearly white.", 5, 5, 5, "gray"],
+    ["id-palomino", "Palomino", "Colors & Breeds", "Common", "", "A golden coat with a white or flaxen mane and tail.", 5, 5, 5, "palomino"],
+    ["id-pinto", "Paint/Pinto", "Colors & Breeds", "Common", "", "Large patches of white and another color spread across the body.", 5, 5, 5, "spotted"],
+    ["id-roan", "Roan", "Colors & Breeds", "Common", "", "White hairs evenly mixed through a colored body, while the head and legs stay solid and dark.", 5, 5, 5, "roan"],
+    ["id-american-paint", "American Paint Horse", "Colors & Breeds", "Common", "", "A stock-horse build with pinto patches. Registered horses need Paint, Quarter Horse or Thoroughbred bloodlines.", 5, 5, 5, "spotted"],
+    ["id-appaloosa-breed", "Appaloosa (Breed)", "Colors & Breeds", "Common", "", "A sturdy breed developed by the Nez Perce people, known for its spotted coats and striped hooves.", 5, 5, 5, "spotted"],
+    ["id-arabian", "Arabian", "Colors & Breeds", "Common", "", "A dished face, large eyes, an arched neck and a tail carried high.", 5, 5, 5, "bay"],
+    ["id-clydesdale", "Clydesdale", "Colors & Breeds", "Common", "", "A huge draft horse, often bay, with white markings and long white feathering on the legs.", 5, 5, 5, "bay"],
+    ["id-friesian", "Friesian", "Colors & Breeds", "Common", "", "Jet black, with a long, thick, wavy mane and tail and feathered lower legs.", 5, 5, 5, "black"],
+    ["id-morgan", "Morgan", "Colors & Breeds", "Common", "", "A compact, versatile horse with an upright, arched neck and an expressive head.", 5, 5, 5, "bay"],
+    ["id-mustang", "Mustang", "Colors & Breeds", "Common", "", "A free-roaming horse of the American West: small, hardy and sure-footed.", 5, 5, 5, "dun"],
+    ["id-quarter-horse", "Quarter Horse", "Colors & Breeds", "Common", "", "A compact stock horse: short head, broad chest and big, muscular hindquarters built for sprinting.", 5, 5, 5, "chestnut"],
+    ["id-tennessee-walker", "Tennessee Walking Horse", "Colors & Breeds", "Common", "", "Known for its smooth, gliding running walk, with a head that nods in rhythm.", 5, 5, 5, "chestnut"],
+    ["id-thoroughbred", "Thoroughbred", "Colors & Breeds", "Common", "", "A tall, lean racehorse with long legs, a deep chest and a refined head.", 5, 5, 5, "bay"]
   ];
 
   var numbered = 0;
-  var idNumbered = 0;
   var out = cards.map(function (row) {
-    var idKind = row[10] === "color" || row[10] === "breed" ? row[10] : "";
-    var idCard = idKind !== "";
-    if (idCard) idNumbered += 1;
-    else numbered += 1;
+    numbered += 1;
     return {
-      n: idCard ? idNumbered : numbered,
+      n: numbered,
       id: row[0],
       name: row[1],
       cat: row[2],
@@ -231,9 +227,7 @@
       speed: row[6],
       stamina: row[7],
       heart: row[8],
-      coat: row[9],
-      idCard: idCard,
-      idKind: idKind
+      coat: row[9]
     };
   });
   root.HOOF_CARDS = out;
