@@ -96,7 +96,13 @@ button[aria-pressed="true"] { background: #fffaf0; }
     0 16px 28px rgba(0, 0, 0, .35);
 }
 @media (max-width: 859px) {
-  .hero-desk { display: none; }
+  .lie-arab { display: none; }
+  .hero-stage { width: min(340px, 94vw); height: 360px; }
+  .lie-nelson { width: 42%; }
+  .lie-incitatus { left: 4%; top: 38%; width: 42%; }
+  .lie-copenhagen { right: -4%; top: 0; width: 40%; transform: rotate(11deg); }
+  .lie-manowar { right: -2%; top: 48%; width: 40%; transform: rotate(7deg); }
+  .lie-buce { left: 20%; top: 14%; width: 50%; }
 }
 .hero-card img {
   position: relative;
@@ -154,26 +160,33 @@ button[aria-pressed="true"] { background: #fffaf0; }
 .hero h1, h1 { margin: 0; font-size: clamp(2.15rem, 7vw, 3.5rem); line-height: .95; }
 .hero .tagline, .tagline { margin: 8px 0 0; max-width: 36rem; font-size: 1.2rem; line-height: 1.25; }
 .hero-sub { margin: 6px 0 0; font-size: .98rem; line-height: 1.35; color: #f4e7cf; }
-.hero .shop-cta { margin-top: 14px; }
+.hero .shop-cta { margin: 8px 0 0; }
 .hero .coming-soon {
-  width: min(100%, 420px);
-  min-height: 56px;
+  width: auto;
+  min-width: 0;
+  min-height: 40px;
   margin-top: 0;
-  padding: .7rem 1.3rem;
-  font-size: 1.15rem;
-}
-.hero-browse { margin: 2px 0 0; }
-.browse-toggle {
+  padding: .35rem .95rem;
+  font-size: .95rem;
+  font-weight: 700;
   background: transparent;
   color: #f4e7cf;
-  border: 0;
-  border-radius: 0;
+  border: 2px solid var(--gold);
   box-shadow: none;
-  min-height: 44px;
-  padding: .35rem .2rem;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+}
+.hero-browse { margin: 14px 0 0; }
+.browse-toggle {
+  background: var(--gold);
+  color: var(--ink);
+  border: 3px solid #1a120c;
+  border-radius: 12px;
+  box-shadow: none;
+  min-height: 60px;
+  width: min(100%, 420px);
+  padding: .8rem 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-decoration: none;
 }
 .browse-toggle:focus-visible {
   outline: 2px solid var(--gold);
@@ -242,7 +255,8 @@ button[aria-pressed="true"] { background: #fffaf0; }
   }
   .hero-stage { width: 100%; height: 460px; padding: 0; }
   .hero-copy { text-align: left; }
-  .hero .coming-soon { width: auto; min-width: 280px; }
+  .hero .coming-soon { width: auto; }
+  .browse-toggle { width: min(100%, 360px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-card::after { animation: none; opacity: .45; }
