@@ -1,0 +1,97 @@
+/* Embedded public benchmarks for the SMV calculator.
+   Height: NCD-RisC, Lancet 2020, mean height of 19-year-old males in 2019, cm.
+   Income OECD: average annual wage, USD PPP, constant prices, full-time equivalent.
+   Income WB: World Bank PIP median income or consumption per person per day,
+   2021 international dollars, annualized as round(daily * 365). Not a paycheck.
+   Wealth: UBS/Credit Suisse Global Wealth Report 2023, median wealth per adult,
+   end-2022, current USD. China is the report's smoothed figure. */
+var SMV_DATA = {
+  constants: {
+    heightWorldCm: 170.8,
+    heightSdCountry: 7,
+    heightSdWorld: 7.5,
+    worldIncomeAnnual: 3521,
+    worldIncomeYear: 2026,
+    worldWealthMedian: 8654,
+    countrySpread: 1.05,
+    worldBlendCountry: 0.6,
+    worldBlendHeight: 0.15,
+    worldBlendIncome: 0.25
+  },
+  countries: [
+    { id: "usa", name: "United States", region: "North America", height: 176.9, income: { kind: "oecd", value: 82933, year: 2024 }, wealth: 107740, pack: "usa" },
+    { id: "can", name: "Canada", region: "North America", height: 178.7, income: { kind: "oecd", value: 69417, year: 2024 }, wealth: 137630, pack: "can" },
+    { id: "mex", name: "Mexico", region: "North America", height: 170.3, income: { kind: "oecd", value: 20423, year: 2024 }, wealth: null, pack: "mex" },
+
+    { id: "arg", name: "Argentina", region: "Latin America", height: 174.8, income: { kind: "wb", value: 6984, year: 2024, note: "Urban Argentina only." }, wealth: null, pack: "latam" },
+    { id: "bra", name: "Brazil", region: "Latin America", height: 175.7, income: { kind: "wb", value: 6173, year: 2024 }, wealth: null, pack: "bra" },
+    { id: "chl", name: "Chile", region: "Latin America", height: 172.9, income: { kind: "oecd", value: 38130, year: 2023 }, wealth: null, pack: "latam" },
+    { id: "col", name: "Colombia", region: "Latin America", height: 171.9, income: { kind: "oecd", value: 28838, year: 2023 }, wealth: null, pack: "latam" },
+    { id: "cri", name: "Costa Rica", region: "Latin America", height: 174.0, income: { kind: "oecd", value: 41010, year: 2023 }, wealth: null, pack: "latam" },
+    { id: "per", name: "Peru", region: "Latin America", height: 166.8, income: { kind: "wb", value: 3894, year: 2024 }, wealth: null, pack: "latam" },
+
+    { id: "aut", name: "Austria", region: "Europe", height: 178.5, income: { kind: "oecd", value: 75767, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "bel", name: "Belgium", region: "Europe", height: 179.1, income: { kind: "oecd", value: 76109, year: 2024 }, wealth: 249940, pack: "eu" },
+    { id: "bgr", name: "Bulgaria", region: "Europe", height: 174.2, income: { kind: "wb", value: 11017, year: 2023 }, wealth: null, pack: "eu" },
+    { id: "hrv", name: "Croatia", region: "Europe", height: 180.8, income: { kind: "wb", value: 13408, year: 2023 }, wealth: null, pack: "eu" },
+    { id: "cze", name: "Czechia", region: "Europe", height: 181.2, income: { kind: "oecd", value: 38489, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "dnk", name: "Denmark", region: "Europe", height: 181.9, income: { kind: "oecd", value: 74022, year: 2024 }, wealth: 186040, pack: "eu" },
+    { id: "est", name: "Estonia", region: "Europe", height: 182.8, income: { kind: "oecd", value: 38975, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "fin", name: "Finland", region: "Europe", height: 180.6, income: { kind: "oecd", value: 59597, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "fra", name: "France", region: "Europe", height: 178.6, income: { kind: "oecd", value: 60608, year: 2024 }, wealth: 133140, pack: "fra" },
+    { id: "deu", name: "Germany", region: "Europe", height: 180.3, income: { kind: "oecd", value: 69433, year: 2024 }, wealth: null, pack: "deu" },
+    { id: "grc", name: "Greece", region: "Europe", height: 179.3, income: { kind: "oecd", value: 32257, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "hun", name: "Hungary", region: "Europe", height: 176.6, income: { kind: "oecd", value: 34996, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "isl", name: "Iceland", region: "Europe", height: 182.1, income: { kind: "oecd", value: 89947, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "irl", name: "Ireland", region: "Europe", height: 179.0, income: { kind: "oecd", value: 60431, year: 2024 }, wealth: 90740, pack: "irl" },
+    { id: "ita", name: "Italy", region: "Europe", height: 174.4, income: { kind: "oecd", value: 51019, year: 2024 }, wealth: 107320, pack: "eu" },
+    { id: "lva", name: "Latvia", region: "Europe", height: 181.2, income: { kind: "oecd", value: 45567, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "ltu", name: "Lithuania", region: "Europe", height: 180.7, income: { kind: "oecd", value: 52898, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "lux", name: "Luxembourg", region: "Europe", height: 178.5, income: { kind: "oecd", value: 94447, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "nld", name: "Netherlands", region: "Europe", height: 183.8, income: { kind: "oecd", value: 75370, year: 2024 }, wealth: 112450, pack: "nld" },
+    { id: "nor", name: "Norway", region: "Europe", height: 180.5, income: { kind: "oecd", value: 74864, year: 2024 }, wealth: 143890, pack: "eu" },
+    { id: "pol", name: "Poland", region: "Europe", height: 180.7, income: { kind: "oecd", value: 44211, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "prt", name: "Portugal", region: "Europe", height: 174.4, income: { kind: "oecd", value: 40002, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "rou", name: "Romania", region: "Europe", height: 177.8, income: { kind: "wb", value: 10896, year: 2023 }, wealth: null, pack: "eu" },
+    { id: "srb", name: "Serbia", region: "Europe", height: 180.7, income: { kind: "wb", value: 7686, year: 2023 }, wealth: null, pack: "eu" },
+    { id: "svk", name: "Slovakia", region: "Europe", height: 181.0, income: { kind: "oecd", value: 36105, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "svn", name: "Slovenia", region: "Europe", height: 181.0, income: { kind: "oecd", value: 61776, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "esp", name: "Spain", region: "Europe", height: 176.1, income: { kind: "oecd", value: 54564, year: 2024 }, wealth: 107510, pack: "eu" },
+    { id: "swe", name: "Sweden", region: "Europe", height: 180.5, income: { kind: "oecd", value: 60415, year: 2024 }, wealth: null, pack: "eu" },
+    { id: "che", name: "Switzerland", region: "Europe", height: 178.7, income: { kind: "oecd", value: 87468, year: 2024 }, wealth: 167350, pack: "eu" },
+    { id: "tur", name: "Turkey", region: "Europe", height: 176.4, income: { kind: "oecd", value: 47253, year: 2023 }, wealth: null, pack: "eu" },
+    { id: "ukr", name: "Ukraine", region: "Europe", height: 181.0, income: { kind: "wb", value: 5002, year: 2020 }, wealth: null, pack: "eu" },
+    { id: "gbr", name: "United Kingdom", region: "Europe", height: 178.2, income: { kind: "oecd", value: 63691, year: 2024 }, wealth: 151820, pack: "gbr" },
+
+    { id: "are", name: "United Arab Emirates", region: "Middle East", height: 174.1, income: null, wealth: null, pack: "mena" },
+    { id: "isr", name: "Israel", region: "Middle East", height: 176.0, income: { kind: "oecd", value: 54736, year: 2024 }, wealth: null, pack: "isr" },
+    { id: "sau", name: "Saudi Arabia", region: "Middle East", height: 170.7, income: null, wealth: null, pack: "mena" },
+
+    { id: "egy", name: "Egypt", region: "Africa", height: 174.6, income: { kind: "wb", value: 2778, year: 2021 }, wealth: null, pack: "africa" },
+    { id: "eth", name: "Ethiopia", region: "Africa", height: 168.8, income: { kind: "wb", value: 1273, year: 2021 }, wealth: null, pack: "africa" },
+    { id: "gha", name: "Ghana", region: "Africa", height: 170.3, income: { kind: "wb", value: 1359, year: 2016 }, wealth: null, pack: "africa" },
+    { id: "ken", name: "Kenya", region: "Africa", height: 170.5, income: { kind: "wb", value: 1173, year: 2022 }, wealth: null, pack: "africa" },
+    { id: "mar", name: "Morocco", region: "Africa", height: 176.4, income: { kind: "wb", value: 3079, year: 2013 }, wealth: null, pack: "africa" },
+    { id: "nga", name: "Nigeria", region: "Africa", height: 171.6, income: { kind: "wb", value: 1236, year: 2022 }, wealth: null, pack: "africa" },
+    { id: "zaf", name: "South Africa", region: "Africa", height: 169.6, income: { kind: "wb", value: 2394, year: 2022 }, wealth: null, pack: "zaf" },
+
+    { id: "aus", name: "Australia", region: "Asia and Pacific", height: 178.8, income: { kind: "oecd", value: 70736, year: 2024 }, wealth: 247450, pack: "aus" },
+    { id: "bgd", name: "Bangladesh", region: "Asia and Pacific", height: 165.1, income: { kind: "wb", value: 2254, year: 2022 }, wealth: null, pack: "asia" },
+    { id: "chn", name: "China", region: "Asia and Pacific", height: 175.7, income: { kind: "wb", value: 4878, year: 2022 }, wealth: 30696, wealthNote: "Smoothed US dollars, as stated in the 2023 wealth report.", pack: "chn" },
+    { id: "hkg", name: "Hong Kong SAR", region: "Asia and Pacific", height: 174.8, income: null, wealth: 202410, pack: "hkg" },
+    { id: "ind", name: "India", region: "Asia and Pacific", height: 166.5, income: { kind: "wb", value: 2021, year: 2022 }, wealth: null, pack: "ind" },
+    { id: "idn", name: "Indonesia", region: "Asia and Pacific", height: 166.3, income: { kind: "wb", value: 2429, year: 2025 }, wealth: null, pack: "asia" },
+    { id: "jpn", name: "Japan", region: "Asia and Pacific", height: 172.1, income: { kind: "oecd", value: 49446, year: 2024 }, wealth: 103680, pack: "jpn" },
+    { id: "mys", name: "Malaysia", region: "Asia and Pacific", height: 169.2, income: { kind: "wb", value: 10787, year: 2021 }, wealth: null, pack: "asia" },
+    { id: "nzl", name: "New Zealand", region: "Asia and Pacific", height: 177.7, income: { kind: "oecd", value: 62437, year: 2024 }, wealth: 193060, pack: "nzl" },
+    { id: "pak", name: "Pakistan", region: "Asia and Pacific", height: 167.3, income: { kind: "wb", value: 1578, year: 2024 }, wealth: null, pack: "asia" },
+    { id: "phl", name: "Philippines", region: "Asia and Pacific", height: 165.2, income: { kind: "wb", value: 2069, year: 2023 }, wealth: null, pack: "asia" },
+    { id: "kor", name: "South Korea", region: "Asia and Pacific", height: 175.5, income: { kind: "oecd", value: 50947, year: 2024 }, wealth: 92720, pack: "kor" },
+    { id: "sgp", name: "Singapore", region: "Asia and Pacific", height: 173.5, income: null, wealth: 99490, pack: "sgp" },
+    { id: "twn", name: "Taiwan", region: "Asia and Pacific", height: 173.5, income: { kind: "wb", value: 16843, year: 2021 }, wealth: 108250, pack: "asia" },
+    { id: "tha", name: "Thailand", region: "Asia and Pacific", height: 171.6, income: { kind: "wb", value: 5737, year: 2024 }, wealth: null, pack: "asia" },
+    { id: "vnm", name: "Vietnam", region: "Asia and Pacific", height: 168.9, income: { kind: "wb", value: 4862, year: 2022 }, wealth: null, pack: "asia" },
+
+    { id: "rus", name: "Russia", region: "Europe", height: 176.6, income: { kind: "wb", value: 7407, year: 2020 }, wealth: null, pack: "eu" }
+  ]
+};
