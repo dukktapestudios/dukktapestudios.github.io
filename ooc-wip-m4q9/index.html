@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Out of Context | Dukktape Studios</title>
+<meta name="description" content="A card game that makes no sense. On purpose.">
+<link rel="stylesheet" href="style.css?v=2026110211">
+</head>
+<body>
+<header class="top">
+  <p class="wip">Work in progress</p>
+  <p class="eyebrow">Dukktape Studios</p>
+  <h1>Out of Context</h1>
+  <p class="tagline">A card game that makes no sense. On purpose.</p>
+</header>
+
+<main>
+<section class="panel" id="rules">
+  <h2>Quick-start rules</h2>
+  <p class="lede">A Dukktape Studios parody card game. It's all the same game. We just call stuff different things.</p>
+
+  <h3>Goal</h3>
+  <p>Get your opponent's <b>Sanity</b> from 20 to 0. (Or they run out of cards in their <b>Stack o' Stuff</b> and must draw: they lose.)</p>
+
+  <h3>Setup</h3>
+  <ul>
+    <li>Each player brings a <b>Stack o' Stuff</b> of 40 cards (about 16 Juice Sources + 24 other cards, 1–2 colors).</li>
+    <li>Start at <b>20 Sanity</b>. Shuffle, draw 7. Don't like your hand? Shuffle back and draw 6.</li>
+  </ul>
+
+  <h3>Your turn</h3>
+  <ol>
+    <li><b>Untappy-Tap</b> all your stuff.</li>
+    <li><b>Draw</b> 1 card (first player skips this on turn 1).</li>
+    <li><b>Main Phase:</b> Play 1 <b>Juice Source</b> per turn. Tappy-Tap Juice Sources for <b>Juice</b> to play cards.</li>
+    <li><b>Start Drama:</b> Tappy-Tap Things to attack. The opponent may <b>Nope</b> (block) with untapped Things. Things deal damage equal to power; damage ≥ toughness = it goes to <b>The Shame Pile</b>. Un-Noped damage hits Sanity.</li>
+    <li><b>Second Main Phase</b>, then end turn (max 7 cards in hand — <b>Yeet</b> extras).</li>
+  </ol>
+
+  <h3>Cost reading</h3>
+  <p>"2 + 1 Gas Station" = 2 Juice of any color + 1 Gas Station Juice. New Things can't Start Drama the turn they arrive (unless Zoom Zoom).</p>
+
+  <h3>Card types</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Term</th><th>Means</th></tr></thead>
+      <tbody>
+        <tr><td>Juice Source</td><td>Land/resource card</td></tr>
+        <tr><td>Thing</td><td>Fights. Has power/toughness</td></tr>
+        <tr><td>Magic Words</td><td>One-shot effect, your main phase only</td></tr>
+        <tr><td>Quick Words</td><td>One-shot effect, any time</td></tr>
+        <tr><td>Vibe</td><td>Stays in play, ongoing effect</td></tr>
+        <tr><td>Definitely Not an Artifact</td><td>Colorless object, stays in play</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Glossary</h3>
+  <p>Tappy-Tap = tap · Untappy-Tap = untap · Juice = resource · Stack o' Stuff = deck · The Shame Pile = discard pile · Yeet = discard · Throw Under the Bus = sacrifice · Sanity = life · Start Drama = attack · Nope = block · Equip = attach to your Thing</p>
+
+  <h3>Keywords</h3>
+  <ul>
+    <li><b>Zoomies</b> — Can only be Noped by Things with Zoomies.</li>
+    <li><b>Bulldoze</b> — Extra damage beyond the Noper's toughness hits Sanity.</li>
+    <li><b>Zoom Zoom</b> — Can Start Drama the turn it arrives.</li>
+    <li><b>Self Care</b> — Damage it deals also gains you that much Sanity.</li>
+    <li><b>Bad Vibes</b> — Any damage it deals to a Thing destroys it.</li>
+    <li><b>Couch Potato</b> — Can't Start Drama.</li>
+  </ul>
+</section>
+
+<section class="panel" id="colors" aria-labelledby="colors-heading">
+  <h2 id="colors-heading">Color guide</h2>
+  <ul class="colors">
+    <li><span class="swatch beige"></span><p><b>Beige (Suburban).</b> Order, rules, Sanity gain, shutting things down. HOAs, coupons, managers.</p></li>
+    <li><span class="swatch blue-light"></span><p><b>Blue-Light (Online).</b> Draw cards, counter stuff, tricks. Doomscrolling, tech support, reply guys.</p></li>
+    <li><span class="swatch gas"></span><p><b>Gas Station (Chaos).</b> Fast, aggressive, direct damage. Energy drinks, check engine lights.</p></li>
+    <li><span class="swatch swamp"></span><p><b>Swamp Ass (Shady).</b> Destruction, Sanity drain, bringing stuff back. Tax evasion, your ex.</p></li>
+    <li><span class="swatch lawn"></span><p><b>Lawn (Outdoorsy).</b> Big Things, growth, extra Juice. Raccoons, geese, a 1993 Civic.</p></li>
+    <li><span class="swatch colorless"></span><p><b>Colorless.</b> Definitely Not Artifacts. Anyone can play them.</p></li>
+  </ul>
+</section>
+
+<section class="panel" id="gallery">
+  <h2>Finished cards</h2>
+  <p class="lede">Thirteen cards so far. Tap one to enlarge it.</p>
+  <div class="gallery" id="gallery-grid"></div>
+</section>
+
+<section class="panel" id="list">
+  <h2>Starter list</h2>
+  <p class="lede">Sixty cards. Work in progress.</p>
+  <div class="filters">
+    <label>Color
+      <select id="filter-color">
+        <option value="all">Any</option>
+        <option>Beige</option>
+        <option>Blue-Light</option>
+        <option>Gas Station</option>
+        <option>Swamp Ass</option>
+        <option>Lawn</option>
+        <option>Colorless</option>
+      </select>
+    </label>
+    <label>Type
+      <select id="filter-type">
+        <option value="all">Any</option>
+        <option>Juice Source</option>
+        <option>Thing</option>
+        <option>Magic Words</option>
+        <option>Quick Words</option>
+        <option>Vibe</option>
+        <option>Definitely Not an Artifact</option>
+      </select>
+    </label>
+    <label>Rarity
+      <select id="filter-rarity">
+        <option value="all">Any</option>
+        <option>Common</option>
+        <option>Uncommon</option>
+        <option>Rare</option>
+        <option>Ultra Rare</option>
+      </select>
+    </label>
+  </div>
+  <p id="list-count" class="count"></p>
+  <div class="table-wrap">
+    <table id="card-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Color</th>
+          <th>Type</th>
+          <th>Cost</th>
+          <th>Rarity</th>
+          <th>P/T</th>
+          <th>Rules</th>
+          <th>Flavor</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <p id="list-empty" class="empty" hidden>No cards match.</p>
+</section>
+</main>
+
+<dialog id="zoom">
+  <button type="button" id="zoom-close" class="close">Close</button>
+  <img id="zoom-img" alt="">
+</dialog>
+<footer>© 2026 Dukktape Studios · Work in progress</footer>
+<script src="cards.js?v=2026110211"></script>
+<script src="app.js?v=2026110211"></script>
+</body>
+</html>
