@@ -298,4 +298,61 @@
   });
 
   render();
+
+  var browseBtn = document.getElementById("browse-cards");
+  var catalog = document.getElementById("catalog");
+
+  function hashElement() {
+    var hash = location.hash;
+    if (!hash || hash.length < 2) return null;
+    var id;
+    try { id = decodeURIComponent(hash.slice(1)); } catch (err) { return null; }
+    return document.getElementById(id);
+  }
+
+  function hashInCatalog() {
+    var el = hashElement();
+    if (!el) return null;
+    if (el === catalog || catalog.contains(el)) return el;
+    return null;
+  }
+
+  function setCatalogOpen(open, opts) {
+    opts = opts || {};
+    if (open) {
+      catalog.inert = false;
+      catalog.classList.add("is-open");
+      if (opts.instant) catalog.classList.add("is-shown");
+    } else {
+      catalog.classList.remove("is-shown");
+      catalog.classList.remove("is-open");
+      catalog.inert = true;
+      if (catalog.contains(document.activeElement)) browseBtn.focus();
+      if (hashInCatalog()) history.replaceState(null, "", location.pathname + location.search);
+    }
+    browseBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    browseBtn.textContent = open ? "Hide cards" : "Browse the cards ↓";
+  }
+
+  browseBtn.addEventListener("click", function () {
+    var open = browseBtn.getAttribute("aria-expanded") !== "true";
+    setCatalogOpen(open);
+    if (open) catalog.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  catalog.addEventListener("transitionend", function (e) {
+    if (e.propertyName !== "grid-template-rows") return;
+    if (catalog.classList.contains("is-open")) catalog.classList.add("is-shown");
+  });
+
+  function revealHash() {
+    var el = hashInCatalog();
+    if (!el) return false;
+    setCatalogOpen(true, { instant: true });
+    requestAnimationFrame(function () { el.scrollIntoView({ block: "start" }); });
+    return true;
+  }
+
+  if (!revealHash()) catalog.inert = true;
+  window.addEventListener("hashchange", revealHash);
 })();
