@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How I see life and reality | Dukktape Studios</title>
+<meta name="description" content="Personal notes on God, free will, the multiverse, the Bible, the Trinity, and consciousness.">
+<link rel="preload" href="../assets/fonts/nunito-latin-800.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/nunito-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/nunito-latin-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../assets/fonts/nunito-latin-800.woff2") format("woff2");
+}
+:root {
+  --paper: #f6efe3;
+  --card: #fffaf3;
+  --ink: #2c241c;
+  --ink-soft: #5c4636;
+  --green: #1d6840;
+  --green-deep: #143f28;
+  --orange: #e07a2f;
+  --orange-deep: #8d3f10;
+  --brown: #6b442c;
+  --silver: #c5ced6;
+  --silver-dark: #8e99a4;
+  --line: #eadcc8;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Nunito, ui-rounded, "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ink);
+  background:
+    radial-gradient(1100px 480px at 50% -120px, #ffe3c4 0%, transparent 70%),
+    radial-gradient(700px 380px at 100% 0%, #e5f3e4 0%, transparent 55%),
+    radial-gradient(640px 360px at -10% 12%, #f8e4d0 0%, transparent 50%),
+    var(--paper);
+}
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: #fff;
+  color: var(--green-deep);
+  padding: 8px 12px;
+  border-radius: 10px;
+  z-index: 3;
+  font-weight: 800;
+}
+.skip:focus { top: 12px; }
+a { color: var(--green-deep); text-underline-offset: .16em; text-decoration-thickness: 2px; }
+a:hover, a:focus-visible { color: var(--orange-deep); }
+a:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.page {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 28px 22px 8px;
+}
+.back {
+  margin: 0 0 1.1rem;
+  font-weight: 800;
+}
+.back a { text-decoration: none; }
+h1 {
+  margin: 0 0 .85rem;
+  font-size: clamp(2rem, 6.4vw, 2.85rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--green-deep);
+}
+.living {
+  margin: 0 0 1.35rem;
+  padding: .85rem 1rem .9rem 1rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--orange);
+  border-radius: 14px;
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+.toc { margin: 0 0 1.35rem; }
+.toc ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+.toc a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: .35rem .8rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: .95rem;
+}
+.toc a:hover,
+.toc a:focus-visible {
+  background: #fff1e2;
+  border-color: var(--orange);
+  color: var(--orange-deep);
+}
+.idea {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.15rem 1.25rem 1.3rem;
+  margin: 0 0 14px;
+  box-shadow: 0 8px 20px rgba(92, 58, 28, .05);
+  scroll-margin-top: 16px;
+}
+.idea:target { border-color: var(--silver-dark); }
+h2 {
+  margin: 0 0 .85rem;
+  color: var(--green);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.2;
+  border-bottom: 3px solid var(--silver);
+  padding-bottom: .35rem;
+  position: relative;
+}
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 4.6rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--orange);
+}
+.idea p { margin: 0 0 .75rem; }
+.idea p:last-child { margin-bottom: 0; }
+.diagram {
+  margin: 1.05rem 0 0;
+  padding: 6px 4px 2px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.diagram svg {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  height: auto;
+  margin: 0 auto;
+  font-family: Nunito, ui-rounded, "Segoe UI", sans-serif;
+}
+.wave-svg text,
+.antenna-svg text {
+  paint-order: stroke fill;
+  stroke: #fff;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+.wave-svg .name { font-size: 16px; font-weight: 800; }
+.wave-svg .sub { font-size: 13px; font-weight: 700; fill: var(--ink-soft); }
+.wave-svg .father { fill: var(--green-deep); }
+.wave-svg .spirit { fill: var(--brown); }
+.wave-svg .son { fill: var(--orange-deep); }
+.antenna-svg .name {
+  font-size: 15px;
+  font-weight: 800;
+  fill: var(--green-deep);
+}
+.antenna-svg .sub {
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--ink-soft);
+}
+footer {
+  text-align: center;
+  padding: 18px 20px 32px;
+  color: var(--ink-soft);
+  font-size: .95rem;
+  font-weight: 700;
+}
+footer::before {
+  content: "";
+  display: block;
+  width: min(168px, 42vw);
+  height: 10px;
+  margin: 8px auto 16px;
+  border-radius: 2px;
+  background: linear-gradient(#f5f7f8, #c5ced6 55%, #eef1f4);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(80, 55, 30, .12);
+}
+footer p { margin: .25rem 0; }
+footer a { font-weight: 800; text-decoration: none; }
+@media (max-width: 420px) {
+  .page { padding: 20px 14px 4px; }
+  .idea { padding: 1rem .95rem 1.1rem; }
+  h1 { font-size: 1.85rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .motion { display: none !important; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (forced-colors: active) {
+  .wave-svg path,
+  .wave-svg line,
+  .wave-svg circle,
+  .antenna-svg path,
+  .antenna-svg line,
+  .antenna-svg circle,
+  .antenna-svg ellipse {
+    stroke: CanvasText;
+  }
+  .wave-svg text,
+  .antenna-svg text { stroke: none; fill: CanvasText; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="page">
+<header class="mast">
+  <p class="back"><a href="../">← Home</a></p>
+  <h1>How I see life and reality</h1>
+  <p class="living">This is a living document, a work in progress I'll keep refining.</p>
+  <nav class="toc" aria-label="On this page">
+    <ol>
+      <li><a href="#set-in-motion">Set in motion</a></li>
+      <li><a href="#every-outcome">Every outcome</a></li>
+      <li><a href="#continuity">Continuity</a></li>
+      <li><a href="#a-sine-wave">A sine wave</a></li>
+      <li><a href="#an-antenna">An antenna</a></li>
+      <li><a href="#a-bucket">A bucket</a></li>
+    </ol>
+  </nav>
+</header>
+<main id="content">
+<section class="idea" id="set-in-motion" aria-labelledby="h-motion">
+  <h2 id="h-motion">Set in motion</h2>
+  <p>God set the universe in motion and walked away. That's the only way free will exists.</p>
+  <p>He guides lightly, through patterns and recognitions.</p>
+  <p>"In his image" means consciousness. The same consciousness at different levels. God is the highest.</p>
+</section>
+<section class="idea" id="every-outcome" aria-labelledby="h-outcome">
+  <h2 id="h-outcome">Every outcome</h2>
+  <p>I see the multiverse as bubbles for every possible action. Every outcome exists.</p>
+  <p>God knows all outcomes. He wants you to choose the good one.</p>
+</section>
+<section class="idea" id="continuity" aria-labelledby="h-continuity">
+  <h2 id="h-continuity">Continuity</h2>
+  <p>The Bible's divinity is its continuity through translations.</p>
+  <p>Christianity is the only religion you can make fun of without backlash.</p>
+  <p>A society with about 51% living by it functions, but not well — the more who follow it, the better it runs.</p>
+</section>
+<section class="idea" id="a-sine-wave" aria-labelledby="h-wave">
+  <h2 id="h-wave">A sine wave</h2>
+  <p>I see the Trinity as a sine wave. The Father is the positive peak. The Son is the negative peak. The Holy Spirit is the zero crossing.</p>
+  <p>Energy becomes matter. Matter becomes energy.</p>
+  <figure class="diagram">
+    <svg class="wave-svg" id="trinity-wave" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 360 246" role="img" aria-labelledby="wave-title" aria-describedby="wave-desc">
+      <title id="wave-title">The Trinity as a sine wave</title>
+      <desc id="wave-desc">A sine wave with the Father at the positive peak, the Holy Spirit at the zero crossing, and the Son at the negative peak.</desc>
+      <line x1="36" y1="124" x2="324" y2="124" stroke="#c5ced6" stroke-width="1.25" stroke-dasharray="2 4"/>
+      <path id="sine-path" fill="none" stroke="#1d6840" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M 36.0,124.0 L 38.4,121.0 L 40.8,117.9 L 43.2,114.9 L 45.6,111.9 L 48.0,109.0 L 50.4,106.1 L 52.8,103.2 L 55.2,100.4 L 57.6,97.7 L 60.0,95.0 L 62.4,92.4 L 64.8,89.9 L 67.2,87.5 L 69.6,85.2 L 72.0,83.0 L 74.4,80.9 L 76.8,78.9 L 79.2,77.1 L 81.6,75.4 L 84.0,73.8 L 86.4,72.3 L 88.8,71.0 L 91.2,69.9 L 93.6,68.8 L 96.0,68.0 L 98.4,67.3 L 100.8,66.7 L 103.2,66.3 L 105.6,66.1 L 108.0,66.0 L 110.4,66.1 L 112.8,66.3 L 115.2,66.7 L 117.6,67.3 L 120.0,68.0 L 122.4,68.8 L 124.8,69.9 L 127.2,71.0 L 129.6,72.3 L 132.0,73.8 L 134.4,75.4 L 136.8,77.1 L 139.2,78.9 L 141.6,80.9 L 144.0,83.0 L 146.4,85.2 L 148.8,87.5 L 151.2,89.9 L 153.6,92.4 L 156.0,95.0 L 158.4,97.7 L 160.8,100.4 L 163.2,103.2 L 165.6,106.1 L 168.0,109.0 L 170.4,111.9 L 172.8,114.9 L 175.2,117.9 L 177.6,121.0 L 180.0,124.0 L 182.4,127.0 L 184.8,130.1 L 187.2,133.1 L 189.6,136.1 L 192.0,139.0 L 194.4,141.9 L 196.8,144.8 L 199.2,147.6 L 201.6,150.3 L 204.0,153.0 L 206.4,155.6 L 208.8,158.1 L 211.2,160.5 L 213.6,162.8 L 216.0,165.0 L 218.4,167.1 L 220.8,169.1 L 223.2,170.9 L 225.6,172.6 L 228.0,174.2 L 230.4,175.7 L 232.8,177.0 L 235.2,178.1 L 237.6,179.2 L 240.0,180.0 L 242.4,180.7 L 244.8,181.3 L 247.2,181.7 L 249.6,181.9 L 252.0,182.0 L 254.4,181.9 L 256.8,181.7 L 259.2,181.3 L 261.6,180.7 L 264.0,180.0 L 266.4,179.2 L 268.8,178.1 L 271.2,177.0 L 273.6,175.7 L 276.0,174.2 L 278.4,172.6 L 280.8,170.9 L 283.2,169.1 L 285.6,167.1 L 288.0,165.0 L 290.4,162.8 L 292.8,160.5 L 295.2,158.1 L 297.6,155.6 L 300.0,153.0 L 302.4,150.3 L 304.8,147.6 L 307.2,144.8 L 309.6,141.9 L 312.0,139.0 L 314.4,136.1 L 316.8,133.1 L 319.2,130.1 L 321.6,127.0 L 324.0,124.0"/>
+      <g fill="none" stroke="#6b442c" stroke-width="1.25" stroke-linecap="round">
+        <line x1="180" y1="124" x2="194" y2="104"/>
+      </g>
+      <g>
+        <circle cx="108" cy="66" r="6.5" fill="#fff"/>
+        <circle cx="108" cy="66" r="4.1" fill="#143f28"/>
+        <circle cx="180" cy="124" r="6.5" fill="#fff"/>
+        <circle cx="180" cy="124" r="4.1" fill="#6b442c"/>
+        <circle cx="252" cy="182" r="6.5" fill="#fff"/>
+        <circle cx="252" cy="182" r="4.1" fill="#e07a2f"/>
+      </g>
+      <g class="motion">
+        <circle r="10" fill="#e07a2f" opacity="0.18">
+          <animateMotion dur="16s" repeatCount="indefinite" calcMode="paced">
+            <mpath href="#sine-path" xlink:href="#sine-path"/>
+          </animateMotion>
+        </circle>
+        <circle r="4.4" fill="#e07a2f">
+          <animateMotion dur="16s" repeatCount="indefinite" calcMode="paced">
+            <mpath href="#sine-path" xlink:href="#sine-path"/>
+          </animateMotion>
+        </circle>
+      </g>
+      <text class="name father" x="108" y="28" text-anchor="middle">Father</text>
+      <text class="sub" x="108" y="44" text-anchor="middle">positive peak</text>
+      <text class="name spirit" x="198" y="96" text-anchor="start">Holy Spirit</text>
+      <text class="sub" x="198" y="112" text-anchor="start">zero crossing</text>
+      <text class="name son" x="252" y="214" text-anchor="middle">Son</text>
+      <text class="sub" x="252" y="230" text-anchor="middle">negative peak</text>
+    </svg>
+  </figure>
+</section>
+<section class="idea" id="an-antenna" aria-labelledby="h-antenna">
+  <h2 id="h-antenna">An antenna</h2>
+  <p>The brain is an antenna. God is consciousness, like a carrier signal. Differently shaped brains pick up different wavelengths. That's why we're different while sharing the divine.</p>
+  <figure class="diagram">
+    <svg class="antenna-svg" viewBox="0 0 360 200" role="img" aria-labelledby="antenna-title" aria-describedby="antenna-desc">
+      <title id="antenna-title">The brain as an antenna</title>
+      <desc id="antenna-desc">God, consciousness, drawn as a long carrier signal. Under it, three differently shaped heads each pick up a wave of a different wavelength.</desc>
+      <text class="name" x="180" y="18" text-anchor="middle">God — consciousness</text>
+      <path fill="none" stroke="#1d6840" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M 20.0,46.0 L 24.0,45.5 L 28.0,45.1 L 32.0,44.6 L 36.0,44.1 L 40.0,43.7 L 44.0,43.3 L 48.0,42.9 L 52.0,42.5 L 56.0,42.1 L 60.0,41.8 L 64.0,41.4 L 68.0,41.1 L 72.0,40.9 L 76.0,40.7 L 80.0,40.5 L 84.0,40.3 L 88.0,40.2 L 92.0,40.1 L 96.0,40.0 L 100.0,40.0 L 104.0,40.0 L 108.0,40.1 L 112.0,40.2 L 116.0,40.3 L 120.0,40.5 L 124.0,40.7 L 128.0,40.9 L 132.0,41.1 L 136.0,41.4 L 140.0,41.8 L 144.0,42.1 L 148.0,42.5 L 152.0,42.9 L 156.0,43.3 L 160.0,43.7 L 164.0,44.1 L 168.0,44.6 L 172.0,45.1 L 176.0,45.5 L 180.0,46.0 L 184.0,46.5 L 188.0,46.9 L 192.0,47.4 L 196.0,47.9 L 200.0,48.3 L 204.0,48.7 L 208.0,49.1 L 212.0,49.5 L 216.0,49.9 L 220.0,50.2 L 224.0,50.6 L 228.0,50.9 L 232.0,51.1 L 236.0,51.3 L 240.0,51.5 L 244.0,51.7 L 248.0,51.8 L 252.0,51.9 L 256.0,52.0 L 260.0,52.0 L 264.0,52.0 L 268.0,51.9 L 272.0,51.8 L 276.0,51.7 L 280.0,51.5 L 284.0,51.3 L 288.0,51.1 L 292.0,50.9 L 296.0,50.6 L 300.0,50.2 L 304.0,49.9 L 308.0,49.5 L 312.0,49.1 L 316.0,48.7 L 320.0,48.3 L 324.0,47.9 L 328.0,47.4 L 332.0,46.9 L 336.0,46.5 L 340.0,46.0"/>
+      <text class="sub" x="180" y="70" text-anchor="middle">carrier signal</text>
+      <path fill="none" stroke="#1d6840" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M 41.0,94.0 L 41.8,92.4 L 42.5,91.0 L 43.2,89.8 L 44.0,88.8 L 44.8,88.2 L 45.5,88.0 L 46.2,88.2 L 47.0,88.8 L 47.8,89.8 L 48.5,91.0 L 49.2,92.4 L 50.0,94.0 L 50.8,95.6 L 51.5,97.0 L 52.2,98.2 L 53.0,99.2 L 53.8,99.8 L 54.5,100.0 L 55.2,99.8 L 56.0,99.2 L 56.8,98.2 L 57.5,97.0 L 58.2,95.6 L 59.0,94.0 L 59.8,92.4 L 60.5,91.0 L 61.2,89.8 L 62.0,88.8 L 62.8,88.2 L 63.5,88.0 L 64.2,88.2 L 65.0,88.8 L 65.8,89.8 L 66.5,91.0 L 67.2,92.4 L 68.0,94.0 L 68.8,95.6 L 69.5,97.0 L 70.2,98.2 L 71.0,99.2 L 71.8,99.8 L 72.5,100.0 L 73.2,99.8 L 74.0,99.2 L 74.8,98.2 L 75.5,97.0 L 76.2,95.6 L 77.0,94.0 L 77.8,92.4 L 78.5,91.0 L 79.2,89.8 L 80.0,88.8 L 80.8,88.2 L 81.5,88.0 L 82.2,88.2 L 83.0,88.8 L 83.8,89.8 L 84.5,91.0 L 85.2,92.4 L 86.0,94.0 L 86.8,95.6 L 87.5,97.0 L 88.2,98.2 L 89.0,99.2 L 89.8,99.8 L 90.5,100.0 L 91.2,99.8 L 92.0,99.2 L 92.8,98.2 L 93.5,97.0 L 94.2,95.6 L 95.0,94.0"/>
+      <path fill="none" stroke="#1d6840" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M 148.0,94.0 L 149.0,92.8 L 150.0,91.7 L 151.0,90.7 L 152.0,89.8 L 153.0,89.0 L 154.0,88.5 L 155.0,88.1 L 156.0,88.0 L 157.0,88.1 L 158.0,88.5 L 159.0,89.0 L 160.0,89.8 L 161.0,90.7 L 162.0,91.7 L 163.0,92.8 L 164.0,94.0 L 165.0,95.2 L 166.0,96.3 L 167.0,97.3 L 168.0,98.2 L 169.0,99.0 L 170.0,99.5 L 171.0,99.9 L 172.0,100.0 L 173.0,99.9 L 174.0,99.5 L 175.0,99.0 L 176.0,98.2 L 177.0,97.3 L 178.0,96.3 L 179.0,95.2 L 180.0,94.0 L 181.0,92.8 L 182.0,91.7 L 183.0,90.7 L 184.0,89.8 L 185.0,89.0 L 186.0,88.5 L 187.0,88.1 L 188.0,88.0 L 189.0,88.1 L 190.0,88.5 L 191.0,89.0 L 192.0,89.8 L 193.0,90.7 L 194.0,91.7 L 195.0,92.8 L 196.0,94.0 L 197.0,95.2 L 198.0,96.3 L 199.0,97.3 L 200.0,98.2 L 201.0,99.0 L 202.0,99.5 L 203.0,99.9 L 204.0,100.0 L 205.0,99.9 L 206.0,99.5 L 207.0,99.0 L 208.0,98.2 L 209.0,97.3 L 210.0,96.3 L 211.0,95.2 L 212.0,94.0"/>
+      <path fill="none" stroke="#1d6840" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M 253.0,94.0 L 254.6,93.2 L 256.2,92.4 L 257.9,91.7 L 259.5,91.0 L 261.1,90.3 L 262.8,89.8 L 264.4,89.2 L 266.0,88.8 L 267.6,88.5 L 269.2,88.2 L 270.9,88.1 L 272.5,88.0 L 274.1,88.1 L 275.8,88.2 L 277.4,88.5 L 279.0,88.8 L 280.6,89.2 L 282.2,89.8 L 283.9,90.3 L 285.5,91.0 L 287.1,91.7 L 288.8,92.4 L 290.4,93.2 L 292.0,94.0 L 293.6,94.8 L 295.2,95.6 L 296.9,96.3 L 298.5,97.0 L 300.1,97.7 L 301.8,98.2 L 303.4,98.8 L 305.0,99.2 L 306.6,99.5 L 308.2,99.8 L 309.9,99.9 L 311.5,100.0 L 313.1,99.9 L 314.8,99.8 L 316.4,99.5 L 318.0,99.2 L 319.6,98.8 L 321.2,98.2 L 322.9,97.7 L 324.5,97.0 L 326.1,96.3 L 327.8,95.6 L 329.4,94.8 L 331.0,94.0"/>
+      <g fill="none" stroke="#6b442c" stroke-width="1.7" stroke-linecap="round">
+        <line x1="61" y1="108" x2="75" y2="108"/>
+        <line x1="68" y1="108" x2="68" y2="126"/>
+        <line x1="173" y1="108" x2="187" y2="108"/>
+        <line x1="180" y1="108" x2="180" y2="126"/>
+        <line x1="285" y1="108" x2="299" y2="108"/>
+        <line x1="292" y1="108" x2="292" y2="126"/>
+      </g>
+      <g fill="#fffaf3" stroke="#5c4636" stroke-width="1.8">
+        <circle cx="68" cy="148" r="22"/>
+        <ellipse cx="180" cy="154" rx="15" ry="28"/>
+        <ellipse cx="292" cy="142" rx="30" ry="16"/>
+      </g>
+    </svg>
+  </figure>
+</section>
+<section class="idea" id="a-bucket" aria-labelledby="h-bucket">
+  <h2 id="h-bucket">A bucket</h2>
+  <p>There's a bucket of consciousness. At birth you dip a cup in. Life fills it. At death it pours back, mixes, and the next person draws from it.</p>
+  <p>That's why talents recur, and why people feel they've lived before.</p>
+</section>
+</main>
+</div>
+<footer>
+  <p><a href="../">← Home</a></p>
+  <p>© 2026 Dukktape Studios</p>
+</footer>
+<script>
+(function () {
+  var wave = document.getElementById("trinity-wave");
+  if (!wave || typeof wave.pauseAnimations !== "function") return;
+  var motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  function sync() {
+    if (motion.matches) wave.pauseAnimations();
+    else wave.unpauseAnimations();
+  }
+  sync();
+  if (motion.addEventListener) motion.addEventListener("change", sync);
+})();
+</script>
+</body>
+</html>
