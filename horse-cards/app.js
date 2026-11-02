@@ -24,6 +24,28 @@
   };
   var tier = "base";
   var picks = {};
+  var setView = "base";
+  var chaseIntro = document.getElementById("chase-intro");
+  var controls = document.querySelector(".controls");
+  var legend = document.querySelector(".legend");
+  var CHASE = [
+    { file: "001_bucephalus.jpg", name: "Bucephalus" },
+    { file: "014_copenhagen.jpg", name: "Copenhagen" },
+    { file: "015_marengo.jpg", name: "Marengo" },
+    { file: "033_sergeant-reckless.jpg", name: "Sergeant Reckless" },
+    { file: "036_eclipse.jpg", name: "Eclipse" },
+    { file: "039_man-o-war.jpg", name: "Man o' War" },
+    { file: "053_secretariat.jpg", name: "Secretariat" },
+    { file: "056_seattle-slew.jpg", name: "Seattle Slew" },
+    { file: "067_american-pharoah.jpg", name: "American Pharoah" },
+    { file: "070_frankel.jpg", name: "Frankel" },
+    { file: "079_phar-lap.jpg", name: "Phar Lap" },
+    { file: "082_winx.jpg", name: "Winx" },
+    { file: "086_red-rum.jpg", name: "Red Rum" },
+    { file: "087_arkle.jpg", name: "Arkle" },
+    { file: "185_riverton.jpg", name: "Riverton" },
+    { file: "186_kali.jpg", name: "Kali" }
+  ];
 
   function tierById(id) {
     for (var i = 0; i < TIERS.length; i++) if (TIERS[i].id === id) return TIERS[i];
@@ -132,7 +154,31 @@
     slot.querySelector(".tier-switch").innerHTML = switcher(card);
   }
 
+  function renderChase() {
+    chaseIntro.hidden = false;
+    legend.hidden = true;
+    controls.hidden = true;
+    empty.hidden = true;
+    grid.replaceChildren();
+    CHASE.forEach(function (item) {
+      var slot = document.createElement("div");
+      slot.className = "slot";
+      slot.innerHTML = '<div class="card-scale"><button type="button" class="chase-card"><img alt="' + esc(item.name) + ' chase card" src="chase/' + item.file + '?v=2026110202" width="750" height="1050"></button></div>';
+      slot.querySelector("button").addEventListener("click", function () {
+        openChase(item, slot.querySelector("button"));
+      });
+      grid.appendChild(slot);
+    });
+  }
+
   function render() {
+    if (setView === "chase") {
+      renderChase();
+      return;
+    }
+    chaseIntro.hidden = true;
+    legend.hidden = false;
+    controls.hidden = false;
     var shown = cards.filter(matches);
     grid.replaceChildren();
     var labeled = false;
@@ -166,6 +212,14 @@
     var which = tierOf(card);
     zoomBody.setAttribute("data-id", card.id);
     zoomBody.innerHTML = '<div class="card-scale"><div class="' + cardClass(card, which) + '">' + face(card, which) + '</div></div><div class="tier-switch" role="group" aria-label="Tiers for ' + card.name + '">' + switcher(card) + "</div>";
+  }
+
+  function openChase(item, opener) {
+    lastFocus = opener;
+    zoomBody.removeAttribute("data-id");
+    zoomBody.innerHTML = '<div class="card-scale"><img class="chase-zoom" alt="' + esc(item.name) + ' chase card" src="chase/' + item.file + '?v=2026110202" width="750" height="1050"></div>';
+    if (typeof zoom.showModal === "function") zoom.showModal();
+    document.getElementById("zoom-close").focus();
   }
 
   function openZoom(card, opener) {
@@ -231,6 +285,17 @@
   document.getElementById("zoom-close").addEventListener("click", function () { zoom.close(); });
   zoom.addEventListener("click", function (e) { if (e.target === zoom) zoom.close(); });
   zoom.addEventListener("close", function () { if (lastFocus) lastFocus.focus(); });
+
+  document.querySelectorAll("[data-set]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      setView = btn.getAttribute("data-set");
+      document.querySelectorAll("[data-set]").forEach(function (b) {
+        b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+      });
+      if (zoom.open) zoom.close();
+      render();
+    });
+  });
 
   render();
 })();
