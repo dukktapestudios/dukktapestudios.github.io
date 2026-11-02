@@ -81,7 +81,7 @@
   }
 
   function artBlock(card) {
-    return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="photos/' + card.id + '.jpg?v=2026103133"></span>';
+    return '<span class="artwin"><img class="photo" alt="' + esc(card.name) + '" src="photos/' + card.id + '.jpg?v=2026110102"></span>';
   }
 
   function shoeSvg() {
