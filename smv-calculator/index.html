@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A for-fun men's self-check of health, habits, skills, and stability, with a rough score, country context from public data, and a concrete plan.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'">
+<title>SMV Calculator</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%230e5c58'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#summary">Skip to results</a>
+<header class="page-head">
+  <p class="eyebrow">For fun · runs in your browser · nothing is uploaded</p>
+  <h1>SMV calculator</h1>
+  <p class="deck">A self-check of health, habits, skills, and stability. “Sexual market value” is internet slang for how dating gets talked about. This page treats it as a mirror for things you can practice. It does not rank anyone else, and it is not science.</p>
+</header>
+<div class="layout">
+  <form id="calc">
+    <p class="banner" id="sample-flag">Starter numbers are a sample profile: age 34, United States. Change every field to your own answers. Nothing leaves this browser.</p>
+    <fieldset>
+      <legend>Where you live</legend>
+      <div class="field">
+        <label for="country">Country</label>
+        <select id="country" name="country"></select>
+        <p class="help">Used for height, and for income or wealth when a public figure is in the file. United States is the default.</p>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Body and health</legend>
+      <div class="field">
+        <label for="age">Age <output id="age-out" for="age">34</output></label>
+        <input id="age" name="age" type="range" min="18" max="80" step="1" value="34">
+        <p class="help">18 or older. Age is context. It is not something the plan tells you to fix.</p>
+      </div>
+      <div class="field">
+        <label for="height-unit">Height units</label>
+        <select id="height-unit">
+          <option value="ft" selected>feet and inches</option>
+          <option value="cm">centimeters</option>
+        </select>
+      </div>
+      <div class="field" id="ft-field">
+        <span class="field-label">Height</span>
+        <div class="row">
+          <div>
+            <label for="height-ft">Feet</label>
+            <input id="height-ft" type="number" min="4" max="7" step="1" value="5" inputmode="numeric">
+          </div>
+          <div>
+            <label for="height-in">Inches</label>
+            <input id="height-in" type="number" min="0" max="11" step="1" value="11" inputmode="numeric">
+          </div>
+        </div>
+      </div>
+      <div class="field" id="cm-field" hidden>
+        <label for="height-cm">Height in centimeters</label>
+        <input id="height-cm" type="number" min="140" max="220" step="0.1" value="180" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="looks">Looks and grooming <output id="looks-out" for="looks">6</output></label>
+        <input id="looks" type="range" min="1" max="10" step="1" value="6">
+        <p class="help">Your own rating of face, grooming, and an ordinary day. 5 means typical. This is a guess, not a measurement.</p>
+      </div>
+      <div class="field">
+        <label for="body-fat">Body fat, roughly</label>
+        <select id="body-fat">
+          <option value="lean">Lean or athletic (about 8–14%)</option>
+          <option value="fit" selected>Fit (about 15–19%)</option>
+          <option value="average">Average (about 20–24%)</option>
+          <option value="high">Above average (about 25–31%)</option>
+          <option value="veryHigh">Well above average (about 32% or more)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="strength">Strength training</label>
+        <select id="strength">
+          <option value="none">Not training</option>
+          <option value="started">Just started</option>
+          <option value="consistent" selected>Consistent, under about a year</option>
+          <option value="intermediate">Solid intermediate (about 1–3 years)</option>
+          <option value="advanced">Advanced, years of training</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="sleep">Sleep</label>
+        <select id="sleep">
+          <option value="under5">Under 5 hours</option>
+          <option value="five" selected>5–6 hours</option>
+          <option value="good">7–9 hours</option>
+          <option value="over9">More than 9 hours</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="smoking">Smoking or nicotine</label>
+        <select id="smoking">
+          <option value="never" selected>Never</option>
+          <option value="quit">Quit</option>
+          <option value="some">Some days</option>
+          <option value="daily">Daily</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="drinking">Alcohol</label>
+        <select id="drinking">
+          <option value="rare">None or rare</option>
+          <option value="moderate" selected>Moderate</option>
+          <option value="heavy">Heavy</option>
+        </select>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>People skills</legend>
+      <div class="field">
+        <label for="social">Social skills and confidence <output id="social-out" for="social">5</output></label>
+        <input id="social" type="range" min="1" max="10" step="1" value="5">
+      </div>
+      <div class="field">
+        <label for="humor">Humor and charisma <output id="humor-out" for="humor">7</output></label>
+        <input id="humor" type="range" min="1" max="10" step="1" value="7">
+      </div>
+      <div class="field">
+        <label for="style">Style <output id="style-out" for="style">4</output></label>
+        <input id="style" type="range" min="1" max="10" step="1" value="4">
+        <p class="help">Clothes that fit, are clean, and suit your life. 5 means typical.</p>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Work and money</legend>
+      <div class="field">
+        <label for="income">Annual pre-tax income, in US dollars</label>
+        <input id="income" type="number" min="0" step="100" value="72000" inputmode="decimal">
+        <p class="help" id="income-help"></p>
+      </div>
+      <div class="field">
+        <label for="net-worth">Net worth, in US dollars</label>
+        <input id="net-worth" type="number" step="100" value="40000" inputmode="decimal">
+        <p class="help">What you own minus what you owe. A rough total is fine. Use 0 if you are unsure. Negative numbers are allowed.</p>
+      </div>
+      <div class="field">
+        <label for="education">Education</label>
+        <select id="education">
+          <option value="less">Less than secondary school</option>
+          <option value="secondary">Secondary or high school</option>
+          <option value="trade">Trade, certificate, or some college</option>
+          <option value="bachelor" selected>Bachelor's degree</option>
+          <option value="master">Master's degree</option>
+          <option value="doctorate">Doctorate or professional degree</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="career">Career</label>
+        <select id="career">
+          <option value="student">Student</option>
+          <option value="seeking">Between roles or seeking work</option>
+          <option value="early">Employed, still early</option>
+          <option value="skilled" selected>Skilled and steady</option>
+          <option value="lead">Specialist, manager, or owner</option>
+          <option value="senior">Senior leader or established owner</option>
+          <option value="other">Caregiving, retired, or not seeking work</option>
+        </select>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>What you want</legend>
+      <div class="field">
+        <label for="goals">Relationship and family goals</label>
+        <select id="goals">
+          <option value="partner">A long-term partnership</option>
+          <option value="family" selected>A long-term partnership and children</option>
+          <option value="casual">Dating casually for now</option>
+          <option value="unsure">Friendship first, or unsure</option>
+          <option value="later">Not looking right now</option>
+        </select>
+        <p class="help">This changes the plan, not the score. Wanting children is not scored higher than not wanting them.</p>
+      </div>
+      <div class="actions">
+        <button type="button" id="reset-sample">Reset the sample profile</button>
+        <a class="button ghost" href="#plan">Jump to the plan</a>
+      </div>
+    </fieldset>
+  </form>
+  <div class="panel" id="summary"></div>
+  <p id="live-status" class="sr-only" aria-live="polite"></p>
+</div>
+<div id="plan"></div>
+<section class="method" id="method">
+  <h2>How this is calculated</h2>
+  <p>The overall score is a weighted average of category scores from 1 to 10. Weights: looks and grooming 13%, fitness 12%, social skills 11%, income 11%, health habits 9%, height 8%, humor 7%, career 7%, style 6%, net worth 6%, education 5%, age 5%. If a country has no income benchmark or no wealth median in the file, that category is left out and the other weights are scaled to 100%.</p>
+  <p>Height uses a normal curve. The mean is the NCD-RisC 2019 figure for 19-year-old males in the selected country. The spread is an assumed 7 cm, a typical within-country male height standard deviation. NCD-RisC did not publish that 7 cm for this page. Worldwide height uses the same study’s global mean for boys aged 19 in 2019 (170.8 cm) and an assumed spread of 7.5 cm.</p>
+  <p>Income uses a lognormal curve. For OECD countries the benchmark is the average full-time wage, so someone earning exactly that average lands a little above the middle (an average sits above a median). The assumed log spread is 0.55. For other countries the benchmark is the World Bank per-person median, annualized, and the middle of the bar means “at that per-person median,” which is not the same thing as a typical salary. The assumed log spread there is 0.70.</p>
+  <p>Net worth uses a lognormal curve (assumed log spread 1.1) around the country’s median wealth per adult, multiplied by a simple age factor: 0.12 under 25, 0.28 from 25–29, 0.50 from 30–34, 0.85 from 35–44, 1.20 from 45–54, 1.35 from 55–64, and 1.15 from 65 on. That factor is this page’s assumption, not a UBS age table. Zero or negative net worth is floored (4.0 under 30, 2.2 at 30 or older) so a young adult with no assets is not scored as a crisis.</p>
+  <p>Self-ratings pass straight through. Fitness is 62% body-fat band and 38% strength band. Health is the average of sleep, smoking, and drinking. Education and career use the fixed scales in the form. Age is scored on a gentle curve (6.8, 7.6, 7.8, 7.4, 7.0, 6.6 across the age bands) and is shown on the chart, then kept off the action-plan list.</p>
+  <p>The country percentile compares your overall score with a reference profile at the same age: country-average height, the income benchmark, age-adjusted median wealth when we have it, self-ratings of 5, average body fat, no strength training, secondary education, early-career work, 7–9 hours of sleep, never smoked, moderate drinking. The gap is treated as a normal curve with a chosen standard deviation of 1.05 score points, so the percentile stays readable. That spread is a dial, not a survey result.</p>
+  <p>The worldwide figure starts from that country z-score and blends in height and income against global benchmarks: 60% country z-score, 15% height versus the world mean, 25% income versus the World Bank global per-person median (about $3,521 a year; assumed log spread 1.2). If income is not in the score, those 25 points move over to height. Self-rated traits are assumed to spread similarly worldwide, which is another simplification.</p>
+  <p>Relationship goals do not change the number. Read the result as a rough, for-fun estimate.</p>
+</section>
+<section class="sources" id="sources">
+  <h2>Sources</h2>
+  <p>Height by country, and the worldwide male mean: NCD Risk Factor Collaboration. Height and body-mass index trajectories of school-aged children and adolescents from 1985 to 2019 in 200 countries and territories: a pooled analysis of 2181 population-based studies with 65 million participants. <cite>Lancet</cite>. 2020;396:1511–1524. <a href="https://doi.org/10.1016/S0140-6736(20)31859-6">doi.org/10.1016/S0140-6736(20)31859-6</a>. Country file used here: mean height of boys aged 19 in 2019, rounded to 0.1 cm. <a href="https://www.ncdrisc.org/data-downloads-height.html">NCD-RisC height downloads</a>. The global mean for boys aged 19 in 2019 in that release is 170.8 cm.</p>
+  <p>OECD income benchmarks: OECD, Average annual wages, dataflow <cite>DSD_EARNINGS@AV_AN_WAGE</cite>, measure wages, annual, constant prices, US dollars at purchasing-power parity, mean, not sex-specific. Latest year is 2024, except Chile, Colombia, Costa Rica, and Turkey (listed by OECD as Türkiye), which are 2023. <a href="https://www.oecd.org/en/data/indicators/average-annual-wages.html">OECD average annual wages</a>. These are averages for employees on a full-time-equivalent basis. They are not medians, and they are not male-only. The page says so next to the bar.</p>
+  <p>Other countries’ income benchmarks, and the worldwide income context: World Bank Poverty and Inequality Platform, median per-capita income or consumption per day in 2021 international dollars, as compiled by Our World in Data. <a href="https://ourworldindata.org/grapher/daily-median-income">Median income or consumption per day</a>. Annual figures on this page are the daily median times 365, rounded to the nearest dollar. The world aggregate in that series is an extrapolated estimate (about $9.65 a day, about $3,521 a year, series year 2026). Survey years differ by country and are shown next to the benchmark. Argentina’s figure is urban only. Ghana’s latest point in the extract is 2016, and Morocco’s is 2013. High-income countries in this file mostly use the OECD wage instead, because a per-person household median is a poor stand-in for a paycheck.</p>
+  <p>Wealth: James Davies, Rodrigo Lluberas, and Anthony Shorrocks, <cite>Global Wealth Report 2023</cite>, UBS / Credit Suisse. Median wealth per adult, end of 2022, current US dollars, from the report’s ranking table. The threshold to be in the wealthier half of adults worldwide was USD 8,654. China’s median is the report’s smoothed figure of USD 30,696. <a href="https://www.ubs.com/global/en/wealthmanagement/insights/global-wealth-report.html">UBS Global Wealth Report</a>. Countries missing from that embedded top-median list are left out of the wealth score rather than guessed.</p>
+  <p>Action-plan links go to public career services, health agencies, pension or investor-education pages, the ILO, the OECD skills topic, and the WHO. They are general starting points, not endorsements of a job, a course, or a result. External pages need a network connection. The calculator itself does not.</p>
+</section>
+<footer>© 2026 Dukktape Studios · <a href="../">More projects</a></footer>
+<div class="sticky">
+  <div>
+    <span class="sticky-score" id="sticky-score">–</span>
+    <span class="sticky-meta" id="sticky-country"></span><br>
+    <span class="sticky-meta" id="sticky-world"></span>
+  </div>
+  <a href="#plan">See plan</a>
+</div>
+<script src="data.js"></script>
+<script src="score.js"></script>
+<script src="plans.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
