@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stories | Dukktape Studios</title>
+<meta name="description" content="Alexander's books, a Hero's Journey worksheet, and a low-pressure place to start writing. You don't need it perfect to start.">
+<link rel="preload" href="../assets/fonts/nunito-latin-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="stories.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="mast">
+  <p class="home-link"><a href="../">← Dukktape Studios</a></p>
+  <h1>Stories</h1>
+  <p class="lede">A home for Alexander's books, and a low-pressure place to start writing.</p>
+  <p class="pill">You don't need it perfect to start.</p>
+</header>
+<main id="content">
+  <nav class="jump" aria-label="On this page">
+    <a href="#journey">Hero's Journey</a>
+    <a href="#concepts">Story concepts</a>
+    <a href="#shelf">Bookshelf</a>
+  </nav>
+
+  <section id="journey" aria-labelledby="journey-title">
+    <h2 id="journey-title">Hero's Journey formula</h2>
+    <p class="section-lede">Twelve beats, in order. Read the meaning and the two examples, then write your own sentence when you're ready. Star Wars and Harry Potter are only the shape, not the plot to copy.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="pdfs/heros-journey-book-template.pdf" download="heros-journey-book-template.pdf">Download blank PDF</a>
+      <button type="button" class="btn" id="copy-template">Copy blank template</button>
+      <button type="button" class="btn" id="toggle-beats" aria-pressed="false">Expand all</button>
+      <button type="button" class="btn" id="print-journey">Print</button>
+    </div>
+    <p id="copy-status" class="status" role="status" aria-live="polite"></p>
+    <div id="beats"></div>
+    <noscript>
+      <p>JavaScript draws the twelve beats on this page. The blank worksheet is still here: <a href="pdfs/heros-journey-book-template.pdf">Download the Hero's Journey PDF</a>.</p>
+    </noscript>
+  </section>
+
+  <section id="concepts" aria-labelledby="concepts-title">
+    <h2 id="concepts-title">Story concepts</h2>
+    <p class="section-lede">An idea bank. A title is enough to hold a place. The rest can wait.</p>
+    <div class="concept-grid" id="concept-grid"></div>
+  </section>
+
+  <section id="shelf" aria-labelledby="shelf-title">
+    <h2 id="shelf-title">Bookshelf</h2>
+    <p class="section-lede">Finished books stand here. Open the stack when you want to look.</p>
+    <div class="shelf-stage">
+      <button type="button" class="stack-btn" id="stack-btn" aria-expanded="false" aria-controls="bookcase">
+        <svg class="stack-art" viewBox="0 0 440 250" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="plank" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#e6c09a"/>
+              <stop offset="0.18" stop-color="#c48955"/>
+              <stop offset="0.55" stop-color="#a86b3c"/>
+              <stop offset="1" stop-color="#6b4124"/>
+            </linearGradient>
+            <linearGradient id="plank-side" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#8a5430"/>
+              <stop offset="1" stop-color="#4a2c18"/>
+            </linearGradient>
+          </defs>
+          <ellipse cx="220" cy="228" rx="168" ry="12" fill="rgba(70,40,16,.22)"/>
+          <rect x="28" y="196" width="384" height="18" rx="3" fill="url(#plank-side)"/>
+          <rect x="28" y="178" width="384" height="26" rx="4" fill="url(#plank)"/>
+          <g opacity=".28" stroke="#4a2c18" stroke-width="1.2">
+            <path d="M40 190c40 4 70-2 110 1M40 198c60 3 90-3 140 2M250 188c40 3 70-1 120 2M300 198c30 2 50-2 80 1"/>
+          </g>
+          <rect x="36" y="178" width="368" height="5" rx="2" fill="rgba(255,248,238,.35)"/>
+          <g class="book-shadow">
+            <rect x="86" y="156" width="270" height="28" rx="3" fill="rgba(50,24,10,.18)"/>
+          </g>
+          <g transform="rotate(-1.6 220 168)">
+            <rect x="74" y="146" width="292" height="40" rx="3" fill="#5c201e"/>
+            <rect x="86" y="146" width="250" height="40" rx="2" fill="#7c2f2f"/>
+            <rect x="86" y="146" width="250" height="5" fill="rgba(255,255,255,.18)"/>
+            <rect x="318" y="150" width="40" height="32" fill="#f6efe4"/>
+            <g stroke="#e2d0b8" stroke-width="1">
+              <line x1="324" y1="156" x2="352" y2="156"/>
+              <line x1="324" y1="162" x2="352" y2="162"/>
+              <line x1="324" y1="168" x2="352" y2="168"/>
+              <line x1="324" y1="174" x2="352" y2="174"/>
+            </g>
+          </g>
+          <g transform="rotate(1.3 220 128)">
+            <rect x="90" y="108" width="264" height="38" rx="3" fill="#143f28"/>
+            <rect x="102" y="108" width="222" height="38" rx="2" fill="#1f5c3a"/>
+            <rect x="102" y="108" width="222" height="5" fill="rgba(255,255,255,.16)"/>
+            <rect x="308" y="112" width="38" height="30" fill="#f6efe4"/>
+            <g stroke="#e2d0b8" stroke-width="1">
+              <line x1="314" y1="118" x2="340" y2="118"/>
+              <line x1="314" y1="124" x2="340" y2="124"/>
+              <line x1="314" y1="130" x2="340" y2="130"/>
+              <line x1="314" y1="136" x2="340" y2="136"/>
+            </g>
+          </g>
+          <g transform="rotate(-0.7 220 90)">
+            <rect x="108" y="72" width="236" height="36" rx="3" fill="#1a2c44"/>
+            <rect x="118" y="72" width="196" height="36" rx="2" fill="#2a4468"/>
+            <rect x="118" y="72" width="196" height="4" fill="rgba(255,255,255,.16)"/>
+            <rect x="300" y="76" width="36" height="28" fill="#f6efe4"/>
+            <g stroke="#e2d0b8" stroke-width="1">
+              <line x1="306" y1="82" x2="330" y2="82"/>
+              <line x1="306" y1="88" x2="330" y2="88"/>
+              <line x1="306" y1="94" x2="330" y2="94"/>
+            </g>
+          </g>
+          <g transform="rotate(2 214 52)">
+            <rect x="124" y="34" width="196" height="36" rx="3" fill="#8a4e16"/>
+            <rect x="134" y="34" width="164" height="36" rx="2" fill="#c47b32"/>
+            <rect x="134" y="34" width="164" height="4" fill="rgba(255,255,255,.28)"/>
+            <rect x="286" y="38" width="26" height="28" fill="#f6efe4"/>
+            <g stroke="#e2d0b8" stroke-width="1">
+              <line x1="290" y1="44" x2="308" y2="44"/>
+              <line x1="290" y1="50" x2="308" y2="50"/>
+              <line x1="290" y1="56" x2="308" y2="56"/>
+            </g>
+            <rect x="236" y="32" width="9" height="78" rx="1" fill="#8d3f10"/>
+            <path d="M236 110l4.5-8 4.5 8z" fill="#8d3f10"/>
+          </g>
+        </svg>
+        <span class="stack-caption">Open the bookshelf</span>
+      </button>
+      <div class="bookcase" id="bookcase" role="region" aria-label="Open bookshelf" hidden></div>
+      <div class="book-detail" id="book-detail" role="region" aria-live="polite" aria-label="Selected book" hidden></div>
+    </div>
+    <div class="print-only" id="print-shelf"></div>
+  </section>
+</main>
+<footer>
+  <p>© 2026 Dukktape Studios</p>
+</footer>
+<script src="data.js"></script>
+<script src="stories.js"></script>
+</body>
+</html>
