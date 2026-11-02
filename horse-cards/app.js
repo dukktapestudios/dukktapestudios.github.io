@@ -98,11 +98,7 @@
 
   function face(card) {
     var numText = (card.idCard ? total + card.n : card.n) + "/" + setTotal;
-    var kind = card.idCard
-      ? '<span class="kind">' + (card.idKind === "color" ? "ID · COLOR" : "ID") + "</span>"
-      : "";
     return '<span class="name">' + card.name + "</span>" +
-      kind +
       artBlock(card) +
       '<span class="fact">' + card.fact + "</span>" +
       '<span class="foot">' + rarityMark(card) +
