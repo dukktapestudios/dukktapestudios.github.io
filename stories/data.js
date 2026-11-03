@@ -15,6 +15,13 @@
 (function () {
   window.DUKKTAPE_STORIES = {
     placeholderNote: "Coming soon — I'll add my books here as I finish them.",
-    books: []
+    books: [
+      {
+        title: "River's Run: River and the Wolf Cry",
+        description: "River learns why telling the truth matters. A retelling of The Boy Who Cried Wolf.",
+        cover: "books/rivers-run-wolf-cry/cover.jpg",
+        link: "books/rivers-run-wolf-cry/"
+      }
+    ]
   };
 })();

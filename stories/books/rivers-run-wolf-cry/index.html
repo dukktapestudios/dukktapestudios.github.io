@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>River's Run: River and the Wolf Cry | Dukktape Studios</title>
+<meta name="description" content="River learns why telling the truth matters. A retelling of The Boy Who Cried Wolf.">
+<link rel="preload" href="../../../assets/fonts/nunito-latin-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="cover.jpg" as="image">
+<link rel="stylesheet" href="../../stories.css">
+<style>
+  .reader {
+    width: min(760px, 100%);
+    margin: 0 auto;
+    touch-action: pan-y;
+  }
+
+  .spread + .spread { margin-top: 32px; }
+
+  .frame {
+    display: flex;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    background: var(--card);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 28px rgba(48, 26, 10, .16);
+  }
+
+  .frame img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 62vh;
+    max-height: 62dvh;
+  }
+
+  .spread-note .frame img {
+    max-height: 40vh;
+    max-height: 40dvh;
+  }
+
+  .copy {
+    margin: 16px 2px 0;
+    font-size: clamp(1.4rem, 2.1vw + 1rem, 1.9rem);
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .copy p { margin: 0; }
+
+  .copy h2 {
+    margin: 0 0 10px;
+    font-family: Nunito, "Segoe UI", sans-serif;
+    font-size: clamp(1.6rem, 4vw, 2.05rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--pine-deep);
+  }
+
+  .copy strong {
+    font-weight: 800;
+    color: var(--ember-deep);
+  }
+
+  .questions {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .questions li {
+    margin: 0;
+    padding: 12px 14px;
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    font-size: clamp(1.25rem, 1.4vw + .9rem, 1.6rem);
+    font-weight: 800;
+    line-height: 1.4;
+  }
+
+  .pager {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: min(760px, 100%);
+    margin: 14px auto 0;
+    padding: 4px 0 calc(8px + env(safe-area-inset-bottom));
+  }
+
+  .back,
+  .pager .btn {
+    flex: 1 1 0;
+    width: auto;
+    max-width: 180px;
+    margin: 0;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: .5rem 1.25rem;
+    border: 0;
+    border-radius: 999px;
+    background: #f3e6d2;
+    color: #3a2416;
+    font: inherit;
+    font-weight: 800;
+    box-shadow: 0 3px 0 #c9b092;
+  }
+
+  .back:hover,
+  .back:focus-visible { background: #e7d3b4; color: #3a2416; }
+
+  .count {
+    flex: 0 0 auto;
+    min-width: 7.5rem;
+    margin: 0;
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--ink-soft);
+  }
+
+  .back:disabled,
+  .pager .btn:disabled,
+  .back:disabled:hover,
+  .pager .btn:disabled:hover,
+  .pager .btn:disabled:focus-visible {
+    opacity: .4;
+    cursor: default;
+    box-shadow: none;
+    background: #f3e6d2;
+    color: #3a2416;
+  }
+
+  .pager .btn:disabled,
+  .pager .btn:disabled:hover,
+  .pager .btn:disabled:focus-visible {
+    background: var(--pine);
+    color: #fffaf3;
+  }
+
+  .js .spread:not(.is-current) { display: none; }
+  .js .spread + .spread { margin-top: 0; }
+  .js .pager { display: flex; }
+
+  @media (max-width: 560px) {
+    .copy { margin-top: 14px; }
+    .questions li { padding: 12px; }
+    .back, .pager .btn { max-width: none; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .js .spread.is-current { animation: page-in .18s ease; }
+  }
+
+  @keyframes page-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+<a class="skip" href="#book">Skip to the book</a>
+<header class="mast">
+  <p class="home-link"><a href="../../">← Back to bookshelf</a></p>
+  <h1>River's Run</h1>
+</header>
+<main>
+  <article class="reader" id="book" aria-label="River's Run: River and the Wolf Cry">
+    <section class="spread is-current" aria-label="Cover">
+      <figure class="frame">
+        <img src="cover.jpg" width="864" height="1152" alt="Book cover. River the horse stands in a sunny pasture. The title reads River's Run: River and the Wolf Cry." fetchpriority="high">
+      </figure>
+      <div class="copy">
+        <p>River learns why telling the truth matters. A retelling of The Boy Who Cried Wolf.</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 1">
+      <figure class="frame">
+        <img src="page01.jpg" width="1152" height="864" alt="River, a horse with a shiny coat and a swishy tail, on a big green farm." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>This is River. River is a horse who lives on a big green farm. He has a shiny coat and a swishy tail.</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 2">
+      <figure class="frame">
+        <img src="page02.jpg" width="1152" height="864" alt="River watching the field, ready to neigh if he sees danger." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>River's job is to watch the field. If he sees danger, he neighs loud: <strong>"NEIGH! NEIGH!"</strong> Then all the animals run to the barn.</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 3">
+      <figure class="frame">
+        <img src="page03.jpg" width="1152" height="864" alt="River looking bored on a sunny day." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>One sunny day, River was bored. "Watching is so slow," he sighed.</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 4">
+      <figure class="frame">
+        <img src="page04.jpg" width="1152" height="864" alt="River thinking about neighing just for fun." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>River had an idea. "What if I neigh loud, just for fun?"</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 5">
+      <figure class="frame">
+        <img src="page05.jpg" width="1152" height="864" alt="The cows, goats, and chickens running all the way to the barn." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p><strong>"NEIGH! NEIGH! Danger!"</strong> The cows ran. The goats ran. The chickens flapped and squawked all the way to the barn.</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 6">
+      <figure class="frame">
+        <img src="page06.jpg" width="1152" height="864" alt="River laughing because he tricked the other animals." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>But there was no danger. River laughed. "Hee hee! I tricked you!"</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 7">
+      <figure class="frame">
+        <img src="page07.jpg" width="1152" height="864" alt="The tired animals, and Old Cow telling River that wasn't nice." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>The animals were tired and sad. "That wasn't nice, River," said Old Cow.</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 8">
+      <figure class="frame">
+        <img src="page08.jpg" width="1152" height="864" alt="Everyone running again while nobody laughs." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>The next day, River did it again. <strong>"NEIGH! NEIGH!"</strong> Everyone ran. No danger again. This time, nobody laughed.</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 9">
+      <figure class="frame">
+        <img src="page09.jpg" width="1152" height="864" alt="River seeing a real wolf hiding in the tall grass." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>Then one evening, River saw something in the tall grass. Gray fur. Sharp eyes. A real wolf!</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 10">
+      <figure class="frame">
+        <img src="page10.jpg" width="1152" height="864" alt="River crying wolf while the cows and goats keep eating." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p><strong>"NEIGH! NEIGH! A REAL WOLF!"</strong> River cried. But the cows kept eating. The goats kept chewing. "It's just River playing again," they said.</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 11">
+      <figure class="frame">
+        <img src="page11.jpg" width="1152" height="864" alt="River pushing each animal toward the barn." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>River's heart pounded. Nobody was listening. He had to run to each animal, one by one, and push them toward the barn.</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 12">
+      <figure class="frame">
+        <img src="page12.jpg" width="1152" height="864" alt="Everyone safe inside while the wolf runs away. River is shaking." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>Everyone got inside just in time. The wolf ran away. River was shaking.</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 13">
+      <figure class="frame">
+        <img src="page13.jpg" width="1152" height="864" alt="River lying in the hay that night, thinking hard." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>That night, River lay in the hay and thought hard. "Why didn't they come when I called?"</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 14">
+      <figure class="frame">
+        <img src="page14.jpg" width="1152" height="864" alt="River figuring out that his friends stopped believing him." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>Then River figured it out. "When I said 'danger' and there was none, my words stopped meaning anything. They stopped believing me."</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 15">
+      <figure class="frame">
+        <img src="page15.jpg" width="1152" height="864" alt="River telling his friends he is sorry and will tell the truth." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>River walked to his friends. "I'm sorry I tricked you. From now on, I will only tell the truth, so you can always trust me."</p>
+      </div>
+    </section>
+
+    <section class="spread" aria-label="Page 16">
+      <figure class="frame">
+        <img src="page16.jpg" width="1152" height="864" alt="River with his friends, who trust him again." loading="lazy">
+      </figure>
+      <div class="copy">
+        <p>And River kept his promise. Every day he told the truth, and slowly, his friends trusted him again.</p>
+      </div>
+    </section>
+
+    <section class="spread spread-note" aria-label="The lesson">
+      <figure class="frame">
+        <img src="closing.jpg" width="1152" height="864" alt="River standing with the cows, goats, and a chicken in the sunset field." loading="lazy">
+      </figure>
+      <div class="copy">
+        <h2>The lesson</h2>
+        <p>When you tell the truth, people believe you. When you trick people, they stop listening, even when it really matters.</p>
+      </div>
+    </section>
+
+    <section class="spread spread-note" aria-label="Talk about it">
+      <figure class="frame">
+        <img src="closing.jpg" width="1152" height="864" alt="River standing with the cows, goats, and a chicken in the sunset field." loading="lazy">
+      </figure>
+      <div class="copy">
+        <h2>Talk about it</h2>
+        <ul class="questions">
+          <li>Why didn't the animals come the last time?</li>
+          <li>How did River earn their trust back?</li>
+          <li>Can you think of a time telling the truth was hard?</li>
+        </ul>
+      </div>
+    </section>
+  </article>
+
+  <p id="status" class="sr-only" aria-live="polite"></p>
+  <nav class="pager" aria-label="Pages">
+    <button type="button" class="back" id="back">Back</button>
+    <p class="count" id="count">Page 1 of 19</p>
+    <button type="button" class="btn" id="next">Next</button>
+  </nav>
+</main>
+<footer>
+  <p>© 2026 Dukktape Studios</p>
+</footer>
+<script>
+(function () {
+  var book = document.getElementById("book");
+  var spreads = Array.prototype.slice.call(book.querySelectorAll(".spread"));
+  var back = document.getElementById("back");
+  var next = document.getElementById("next");
+  var count = document.getElementById("count");
+  var status = document.getElementById("status");
+  var index = -1;
+  var suppressClick = false;
+  var touch = null;
+
+  function warm(spread) {
+    if (!spread) return;
+    var img = spread.querySelector("img");
+    if (img && img.loading === "lazy") img.loading = "eager";
+  }
+
+  function words(spread) {
+    var copy = spread.querySelector(".copy");
+    if (!copy) return "";
+    return copy.innerText.replace(/\s+/g, " ").trim();
+  }
+
+  function show(i, announce) {
+    var nextIndex = Math.max(0, Math.min(spreads.length - 1, i));
+    if (nextIndex === index) return;
+    index = nextIndex;
+    spreads.forEach(function (spread, n) {
+      var on = n === index;
+      spread.classList.toggle("is-current", on);
+      if (on) spread.setAttribute("aria-label", "Page " + (n + 1) + " of " + spreads.length);
+    });
+    count.textContent = "Page " + (index + 1) + " of " + spreads.length;
+    if (announce) window.scrollTo(0, 0);
+    back.disabled = index === 0;
+    next.disabled = index === spreads.length - 1;
+    warm(spreads[index]);
+    warm(spreads[index + 1]);
+    warm(spreads[index - 1]);
+    if (announce) {
+      status.textContent = count.textContent + ". " + words(spreads[index]);
+    }
+  }
+
+  function turn(delta) {
+    show(index + delta, true);
+  }
+
+  back.addEventListener("click", function () {
+    if (suppressClick) { suppressClick = false; return; }
+    turn(-1);
+  });
+  next.addEventListener("click", function () {
+    if (suppressClick) { suppressClick = false; return; }
+    turn(1);
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.repeat) return;
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    var tag = event.target && event.target.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      turn(1);
+    } else if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      turn(-1);
+    }
+  });
+
+  book.addEventListener("touchstart", function (event) {
+    if (event.touches.length !== 1) { touch = null; return; }
+    var point = event.touches[0];
+    touch = { x: point.clientX, y: point.clientY, target: event.target };
+  }, { passive: true });
+
+  book.addEventListener("touchmove", function (event) {
+    if (!touch || event.touches.length !== 1) return;
+    var point = event.touches[0];
+    var dx = point.clientX - touch.x;
+    var dy = point.clientY - touch.y;
+    if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)) event.preventDefault();
+  }, { passive: false });
+
+  book.addEventListener("touchend", function (event) {
+    if (!touch) return;
+    var point = event.changedTouches[0];
+    var dx = point.clientX - touch.x;
+    var dy = point.clientY - touch.y;
+    var startedOnButton = touch.target && touch.target.closest && touch.target.closest("button");
+    touch = null;
+    if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy)) return;
+    if (startedOnButton) suppressClick = true;
+    turn(dx < 0 ? 1 : -1);
+  });
+
+  book.addEventListener("touchcancel", function () { touch = null; });
+
+  show(0, false);
+})();
+</script>
+</body>
+</html>
