@@ -56,7 +56,9 @@
   }
 
   function tierOf(card) {
-    return picks[card.id] || tier;
+    if (picks[card.id]) return picks[card.id];
+    if (rarity === "Chase" && chaseOf(card)) return "chase";
+    return tier;
   }
 
   function horseSvg(card, which) {
@@ -150,7 +152,11 @@
 
   function matches(card) {
     if (cat !== "all" && card.cat !== cat) return false;
-    if (rarity !== "all" && card.rarity !== rarity) return false;
+    if (rarity === "Chase") {
+      if (!chaseOf(card)) return false;
+    } else if (rarity !== "all" && card.rarity !== rarity) {
+      return false;
+    }
     if (!query) return true;
     return (card.name + " " + card.fact + " " + card.when + " " + card.cat).toLowerCase().indexOf(query) !== -1;
   }
@@ -222,8 +228,9 @@
       slot.className = "slot";
       slot.setAttribute("data-id", card.id);
       slot.innerHTML = '<div class="card-scale"><button type="button" class="card"></button></div><div class="tier-switch" role="group" aria-label="Tiers for ' + card.name + '"></div>';
+      var opener = slot.querySelector("button");
       paintSlot(slot, card);
-      slot.querySelector(".card").addEventListener("click", function () { openZoom(card, slot.querySelector(".card")); });
+      opener.addEventListener("click", function () { openZoom(card, opener); });
       slot.querySelector(".tier-switch").addEventListener("click", function (e) {
         var pick = e.target.closest("[data-tier-pick]");
         if (!pick) return;

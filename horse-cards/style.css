@@ -137,7 +137,7 @@ button[aria-pressed="true"] { background: #fffaf0; }
   height: 100%;
   object-fit: cover;
 }
-/* Printed holographic foil: a pale silver sheen with a faint rainbow fringe.
+/* Printed foil: a pale silver sheen with a faint rainbow fringe.
    Stops above the gold name so that title stays metallic gold. */
 .hero-card::before,
 .hero-card::after {
