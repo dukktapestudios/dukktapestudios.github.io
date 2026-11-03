@@ -1,8 +1,32 @@
 .shop-page {
-  background:
-    radial-gradient(circle at 50% 0%, rgba(226, 177, 67, .18), transparent 22rem),
-    #143524;
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  background-color: #102418;
   color: #fff8ea;
+}
+/* Fixed so the 16:9 painting stays a viewport backdrop on a long page.
+   Left alignment keeps the barn in frame on a narrow phone. The scrim
+   is darkest over the sky, where the white headings sit. */
+.shop-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: #102418;
+  background-image:
+    linear-gradient(180deg, rgba(6, 12, 8, .78) 0%, rgba(6, 12, 8, .62) 36%, rgba(6, 12, 8, .55) 68%, rgba(6, 12, 8, .68) 100%),
+    url("img/hero-barn.jpg");
+  background-image:
+    linear-gradient(180deg, rgba(6, 12, 8, .78) 0%, rgba(6, 12, 8, .62) 36%, rgba(6, 12, 8, .55) 68%, rgba(6, 12, 8, .68) 100%),
+    image-set(
+      url("img/hero-barn.webp") type("image/webp"),
+      url("img/hero-barn.jpg") type("image/jpeg")
+    );
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left center;
 }
 .shop-wrap {
   width: min(980px, calc(100% - 24px));
@@ -19,13 +43,6 @@
   color: var(--gold);
   font-weight: 700;
   text-decoration: none;
-}
-.shop-logo {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  border: 3px solid #1a120c;
-  background: #fff8ea;
 }
 .shop-page h1 {
   margin: 18px 0 8px;
@@ -79,5 +96,4 @@
 }
 @media (max-width: 700px) {
   .shop-options { grid-template-columns: 1fr; }
-  .shop-logo { width: 56px; height: 56px; }
 }
