@@ -5,6 +5,7 @@ The Random Ideas page reads `data/ideas.json`. Add a new idea by appending an ob
 ```json
 {
   "title": "Working title",
+  "type": "Anime",
   "status": "idea only",
   "date": "2026-11-03",
   "premise": "One short paragraph about the idea."
@@ -12,6 +13,7 @@ The Random Ideas page reads `data/ideas.json`. Add a new idea by appending an ob
 ```
 
 - `title` — the name of the idea
+- `type` — optional kind of idea, such as `Anime`. Shown as a small tag on the card. Leave it out when the idea has no type.
 - `status` — where it stands, in a few words (`idea only`, `test comic made`)
 - `date` — `YYYY-MM-DD`
 - `premise` — what it is about

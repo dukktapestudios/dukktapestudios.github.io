@@ -80,6 +80,19 @@
     color: var(--pine-deep);
   }
 
+  .type-tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 22px;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: #e4eaf3;
+    color: #243e66;
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .03em;
+  }
+
   .meta time {
     color: var(--ink-soft);
     font-size: .95rem;
@@ -116,7 +129,7 @@
   <!--
     Ideas are loaded from data/ideas.json.
     To add one, append an object to the "ideas" array:
-      { "title": "...", "status": "idea only", "date": "YYYY-MM-DD", "premise": "..." }
+      { "title": "...", "type": "Anime", "status": "idea only", "date": "YYYY-MM-DD", "premise": "..." }
     See README.md in this folder.
   -->
   <p class="lede">Stories that are not books yet.</p>
@@ -156,6 +169,7 @@
       var item = el("li", "idea");
       item.appendChild(el("h2", "", idea.title));
       var meta = el("p", "meta");
+      if (idea.type) meta.appendChild(el("span", "type-tag", idea.type));
       if (idea.status) {
         var ready = /made|draft|comic|done|published/i.test(idea.status);
         meta.appendChild(el("span", ready ? "status ready" : "status", idea.status));
@@ -187,7 +201,8 @@
           title: idea.title.trim(),
           premise: idea.premise.trim(),
           status: typeof idea.status === "string" ? idea.status.trim() : "",
-          date: typeof idea.date === "string" ? idea.date.trim() : ""
+          date: typeof idea.date === "string" ? idea.date.trim() : "",
+          type: typeof idea.type === "string" ? idea.type.trim() : ""
         };
       });
       if (!ideas.length) {
