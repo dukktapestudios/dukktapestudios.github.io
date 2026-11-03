@@ -8,7 +8,6 @@
   var perRow = 0;
 
   var beatsRoot = document.getElementById("beats");
-  var conceptGrid = document.getElementById("concept-grid");
   var copyButton = document.getElementById("copy-template");
   var copyStatus = document.getElementById("copy-status");
   var toggleBeats = document.getElementById("toggle-beats");
@@ -63,17 +62,6 @@
     var open = everyBeatOpen();
     toggleBeats.textContent = open ? "Collapse all" : "Expand all";
     toggleBeats.setAttribute("aria-pressed", open ? "true" : "false");
-  }
-
-  function renderConcepts() {
-    (data.concepts || []).forEach(function (concept) {
-      if (!concept || !concept.title) return;
-      var card = el("article", "concept");
-      card.appendChild(el("h3", null, concept.title));
-      var notes = (concept.notes || "").trim();
-      card.appendChild(el("p", notes ? "notes" : "notes soon", notes || "Notes coming soon."));
-      conceptGrid.appendChild(card);
-    });
   }
 
   function inkFor(color) {
@@ -289,7 +277,6 @@
   });
 
   renderBeats();
-  renderConcepts();
   renderPrintShelf();
   updateToggleLabel();
 

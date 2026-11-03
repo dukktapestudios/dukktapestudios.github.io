@@ -1,28 +1,9 @@
-/* Stories page lists. Edit this file to add a concept or a book.
+/* Stories page lists. Edit this file to add a book.
    The page reads window.DUKKTAPE_STORIES. */
 (function () {
   window.DUKKTAPE_STORIES = {
     /* Shown when the bookshelf has no finished books yet. */
     placeholderNote: "Coming soon — I'll add my books here as I finish them.",
-
-    /*
-      Idea bank.
-
-      Add a concept by appending ONE object to concepts:
-        { title: "Short title", notes: "The idea, in your words." }
-
-      Leave notes as an empty string to show "Notes coming soon."
-      Write only what you already know. Do not pad a card with plot you have not decided.
-    */
-    concepts: [
-      { title: "Null protagonist book", notes: "" },
-      { title: "BPD emotion-entity character", notes: "" },
-      { title: "Crystal computer idea", notes: "" },
-      {
-        title: "The Astronaut's Ghost",
-        notes: "A ghost or demon attaches to a person to haunt them, but the person is an astronaut, so the entity gets taken to space. It starts ominous, but the entity is terrified and confused in space, and ends up as a great lab assistant helping with experiments and helping the crew get back to Earth out of sheer fear."
-      }
-    ],
 
     /*
       Bookshelf.

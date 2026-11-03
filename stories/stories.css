@@ -279,49 +279,6 @@ h2 {
   font-weight: 800;
 }
 
-.concept-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 14px;
-}
-
-.concept {
-  position: relative;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 3px 14px 14px 3px;
-  padding: 18px 16px 16px 18px;
-  box-shadow: 0 8px 18px rgba(70, 40, 16, .06);
-}
-
-.concept::before {
-  content: "";
-  position: absolute;
-  top: -7px;
-  right: 22px;
-  width: 52px;
-  height: 14px;
-  background: linear-gradient(#ead7b4, #d2b48a);
-  border-radius: 1px;
-  transform: rotate(2deg);
-}
-
-.concept h3 {
-  margin: 0 0 8px;
-  font-size: 1.25rem;
-  color: var(--ink);
-}
-
-.concept p {
-  margin: 0;
-  color: var(--ink-soft);
-  overflow-wrap: break-word;
-}
-
-.soon {
-  font-style: italic;
-}
-
 .shelf-stage { margin-top: 6px; }
 
 .stack-btn {
@@ -547,7 +504,6 @@ footer {
 
 @media (prefers-reduced-motion: no-preference) {
   .stack-btn,
-  .concept,
   .spine,
   .btn {
     transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
@@ -555,7 +511,6 @@ footer {
   .stack-btn:hover,
   .stack-btn:focus-visible { transform: translateY(-3px); }
   .stack-btn:active { transform: translateY(1px); }
-  .concept:hover { transform: translateY(-3px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -569,8 +524,7 @@ footer {
   body { background: #fff; color: #000; }
   .jump, .actions, .stack-btn, .bookcase, .book-detail, .status, .pill { display: none !important; }
   .print-only { display: block; }
-  .beat, .concept { break-inside: avoid; box-shadow: none; }
-  .concept::before { display: none; }
+  .beat { break-inside: avoid; box-shadow: none; }
   a { color: #000; }
   .beat summary::after { display: none; }
 }
