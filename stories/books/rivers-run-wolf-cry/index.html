@@ -33,8 +33,8 @@
     width: auto;
     height: auto;
     max-width: 100%;
-    max-height: 62vh;
-    max-height: 62dvh;
+    max-height: 52vh;
+    max-height: 52dvh;
   }
 
   .spread-note .frame img {
@@ -49,7 +49,10 @@
     line-height: 1.45;
   }
 
-  .copy p { margin: 0; }
+  .copy p {
+    margin: 0;
+    white-space: pre-line;
+  }
 
   .copy h2 {
     margin: 0 0 10px;
@@ -59,11 +62,6 @@
     letter-spacing: -0.02em;
     line-height: 1.15;
     color: var(--pine-deep);
-  }
-
-  .copy strong {
-    font-weight: 800;
-    color: var(--ember-deep);
   }
 
   .questions {
@@ -184,19 +182,18 @@
   <article class="reader" id="book" aria-label="River's Run: River and the Wolf Cry">
     <section class="spread is-current" aria-label="Cover">
       <figure class="frame">
-        <img src="cover.jpg" width="864" height="1152" alt="Book cover. River the horse stands in a sunny pasture. The title reads River's Run: River and the Wolf Cry." fetchpriority="high">
+        <img src="cover.jpg" width="864" height="1152" alt="Book cover. River, a gray horse with a dark mane, stands in a sunny pasture. The title reads River's Run: River and the Wolf Cry." fetchpriority="high">
       </figure>
-      <div class="copy">
-        <p>River learns why telling the truth matters. A retelling of The Boy Who Cried Wolf.</p>
-      </div>
     </section>
 
     <section class="spread" aria-label="Page 1">
       <figure class="frame">
-        <img src="page01.jpg" width="1152" height="864" alt="River, a horse with a shiny coat and a swishy tail, on a big green farm." loading="lazy">
+        <img src="page01.jpg" width="1152" height="864" alt="River, a gray horse, on a big green farm." loading="lazy">
       </figure>
       <div class="copy">
-        <p>This is River. River is a horse who lives on a big green farm. He has a shiny coat and a swishy tail.</p>
+        <p>This is River.
+River is a horse.
+He lives on a big green farm.</p>
       </div>
     </section>
 
@@ -205,7 +202,10 @@
         <img src="page02.jpg" width="1152" height="864" alt="River watching the field, ready to neigh if he sees danger." loading="lazy">
       </figure>
       <div class="copy">
-        <p>River's job is to watch the field. If he sees danger, he neighs loud: <strong>"NEIGH! NEIGH!"</strong> Then all the animals run to the barn.</p>
+        <p>River has a job.
+He watches the field.
+If he sees danger, he neighs, "NEIGH! NEIGH!"
+Then all the animals run to the barn.</p>
       </div>
     </section>
 
@@ -214,7 +214,8 @@
         <img src="page03.jpg" width="1152" height="864" alt="River looking bored on a sunny day." loading="lazy">
       </figure>
       <div class="copy">
-        <p>One sunny day, River was bored. "Watching is so slow," he sighed.</p>
+        <p>One sunny day, River was bored.
+"Watching is so slow," he sighed.</p>
       </div>
     </section>
 
@@ -223,7 +224,8 @@
         <img src="page04.jpg" width="1152" height="864" alt="River thinking about neighing just for fun." loading="lazy">
       </figure>
       <div class="copy">
-        <p>River had an idea. "What if I neigh loud, just for fun?"</p>
+        <p>River had an idea.
+"What if I neigh, just for fun?"</p>
       </div>
     </section>
 
@@ -232,7 +234,10 @@
         <img src="page05.jpg" width="1152" height="864" alt="The cows, goats, and chickens running all the way to the barn." loading="lazy">
       </figure>
       <div class="copy">
-        <p><strong>"NEIGH! NEIGH! Danger!"</strong> The cows ran. The goats ran. The chickens flapped and squawked all the way to the barn.</p>
+        <p>"NEIGH! NEIGH! Danger!"
+The cows ran.
+The goats ran.
+The chickens flapped all the way to the barn.</p>
       </div>
     </section>
 
@@ -241,16 +246,19 @@
         <img src="page06.jpg" width="1152" height="864" alt="River laughing because he tricked the other animals." loading="lazy">
       </figure>
       <div class="copy">
-        <p>But there was no danger. River laughed. "Hee hee! I tricked you!"</p>
+        <p>But there was no danger.
+River laughed.
+"Hee hee! I tricked you!"</p>
       </div>
     </section>
 
     <section class="spread" aria-label="Page 7">
       <figure class="frame">
-        <img src="page07.jpg" width="1152" height="864" alt="The tired animals, and Old Cow telling River that wasn't nice." loading="lazy">
+        <img src="page07.jpg" width="1152" height="864" alt="The tired animals, and Old Cow telling River that was not nice." loading="lazy">
       </figure>
       <div class="copy">
-        <p>The animals were tired and sad. "That wasn't nice, River," said Old Cow.</p>
+        <p>The animals were tired and sad.
+"That was not nice, River," said Old Cow.</p>
       </div>
     </section>
 
@@ -259,34 +267,46 @@
         <img src="page08.jpg" width="1152" height="864" alt="Everyone running again while nobody laughs." loading="lazy">
       </figure>
       <div class="copy">
-        <p>The next day, River did it again. <strong>"NEIGH! NEIGH!"</strong> Everyone ran. No danger again. This time, nobody laughed.</p>
+        <p>The next day, River did it again.
+"NEIGH! NEIGH!"
+Everyone ran.
+There was no danger.
+This time, nobody laughed.</p>
       </div>
     </section>
 
     <section class="spread" aria-label="Page 9">
       <figure class="frame">
-        <img src="page09.jpg" width="1152" height="864" alt="River seeing a real wolf hiding in the tall grass." loading="lazy">
+        <img src="page09.jpg" width="1152" height="864" alt="River seeing a real wolf in the tall grass." loading="lazy">
       </figure>
       <div class="copy">
-        <p>Then one evening, River saw something in the tall grass. Gray fur. Sharp eyes. A real wolf!</p>
+        <p>One evening, River saw something in the tall grass.
+Gray fur.
+Sharp eyes.
+A real wolf!</p>
       </div>
     </section>
 
     <section class="spread" aria-label="Page 10">
       <figure class="frame">
-        <img src="page10.jpg" width="1152" height="864" alt="River crying wolf while the cows and goats keep eating." loading="lazy">
+        <img src="page10.jpg" width="1152" height="864" alt="River neighing while the cows and goats keep eating." loading="lazy">
       </figure>
       <div class="copy">
-        <p><strong>"NEIGH! NEIGH! A REAL WOLF!"</strong> River cried. But the cows kept eating. The goats kept chewing. "It's just River playing again," they said.</p>
+        <p>"NEIGH! NEIGH! A REAL WOLF!"
+But the cows kept eating.
+The goats kept chewing.
+"It's just River playing again," they said.</p>
       </div>
     </section>
 
     <section class="spread" aria-label="Page 11">
       <figure class="frame">
-        <img src="page11.jpg" width="1152" height="864" alt="River pushing each animal toward the barn." loading="lazy">
+        <img src="page11.jpg" width="1152" height="864" alt="River pushing each friend to the barn." loading="lazy">
       </figure>
       <div class="copy">
-        <p>River's heart pounded. Nobody was listening. He had to run to each animal, one by one, and push them toward the barn.</p>
+        <p>River's heart went thump, thump, thump.
+Nobody was listening!
+So River ran to each friend and pushed them to the barn.</p>
       </div>
     </section>
 
@@ -295,25 +315,31 @@
         <img src="page12.jpg" width="1152" height="864" alt="Everyone safe inside while the wolf runs away. River is shaking." loading="lazy">
       </figure>
       <div class="copy">
-        <p>Everyone got inside just in time. The wolf ran away. River was shaking.</p>
+        <p>Everyone got inside just in time.
+The wolf ran away.
+River was shaking.</p>
       </div>
     </section>
 
     <section class="spread" aria-label="Page 13">
       <figure class="frame">
-        <img src="page13.jpg" width="1152" height="864" alt="River lying in the hay that night, thinking hard." loading="lazy">
+        <img src="page13.jpg" width="1152" height="864" alt="River lying in the hay that night, thinking." loading="lazy">
       </figure>
       <div class="copy">
-        <p>That night, River lay in the hay and thought hard. "Why didn't they come when I called?"</p>
+        <p>That night, River lay in the hay.
+He thought and thought.
+"Why didn't they come when I called?"</p>
       </div>
     </section>
 
     <section class="spread" aria-label="Page 14">
       <figure class="frame">
-        <img src="page14.jpg" width="1152" height="864" alt="River figuring out that his friends stopped believing him." loading="lazy">
+        <img src="page14.jpg" width="1152" height="864" alt="River realizing his friends stopped believing him." loading="lazy">
       </figure>
       <div class="copy">
-        <p>Then River figured it out. "When I said 'danger' and there was none, my words stopped meaning anything. They stopped believing me."</p>
+        <p>Then River knew.
+"I said 'danger' when there was none.
+So they stopped believing me."</p>
       </div>
     </section>
 
@@ -322,7 +348,9 @@
         <img src="page15.jpg" width="1152" height="864" alt="River telling his friends he is sorry and will tell the truth." loading="lazy">
       </figure>
       <div class="copy">
-        <p>River walked to his friends. "I'm sorry I tricked you. From now on, I will only tell the truth, so you can always trust me."</p>
+        <p>River went to his friends.
+"I'm sorry I tricked you.
+From now on, I will tell the truth."</p>
       </div>
     </section>
 
@@ -331,30 +359,33 @@
         <img src="page16.jpg" width="1152" height="864" alt="River with his friends, who trust him again." loading="lazy">
       </figure>
       <div class="copy">
-        <p>And River kept his promise. Every day he told the truth, and slowly, his friends trusted him again.</p>
+        <p>River kept his promise.
+Every day he told the truth.
+Little by little, his friends trusted him again.</p>
       </div>
     </section>
 
     <section class="spread spread-note" aria-label="The lesson">
       <figure class="frame">
-        <img src="closing.jpg" width="1152" height="864" alt="River standing with the cows, goats, and a chicken in the sunset field." loading="lazy">
+        <img src="closing.jpg" width="1152" height="864" alt="River standing with the farm animals at sunset." loading="lazy">
       </figure>
       <div class="copy">
         <h2>The lesson</h2>
-        <p>When you tell the truth, people believe you. When you trick people, they stop listening, even when it really matters.</p>
+        <p>When you tell the truth, people believe you.
+When you trick people, they stop listening, even when it really matters.</p>
       </div>
     </section>
 
-    <section class="spread spread-note" aria-label="Talk about it">
+    <section class="spread spread-note" aria-label="Let's talk">
       <figure class="frame">
-        <img src="closing.jpg" width="1152" height="864" alt="River standing with the cows, goats, and a chicken in the sunset field." loading="lazy">
+        <img src="closing.jpg" width="1152" height="864" alt="River standing with the farm animals at sunset." loading="lazy">
       </figure>
       <div class="copy">
-        <h2>Talk about it</h2>
+        <h2>Let's talk</h2>
         <ul class="questions">
           <li>Why didn't the animals come the last time?</li>
-          <li>How did River earn their trust back?</li>
-          <li>Can you think of a time telling the truth was hard?</li>
+          <li>How did River get his friends to trust him again?</li>
+          <li>When was a time telling the truth was hard for you?</li>
         </ul>
       </div>
     </section>
