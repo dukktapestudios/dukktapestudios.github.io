@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Money Basics: Start Where You Are | Dukktape Studios</title>
+<meta name="description" content="A plain-English money guide for teens and adults. Pick a starting point, see the next steps, and try simple calculators. Education only, not financial advice.">
+<link rel="preload" href="../assets/fonts/nunito-latin-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="page">
+<header>
+  <p class="back"><a href="../">← Home</a></p>
+  <h1>Money Basics: Start Where You Are</h1>
+  <p class="deck">Simple words. Short sentences. Start with the life you have, not the life you wish you had.</p>
+  <p class="notice"><strong>Education only, not financial advice.</strong> This page teaches simple ideas. It is not a plan for your life. It is not tax, legal, or investment advice. The calculators are rough estimates. Your town, your debts, and your taxes will differ. Use the official links, or a qualified professional, before you act.</p>
+  <nav class="toc" aria-label="On this page">
+    <ul>
+      <li><a href="#start">Where to start</a></li>
+      <li><a href="#afford">What can I afford?</a></li>
+      <li><a href="#path">A path forward</a></li>
+      <li><a href="#rules">10 rules</a></li>
+      <li><a href="#true-cost">True cost</a></li>
+    </ul>
+  </nav>
+</header>
+<main id="content">
+<noscript><p class="notice">Turn on JavaScript to use the checklists and calculators. The section headings are still here.</p></noscript>
+
+<section class="idea" id="start">
+  <h2>Where are you starting?</h2>
+  <p class="lede">Pick the card that feels closest. You will get a short checklist, the next three steps, and links to real public help. Your checks are saved only in this browser.</p>
+  <div id="stage-picker" class="stage-picker" role="group" aria-label="Starting point"></div>
+  <div id="stage-panel"></div>
+</section>
+
+<section class="idea" id="afford">
+  <h2>What can I afford?</h2>
+  <p class="lede">The numbers start at $60,000 a year as an example. Replace them with your own. This stays in your browser. Nothing is uploaded.</p>
+  <p class="help">Estimate only. Not a paycheck, a tax bill, or a loan quote.</p>
+  <form id="afford-form" autocomplete="off">
+    <div class="segment" role="group" aria-label="Pay period">
+      <button type="button" id="period-year" aria-pressed="true">Yearly</button>
+      <button type="button" id="period-month" aria-pressed="false">Monthly</button>
+    </div>
+    <div class="grid-2">
+      <label class="field" for="income"><span id="income-label">Pay per year ($)</span>
+        <input id="income" type="number" inputmode="decimal" min="0" step="1" value="60000">
+      </label>
+      <label class="field" for="state-tax">State tax guess (%)
+        <input id="state-tax" type="number" inputmode="decimal" min="0" max="40" step="0.1" value="0">
+      </label>
+    </div>
+    <p class="help">State tax is a flat percent of gross pay. Leave it at 0 to skip state tax. Five means 5%. Real state tax is not flat.</p>
+    <div class="grid-2">
+      <label class="field" for="rate">Mortgage interest rate (%)
+        <input id="rate" type="number" inputmode="decimal" min="0" max="30" step="0.1" value="6.5">
+      </label>
+      <label class="field" for="down">Down payment (%)
+        <input id="down" type="number" inputmode="decimal" min="0" max="100" step="1" value="20">
+      </label>
+    </div>
+    <p class="help">6.5% is an example rate, not a quote from today. Type the rate a lender gave you.</p>
+    <details class="fine">
+      <summary>Fine-tune the home guess</summary>
+      <div class="grid-2">
+        <label class="field" for="tax-rate">Property tax, % of price per year
+          <input id="tax-rate" type="number" inputmode="decimal" min="0" max="5" step="0.05" value="1">
+        </label>
+        <label class="field" for="ins-rate">Home insurance, % of price per year
+          <input id="ins-rate" type="number" inputmode="decimal" min="0" max="5" step="0.05" value="0.35">
+        </label>
+      </div>
+      <label class="field" for="years">Loan length in years
+        <input id="years" type="number" inputmode="numeric" min="1" max="40" step="1" value="30">
+      </label>
+    </details>
+  </form>
+  <div id="afford-results"></div>
+</section>
+
+<section class="idea" id="path">
+  <h2>One path from crisis to wealth</h2>
+  <p class="lede">This is one order that works for many people. You can pause, repeat a step, or skip a step that does not fit. Get stable before you try to grow money.</p>
+  <div id="flow"></div>
+</section>
+
+<section class="idea" id="rules">
+  <h2>10 Minimalist Rules for Real Wealth</h2>
+  <p class="lede">Ten short rules for spending less on things that do not matter, so you can keep more choices.</p>
+  <ol id="rules-list" class="rules"></ol>
+  <p class="credit">These ten rules are a plain-English summary of ideas from the <a href="https://youtu.be/EdDIXtymzj0" target="_blank" rel="noopener noreferrer">Capital Growth video on minimalist rules that build real wealth</a>.</p>
+</section>
+
+<section class="idea" id="true-cost">
+  <h2>True Cost Calculator</h2>
+  <p class="lede">Should you buy it? Price is only part of the cost. Divide the real cost by the times you will actually use it.</p>
+  <p class="help">Estimate only. Not financial advice. The invested number assumes the same return every year.</p>
+  <form id="true-cost-form" autocomplete="off">
+    <label class="field" for="tc-price">Price ($)
+      <input id="tc-price" type="number" inputmode="decimal" min="0" step="0.01" value="300">
+    </label>
+    <label class="field" for="tc-uses">Times I'll really use it per year
+      <input id="tc-uses" type="number" inputmode="decimal" min="0" step="1" value="2">
+    </label>
+    <label class="field" for="tc-years">Years I'll keep it
+      <input id="tc-years" type="number" inputmode="decimal" min="0" step="1" value="3">
+    </label>
+    <label class="field" for="tc-upkeep">Yearly upkeep (repairs, insurance, add-ons) ($)
+      <input id="tc-upkeep" type="number" inputmode="decimal" min="0" step="0.01" value="0">
+    </label>
+    <label class="field" for="tc-rate">If I invested the money instead: yearly return %
+      <input id="tc-rate" type="number" inputmode="decimal" step="0.1" value="8">
+    </label>
+  </form>
+  <div class="out" id="tc-out"></div>
+  <p class="help">Wait 24 hours before buying. Rent or borrow first. Do not upgrade something that works.</p>
+</section>
+</main>
+</div>
+<footer>
+  <p><a href="../">Dukktape Studios</a></p>
+  <p>© 2026 Dukktape Studios</p>
+</footer>
+<script src="data.js"></script>
+<script src="calc.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
