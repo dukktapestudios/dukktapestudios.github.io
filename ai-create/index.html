@@ -82,4 +82,5 @@ const D=["Day 1: Ask AI to explain something you're curious about. Ask 3 follow-
 const box=document.getElementById('days'),KEY='aiCreate7';let st=JSON.parse(localStorage.getItem(KEY)||'[]');
 function render(){box.innerHTML='';D.forEach((d,i)=>{const l=document.createElement('label');const c=document.createElement('input');c.type='checkbox';c.checked=!!st[i];c.onchange=()=>{st[i]=c.checked;localStorage.setItem(KEY,JSON.stringify(st))};l.append(c,document.createTextNode(d));box.appendChild(l)})}
 render();document.getElementById('clr').onclick=()=>{st=[];localStorage.removeItem(KEY);render()};
-</script></body></html>
+</script><script data-goatcounter="https://dukktape.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
