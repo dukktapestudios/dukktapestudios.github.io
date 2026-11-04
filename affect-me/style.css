@@ -10,4 +10,5 @@ button{background:var(--accent);border:0;padding:10px 18px;border-radius:8px;fon
 .fed{background:#dbe8ff}.state{background:#e3f5e1}.local{background:#ffe2c6}.bill p{margin:6px 0}.lbl{font-weight:700}
 .nk{background:#fff8dc;border-left:4px solid var(--accent);padding:6px 10px}.v{display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;border-radius:6px;font-size:13px;background:#eee}
 .Yea,.Yes{background:#d6f5d6}.Nay,.No{background:#f9d4d4}.reps{display:flex;flex-wrap:wrap;gap:10px}.rep{border:1px solid #ddd;border-radius:8px;padding:6px 10px;font-size:14px}
+.watch,.areas{margin:8px 0 0;padding:0;list-style:none}.watch-item{border-top:1px solid #eee;padding:12px 0}.watch-item h3{margin:0 0 6px;font-size:17px}.areas li{margin:0 0 10px}.areas p{margin:3px 0}
 footer{text-align:center;color:var(--dim);font-size:12px;padding:20px}
