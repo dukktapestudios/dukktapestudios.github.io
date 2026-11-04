@@ -1,109 +1,118 @@
 "use strict";
-// All processing happens here in the browser. No storage, no network calls except loading this site's own JSON files.
-const TOPIC_LABEL = {veterans:"Veterans", taxes:"Taxes", housing:"Housing & property", agriculture:"Farm, rural & animals", firearms:"Guns & hunting",
-  disability:"Disability & benefits", smallbiz:"Small business", education:"Schools & education", healthcare:"Health care"};
+// Everything runs in the browser from this site's own JSON files. No API calls, no keys, nothing stored.
+const BOXES = {
+ veterans:["I'm a veteran / military family","you served"], kids:["Kids in school","you have kids in school"],
+ business:["I own a business","you run a business"], vehicle:["I have a vehicle","you drive"],
+ farm:["Farm, rural land or animals","you have land or animals"], health:["Health care / insurance","you use health care"],
+ disability:["Disability or benefits (SSDI, SSI, Medicaid, SNAP)","you get benefits"], guns:["Guns, hunting or fishing","you own guns or hunt"],
+ taxes:["I pay income or sales taxes","you pay taxes"], utilities:["Utilities / energy bills","you pay utility bills"],
+ seniors:["Senior or near retirement","you're near or in retirement"], work:["I work for wages","you work for wages"],
+ college:["College / student loans","you deal with college costs"], justice:["Criminal justice / police","you care about policing and courts"],
+ environment:["Environment / water","you care about water and land"], tech:["Internet, privacy & tech","you live online like everyone"],
+ elections:["Elections & voting","you vote"]};
+const HOME = {own:"you own your home", rent:"you rent"};
+const LABEL = {veterans:"Veterans",own:"Homeowners",rent:"Renters",kids:"Schools",business:"Business",vehicle:"Vehicles",farm:"Farm & animals",health:"Health care",disability:"Disability & benefits",guns:"Guns & hunting",taxes:"Taxes",utilities:"Utilities",seniors:"Seniors",work:"Jobs & wages",college:"College",justice:"Justice",environment:"Environment",tech:"Tech & privacy",elections:"Elections"};
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let CFG, cache = {};
-const load = async p => cache[p] ??= fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
+const cache = {}; const load = p => cache[p] ??= fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
+let CFG;
+for (const [k, v] of Object.entries(BOXES)) $("#boxes").insertAdjacentHTML("beforeend", `<label><input type="checkbox" name="${k}"> ${esc(v[0])}</label>`);
+// Shown wherever a state has no bills file yet. Goes away when that state gets bills (hasBills becomes true).
+function pendingLabel(s) { return s && !s.hasBills ? `${s.name} bills coming soon` : ""; }
+function showPending(code) {
+  const note = $("#state-note"); if (!note) return;
+  const text = CFG ? pendingLabel(CFG.states[code]) : "";
+  note.hidden = !text; note.textContent = text;
+}
+load("data/config.json").then(c => { CFG = c;
+  $("#state").innerHTML = Object.entries(c.states).sort((a,b)=>a[1].name.localeCompare(b[1].name))
+    .map(([k, s]) => `<option value="${k}" ${k==="IL"?"selected":""}>${esc(pendingLabel(s) || s.name)}</option>`).join("");
+  showPending($("#state").value);
+}).catch(() => $("#out").innerHTML = `<div class="card">Couldn't load data. Open this site through a local server (see README).</div>`);
+$("#state").addEventListener("change", () => showPending($("#state").value));
 
-function profileTopics(p) {
-  const t = {}; const add = (k, why) => (t[k] ??= []).push(why);
-  if (p.veteran) { add("veterans", "you're a veteran"); add("healthcare", "VA health care touches veterans"); }
-  if (p.veteran && p.rating) add("disability", `you have a VA rating (${p.rating})`);
-  if (p.disability) { add("disability", "you get disability benefits"); add("healthcare", "you get disability benefits"); }
-  if (p.home === "own") { add("housing", "you own your home"); add("taxes", "you pay property tax"); }
-  if (p.home === "rent") add("housing", "you rent");
-  if (p.rural) add("agriculture", "you live rural / keep animals");
-  if (p.gun) add("firearms", "you own a gun / hunt");
-  if (p.smallbiz || p.job === "self") { add("smallbiz", "you run a small business"); add("taxes", "you're self-employed"); }
-  if (p.kids === "yes") add("education", "you have kids at home");
-  if (p.income) add("taxes", "taxes depend on income");
-  if (p.age === "65+" || p.age === "55-64") add("healthcare", "of your age range");
-  if (p.job === "public") add("disability", "public-employee disability/pension laws");
-  return t;
+function firstSentences(s, n = 300) {
+  s = (s || "").replace(/\s+/g, " ").trim(); if (!s) return "";
+  const sent = s.match(/[^.!?]+[.!?]+(\s|$)/g) || [s]; let o = sent[0]; if (o.length < 120 && sent[1]) o += sent[1];
+  return o.length > n ? o.slice(0, n - 3).replace(/\s\S*$/, "") + "…" : o;
 }
-// "Simplified" = the first 1-2 sentences of the OFFICIAL summary, lightly shortened. Never new facts.
-function simplify(s) {
-  s = s.replace(/^This (act|bill|joint resolution)\s/i, "It ").replace(/\s+/g, " ").trim();
-  const sent = s.match(/[^.!?]+[.!?]+(\s|$)/g) || [s]; let out = sent[0];
-  if (out.length < 140 && sent[1]) out += sent[1];
-  return out.length > 360 ? out.slice(0, 357).replace(/\s\S*$/, "") + "…" : out;
+function neutral(b) {
+  const v = b.votes[b.votes.length - 1];
+  if (!v) return b.law ? "Already law — read what it changes." : "Undecided — no floor vote yet. Read the summary first.";
+  const share = v.yea / Math.max(1, v.yea + v.nay);
+  if (share >= .8) return `Lean yes — it passed with broad support (${v.yea}–${v.nay}).`;
+  if (share >= .6) return `Slight lean yes — most lawmakers backed it (${v.yea}–${v.nay}), but not all.`;
+  if (share >= .4) return `Toss-up — lawmakers were split (${v.yea}–${v.nay}). Read it before deciding.`;
+  return `Lean no — most lawmakers voted against it (${v.yea}–${v.nay}).`;
 }
-function whyLine(bill, pt) {
-  const hits = bill.topics.filter(t => pt[t]);
-  const reasons = [...new Set(hits.flatMap(t => pt[t]))];
-  return `For someone like you: ${reasons.slice(0, 3).join(", ")} — and this ${bill.law || bill.publicAct ? "law" : "bill"} is about ${hits.slice(0, 3).map(t => TOPIC_LABEL[t].toLowerCase()).join(", ")}${hits.length > 3 ? " and more" : ""}. Read the official summary below for exactly what it changes.`;
+function score(b, prof, local) {
+  const hits = b.topics.filter(t => prof.topics[t]);
+  const days = b.date ? (Date.now() - Date.parse(b.date)) / 864e5 : 9999;
+  const rec = days < 30 ? 3 : days < 120 ? 2 : days < 365 ? 1 : 0;
+  return {hits, s: hits.length * 10 + (local ? 15 : 0) + rec + (b.votes.length ? 1 : 0)};
 }
-function distPicker(kind, list, chosen) {
-  if (list.length < 2) return "";
-  return `<select class="dist" data-kind="${kind}">${list.map(([d, s]) => `<option value="${d}" ${d === chosen ? "selected" : ""}>District ${d} (${Math.round(s * 100)}% of ZIP)</option>`).join("")}</select>`;
+function voteRow(v, mine, getVote) {
+  const reps = mine.filter(m => m.chamber === v.chamber || m.chamber === "council");
+  const where = v.chamber === "house" ? "House" : v.chamber === "senate" ? "Senate" : v.chamber;
+  const cells = reps.map(m => { const x = getVote(m, v); const lab = !x ? "Absent / not recorded" : x;
+    return `<span class="v ${esc(x || "")}">${esc(m.name)}: ${esc(lab)}</span>`; }).join("");
+  return `<div class="small dim">${esc(where)} · ${esc(v.date)} · ${esc(v.motion || "")} · total ${v.yea}–${v.nay}${v.pdf ? ` · <a href="${esc(v.pdf)}" target="_blank" rel="noopener">roll call</a>` : ""}</div>
+   <div>${cells || `<span class="v">Your ${esc(where)} member wasn't in this chamber's vote</span>`}</div>`;
 }
-let state = {};
-async function run(p) {
+$("#f").addEventListener("submit", async e => { e.preventDefault();
+  const fd = new FormData(e.target); const code = fd.get("state"); const zip = (fd.get("zip") || "").trim();
+  const topics = {}; for (const k of Object.keys(BOXES)) if (fd.get(k)) topics[k] = BOXES[k][1];
+  const home = fd.get("home"); if (home) { topics[home] = HOME[home]; if (home === "own") topics.taxes ??= "you pay property tax"; }
+  const prof = {code, zip, county: (fd.get("county") || "").trim().replace(/\s+county$/i, ""), city: (fd.get("city") || "").trim(), topics};
   const out = $("#out"); out.innerHTML = `<div class="card">Loading…</div>`;
-  const st = Object.entries(CFG.states).find(([k, s]) => s.enabled && s.zipPrefixes.includes(p.zip.slice(0, 3)));
-  if (!st) { out.innerHTML = `<div class="card">That ZIP isn't in a state that's turned on yet. Right now: ${Object.values(CFG.states).filter(s => s.enabled).map(s => s.name).join(", ")}.</div>`; return; }
-  const [code, S] = st; const F = S.files;
-  const [zips, mem, bills, usMem, usBills] = await Promise.all([F.zips, F.members, F.bills, F.usMembers, F.usBills].map(load));
-  $("#gen").textContent = `State data built ${bills.generated}; federal data built ${usBills.generated}.`;
-  const z = zips.zips[p.zip];
-  if (!z) { out.innerHTML = `<div class="card">I couldn't find ZIP ${esc(p.zip)} in the Census ZIP list for ${S.name}. Check it and try again.</div>`; return; }
-  state = {p, code, S, z, mem, bills, usMem, usBills, pick: {cd: z.cd[0]?.[0], house: z.house[0]?.[0], senate: z.senate[0]?.[0]}, scope: "all", topic: "all"};
-  render();
-}
-function render() {
-  const {p, S, z, mem, bills, usMem, usBills, pick} = state; const pt = profileTopics(p);
-  const myUS = usMem.members.filter(m => m.chamber === "senate" || String(m.district) === pick.cd);
-  const mySt = mem.members.filter(m => (m.chamber === "house" && m.district === pick.house) || (m.chamber === "senate" && m.district === pick.senate));
-  const rep = (m, role, extra = "") => `<div class="rep"><b>${esc(m.name)} <span class="party-${(m.party || "")[0]}">(${esc((m.party || "")[0])})</span></b><small>${role}${extra}</small><br>${m.url ? `<a href="${esc(m.url)}" target="_blank" rel="noopener">Official page</a>` : ""}</div>`;
-  const multi = z.cd.length > 1 || z.house.length > 1 || z.senate.length > 1;
-  let h = `<section class="card"><h2>Your lawmakers</h2>
-   ${multi ? `<p class="dim">Your ZIP crosses district lines, so I picked the district covering most of it. Change it below if needed, or check your exact address on the <a href="https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?form" target="_blank" rel="noopener">Census lookup</a> (opens their site).</p>` : ""}
-   <div class="reps">
-   ${myUS.filter(m => m.chamber === "senate").map(m => rep(m, "U.S. Senator")).join("")}
-   ${myUS.filter(m => m.chamber === "house").map(m => rep(m, `U.S. Representative, District ${m.district}`, "<br>" + distPicker("cd", z.cd, pick.cd))).join("")}
-   ${mySt.filter(m => m.chamber === "senate").map(m => rep(m, `${S.upperName}, District ${m.district}`, "<br>" + distPicker("senate", z.senate, pick.senate))).join("")}
-   ${mySt.filter(m => m.chamber === "house").map(m => rep(m, `${S.lowerName}, District ${m.district}`, "<br>" + distPicker("house", z.house, pick.house))).join("")}
-   </div></section>`;
-  const fed = usBills.bills.map(b => ({...b, scope: "fed"})), stb = bills.bills.map(b => ({...b, scope: "state"}));
-  let all = [...fed, ...stb].filter(b => b.topics.some(t => pt[t]));
-  const topicsHit = [...new Set(all.flatMap(b => b.topics.filter(t => pt[t])))];
-  all = all.filter(b => (state.scope === "all" || b.scope === state.scope) && (state.topic === "all" || b.topics.includes(state.topic)));
-  all.sort((a, b) => b.topics.filter(t => pt[t]).length - a.topics.filter(t => pt[t]).length);
-  const chip = (k, v, label) => `<button class="chip ${state[k] === v ? "on" : ""}" data-k="${k}" data-v="${v}">${label}</button>`;
-  h += `<section class="card"><h2>Laws that touch your life (${all.length})</h2>
-   ${Object.keys(pt).length ? "" : `<p>Tick a few boxes above so I can match laws to you.</p>`}
-   <div class="tabs">${chip("scope", "all", "All")}${chip("scope", "fed", "Federal")}${chip("scope", "state", S.name)}</div>
-   <div class="tabs">${chip("topic", "all", "All topics")}${topicsHit.map(t => chip("topic", t, TOPIC_LABEL[t])).join("")}</div>`;
-  for (const b of all) {
-    const myIds = b.scope === "fed" ? myUS.map(m => [m.bioguide, m]) : mySt.map(m => [m.id, m]);
-    const votes = b.votes.map(v => {
-      const vb = b.scope === "fed" ? v.votes : v.byMember;
-      const mine = myIds.filter(([id, m]) => (b.scope === "fed" || m.chamber === v.chamber) && vb[id]).map(([id, m]) => `<span class="v ${vb[id]}">${esc(m.name.split(" ").slice(-1)[0])}: ${vb[id]}</span>`).join("");
-      const where = v.chamber === "house" ? (b.scope === "fed" ? "U.S. House" : "IL House") : (b.scope === "fed" ? "U.S. Senate" : "IL Senate");
-      const what = b.scope === "fed" ? v.question : (v.motion || "Floor vote");
-      return `<div class="dim">${where}, ${esc(v.date)} — ${esc(what)} (${v.yea}–${v.nay}) ${v.pdf ? `<a href="${esc(v.pdf)}" target="_blank" rel="noopener">roll call</a>` : ""}</div><div class="votes">${mine || `<span class="v">None of your lawmakers recorded on this vote</span>`}</div>`;
-    }).join("");
-    h += `<article class="bill">
-      ${b.topics.map(t => `<span class="tag">${TOPIC_LABEL[t]}</span>`).join("")}<span class="tag">${b.scope === "fed" ? "Federal" : S.name}</span>
-      <h3><a href="${esc(b.url)}" target="_blank" rel="noopener">${esc(b.label)}</a> · ${esc(b.title || b.shortTitle)}</h3>
-      <div class="dim">${esc(b.law || b.publicAct || "Not law yet")} · ${esc(b.latestAction)}</div>
-      <div class="why">${esc(whyLine(b, pt))}</div>
-      <div class="simp"><span class="lbl">Simplified from the official summary</span><br>${esc(simplify(b.officialSummary))}</div>
-      <details><summary>Full official summary (${esc(b.summarySource)})</summary><p>${esc(b.officialSummary)}</p></details>
-      <div class="vblock"><span class="lbl">How your lawmakers voted</span>${votes || `<div class="dim">No floor roll call found.</div>`}</div>
-    </article>`;
+  if (!CFG || !CFG.states[code]) { out.innerHTML = `<div class="card">State list is still loading. Try again in a moment.</div>`; return; }
+  const S = CFG.states[code]; const base = `data/states/${code}/`;
+  showPending(code);
+  let zips, mem, usMem, usB, stB;
+  try {
+    [zips, mem, usMem, usB, stB] = await Promise.all([load(base + "zips.json"), load(base + "members.json"),
+      load(`data/us/members_${code}.json`).catch(() => ({members: [], votes: {}})), load("data/us/bills.json"),
+      S.hasBills ? load(base + "bills.json").catch(() => null) : null]);
+  } catch (err) {
+    out.innerHTML = `<div class="card">${esc(pendingLabel(S) || "Couldn't load data for this state.")}</div>`;
+    return;
   }
-  h += `</section>`;
-  $("#out").innerHTML = h;
-}
-document.addEventListener("click", e => { const c = e.target.closest(".chip"); if (c) { state[c.dataset.k] = c.dataset.v; render(); } });
-document.addEventListener("change", e => { const s = e.target.closest("select.dist"); if (s) { state.pick[s.dataset.kind] = s.value; render(); } });
-$("#f").addEventListener("submit", e => {
-  e.preventDefault(); const fd = new FormData(e.target), g = k => (fd.get(k) || "").toString().trim();
-  run({zip: g("zip"), age: g("age"), income: g("income"), home: g("home"), job: g("job"), kids: g("kids"), rating: g("rating"),
-       veteran: !!fd.get("veteran"), disability: !!fd.get("disability"), rural: !!fd.get("rural"), gun: !!fd.get("gun"), smallbiz: !!fd.get("smallbiz")})
-  .catch(err => $("#out").innerHTML = `<div class="card">Something went wrong loading the data (${esc(err.message)}).</div>`);
+  const hasStateBills = !!(stB && stB.bills && stB.bills.length);
+  const z = zips.zips[zip];
+  const cd = z?.cd[0]?.[0], hd = z?.house?.[0]?.[0], sd = z?.senate?.[0]?.[0];
+  const place = d => (d === 0 || d === "0") ? "At large" : `District ${d}`;
+  const myUS = usMem.members.filter(m => m.chamber === "senate" || (z && String(m.district) === String(cd)));
+  const mySt = z ? mem.members.filter(m => (m.chamber === "house" && m.district === hd) || (m.chamber === "senate" && m.district === sd) || (S.unicameral && m.district === sd) || m.seat) : [];
+  let h = `<section class="card"><h2>Your lawmakers</h2>${z ? "" : `<p class="dim">ZIP ${esc(zip)} wasn't found in ${esc(S.name)}'s Census ZIP list, so only your U.S. Senators are shown and vote lookups are limited.</p>`}
+   ${z && (z.cd.length > 1 || z.house.length > 1 || z.senate.length > 1) ? `<p class="small dim">Your ZIP crosses district lines; I used the district that covers most of it.</p>` : ""}
+   <div class="reps">${[...myUS.map(m => [m, m.chamber === "senate" ? "U.S. Senator" : `U.S. Rep., ${place(m.district)}`]),
+     ...mySt.map(m => [m, `${m.chamber === "senate" ? S.upperName : S.lowerName}, ${place(m.district)}`])]
+     .map(([m, r]) => `<div class="rep"><b>${esc(m.name)}</b> (${esc((m.party || "?")[0])})<br><span class="small dim">${esc(r)}</span></div>`).join("")}</div></section>`;
+  const terms = [prof.county && prof.county.length > 2 ? new RegExp(`\\b${prof.county.replace(/[^\w ]/g, "")}\\b(?=\\s+county|\\s+co\\b)`, "i") : null,
+                 prof.city && prof.city.length > 2 ? new RegExp(`\\b${prof.city.replace(/[^\w ]/g, "")}\\b`, "i") : null].filter(Boolean);
+  const all = [...usB.bills, ...(hasStateBills ? stB.bills : [])].map(b => {
+    const local = b.scope === "state" && terms.some(r => r.test(b.title + " " + b.summary));
+    return {b, local, ...score(b, prof, local)}; }).filter(x => x.hits.length || x.local).sort((a, b) => b.s - a.s);
+  h += `<section class="card"><h2>What affects you (${all.length})</h2>
+   ${Object.keys(topics).length ? "" : `<p>Check a few boxes so I can match laws to you.</p>`}
+   ${hasStateBills ? "" : `<p class="nk">${esc(S.name)} bills coming soon. Federal bills and your lawmakers are shown for now.</p>`}
+   <p class="small dim">“Local” means a state bill that names your county or town. There's no county-board or city-council data in this site yet.</p></section>`;
+  for (const {b, hits, local} of all.slice(0, 300)) {
+    const reasons = [...new Set(hits.map(t => topics[t]))];
+    const fedV = (m, v) => usMem.votes?.[m.bioguide]?.[v.key];
+    const stV = (m, v) => v.byMember?.[m.id];
+    const mine = b.scope === "fed" ? myUS : mySt;
+    const changes = firstSentences(b.summary) || `Only the short title is available so far: “${b.title}”. Open the official page for details.`;
+    h += `<article class="card bill">
+     <span class="pill ${b.scope}">${b.scope === "fed" ? "Federal" : esc(S.name)}</span>${local ? `<span class="pill local">Local: names your ${esc(prof.county ? "county" : "town")}</span>` : ""}${hits.map(t => `<span class="pill">${esc(LABEL[t])}</span>`).join("")}
+     <h3>${esc(b.label)} — ${esc(b.title)}</h3>
+     <p><span class="lbl">What it is:</span> ${b.law ? `Law (${esc(b.law)}). ` : "Bill. "}${esc(b.status)}${b.date ? ` <span class="dim">(${esc(b.date)})</span>` : ""}</p>
+     <p><span class="lbl">What it changes for you:</span> ${esc(changes)}</p>
+     <p><span class="lbl">Why it matters:</span> ${reasons.length ? `Because ${esc(reasons.slice(0, 3).join(", "))}.` : ""} ${local ? "It names where you live." : ""}</p>
+     <p class="nk"><span class="lbl">If you knew nothing else</span> <span class="small dim">(auto-generated from the vote count — not advice)</span>: ${esc(neutral(b))}</p>
+     <div><span class="lbl">How your lawmakers voted:</span> ${b.votes.length ? b.votes.map(v => voteRow(v, mine, b.scope === "fed" ? fedV : stV)).join("") : `<span class="dim">No floor roll call in this data yet.</span>`}</div>
+     <p><a href="${esc(b.url)}" target="_blank" rel="noopener">Read the official bill page →</a> <span class="small dim">Summary: ${esc(b.summarySource)}</span></p></article>`;
+  }
+  if (all.length > 300) h += `<p class="dim">Showing the top 300 matches.</p>`;
+  out.innerHTML = h; out.scrollIntoView({behavior: "smooth"});
 });
-load("config/states.json").then(c => CFG = c);
