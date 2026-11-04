@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hypocrisy Tracker: Congress</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:1100px;margin:auto;padding:16px;line-height:1.5;color:#222}
+h1{margin-bottom:0}.sub{color:#555}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+input,select{padding:6px;font-size:15px}
+.vals{display:flex;flex-wrap:wrap;gap:6px}.vals label{border:1px solid #ccc;border-radius:16px;padding:2px 10px;cursor:pointer}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{border-bottom:1px solid #ddd;padding:6px;text-align:left;vertical-align:top}
+.flag{color:#8a5a00}.pair{border:1px solid #ddd;border-radius:8px;padding:10px;margin:8px 0}
+details{margin:6px 0}
+</style></head><body>
+<h1>Hypocrisy Tracker: Congress</h1>
+<p class="sub">Words vs actions, with links and dates. The same rules apply to every member, in every party.</p>
+
+<h2>1. Pick what matters to you (optional)</h2>
+<p>Your picks only change which records show first. They never change anyone's score.</p>
+<div class="vals" id="vals"></div>
+
+<h2>2. Find members</h2>
+<div class="controls">
+<input id="q" placeholder="Search name">
+<select id="st"><option value="">All states</option></select>
+<select id="ch"><option value="">Both chambers</option><option>Senate</option><option>House</option></select>
+<select id="pt"><option value="">All parties</option><option>Democrat</option><option>Republican</option><option>Independent</option></select>
+<select id="ss"><option value="">Any status</option><option>Scored</option><option>Insufficient evidence</option><option>Not yet scored</option><option value="flag">Has unconfirmed flags</option></select>
+</div>
+<p>Don't know your district? Enter your ZIP at <a href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener">house.gov/find-your-representative</a>, then pick your state above.</p>
+<p id="count"></p>
+<table><thead><tr><th>Name</th><th>State</th><th>Chamber</th><th>Party</th><th>Score</th><th>Status</th><th>Flags (unconfirmed)</th></tr></thead><tbody id="rows"></tbody></table>
+
+<h2>3. Confirmed said/did pairs</h2>
+<div id="pairs"></div>
+
+<h2>How scoring works</h2>
+<ol>
+<li>Everyone starts at "Not yet scored".</li>
+<li>Points come only from a documented pair: a statement or rule (link and date) plus a contrary action (link and date).</li>
+<li>Counted types: said X then did the opposite; flip-flop when party control changed; pushed a rule on others but broke it; stock trade or donor conflict in an area they oversee.</li>
+<li>Each pair is worth 1 (minor or technical), 2 (clear and direct) or 3 (an official finding of wrongdoing). The total is capped at 10.</li>
+<li>Policy disagreement scores nothing. A vote you dislike is not hypocrisy.</li>
+<li>Confidence: High = both sides are official records. Medium = one side is a news report. Low = a possible innocent reason has not been ruled out.</li>
+<li>Fewer than 8 records reviewed and no pairs = "Insufficient evidence", not 0. A low score with few records reviewed means not checked yet. It does not mean honest.</li>
+<li>Flags are automated and unconfirmed. They do not add points until a person checks them. Late filing data comes from House Clerk and Senate disclosure links, compiled by Capitol Stock Watch. A late filing is a fact about two dates, not a finding of wrongdoing.</li>
+</ol>
+<h2>Report an error or suggest evidence</h2>
+<p>Send both links and both dates. Placeholder: <a href="https://github.com/dukktapestudios/dukktapestudios.github.io/issues/new">open a GitHub issue</a> (link to be set before publishing).</p>
+<p class="sub" id="upd"></p>
+<script>
+const VALUES=["Economy & jobs","Cost of living","Healthcare","Border & immigration","Public safety","Gun rights","Gun safety","Climate & environment","Energy independence","Civil liberties & privacy","Free speech","Religious liberty","Freedom of association","Abortion: protecting unborn life","Abortion: access to abortion","Veterans","Education & school choice","Small business","Workers & unions","National defense","Avoiding foreign wars","Government spending & debt","Corruption & ethics"];
+let D,picked=new Set();
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+VALUES.forEach(v=>{const l=document.createElement('label');l.innerHTML=`<input type="checkbox"> ${esc(v)}`;l.firstChild.onchange=e=>{e.target.checked?picked.add(v):picked.delete(v);render()};$('vals').appendChild(l)});
+fetch('data.json').then(r=>r.json()).then(d=>{D=d;$('upd').textContent='Data updated '+d.updated+'.';
+[...new Set(d.members.map(m=>m.state))].sort().forEach(s=>$('st').add(new Option(s,s)));
+['q','st','ch','pt','ss'].forEach(i=>$(i).oninput=render);render()});
+function render(){if(!D)return;const q=$('q').value.toLowerCase(),st=$('st').value,ch=$('ch').value,pt=$('pt').value,ss=$('ss').value;
+const L=D.members.filter(m=>(!q||m.name.toLowerCase().includes(q))&&(!st||m.state==st)&&(!ch||m.chamber==ch)&&(!pt||m.party==pt)&&(!ss||(ss=='flag'?m.flags.length:m.status==ss)));
+$('count').textContent=L.length+' members shown';
+$('rows').innerHTML=L.map(m=>`<tr><td>${esc(m.name)}</td><td>${m.state}${m.district?'-'+m.district:''}</td><td>${m.chamber}</td><td>${m.party}</td><td>${m.score==null?'-':m.score+' / 10'}</td><td>${m.status}${m.recordsReviewed?' ('+m.recordsReviewed+' records)':''}</td><td class="flag">${m.flags.map(f=>`<a href="${f.src}" target="_blank" rel="noopener">${f.count} late trade report(s), longest ${f.maxDelayDays} days</a>`).join('')}</td></tr>`).join('');
+const ids=new Set(L.map(m=>m.bioguide));const name=b=>D.members.find(m=>m.bioguide==b).name;
+const P=D.pairs.filter(p=>ids.has(p.bioguide)).sort((a,b)=>(b.values.some(v=>picked.has(v))?1:0)-(a.values.some(v=>picked.has(v))?1:0));
+$('pairs').innerHTML=P.map(p=>`<div class="pair"><b>${esc(name(p.bioguide))}</b>: ${esc(p.category)} (${p.points} pt, ${p.confidence} confidence)<br>Said (${p.saidDate}): ${esc(p.said)} <a href="${p.saidSrc}" target="_blank" rel="noopener">source</a><br>Did (${p.didDate}): ${esc(p.did)} <a href="${p.didSrc}" target="_blank" rel="noopener">source</a><br><i>${esc(p.note)}</i><br>Topics: ${p.values.join(', ')}</div>`).join('')||'<p>No confirmed pairs for this filter yet.</p>';}
+</script></body></html>
