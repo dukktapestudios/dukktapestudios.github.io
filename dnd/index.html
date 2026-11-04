@@ -178,4 +178,5 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 $('map').onclick=e=>{const t=e.target.closest('.t');if(!t||!S)return;const x=+t.dataset.x,y=+t.dataset.y;
  const m=S.monsters.find(m=>m.x===x&&m.y===y&&m.hp>0);if(m)send({type:'attack',mid:m.id});else send({type:'move',x,y})};
 </script><footer style="text-align:center;font-size:12px;opacity:.6;padding:10px">&copy; 2026 Dukktape Studios</footer>
+<script data-goatcounter="https://dukktape.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body></html>

@@ -1,4 +1,4 @@
-var CACHE = "chicken-tender-v1";
+var CACHE = "chicken-tender-v2";
 var ASSETS = [
   "./",
   "./index.html",

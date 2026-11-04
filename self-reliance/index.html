@@ -40,4 +40,5 @@ document.getElementById("list").innerHTML=h;document.getElementById("fill").styl
 document.getElementById("count").textContent=`${done} of ${tot} done`+(done==tot?" 🎉 You're ready!":"");
 document.querySelectorAll("[data-id]").forEach(c=>c.onchange=()=>{const s=JSON.parse(localStorage.getItem(K)||"{}");s[c.dataset.id]=c.checked;localStorage.setItem(K,JSON.stringify(s));render()})}
 render();
-</script></body></html>
+</script><script data-goatcounter="https://dukktape.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
