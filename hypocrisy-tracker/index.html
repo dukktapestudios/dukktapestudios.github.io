@@ -74,7 +74,7 @@ ps.forEach(p=>{h+=`<div class="ev"><b>${esc(p.topic||p.category)}</b>: ${esc(p.c
 <b>SAID</b> (${esc(p.saidDate)}, ${a(p.saidSrc,'source')}${p.saidSrc2?', '+a(p.saidSrc2,'source 2'):''}): “${esc(p.said)}”<br>
 <b>DID</b> (${esc(p.didDate)}, ${a(p.didSrc,'source')}${p.didSrc2?', '+a(p.didSrc2,'source 2'):''}): ${esc(p.did)}<br>
 <b>Why it counts:</b> ${esc(p.why)}<br><span class="meta">Their side / context: ${esc(p.note)}</span></div>`});
-m.flags.forEach(f=>{h+=`<div class="ev flag">Flag, unconfirmed: ${f.count} trade report(s) filed late, longest ${f.maxDelayDays} days. ${a(f.src,'official filing')}. Not scored: no matching pro-ban stance found.</div>`});
+m.flags.forEach(f=>{if(f.type){h+=`<div class="ev flag">Flag, unconfirmed: ${esc(f.text)} ${a(f.src,'source')}${f.src2?', '+a(f.src2,'vote'):''}</div>`;return}h+=`<div class="ev flag">Flag, unconfirmed: ${f.count} trade report(s) filed late, longest ${f.maxDelayDays} days. ${a(f.src,'official filing')}. Not scored: no matching pro-ban stance found.</div>`});
 h+=`<div class="meta"><b>Committees:</b> ${m.committees.length?esc(m.committees.join('; ')):'none listed'}<br>
 <b>Top donor industries:</b> ${m.donors?esc(m.donors.slice(0,-1).join('; '))+' '+a(m.donors[m.donors.length-1],'OpenSecrets'):'not loaded yet · '+a(m.opensecrets,'look up on OpenSecrets')}<br>
 <b>Checked so far:</b> ${esc(m.checks.join('; '))}</div></div>`;return h}

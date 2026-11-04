@@ -116,15 +116,22 @@
 "donors": null,
 "verdict": "DOCUMENTED HYPOCRITE",
 "points": 4,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2016 vs 2020 Supreme Court vacancy statements (PBS compilations)",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Sheldon+Whitehouse"
 },
 {
@@ -289,16 +296,17 @@
 "Joint Committee of Congress on the Library"
 ],
 "donors": null,
-"verdict": "SOME HYPOCRISY",
-"points": 2,
-"recordsReviewed": 6,
+"verdict": "DOCUMENTED HYPOCRITE",
+"points": 4,
+"recordsReviewed": 7,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2016 vs 2020 Supreme Court vacancy statements (PBS compilations)",
 "Manual review of 8 more records",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"2013 nuclear-option statements vs 2025 nuclear-option vote"
 ],
 "flags": [],
 "opensecrets": "https://www.opensecrets.org/search?q=Mitch+McConnell"
@@ -602,15 +610,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Gus+M.+Bilirakis"
 },
 {
@@ -821,15 +837,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Andr\u00e9+Carson"
 },
 {
@@ -900,15 +924,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Kathy+Castor"
 },
 {
@@ -1337,15 +1368,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Lloyd+Doggett"
 },
 {
@@ -1363,15 +1401,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Charles+J.+\"Chuck\"+Fleischmann"
 },
 {
@@ -1470,15 +1515,16 @@
 "United States Senate Caucus on International Narcotics Control"
 ],
 "donors": null,
-"verdict": "SOME HYPOCRISY",
-"points": 2,
-"recordsReviewed": 5,
+"verdict": "DOCUMENTED HYPOCRITE",
+"points": 4,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2016 vs 2020 Supreme Court vacancy statements (PBS compilations)",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"2013 nuclear-option statements vs 2025 nuclear-option vote"
 ],
 "flags": [],
 "opensecrets": "https://www.opensecrets.org/search?q=Chuck+Grassley"
@@ -1896,15 +1942,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=William+R.+Keating"
 },
 {
@@ -1921,15 +1974,22 @@
 "donors": null,
 "verdict": "SOME HYPOCRISY",
 "points": 2,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Mike+Kelly"
 },
 {
@@ -2611,15 +2671,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2016 vs 2020 Supreme Court vacancy statements (PBS compilations)",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Rand+Paul"
 },
 {
@@ -2663,15 +2730,22 @@
 "donors": null,
 "verdict": "SOME HYPOCRISY",
 "points": 2,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2016 vs 2020 Supreme Court vacancy statements (PBS compilations)",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Gary+C.+Peters"
 },
 {
@@ -2765,15 +2839,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Mike+Rogers"
 },
 {
@@ -2867,15 +2949,16 @@
 ],
 "donors": null,
 "verdict": "DOCUMENTED HYPOCRITE",
-"points": 4,
-"recordsReviewed": 6,
+"points": 6,
+"recordsReviewed": 7,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2016 vs 2020 Supreme Court vacancy statements (PBS compilations)",
 "Manual review of 8 more records",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"Shutdown statements vs funding votes (2013/2018 vs 2025)"
 ],
 "flags": [],
 "opensecrets": "https://www.opensecrets.org/search?q=Charles+E.+Schumer"
@@ -2923,15 +3006,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Austin+Scott"
 },
 {
@@ -2949,15 +3039,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Robert+C.+\"Bobby\"+Scott"
 },
 {
@@ -3131,15 +3228,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Christopher+H.+Smith"
 },
 {
@@ -3366,15 +3471,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Nydia+M.+Vel\u00e1zquez"
 },
 {
@@ -3418,15 +3531,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Debbie+Wasserman+Schultz"
 },
 {
@@ -3498,16 +3618,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 6,
+"recordsReviewed": 7,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2016 vs 2020 Supreme Court vacancy statements (PBS compilations)",
 "2017 legislative-filibuster letter signers vs 2022 rules-change vote",
-"2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)"
+"2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Peter+Welch"
 },
 {
@@ -3579,15 +3706,22 @@
 "donors": null,
 "verdict": "SOME HYPOCRISY",
 "points": 1,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Robert+J.+Wittman"
 },
 {
@@ -4388,15 +4522,16 @@
 "service": "House 2013-now",
 "committees": [],
 "donors": null,
-"verdict": "NOT ENOUGH INFO YET",
-"points": 0,
-"recordsReviewed": 5,
+"verdict": "SOME HYPOCRISY",
+"points": 1,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Shutdown statements vs funding votes (2013/2018 vs 2025)"
 ],
 "flags": [],
 "opensecrets": "https://www.opensecrets.org/search?q=Hakeem+S.+Jeffries"
@@ -4495,15 +4630,16 @@
 "Judiciary"
 ],
 "donors": null,
-"verdict": "SOME HYPOCRISY",
-"points": 2,
-"recordsReviewed": 5,
+"verdict": "DOCUMENTED HYPOCRITE",
+"points": 4,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2016 vs 2020 Supreme Court vacancy statements (PBS compilations)",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"Shutdown statements vs funding votes (2013/2018 vs 2025)"
 ],
 "flags": [],
 "opensecrets": "https://www.opensecrets.org/search?q=Ted+Cruz"
@@ -4523,15 +4659,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Randy+K.+Weber"
 },
 {
@@ -4549,15 +4693,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Joaquin+Castro"
 },
 {
@@ -4575,15 +4727,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Roger+Williams"
 },
 {
@@ -4756,15 +4915,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Katherine+M.+Clark"
 },
 {
@@ -5099,15 +5265,22 @@
 "donors": null,
 "verdict": "SOME HYPOCRISY",
 "points": 1,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Rick+W.+Allen"
 },
 {
@@ -5362,15 +5535,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Brian+Babin"
 },
 {
@@ -5521,15 +5702,22 @@
 "donors": null,
 "verdict": "SOME HYPOCRISY",
 "points": 2,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2016 vs 2020 Supreme Court vacancy statements (PBS compilations)",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Dan+Sullivan"
 },
 {
@@ -5635,15 +5823,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Trent+Kelly"
 },
 {
@@ -5694,15 +5890,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Warren+Davidson"
 },
 {
@@ -5745,13 +5948,14 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
 "flags": [
 {
@@ -5759,6 +5963,11 @@
 "count": 1,
 "maxDelayDays": 175,
 "src": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034556.pdf"
+},
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
 }
 ],
 "opensecrets": "https://www.opensecrets.org/search?q=Dwight+Evans"
@@ -5860,15 +6069,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Bradley+Scott+Schneider"
 },
 {
@@ -6096,15 +6312,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=John+H.+Rutherford"
 },
 {
@@ -6148,15 +6371,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Brian+J.+Mast"
 },
 {
@@ -6203,15 +6433,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2017 legislative-filibuster letter signers vs 2022 rules-change vote",
-"2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)"
+"2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Jim+Banks"
 },
 {
@@ -6231,14 +6468,21 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 4,
+"recordsReviewed": 5,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Roger+Marshall"
 },
 {
@@ -6257,15 +6501,23 @@
 "donors": null,
 "verdict": "SOME HYPOCRISY",
 "points": 1,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Clay+Higgins"
 },
 {
@@ -6305,15 +6557,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Jamie+Raskin"
 },
 {
@@ -6413,15 +6672,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Josh+Gottheimer"
 },
 {
@@ -6568,15 +6834,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Vicente+Gonzalez"
 },
 {
@@ -6622,15 +6895,23 @@
 "donors": null,
 "verdict": "SOME HYPOCRISY",
 "points": 2,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Pramila+Jayapal"
 },
 {
@@ -6730,15 +7011,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2017 legislative-filibuster letter signers vs 2022 rules-change vote",
-"2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)"
+"2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=John+R.+Curtis"
 },
 {
@@ -6861,15 +7150,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Kevin+Hern"
 },
 {
@@ -6915,15 +7211,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Mary+Gay+Scanlon"
 },
 {
@@ -7147,15 +7450,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=W.+Gregory+Steube"
 },
 {
@@ -7354,15 +7665,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Lori+Trahan"
 },
 {
@@ -7566,15 +7884,29 @@
 "donors": null,
 "verdict": "SOME HYPOCRISY",
 "points": 2,
-"recordsReviewed": 5,
+"recordsReviewed": 7,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+},
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Michael+Guest"
 },
 {
@@ -7618,15 +7950,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Jefferson+Van+Drew"
 },
 {
@@ -7673,15 +8013,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Susie+Lee"
 },
 {
@@ -7776,15 +8123,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Daniel+Meuser"
 },
 {
@@ -7958,15 +8312,22 @@
 "donors": null,
 "verdict": "SOME HYPOCRISY",
 "points": 2,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Dan+Crenshaw"
 },
 {
@@ -7984,15 +8345,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Lance+Gooden"
 },
 {
@@ -8141,15 +8509,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Kim+Schrier"
 },
 {
@@ -8194,15 +8569,22 @@
 "donors": null,
 "verdict": "SOME HYPOCRISY",
 "points": 2,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Carol+D.+Miller"
 },
 {
@@ -8223,14 +8605,21 @@
 "donors": null,
 "verdict": "SOME HYPOCRISY",
 "points": 1,
-"recordsReviewed": 4,
+"recordsReviewed": 5,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Rick+Scott"
 },
 {
@@ -8384,14 +8773,21 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 4,
+"recordsReviewed": 5,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Mark+Kelly"
 },
 {
@@ -8410,15 +8806,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2016 vs 2020 Supreme Court vacancy statements (PBS compilations)",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Cynthia+M.+Lummis"
 },
 {
@@ -8463,15 +8866,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Pete+Sessions"
 },
 {
@@ -8519,14 +8929,21 @@
 "donors": null,
 "verdict": "SOME HYPOCRISY",
 "points": 1,
-"recordsReviewed": 4,
+"recordsReviewed": 5,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Tommy+Tuberville"
 },
 {
@@ -8546,14 +8963,21 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 4,
+"recordsReviewed": 5,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=John+W.+Hickenlooper"
 },
 {
@@ -8574,14 +8998,21 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 4,
+"recordsReviewed": 5,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
-"2017 legislative-filibuster letter signers vs 2022 rules-change vote"
+"2017 legislative-filibuster letter signers vs 2022 rules-change vote",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Bill+Hagerty"
 },
 {
@@ -8705,15 +9136,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Lauren+Boebert"
 },
 {
@@ -8836,15 +9274,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Maria+Elvira+Salazar"
 },
 {
@@ -9044,15 +9489,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Victoria+Spartz"
 },
 {
@@ -9200,15 +9652,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Teresa+Leger+Fernandez"
 },
 {
@@ -9383,15 +9842,29 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 7,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+},
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Diana+Harshbarger"
 },
 {
@@ -9410,15 +9883,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Pat+Fallon"
 },
 {
@@ -9436,15 +9916,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=August+Pfluger"
 },
 {
@@ -9543,15 +10030,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Blake+D.+Moore"
 },
 {
@@ -9569,15 +10063,23 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Burgess+Owens"
 },
 {
@@ -10902,14 +11404,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 4,
+"recordsReviewed": 5,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Mike+Ezell"
 },
 {
@@ -11326,14 +11836,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 4,
+"recordsReviewed": 5,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"March 2024 funding vote vs own earmarks (Business Insider list, vote confirmed)"
 ],
-"flags": [],
+"flags": [
+{
+"type": "earmark",
+"text": "Voted no on the March 2024 funding package (House roll call 102, 2024-03-22) that held an earmark they had secured (Business Insider list). Not scored: a no vote alone is not a statement.",
+"src": "https://www.businessinsider.com/which-house-members-voted-against-earmarks-government-funding-2024-3",
+"src2": "https://clerk.house.gov/Votes/2024102"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Summer+L.+Lee"
 },
 {
@@ -11859,15 +12377,22 @@
 "donors": null,
 "verdict": "NOT ENOUGH INFO YET",
 "points": 0,
-"recordsReviewed": 5,
+"recordsReviewed": 6,
 "checks": [
 "Stop Insider Trading Act vote (2026)",
 "Sponsor/cosponsor lists of 10 stock-trading-ban bills (119th Congress)",
 "STOCK Act late-filing data (official House Clerk / Senate eFD links)",
 "2021 infrastructure law vote vs later credit-taking (CNN/LA Times reviews)",
-"Nov 2025 funding law vote vs later credit-taking (NBC review)"
+"Nov 2025 funding law vote vs later credit-taking (NBC review)",
+"Business Insider 2021-22 STOCK Act violations list"
 ],
-"flags": [],
+"flags": [
+{
+"type": "stock",
+"text": "Named by Business Insider (2021-2022 'Conflicted Congress' review) as having filed stock-trade reports late under the STOCK Act. Not scored: no matching statement paired yet.",
+"src": "https://www.businessinsider.com/congress-stock-act-violations-senate-house-trading-2021-9"
+}
+],
 "opensecrets": "https://www.opensecrets.org/search?q=Thomas+R.+Suozzi"
 },
 {
@@ -16125,6 +16650,99 @@
 "confidence": "High",
 "note": "She said the salon told her one client at a time was allowed and called it a setup.",
 "why": "Imposed mask rules on others, then broke local COVID rules herself."
+},
+{
+"bioguide": "M000355",
+"topic": "Filibuster flip",
+"category": "Flip-flop when party control changed",
+"values": [
+"Corruption & ethics"
+],
+"said": "On Democrats' 2013 nuclear option: \"nothing more than a power grab... they just broke the Senate rules.\"",
+"saidDate": "2013-11-21",
+"saidSrc": "https://www.pbs.org/newshour/show/nuclear-option-for-federal-nominations-inflames-debate",
+"did": "As part of the Republican majority, voted 53-45 (party line) to use the nuclear option to confirm Trump nominees in batches.",
+"didDate": "2025-09-11",
+"didSrc": "https://www.nbcnews.com/politics/congress/senate-republicans-nuclear-option-change-rules-trump-nominees-rcna230565",
+"didSrc2": "https://news.ballotpedia.org/2025/09/12/senate-republicans-invoke-nuclear-option-to-change-nomination-rules/",
+"points": 2,
+"confidence": "Medium",
+"note": "Republicans said Democrats' blanket delays on nominees forced the change.",
+"why": "Called the majority-vote rules change a power grab in the minority, then used it in the majority."
+},
+{
+"bioguide": "G000386",
+"topic": "Filibuster flip",
+"category": "Flip-flop when party control changed",
+"values": [
+"Corruption & ethics"
+],
+"said": "Condemned Democrats' 2013 nuclear option on the floor, saying they were willing to 'forever change the Senate'.",
+"saidDate": "2013-11-21",
+"saidSrc": "https://www.theguardian.com/world/2013/nov/21/harry-reid-senate-rules-republican-filibusters-nominations",
+"did": "Republican majority voted 53-45 (party line) to use the nuclear option for batch confirmation of Trump nominees.",
+"didDate": "2025-09-11",
+"didSrc": "https://www.nbcnews.com/politics/congress/senate-republicans-nuclear-option-change-rules-trump-nominees-rcna230565",
+"didSrc2": "https://news.ballotpedia.org/2025/09/12/senate-republicans-invoke-nuclear-option-to-change-nomination-rules/",
+"points": 2,
+"confidence": "Medium",
+"note": "Republicans said Democrats' blanket delays forced the change.",
+"why": "Condemned the majority-vote rules change in the minority, then voted for one in the majority."
+},
+{
+"bioguide": "S000148",
+"topic": "Shutdown flip",
+"category": "Flip-flop when party control changed",
+"values": [
+"Government spending"
+],
+"said": "On the 2013 shutdown: \"we are happy to discuss how to fund the government, but not with a gun to our heads... You are not going to take, as hostage, millions of innocent Americans.\"",
+"saidDate": "2013-10-01",
+"saidSrc": "https://abcnews.com/Politics/schumer-democrats-find-new-role-shutdown-looms-analysis/story?id=126038340",
+"did": "Led Senate Democrats in withholding votes for a stopgap funding bill unless Republicans extended ACA subsidies, leading to the 2025 shutdown.",
+"didDate": "2025-09-30",
+"didSrc": "https://abcnews.com/Politics/schumer-democrats-find-new-role-shutdown-looms-analysis/story?id=126038340",
+"didSrc2": "https://www.nbcnews.com/politics/congress/democrats-tout-projects-government-shutdown-funding-bill-opposed-rcna248441",
+"points": 2,
+"confidence": "Medium",
+"note": "He says Republicans refused to negotiate and that Americans' health care was the real hostage.",
+"why": "Called funding demands 'hostage-taking' when the other party made them, then made funding demands himself."
+},
+{
+"bioguide": "J000294",
+"topic": "Shutdown flip",
+"category": "Flip-flop when party control changed",
+"values": [
+"Government spending"
+],
+"said": "\"We are not willing to pay... a ransom note because Donald Trump decided that he was going to shut down the government and hold the American people hostage.\"",
+"saidDate": "2018-12",
+"saidSrc": "https://nypost.com/2025/09/29/us-news/democrats-accused-of-hypocrisy-over-hostage-taking-ransom-rhetoric-in-past-shutdown-fights/",
+"did": "Voted no on the stopgap funding bill (H.R. 5371), House roll call 281, demanding ACA subsidy extensions; the shutdown followed.",
+"didDate": "2025-09-19",
+"didSrc": "https://clerk.house.gov/Votes/2025281",
+"points": 1,
+"confidence": "Medium",
+"note": "He says the 2025 fight was about health-care costs, not a wall.",
+"why": "Called funding demands a ransom note, then withheld funding votes over his own demand."
+},
+{
+"bioguide": "C001098",
+"topic": "Shutdown flip",
+"category": "Flip-flop when party control changed",
+"values": [
+"Government spending"
+],
+"said": "Said Democrats \"have taken [the] aviation system hostage\" during the 2025 shutdown.",
+"saidDate": "2025-11-06",
+"saidSrc": "https://www.commerce.senate.gov/press/rep/release/sen-cruz-at-noms-hearing-democrats-have-taken-aviation-system-hostage-causing-major-flight-delays/",
+"did": "Led the 2013 push to refuse government funding unless Obamacare was defunded, which led to a 16-day shutdown.",
+"didDate": "2013-10-01",
+"didSrc": "https://abcnews.com/Politics/schumer-democrats-find-new-role-shutdown-looms-analysis/story?id=126038340",
+"points": 2,
+"confidence": "Medium",
+"note": "He says 2013 was different because the House had funded everything except Obamacare.",
+"why": "Used funding as leverage when his party was in the minority, then called the same tactic hostage-taking."
 }
 ],
 "linkNotes": "senate.gov, congress.gov and some senator sites block automated link checks (HTTP 403). Those links are official and kept, but could not be machine-verified on 2026-11-04."
