@@ -43,7 +43,7 @@ A state with no bills (`hasBills: false` in `data/config.json`, and no `data/sta
 Each bill's `topics` array is the match result of those keyword lists.
 
 ## What to watch
-After you submit, a **What to watch** block lists policy areas for each box you checked and for Home (own or rent). Each area names the level that mainly decides it: federal, state, or county. Links are bills already in `data/` whose title or official summary contains the area's keywords, for that state and for Congress. A short **How to act** line points at primary and local elections and at the lawmakers already listed. The wording does not recommend a party or an outcome.
+After you submit, **What affects you (N)** shows how many loaded bills match you. That count sits above **What to watch** and stays visible. **What to watch (N areas)** is a closed disclosure (`<details>`, keyboard toggle on the summary). Open it to list policy areas for each box you checked and for Home (own or rent). Each area names the level that mainly decides it: federal, state, or county. Links are bills already in `data/` whose title or official summary contains the area's keywords, for that state and for Congress. A short **How to act** line points at primary and local elections and at the lawmakers already listed. The wording does not recommend a party or an outcome.
 
 ## Ranking
 score = 10 × matched topics + 15 if a state bill names your county ("X County") or town + recency (0–3) + 1 if it has a roll call.
