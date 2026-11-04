@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>White Hat Hacking Crash Course (100% Free)</title>
+<meta name="description" content="A free, beginner-friendly path to ethical hacking: CTFs, labs, and your first bug bounty.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://dukktape.goatcounter.com; script-src 'self' 'unsafe-inline' https://gc.zgo.at; connect-src https://dukktape.goatcounter.com; frame-src 'none'; object-src 'none'; base-uri 'none'">
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--mute:#555;--line:#ddd;--card:#f6f7f9;--acc:#1d6fd8;--warn:#9a6700}
+@media (prefers-color-scheme:dark){:root{--bg:#111;--fg:#eee;--mute:#aaa;--line:#333;--card:#1b1d21;--acc:#6aa8ff;--warn:#e0b04a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:800px;margin:0 auto;padding:24px 16px 60px}h1{font-size:1.8em;line-height:1.2;margin:.2em 0}h2{margin-top:2em;border-bottom:1px solid var(--line);padding-bottom:.2em}h3{margin-top:1.4em}
+.sum,.cap,.site{color:var(--mute)}.cap,.site{font-size:.9em}a{color:var(--acc);word-break:break-word}.sib{font-size:.9em}
+ul.check{list-style:none;padding:0}ul.check li{padding:8px 0;border-bottom:1px solid var(--line)}ul.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+ul.check input{width:20px;height:20px;margin-top:3px;flex:none}.meta{color:var(--mute);font-size:.85em;margin-left:30px;display:block}
+.call{background:var(--card);border-left:4px solid var(--warn);padding:12px 14px;border-radius:8px;margin:16px 0}
+ul.links li,ol.steps li{margin:8px 0}dl dt{font-weight:600;margin-top:10px}dl dd{margin:2px 0 0}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.92em}th,td{border-bottom:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+code{font-family:ui-monospace,Consolas,monospace;background:var(--card);padding:1px 4px;border-radius:4px;font-size:.92em}
+button{font:inherit;padding:6px 12px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:6px;cursor:pointer}
+</style>
+</head>
+<body><main>
+<p class="sib">New to security? Start with the <a href="../cyber-crash-course/">Cybersecurity Crash Course (100% Free)</a>.</p>
+<h1>White Hat Hacking Crash Course (100% Free)</h1>
+<p class="sum">A free, beginner-friendly path from zero to doing real ethical hacking: CTFs, labs, and your first bug bounty or disclosure program. About 1 hour a day for 60 days. Links checked Nov 4, 2026.</p>
+<nav><ol>
+<li><a href="#ethics">Ethics and legal rules (read first)</a></li><li><a href="#setup">Setup: free tools</a></li><li><a href="#roadmap">Roadmap in 5 phases</a></li><li><a href="#cheat">Cheat sheet (lab use only)</a></li><li><a href="#plan">60-day plan</a></li><li><a href="#give">Give back</a></li></ol></nav>
+
+<h2 id="ethics">1. Ethics and legal rules (read first)</h2>
+<div class="call"><strong>The one rule:</strong> Only hack systems you own or have written permission to test. Everything else can be a crime.</div>
+<p class="cap">Your ticks are saved only in this browser.</p>
+<ul class="check" data-key="whcc-ethics-v1">
+<li><label><input type="checkbox">Permission: get it in writing, or use a lab or CTF built for practice</label></li>
+<li><label><input type="checkbox">CFAA: the US Computer Fraud and Abuse Act makes accessing computers without authorization a federal crime — other countries have similar laws</label><span class="meta">justice.gov</span></li>
+<li><label><input type="checkbox">Scope: in a bug bounty, only test the targets and methods the program lists; stay out of everything marked out of scope</label></li>
+<li><label><input type="checkbox">Do no harm: no stealing data, no denial-of-service, no touching other users' accounts</label></li>
+<li><label><input type="checkbox">Responsible disclosure: report privately to the owner, give them time to fix, never publish before they agree</label></li>
+<li><label><input type="checkbox">Use safe-harbor programs: disclose.io lists programs that promise not to sue good-faith researchers</label></li>
+</ul>
+<ul class="links">
+<li><a href="https://www.justice.gov/jm/jm-9-48000-computer-fraud">DOJ policy on CFAA cases</a> <span class="site">justice.gov</span></li>
+<li><a href="https://www.cisa.gov/coordinated-vulnerability-disclosure-process">CISA coordinated vulnerability disclosure</a> <span class="site">cisa.gov</span></li>
+<li><a href="https://disclose.io/">disclose.io — safe harbor and disclosure programs</a> <span class="site">disclose.io</span></li>
+</ul>
+
+<h2 id="setup">2. Setup: free tools</h2>
+<p class="cap">All free to download. Install in this order.</p>
+<div class="tw"><table><thead><tr><th>Tool</th><th>What it is</th></tr></thead><tbody>
+<tr><td><a href="https://www.virtualbox.org/">VirtualBox</a></td><td>Runs a whole separate computer (a VM) inside yours — keeps practice isolated</td></tr>
+<tr><td><a href="https://www.kali.org/get-kali/">Kali Linux</a></td><td>Linux made for security testing, with hundreds of tools preinstalled; run it in VirtualBox</td></tr>
+<tr><td><a href="https://portswigger.net/burp/communitydownload">Burp Suite Community</a></td><td>Sits between your browser and a website so you can see and change requests (free edition)</td></tr>
+<tr><td><a href="https://nmap.org/">Nmap</a></td><td>Finds which devices and ports are open on a network</td></tr>
+<tr><td><a href="https://www.wireshark.org/">Wireshark</a></td><td>Records network traffic so you can read it packet by packet</td></tr>
+<tr><td><a href="https://www.python.org/downloads/">Python</a></td><td>Programming language for writing your own tools</td></tr>
+<tr><td><a href="https://gchq.github.io/CyberChef/">CyberChef</a></td><td>In-browser tool to decode, encode, and convert data (great for CTFs)</td></tr>
+<tr><td><a href="https://ghidra-sre.org/">Ghidra (optional)</a></td><td>Takes programs apart to see how they work (reverse engineering)</td></tr>
+</tbody></table></div>
+<p>Use Firefox or Chrome as your browser. Nmap, Wireshark, Burp and Python already come with Kali.</p>
+
+<h2 id="roadmap">3. Roadmap in 5 phases</h2>
+<p class="cap">Time estimates assume about 1 hour a day and are rough. Everything listed is free unless marked.</p>
+<h3>Phase 1: Networking and Linux (2 weeks)</h3>
+<ul class="links">
+<li><a href="https://linuxjourney.com/">Linux Journey — learn Linux basics</a> <span class="site">linuxjourney.com</span></li>
+<li><a href="https://overthewire.org/wargames/bandit/">OverTheWire Bandit — Linux command line as a game</a> <span class="site">overthewire.org</span></li>
+<li><a href="https://www.netacad.com/courses/networking-basics">Cisco Networking Basics (free course)</a> <span class="site">netacad.com</span></li>
+<li><a href="https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/">Professor Messer Network+ videos (free)</a> <span class="site">professormesser.com</span></li>
+</ul>
+<h3>Phase 2: Core attacks and web hacking (2 weeks)</h3>
+<ul class="links">
+<li><a href="https://portswigger.net/web-security">PortSwigger Web Security Academy — free web hacking labs</a> <span class="site">portswigger.net</span></li>
+<li><a href="https://overthewire.org/wargames/natas/">OverTheWire Natas — web security wargame</a> <span class="site">overthewire.org</span></li>
+<li><a href="https://owasp.org/www-project-juice-shop/">OWASP Juice Shop — deliberately hackable practice site</a> <span class="site">owasp.org</span></li>
+<li><a href="https://www.netacad.com/courses/introduction-to-cybersecurity">Cisco Introduction to Cybersecurity (free + badge)</a> <span class="site">netacad.com</span></li>
+</ul>
+<h3>Phase 3: Hands-on labs and CTFs (2–3 weeks)</h3>
+<ul class="links">
+<li><a href="https://picoctf.org/">picoCTF — beginner challenges (Carnegie Mellon)</a> <span class="site">picoctf.org</span></li>
+<li><a href="https://tryhackme.com/">TryHackMe — free rooms (full paths are paid)</a> <span class="site">tryhackme.com</span></li>
+<li><a href="https://www.hackthebox.com/">Hack The Box — free tier (some content paid)</a> <span class="site">hackthebox.com</span></li>
+<li><a href="https://academy.hackthebox.com/">Hack The Box Academy — free starter modules</a> <span class="site">academy.hackthebox.com</span></li>
+<li><a href="https://www.vulnhub.com/">VulnHub — free vulnerable VMs to run in VirtualBox</a> <span class="site">vulnhub.com</span></li>
+<li><a href="https://ctftime.org/">CTFtime — calendar of upcoming CTF competitions</a> <span class="site">ctftime.org</span></li>
+</ul>
+<h3>Phase 4: Scripting (1–2 weeks, overlaps)</h3>
+<ul class="links">
+<li><a href="https://www.py4e.com/">Python for Everybody — free course</a> <span class="site">py4e.com</span></li>
+<li><a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python — free to read online</a> <span class="site">automatetheboringstuff.com</span></li>
+</ul>
+<h3>Phase 5: First real-world work (ongoing)</h3>
+<p>Start with a vulnerability disclosure program (VDP: no money, lower pressure), then a beginner-friendly bug bounty. Read the scope twice before you test.</p>
+<ul class="links">
+<li><a href="https://hackerone.com/directory/programs">HackerOne program directory</a> <span class="site">hackerone.com</span></li>
+<li><a href="https://www.bugcrowd.com/">Bugcrowd</a> <span class="site">bugcrowd.com</span></li>
+<li><a href="https://www.intigriti.com/">Intigriti</a> <span class="site">intigriti.com</span></li>
+</ul>
+
+<h2 id="cheat">4. Cheat sheet (lab use only)</h2>
+<p class="cap">Run these only in your own VMs, a lab, or a CTF target you're allowed to hit.</p>
+<dl>
+<dt>Recon</dt><dd>Find out what's there before attacking: hosts, ports, services, versions.</dd>
+<dt>Enumeration</dt><dd>Dig into each service for users, folders, and versions.</dd>
+<dt>Exploitation</dt><dd>Use a weakness to get access.</dd>
+<dt>Privilege escalation</dt><dd>Go from a normal user to admin or root.</dd>
+<dt>Common web bugs</dt><dd>SQL injection, XSS (injecting scripts), broken access control, IDOR (changing an ID to see someone else's data).</dd>
+<dt>Flag</dt><dd>In a CTF, the secret text you find to prove you solved it.</dd>
+</dl>
+<div class="tw"><table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody>
+<tr><td><code>nmap 10.10.10.5</code></td><td>Scan the 1,000 most common ports on a lab machine</td></tr>
+<tr><td><code>nmap -sV 10.10.10.5</code></td><td>Also detect service versions</td></tr>
+<tr><td><code>nmap -p- 10.10.10.5</code></td><td>Scan all 65,535 ports (slower)</td></tr>
+<tr><td><code>nmap -sC -sV -oN scan.txt 10.10.10.5</code></td><td>Default scripts + versions, save to a file</td></tr>
+<tr><td><code>pwd</code> / <code>ls -la</code> / <code>cd folder</code></td><td>Where am I / list all files / move into a folder</td></tr>
+<tr><td><code>cat file.txt</code></td><td>Print a file</td></tr>
+<tr><td><code>grep -r "password" .</code></td><td>Search all files here for a word</td></tr>
+<tr><td><code>find / -name flag.txt 2&gt;/dev/null</code></td><td>Find a file anywhere, hide errors</td></tr>
+<tr><td><code>whoami</code> / <code>id</code></td><td>Which user am I</td></tr>
+<tr><td><code>sudo -l</code></td><td>What I'm allowed to run as admin</td></tr>
+<tr><td><code>chmod +x script.sh</code></td><td>Make a file runnable</td></tr>
+<tr><td><code>ip a</code></td><td>Show my IP addresses</td></tr>
+<tr><td><code>man nmap</code></td><td>Read the manual for any command</td></tr>
+</tbody></table></div>
+<p>Full Nmap manual: <a href="https://nmap.org/book/man.html">nmap.org/book/man.html</a></p>
+
+<h2 id="plan">5. 60-day plan (~1 hour a day)</h2>
+<ul class="check" data-key="whcc-plan-v1">
+<li><label><input type="checkbox"><span><strong>Days 1–3: Ethics + setup</strong> — Read section 1. Install VirtualBox and a Kali VM. Take a snapshot.</span></label></li>
+<li><label><input type="checkbox"><span><strong>Days 4–10: Linux</strong> — Linux Journey basics, then OverTheWire Bandit levels 0–10.</span></label></li>
+<li><label><input type="checkbox"><span><strong>Days 11–17: Networking</strong> — Cisco Networking Basics. Practice Nmap and Wireshark on your own VMs.</span></label></li>
+<li><label><input type="checkbox"><span><strong>Days 18–20: Bandit to level 20</strong> — Get comfortable in the terminal.</span></label></li>
+<li><label><input type="checkbox"><span><strong>Days 21–30: Web hacking</strong> — PortSwigger Academy: SQL injection, XSS, access control, auth labs. Set up Burp.</span></label></li>
+<li><label><input type="checkbox"><span><strong>Days 31–35: Juice Shop + Natas</strong> — Find 10 Juice Shop challenges; Natas levels 0–10.</span></label></li>
+<li><label><input type="checkbox"><span><strong>Days 36–45: CTFs and boxes</strong> — picoCTF practice, TryHackMe free rooms, one easy free Hack The Box or VulnHub machine. Write notes for each.</span></label></li>
+<li><label><input type="checkbox"><span><strong>Days 46–52: Python</strong> — Python for Everybody basics; write a tiny port checker or a script that automates a CTF step.</span></label></li>
+<li><label><input type="checkbox"><span><strong>Days 53–56: Join a live CTF</strong> — Pick a beginner event on CTFtime. Team up if you can.</span></label></li>
+<li><label><input type="checkbox"><span><strong>Days 57–60: First real program</strong> — Read 3 VDP or bug bounty policies. Pick one with clear scope and safe harbor. Start recon only within scope.</span></label></li>
+</ul>
+<button id="reset" type="button">Clear my ticks</button>
+
+<h2 id="give">6. Give back</h2>
+<h3>Report bugs the right way</h3>
+<ul class="links">
+<li><a href="https://www.hackerone.com/">HackerOne</a> <span class="site">hackerone.com</span></li>
+<li><a href="https://www.bugcrowd.com/">Bugcrowd</a> <span class="site">bugcrowd.com</span></li>
+<li><a href="https://www.intigriti.com/">Intigriti</a> <span class="site">intigriti.com</span></li>
+<li><a href="https://disclose.io/">disclose.io — find VDPs with safe harbor</a> <span class="site">disclose.io</span></li>
+</ul>
+<h3>Report phishing and scams</h3>
+<ul class="links">
+<li><a href="https://www.ic3.gov/">FBI IC3 — report internet crime</a> <span class="site">ic3.gov</span></li>
+<li><a href="https://apwg.org/reportphishing/">APWG — forward phishing to reportphishing@apwg.org</a> <span class="site">apwg.org</span></li>
+<li><a href="https://safebrowsing.google.com/safebrowsing/report_phish/">Google Safe Browsing — report a phishing site</a> <span class="site">safebrowsing.google.com</span></li>
+<li><a href="https://www.reportfraud.ftc.gov/">FTC — report fraud</a> <span class="site">reportfraud.ftc.gov</span></li>
+</ul>
+<h3>Join the community</h3>
+<ul class="links"><li><a href="https://owasp.org/chapters/">OWASP local chapters (free meetups)</a> <span class="site">owasp.org</span></li></ul>
+<p>Also look for a local DEF CON group (DCxxx, named after your area code) and the official Discord servers for TryHackMe, Hack The Box, and picoCTF, linked from their sites.</p>
+<p class="sib">See also: <a href="../cyber-crash-course/">Cybersecurity Crash Course (100% Free)</a></p>
+</main>
+<script>
+(function(){var lists=document.querySelectorAll("ul.check");
+lists.forEach(function(ul){var K=ul.getAttribute("data-key"),b=ul.querySelectorAll("input"),s;try{s=JSON.parse(localStorage.getItem(K)||"[]")}catch(e){s=[]}
+b.forEach(function(c,i){c.checked=!!s[i];c.addEventListener("change",function(){var a=[];b.forEach(function(x){a.push(x.checked)});try{localStorage.setItem(K,JSON.stringify(a))}catch(e){}})})});
+document.getElementById("reset").addEventListener("click",function(){lists.forEach(function(ul){ul.querySelectorAll("input").forEach(function(x){x.checked=false});try{localStorage.removeItem(ul.getAttribute("data-key"))}catch(e){}})})})();
+</script>
+<script data-goatcounter="https://dukktape.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
