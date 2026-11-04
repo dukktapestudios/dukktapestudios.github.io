@@ -70,9 +70,9 @@ function rank(m){const ps=byId[m.bioguide]||[];const hit=ps.some(p=>p.values.som
 function card(m){const ps=byId[m.bioguide]||[];
 let h=`<div class="card"><b style="font-size:18px">${esc(m.name)}</b> <span class="meta">${m.party} · ${m.state}${m.district&&m.district!=="0"?'-'+m.district:''} · ${m.chamber} · ${esc(m.service)}</span><br>
 <span class="badge ${BC[m.verdict]}">${m.verdict}</span> <span class="meta">${m.points?m.points+' of 10 points · ':''}${m.recordsReviewed} records reviewed</span>`;
-ps.forEach(p=>{h+=`<div class="ev"><b>${esc(p.category)}</b> (${p.points} pt, ${p.confidence} confidence)<br>
-<b>SAID</b> (${esc(p.saidDate)}, ${a(p.saidSrc,'source')}): “${esc(p.said)}”<br>
-<b>DID</b> (${esc(p.didDate)}, ${a(p.didSrc,'source')}): ${esc(p.did)}<br>
+ps.forEach(p=>{h+=`<div class="ev"><b>${esc(p.topic||p.category)}</b>: ${esc(p.category)} (${p.points} pt, ${p.confidence} confidence)<br>
+<b>SAID</b> (${esc(p.saidDate)}, ${a(p.saidSrc,'source')}${p.saidSrc2?', '+a(p.saidSrc2,'source 2'):''}): “${esc(p.said)}”<br>
+<b>DID</b> (${esc(p.didDate)}, ${a(p.didSrc,'source')}${p.didSrc2?', '+a(p.didSrc2,'source 2'):''}): ${esc(p.did)}<br>
 <b>Why it counts:</b> ${esc(p.why)}<br><span class="meta">Their side / context: ${esc(p.note)}</span></div>`});
 m.flags.forEach(f=>{h+=`<div class="ev flag">Flag, unconfirmed: ${f.count} trade report(s) filed late, longest ${f.maxDelayDays} days. ${a(f.src,'official filing')}. Not scored: no matching pro-ban stance found.</div>`});
 h+=`<div class="meta"><b>Committees:</b> ${m.committees.length?esc(m.committees.join('; ')):'none listed'}<br>
