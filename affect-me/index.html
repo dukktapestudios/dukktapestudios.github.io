@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://cdn.ilga.gov https://www.ilga.gov https://bioguide.congress.gov data:; connect-src 'self'; style-src 'self'; script-src 'self'">
+<meta name="referrer" content="no-referrer">
+<title>How Does It Affect Me? · Dukktape Studios</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<header><div class="wrap"><div class="brand">DUKKTAPE STUDIOS</div><h1>How Does It Affect Me?</h1>
+<p class="sub">Tell it a little about you. See the laws your own lawmakers voted on that touch your life, with links to the official bill.</p></div></header>
+<main class="wrap">
+<section class="card note">🔒 Everything you type stays in this browser tab. Nothing is saved or sent anywhere. No tracking. Close the tab and it's gone.</section>
+<form id="f" class="card" autocomplete="off">
+ <h2>About you</h2>
+ <div class="grid">
+  <label>ZIP code<input name="zip" inputmode="numeric" maxlength="5" pattern="\d{5}" required placeholder="61011"></label>
+  <label>Age range<select name="age"><option value="">Skip</option><option>18-25</option><option>26-39</option><option>40-54</option><option>55-64</option><option>65+</option></select></label>
+  <label>Household income<select name="income"><option value="">Skip</option><option value="low">Under $35k</option><option value="mid">$35k-$100k</option><option value="high">Over $100k</option></select></label>
+  <label>Home<select name="home"><option value="">Skip</option><option value="own">I own my home</option><option value="rent">I rent</option></select></label>
+  <label>Job type<select name="job"><option value="">Skip</option><option value="self">Self-employed / own business</option><option value="employee">Employee</option><option value="public">Government / public employee</option><option value="retired">Retired</option><option value="none">Not working / on benefits</option></select></label>
+  <label>Kids at home<select name="kids"><option value="">Skip</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+ </div>
+ <div class="checks">
+  <label><input type="checkbox" name="veteran"> Veteran</label>
+  <label class="sm">VA rating (optional)<input name="rating" placeholder="e.g. 70% or TDIU" maxlength="20"></label>
+  <label><input type="checkbox" name="disability"> Disability / SSDI / SSI</label>
+  <label><input type="checkbox" name="rural"> Rural, farm, or animals</label>
+  <label><input type="checkbox" name="gun"> Gun owner / hunter</label>
+  <label><input type="checkbox" name="smallbiz"> Small business owner</label>
+ </div>
+ <button type="submit">Show me</button>
+</form>
+<div id="out"></div>
+<footer class="foot">Data: ilga.gov (Illinois General Assembly), GovInfo &amp; Congress.gov, Voteview, U.S. Census Bureau, unitedstates/congress-legislators, Open States people data. Summaries are shortened from official text. Not legal advice. Always open the official bill to check.<br><span id="gen"></span></footer>
+</main>
+<script src="app.js"></script>
+</body></html>

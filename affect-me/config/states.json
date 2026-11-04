@@ -1,0 +1,11 @@
+{
+  "_comment": "Turn on a state by adding it here and running the pipeline for it (pipeline/fetch_<state>.py). Federal data is per-state (members_XX.json, bills_119_XX.json).",
+  "federal": {"congress": 119, "label": "U.S. Congress (119th, 2025-2026)"},
+  "states": {
+    "IL": {"enabled": true, "name": "Illinois", "session": "104th General Assembly (2025-2026)",
+           "zipPrefixes": ["600","601","602","603","604","605","606","607","608","609","610","611","612","613","614","615","616","617","618","619","620","622","623","624","625","626","627","628","629"],
+           "files": {"members": "data/states/IL/members.json", "bills": "data/states/IL/bills_104.json", "zips": "data/states/IL/zip_districts.json",
+                     "usMembers": "data/us/members_IL.json", "usBills": "data/us/bills_119_IL.json"},
+           "lowerName": "State Representative", "upperName": "State Senator"}
+  }
+}
