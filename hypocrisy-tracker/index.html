@@ -8,7 +8,11 @@ h1{margin-bottom:0}.sub{color:#555}
 input,select{padding:6px;font-size:15px}
 .vals{display:flex;flex-wrap:wrap;gap:6px}.vals label{border:1px solid #ccc;border-radius:16px;padding:2px 10px;cursor:pointer}
 table{border-collapse:collapse;width:100%;font-size:14px}th,td{border-bottom:1px solid #ddd;padding:6px;text-align:left;vertical-align:top}
-.flag{color:#8a5a00}.pair{border:1px solid #ddd;border-radius:8px;padding:10px;margin:8px 0}
+.flag{color:#8a5a00}.card{border:1px solid #ccc;border-radius:10px;padding:12px;margin:10px 0}
+.badge{display:inline-block;font-weight:800;font-size:18px;padding:6px 12px;border-radius:6px;margin:6px 0}
+.b0{background:#7a0010;color:#fff}.b1{background:#f3c64a;color:#222}.b2{background:#2e7d32;color:#fff}.b3{background:#e0e0e0;color:#222}
+.ev{border-left:4px solid #999;padding:4px 10px;margin:8px 0;background:#fafafa}.meta{color:#444;font-size:14px}
+button{padding:8px 14px;font-size:15px}
 details{margin:6px 0}
 </style></head><body>
 <h1>Hypocrisy Tracker: Congress</h1>
@@ -24,15 +28,18 @@ details{margin:6px 0}
 <select id="st"><option value="">All states</option></select>
 <select id="ch"><option value="">Both chambers</option><option>Senate</option><option>House</option></select>
 <select id="pt"><option value="">All parties</option><option>Democrat</option><option>Republican</option><option>Independent</option></select>
-<select id="ss"><option value="">Any status</option><option>Scored</option><option>Insufficient evidence</option><option>Not yet scored</option><option value="flag">Has unconfirmed flags</option></select>
+<select id="ss"><option value="">Any verdict</option><option>DOCUMENTED HYPOCRITE</option><option>SOME HYPOCRISY</option><option>NO HYPOCRISY FOUND (so far)</option><option>NOT ENOUGH INFO YET</option><option value="flag">Has unconfirmed flags</option></select>
 </div>
 <p>Don't know your district? Enter your ZIP at <a href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener">house.gov/find-your-representative</a>, then pick your state above.</p>
 <p id="count"></p>
-<table><thead><tr><th>Name</th><th>State</th><th>Chamber</th><th>Party</th><th>Score</th><th>Status</th><th>Flags (unconfirmed)</th></tr></thead><tbody id="rows"></tbody></table>
-
-<h2>3. Confirmed said/did pairs</h2>
-<div id="pairs"></div>
-
+<div id="cards"></div>
+<button id="more">Show more</button>
+<h2>What the verdicts mean</h2>
+<ul><li><b>DOCUMENTED HYPOCRITE</b>: 3 or more points, or any official finding of wrongdoing.</li>
+<li><b>SOME HYPOCRISY</b>: 1 to 2 points.</li>
+<li><b>NO HYPOCRISY FOUND (so far)</b>: 8 or more records reviewed and no pairs found.</li>
+<li><b>NOT ENOUGH INFO YET</b>: fewer than 8 records reviewed. This is not a clean bill of health.</li></ul>
+<p>Late-filing pairs: 2 points if the member backed a stricter trading rule before filing late; 1 point if the late filing came first. Supreme Court 2016 vs 2020 pairs: 2 points each, for members of both parties who switched positions when the White House changed hands.</p>
 <h2>How scoring works</h2>
 <ol>
 <li>Everyone starts at "Not yet scored".</li>
@@ -49,18 +56,30 @@ details{margin:6px 0}
 <p class="sub" id="upd"></p>
 <script>
 const VALUES=["Economy & jobs","Cost of living","Healthcare","Border & immigration","Public safety","Gun rights","Gun safety","Climate & environment","Energy independence","Civil liberties & privacy","Free speech","Religious liberty","Freedom of association","Abortion: protecting unborn life","Abortion: access to abortion","Veterans","Education & school choice","Small business","Workers & unions","National defense","Avoiding foreign wars","Government spending & debt","Corruption & ethics"];
-let D,picked=new Set();
+const BC={"DOCUMENTED HYPOCRITE":"b0","SOME HYPOCRISY":"b1","NO HYPOCRISY FOUND (so far)":"b2","NOT ENOUGH INFO YET":"b3"};
+let D,picked=new Set(),limit=50,byId={};
 const $=id=>document.getElementById(id);
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const a=(u,t)=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`;
 VALUES.forEach(v=>{const l=document.createElement('label');l.innerHTML=`<input type="checkbox"> ${esc(v)}`;l.firstChild.onchange=e=>{e.target.checked?picked.add(v):picked.delete(v);render()};$('vals').appendChild(l)});
 fetch('data.json').then(r=>r.json()).then(d=>{D=d;$('upd').textContent='Data updated '+d.updated+'.';
+d.pairs.forEach(p=>(byId[p.bioguide]=byId[p.bioguide]||[]).push(p));
 [...new Set(d.members.map(m=>m.state))].sort().forEach(s=>$('st').add(new Option(s,s)));
-['q','st','ch','pt','ss'].forEach(i=>$(i).oninput=render);render()});
+['q','st','ch','pt','ss'].forEach(i=>$(i).oninput=()=>{limit=50;render()});$('more').onclick=()=>{limit+=50;render()};render()});
+function rank(m){const ps=byId[m.bioguide]||[];const hit=ps.some(p=>p.values.some(v=>picked.has(v)));return (hit?1000:0)+m.points*10+(m.flags.length?1:0)}
+function card(m){const ps=byId[m.bioguide]||[];
+let h=`<div class="card"><b style="font-size:18px">${esc(m.name)}</b> <span class="meta">${m.party} · ${m.state}${m.district&&m.district!=="0"?'-'+m.district:''} · ${m.chamber} · ${esc(m.service)}</span><br>
+<span class="badge ${BC[m.verdict]}">${m.verdict}</span> <span class="meta">${m.points?m.points+' of 10 points · ':''}${m.recordsReviewed} records reviewed</span>`;
+ps.forEach(p=>{h+=`<div class="ev"><b>${esc(p.category)}</b> (${p.points} pt, ${p.confidence} confidence)<br>
+<b>SAID</b> (${esc(p.saidDate)}, ${a(p.saidSrc,'source')}): “${esc(p.said)}”<br>
+<b>DID</b> (${esc(p.didDate)}, ${a(p.didSrc,'source')}): ${esc(p.did)}<br>
+<b>Why it counts:</b> ${esc(p.why)}<br><span class="meta">Their side / context: ${esc(p.note)}</span></div>`});
+m.flags.forEach(f=>{h+=`<div class="ev flag">Flag, unconfirmed: ${f.count} trade report(s) filed late, longest ${f.maxDelayDays} days. ${a(f.src,'official filing')}. Not scored: no matching pro-ban stance found.</div>`});
+h+=`<div class="meta"><b>Committees:</b> ${m.committees.length?esc(m.committees.join('; ')):'none listed'}<br>
+<b>Top donor industries:</b> ${m.donors?esc(m.donors.slice(0,-1).join('; '))+' '+a(m.donors[m.donors.length-1],'OpenSecrets'):'not loaded yet · '+a(m.opensecrets,'look up on OpenSecrets')}<br>
+<b>Checked so far:</b> ${esc(m.checks.join('; '))}</div></div>`;return h}
 function render(){if(!D)return;const q=$('q').value.toLowerCase(),st=$('st').value,ch=$('ch').value,pt=$('pt').value,ss=$('ss').value;
-const L=D.members.filter(m=>(!q||m.name.toLowerCase().includes(q))&&(!st||m.state==st)&&(!ch||m.chamber==ch)&&(!pt||m.party==pt)&&(!ss||(ss=='flag'?m.flags.length:m.status==ss)));
-$('count').textContent=L.length+' members shown';
-$('rows').innerHTML=L.map(m=>`<tr><td>${esc(m.name)}</td><td>${m.state}${m.district?'-'+m.district:''}</td><td>${m.chamber}</td><td>${m.party}</td><td>${m.score==null?'-':m.score+' / 10'}</td><td>${m.status}${m.recordsReviewed?' ('+m.recordsReviewed+' records)':''}</td><td class="flag">${m.flags.map(f=>`<a href="${f.src}" target="_blank" rel="noopener">${f.count} late trade report(s), longest ${f.maxDelayDays} days</a>`).join('')}</td></tr>`).join('');
-const ids=new Set(L.map(m=>m.bioguide));const name=b=>D.members.find(m=>m.bioguide==b).name;
-const P=D.pairs.filter(p=>ids.has(p.bioguide)).sort((a,b)=>(b.values.some(v=>picked.has(v))?1:0)-(a.values.some(v=>picked.has(v))?1:0));
-$('pairs').innerHTML=P.map(p=>`<div class="pair"><b>${esc(name(p.bioguide))}</b>: ${esc(p.category)} (${p.points} pt, ${p.confidence} confidence)<br>Said (${p.saidDate}): ${esc(p.said)} <a href="${p.saidSrc}" target="_blank" rel="noopener">source</a><br>Did (${p.didDate}): ${esc(p.did)} <a href="${p.didSrc}" target="_blank" rel="noopener">source</a><br><i>${esc(p.note)}</i><br>Topics: ${p.values.join(', ')}</div>`).join('')||'<p>No confirmed pairs for this filter yet.</p>';}
+const L=D.members.filter(m=>(!q||m.name.toLowerCase().includes(q))&&(!st||m.state==st)&&(!ch||m.chamber==ch)&&(!pt||m.party==pt)&&(!ss||(ss=='flag'?m.flags.length:m.verdict==ss))).sort((x,y)=>rank(y)-rank(x)||x.name.localeCompare(y.name));
+$('count').textContent=L.length+' members match. Members with evidence are shown first.';
+$('cards').innerHTML=L.slice(0,limit).map(card).join('');$('more').style.display=L.length>limit?'':'none';}
 </script></body></html>
