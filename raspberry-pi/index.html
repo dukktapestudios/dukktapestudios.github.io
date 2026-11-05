@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raspberry Pi Crash Course</title>
+<meta name="description" content="Learn Raspberry Pi hardware from zero: GPIO, a camera, sensors, and the path on to ESP32. Scannable notes with hands-on examples.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://dukktape.goatcounter.com; script-src 'self' 'unsafe-inline' https://gc.zgo.at; connect-src https://dukktape.goatcounter.com; frame-src 'none'; object-src 'none'; base-uri 'none'">
+<style>
+  :root {
+    --bg: #0f1419;
+    --bg2: #1a2332;
+    --bg3: #243044;
+    --text: #e7ecf3;
+    --muted: #9aa8bc;
+    --accent: #c51a4a;
+    --accent2: #6bcb77;
+    --link: #7eb8ff;
+    --border: #2d3a4f;
+    --warn: #f0b429;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    font-size: 1.05rem;
+  }
+  a { color: var(--link); }
+  a:hover { text-decoration: underline; }
+  header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 1.5rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  header h1 {
+    margin: 0 0 0.35rem;
+    font-size: 1.45rem;
+    letter-spacing: -0.02em;
+  }
+  header p {
+    margin: 0 0 0.85rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.85rem;
+    font-size: 0.88rem;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--muted);
+    padding: 0.2rem 0;
+  }
+  nav a:hover { color: var(--text); }
+  main {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 3rem;
+  }
+  section {
+    margin-bottom: 2.75rem;
+    scroll-margin-top: 6.5rem;
+  }
+  h2 {
+    font-size: 1.35rem;
+    margin: 0 0 0.85rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--accent);
+    letter-spacing: -0.01em;
+  }
+  h3 {
+    font-size: 1.08rem;
+    margin: 1.4rem 0 0.5rem;
+    color: var(--accent2);
+  }
+  p { margin: 0.6rem 0; }
+  ul, ol { margin: 0.5rem 0 0.8rem; padding-left: 1.35rem; }
+  li { margin: 0.35rem 0; }
+  .muted { color: var(--muted); }
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.15rem;
+    margin: 0.75rem 0;
+  }
+  .models {
+    display: grid;
+    gap: 0.75rem;
+  }
+  @media (min-width: 560px) {
+    .models { grid-template-columns: repeat(3, 1fr); }
+  }
+  .model {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+  }
+  .model strong { display: block; font-size: 1.05rem; margin-bottom: 0.25rem; }
+  .price {
+    color: var(--accent2);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin: 0.35rem 0;
+  }
+  .cap-list { list-style: none; padding: 0; }
+  .cap-list li {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 0.95rem;
+    margin: 0.5rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.35rem 1rem;
+  }
+  .cap-list .cost {
+    color: var(--muted);
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  .steps { counter-reset: step; list-style: none; padding: 0; }
+  .steps li {
+    counter-increment: step;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 0.95rem 0.75rem 2.75rem;
+    margin: 0.55rem 0;
+    position: relative;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0.75rem;
+    top: 0.7rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .warn {
+    background: #2a2410;
+    border: 1px solid var(--warn);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin: 0.75rem 0;
+  }
+  .warn strong { color: var(--warn); }
+  .path {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+    margin: 1rem 0;
+  }
+  .path span {
+    background: var(--bg3);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.9rem;
+  }
+  .path .arrow { background: transparent; color: var(--muted); padding: 0; }
+  .callout {
+    border-left: 3px solid var(--accent2);
+    padding: 0.15rem 0 0.15rem 0.9rem;
+    margin: 1rem 0;
+    color: var(--muted);
+  }
+  footer {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 1.25rem 2.5rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  pre {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    overflow-x: auto;
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+  pre code { background: transparent; padding: 0; }
+  code {
+    background: var(--bg3);
+    padding: 0.12rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+</style>
+</head>
+<body>
+<header>
+  <p style="margin:0 0 0.5rem;font-size:0.85rem"><a href="/">← Dukktape Studios</a></p>
+  <h1>Raspberry Pi Crash Course</h1>
+  <p>For software folks who haven’t touched hardware yet — scannable, practical, no fluff.</p>
+  <nav>
+    <a href="#what">What it is</a>
+    <a href="#start">Getting started</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#coop">Coop camera</a>
+    <a href="#path">Learning path</a>
+    <a href="#esp32">Pi → ESP32</a>
+    <a href="#examples">Examples</a>
+    <a href="#safety">Safety</a>
+  </nav>
+</header>
+
+<main>
+
+<section id="what">
+  <h2>1. What a Raspberry Pi is</h2>
+  <p>A Raspberry Pi is a credit-card-sized computer. It runs a full Linux OS (Raspberry Pi OS), has USB, HDMI, Wi‑Fi, and a row of GPIO pins so you can talk to sensors, cameras, relays, and motors — like a tiny PC that can also control physical things.</p>
+  <p class="muted">Official list prices from raspberrypi.com (board only; accessories extra). Street prices at approved resellers may vary.</p>
+  <div class="models">
+    <div class="model">
+      <strong>Raspberry Pi 5</strong>
+      <div class="price">from ~$45</div>
+      <p class="muted" style="margin:0;font-size:0.9rem">Fastest current model. Great desktop / media / heavy projects. 1GB from $45; 2GB ~$77.50.</p>
+    </div>
+    <div class="model">
+      <strong>Raspberry Pi 4</strong>
+      <div class="price">from ~$35</div>
+      <p class="muted" style="margin:0;font-size:0.9rem">Still excellent all-rounder. 1GB from $35; 2GB ~$67.50. Dual micro‑HDMI, lots of USB.</p>
+    </div>
+    <div class="model">
+      <strong>Pi Zero 2 W</strong>
+      <div class="price">~$15</div>
+      <p class="muted" style="margin:0;font-size:0.9rem">Tiny, low power, built-in Wi‑Fi. Perfect for cameras, sensors, battery/solar builds.</p>
+    </div>
+  </div>
+</section>
+
+<section id="start">
+  <h2>2. Getting started</h2>
+  <p>You need: the Pi board, a microSD card (16GB+; 32GB is comfortable), a proper power supply (USB‑C for Pi 4/5; micro‑USB for Zero 2 W — use the official or a quality 5V supply), and optionally a monitor/keyboard for first boot.</p>
+
+  <h3>Flash the OS with Raspberry Pi Imager</h3>
+  <ol class="steps">
+    <li>Download <a href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener">Raspberry Pi Imager</a> on your PC.</li>
+    <li>Choose OS → Raspberry Pi OS (Desktop or Lite if you’ll go headless).</li>
+    <li>Choose your microSD card → Write. Wait until it finishes.</li>
+  </ol>
+
+  <h3>Headless SSH setup (no monitor)</h3>
+  <div class="card">
+    <p>In Imager, open the gear / OS Customisation before writing:</p>
+    <ul>
+      <li>Set hostname, username, and password</li>
+      <li>Configure Wi‑Fi (SSID + password) for your home network</li>
+      <li>Enable SSH</li>
+    </ul>
+    <p>Insert the card, power the Pi, wait ~1–2 minutes, then from your PC:</p>
+    <p><code>ssh youruser@raspberrypi.local</code> (or the IP from your router)</p>
+  </div>
+
+  <h3>Enable the camera interface</h3>
+  <p>Modern Raspberry Pi OS uses <code>libcamera</code>. After SSH (or on the desktop):</p>
+  <ul>
+    <li>Connect the camera ribbon (contacts toward the right pins; Zero needs a Zero camera cable).</li>
+    <li>Run <code>sudo raspi-config</code> → Interface Options → enable Camera / legacy as prompted, or ensure the camera is detected.</li>
+    <li>Test: <code>rpicam-hello</code> or <code>libcamera-hello</code> (a short preview / still).</li>
+  </ul>
+  <p class="muted">Pi 5 / newer boards: use the Camera Module 3 (~$25 official) with the correct ribbon for your model.</p>
+</section>
+
+<section id="capabilities">
+  <h2>3. What you can do (and rough cost)</h2>
+  <ul class="cap-list">
+    <li>
+      <span><strong>Camera / live video to phone</strong> — stream with motionEye, go2rtc, or a simple MJPEG/WebRTC page you open on your phone.</span>
+      <span class="cost">Cam ~$25 + Pi</span>
+    </li>
+    <li>
+      <span><strong>GPIO sensors</strong> — temperature (DS18B20, DHT), motion (PIR), door/window (reed switch), light, humidity.</span>
+      <span class="cost">~$2–15 each</span>
+    </li>
+    <li>
+      <span><strong>Home automation</strong> — drive relays for lights/fans; talk to smart plugs via MQTT/Home Assistant.</span>
+      <span class="cost">Relay boards ~$5–15</span>
+    </li>
+    <li>
+      <span><strong>Networking</strong> — Wi‑Fi hotspot, reverse proxy, or a tiny personal web server.</span>
+      <span class="cost">Software free</span>
+    </li>
+    <li>
+      <span><strong>Media</strong> — Plex / Jellyfin client or server; RetroPie / Recalbox for classic games.</span>
+      <span class="cost">Pi 4/5 preferred</span>
+    </li>
+    <li>
+      <span><strong>Motors &amp; servos</strong> — PWM on GPIO (or a HAT) for small DC motors and hobby servos.</span>
+      <span class="cost">~$3–20 + driver</span>
+    </li>
+    <li>
+      <span><strong>SDR companion</strong> — plug in a cheap USB SDR dongle and decode radio with rtl-sdr / gqrx-style tools.</span>
+      <span class="cost">Dongle ~$20–40</span>
+    </li>
+  </ul>
+</section>
+
+<section id="coop">
+  <h2>4. Worked example: chicken coop camera</h2>
+  <div class="card">
+    <p><strong>Goal:</strong> see the coop from your phone without walking out there.</p>
+    <ul>
+      <li><strong>Board:</strong> Pi Zero 2 W (~$15) — small, Wi‑Fi, low power.</li>
+      <li><strong>Camera:</strong> Camera Module 3 (~$25) + Zero camera ribbon.</li>
+      <li><strong>Power:</strong> good USB 5V supply into the Zero; for outdoor, optional solar panel + battery / UPS HAT so it survives cloudy days.</li>
+      <li><strong>Enclosure:</strong> weatherproof box with a clear window for the lens; keep vents from soaking the board.</li>
+    </ul>
+    <h3>How the stream reaches your phone</h3>
+    <ol>
+      <li>Zero joins your home Wi‑Fi (set in Imager).</li>
+      <li>Camera software (e.g. motionEye, go2rtc, or <code>rpicam</code> + a small web UI) serves a live page on the LAN.</li>
+      <li>On your phone (same Wi‑Fi): open <code>http://coop.local:port</code> or the Pi’s IP.</li>
+      <li>Away from home: use a VPN into your network, Tailscale/WireGuard, or a reverse tunnel — don’t expose the cam raw to the public internet.</li>
+    </ol>
+    <p class="callout">Optional ESP32 nodes (temp, door open) can sit next to the coop and report over Wi‑Fi while the Zero handles video — see the Pi → ESP32 section below.</p>
+  </div>
+</section>
+
+<section id="path">
+  <h2>5. Learning path</h2>
+  <div class="path">
+    <span>1. Blink an LED</span>
+    <span class="arrow">→</span>
+    <span>2. Camera still / stream</span>
+    <span class="arrow">→</span>
+    <span>3. One sensor</span>
+    <span class="arrow">→</span>
+    <span>4. Relay / automation</span>
+  </div>
+  <ol>
+    <li><strong>Blink an LED</strong> — wire LED + resistor to a GPIO pin; toggle it with a few lines of Python (<code>gpiozero</code>). Proves power, pins, and code.</li>
+    <li><strong>Camera</strong> — take a still, then a short stream. You’re already “seeing” the world.</li>
+    <li><strong>Sensors</strong> — read temperature or a door switch; print values or log them.</li>
+    <li><strong>Automation</strong> — if temp high → fan relay on; if door open after dark → notify. Small scripts beat big frameworks at first.</li>
+  </ol>
+  <div class="card">
+    <p><strong>Official docs:</strong> <a href="https://www.raspberrypi.com/documentation/" target="_blank" rel="noopener">raspberrypi.com/documentation</a></p>
+    <p><strong>Magazine:</strong> <a href="https://magpi.raspberrypi.com/" target="_blank" rel="noopener">The MagPi</a> (free PDF issues — project-heavy, beginner-friendly).</p>
+  </div>
+</section>
+
+<section id="esp32">
+  <h2>6. Building Up: From Pi to ESP32</h2>
+  <p>The Pi’s GPIO pins are the same doorway as the ESP32 — same 3.3V logic, same pin-control concepts — so skills transfer directly.</p>
+  <h3>What transfers</h3>
+  <ul>
+    <li>Reading sensors (temperature, motion, door switches)</li>
+    <li>Driving LEDs and relays</li>
+    <li>PWM for motors and servos</li>
+    <li>Writing the software that ties it together</li>
+  </ul>
+  <h3>The upgrade path</h3>
+  <p>Start on the Pi (easier to see results, full Linux desktop/SSH). Then move to ESP32 boards (~$5 each) for cheap, low-power, battery/solar projects — same code patterns, just a different library (Arduino / ESP-IDF / MicroPython instead of gpiozero on Linux).</p>
+  <p>The ESP32 also adds Wi‑Fi and Bluetooth built in, which is why it’s the go-to for remote sensor nodes — like companion sensors next to a coop camera.</p>
+  <p class="callout"><strong>Bottom line:</strong> the Pi teaches you the concepts; the ESP32 lets you scatter cheap nodes everywhere.</p>
+</section>
+
+
+<section id="examples">
+  <h2>7. Examples (hands-on)</h2>
+  <p class="muted">Each one teaches one idea. Parts are typical; pin numbers are examples — check your board’s pinout.</p>
+
+  <div class="card">
+    <h3>1. Blink an LED</h3>
+    <p><strong>What it does:</strong> Turns an LED on and off on a timer so you know GPIO + code work.</p>
+    <p><strong>Parts:</strong> LED, 220–330Ω resistor, jumper wires, breadboard.</p>
+    <p><strong>Key concept:</strong> A GPIO pin is a software-controlled on/off switch (3.3V when high).</p>
+    <pre><code>from gpiozero import LED
+from time import sleep
+
+led = LED(17)  # BCM pin 17
+while True:
+    led.on()
+    sleep(0.5)
+    led.off()
+    sleep(0.5)</code></pre>
+  </div>
+
+  <div class="card">
+    <h3>2. Read a temperature sensor</h3>
+    <p><strong>What it does:</strong> Prints the room (or coop) temperature every few seconds.</p>
+    <p><strong>Parts:</strong> DS18B20 (1-Wire) or DHT22; for DS18B20 enable 1-Wire in <code>raspi-config</code>.</p>
+    <p><strong>Key concept:</strong> Sensors speak a protocol; your code asks for a reading and converts raw bits to °C/°F.</p>
+    <pre><code># DS18B20 via gpiozero (1-Wire enabled)
+from gpiozero import CPUTemperature  # demo: CPU sensor always available
+from time import sleep
+# For a real DS18B20 use w1thermsensor or read /sys/bus/w1/...
+t = CPUTemperature()
+while True:
+    print(f"{t.temperature:.1f} °C")
+    sleep(2)</code></pre>
+    <p class="muted">Swap <code>CPUTemperature</code> for your probe library once the sensor is wired (data pin + 4.7kΩ pull-up for DS18B20).</p>
+  </div>
+
+  <div class="card">
+    <h3>3. Read a motion sensor (PIR)</h3>
+    <p><strong>What it does:</strong> Prints “motion!” when someone walks past a PIR module.</p>
+    <p><strong>Parts:</strong> HC-SR501 (or similar) PIR, 5V power from Pi, signal to a GPIO input.</p>
+    <p><strong>Key concept:</strong> Digital inputs are either high or low — poll them or wait for an edge.</p>
+    <pre><code>from gpiozero import MotionSensor
+
+pir = MotionSensor(4)  # BCM 4
+pir.when_motion = lambda: print("motion!")
+pir.when_no_motion = lambda: print("quiet")
+from signal import pause
+pause()</code></pre>
+  </div>
+
+  <div class="card">
+    <h3>4. Detect motion with the Pi camera</h3>
+    <p><strong>What it does:</strong> Compares frames and saves a still when enough pixels change.</p>
+    <p><strong>Parts:</strong> Camera Module 3 (or 2) + correct ribbon for your Pi.</p>
+    <p><strong>Key concept:</strong> Vision motion = difference between frames, not a PIR — lighting changes can false-trigger.</p>
+    <pre><code># Sketch: capture, compare, save on change (use picamera2)
+from picamera2 import Picamera2
+from PIL import ImageChops, Image
+import time
+
+picam = Picamera2()
+picam.start()
+prev = picam.capture_image("main").convert("L")
+while True:
+    time.sleep(0.5)
+    cur = picam.capture_image("main").convert("L")
+    diff = ImageChops.difference(prev, cur)
+    # if enough bright pixels in diff → motion
+    if diff.getbbox():
+        cur.save("motion.jpg")
+        print("saved motion.jpg")
+    prev = cur</code></pre>
+  </div>
+
+  <div class="card">
+    <h3>5. Pan-tilt tracking with two servos</h3>
+    <p><strong>What it does:</strong> Moves a camera mount left/right and up/down to follow a detected blob.</p>
+    <p><strong>Parts:</strong> Two hobby servos, pan-tilt bracket, external 5V for servos (don’t power servos from Pi 3.3V pins), common ground.</p>
+    <p><strong>Key concept:</strong> PWM sets servo angle; tracking = find target in frame → adjust pan/tilt toward center.</p>
+    <pre><code>from gpiozero import AngularServo
+from time import sleep
+
+pan = AngularServo(17, min_angle=-90, max_angle=90)
+tilt = AngularServo(27, min_angle=-45, max_angle=45)
+
+def aim(dx, dy):
+    # dx/dy = how far the target is from frame center (pixels)
+    pan.angle = max(-90, min(90, (pan.angle or 0) + dx * 0.05))
+    tilt.angle = max(-45, min(45, (tilt.angle or 0) + dy * 0.05))
+
+# Call aim() from your vision loop after finding the target
+aim(20, -10)
+sleep(1)</code></pre>
+  </div>
+
+  <div class="card">
+    <h3>6. Push a photo or stream to your phone over Wi‑Fi</h3>
+    <p><strong>What it does:</strong> Serves a live page on your LAN that your phone opens in a browser.</p>
+    <p><strong>Parts:</strong> Pi on Wi‑Fi, camera optional; phone on the same network.</p>
+    <p><strong>Key concept:</strong> The Pi is a tiny web server; your phone is just a client. For away-from-home, use a VPN — don’t expose the cam raw to the internet.</p>
+    <pre><code># Simplest still server (Flask sketch)
+from flask import Flask, send_file
+from picamera2 import Picamera2
+
+app = Flask(__name__)
+cam = Picamera2()
+cam.start()
+
+@app.get("/")
+def index():
+    cam.capture_file("/tmp/shot.jpg")
+    return send_file("/tmp/shot.jpg", mimetype="image/jpeg")
+
+app.run(host="0.0.0.0", port=8080)
+# Phone: http://raspberrypi.local:8080</code></pre>
+    <p class="muted">For continuous video, use motionEye, go2rtc, or <code>rpicam-vid</code> piped to a streamer.</p>
+  </div>
+
+  <div class="card">
+    <h3>7. Control a relay (mains — safely)</h3>
+    <p><strong>What it does:</strong> Lets the Pi switch a light or heater <em>through a relay module</em>, never by touching AC wires to GPIO.</p>
+    <p><strong>Parts:</strong> Opto-isolated relay board rated for your load; Pi GPIO to relay IN; mains only on the relay’s screw terminals inside a covered box. Or skip AC and use a Wi‑Fi smart plug via MQTT.</p>
+    <p><strong>Key concept:</strong> The Pi only drives a low-voltage signal; the relay’s contacts handle mains. Common ground + correct active-high/low for your board.</p>
+    <pre><code>from gpiozero import OutputDevice
+from time import sleep
+
+# Many relay boards are active-LOW
+relay = OutputDevice(17, active_high=False, initial_value=False)
+relay.on()   # load ON
+sleep(5)
+relay.off()  # load OFF</code></pre>
+    <div class="warn"><strong>Safety:</strong> If you’re unsure about AC wiring, don’t. Use a listed smart plug and control it over the network instead.</div>
+  </div>
+</section>
+
+<section id="safety">
+  <h2>8. Safety</h2>
+  <div class="warn">
+    <p><strong>3.3V only on GPIO.</strong> Pi pins are 3.3V logic. Do not feed them 5V signals. Level-shift or use 3.3V sensors. Shorting a pin the wrong way can kill the board.</p>
+  </div>
+  <ul>
+    <li><strong>Mains / relays:</strong> never wire household AC directly to the Pi. Use a properly rated relay module or smart plug; keep mains in a covered enclosure. If you’re unsure about AC wiring, don’t — use Wi‑Fi plugs instead.</li>
+    <li><strong>Power supplies:</strong> underpowered or junk chargers cause random crashes and SD corruption. Prefer official or quality 5V supplies rated for your model (Pi 5 wants a solid 5A-capable USB‑C PD supply).</li>
+    <li><strong>ESD:</strong> touch grounded metal before handling the bare board; avoid working on carpet in socks. Store boards in antistatic bags when not in use.</li>
+    <li><strong>Heat &amp; outdoors:</strong> Pi 5 likes a cooler/fan under load. Outdoor boxes need drip protection and condensation awareness.</li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  Prices are approximate official list prices from raspberrypi.com as of late 2026 — check an approved reseller before you buy.
+  <p style="margin:0.6rem 0 0"><a href="/">← Dukktape Studios</a></p>
+</footer>
+<script data-goatcounter="https://dukktape.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
