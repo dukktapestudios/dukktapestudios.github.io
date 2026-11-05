@@ -182,7 +182,33 @@ h1 {
   box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(70, 50, 30, .08);
   transform: rotate(-0.5deg);
 }
-.site-nav { margin: 16px 0 6px; }
+.site-nav {
+  margin: 16px 0 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: .45rem 1.1rem;
+  background: #fff;
+  color: var(--green-deep);
+  border: 2px solid var(--green);
+  border-radius: 999px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--orange-deep);
+  border-color: var(--orange);
+  background: #fff7ee;
+}
 .merch {
   display: inline-flex;
   align-items: center;
@@ -395,6 +421,7 @@ footer {
   <p class="tag">Teaching myself the internet and AI, one duct-taped idea at a time.</p>
   <nav class="site-nav" aria-label="Site">
     <a class="merch" href="https://dukktape-studios-shop.fourthwall.com/" target="_blank" rel="noopener">Merch</a>
+    <a class="nav-link" href="/veterans-day/">Veterans Day route</a>
   </nav>
 </header>
 <img class="banner" src="banner.jpg" alt="Dukktape building a house with boards and duct tape" onerror="this.style.display='none'">
@@ -415,6 +442,7 @@ footer {
 <section>
   <h2>Projects</h2>
   <div class="cards">
+    <div class="card"><h3><a href="https://dukktapestudios.github.io/veterans-day/">Veterans Day route</a></h3><p>Free meals and deals for Wednesday, Nov 11, 2026. Check spots near your ZIP and build a route that follows each offer's hours.</p><p class="visits">👁 0 visits</p></div>
     <div class="card"><h3><a href="https://dukktapestudios.github.io/stories/">Bookshelf</a></h3><p>A shelf of Alexander's books.</p><p class="visits" data-paths="/stories/ /stories/books/rivers-run-wolf-cry/ /stories/books/random-ideas/">👁 0 visits</p></div>
     <div class="card"><h3><a href="https://dukktapestudios.github.io/irl-armory/">IRL Armory</a></h3><p>WoW-style character page you can share.</p><p class="visits">👁 0 visits</p></div>
     <div class="card"><h3><a href="https://dukktapestudios.github.io/rooster-rumble/">Rooster Rumble</a></h3><p>Rooster battle card game. Knock out all 3 enemy roosters.</p><p class="visits" data-paths="/rooster-rumble/ /rooster-rumble/cards/">👁 0 visits</p></div>
