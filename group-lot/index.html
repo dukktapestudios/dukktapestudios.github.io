@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Group Lot — same car, better price | Dukktape Studios</title>
+<meta name="description" content="Group Lot pools people who want the same car so a dealer can quote a volume price. Each buyer still purchases from the dealer. Demo for Rockford and Caledonia 61011. No money collected. Not legal advice.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://dukktape.goatcounter.com; script-src 'self' 'unsafe-inline' https://gc.zgo.at; connect-src https://dukktape.goatcounter.com; frame-src 'none'; object-src 'none'; base-uri 'none'">
+<style>
+  :root {
+    --bg: #0f1218;
+    --panel: #171c26;
+    --panel2: #1e2533;
+    --line: #2a3345;
+    --text: #e8edf7;
+    --muted: #9aa6bd;
+    --accent: #5eead4;
+    --accent2: #38bdf8;
+    --warn: #fbbf24;
+    --good: #86efac;
+    --radius: 14px;
+    --shadow: 0 12px 40px rgba(0,0,0,.35);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: radial-gradient(1200px 600px at 10% -10%, #1a2740 0%, transparent 55%),
+                radial-gradient(900px 500px at 100% 0%, #14302c 0%, transparent 50%),
+                var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+  a { color: var(--accent2); }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 24px 18px 64px; }
+  .home { margin: 0 0 14px; font-size: 0.9rem; }
+  .home a { text-decoration: none; }
+  .home a:hover, .home a:focus-visible { text-decoration: underline; }
+  .badge {
+    display: inline-flex; gap: 8px; align-items: center;
+    font-size: 12px; letter-spacing: .04em; text-transform: uppercase;
+    color: var(--muted); border: 1px solid var(--line); background: rgba(255,255,255,.03);
+    padding: 6px 10px; border-radius: 999px;
+  }
+  .badge i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); display: inline-block; }
+  h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.15; margin: 14px 0 10px; letter-spacing: -.02em; }
+  .lead { font-size: 1.1rem; color: var(--muted); max-width: 36rem; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  button, .btn {
+    appearance: none; border: 0; cursor: pointer; font: inherit;
+    border-radius: 999px; padding: 12px 18px; font-weight: 600; font-size: 15px;
+  }
+  button:disabled { opacity: .55; cursor: default; }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #06201c; }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+  .btn-small { padding: 8px 12px; font-size: 13px; }
+  .grid { display: grid; gap: 14px; margin-top: 28px; }
+  .calc-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+  @media (min-width: 720px) {
+    .grid.lots { grid-template-columns: 1fr 1fr; }
+    .grid.steps { grid-template-columns: repeat(4, 1fr); }
+    .calc-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  .card {
+    background: linear-gradient(180deg, var(--panel2), var(--panel));
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 16px 14px; box-shadow: var(--shadow);
+  }
+  .card h3 { margin: 0 0 4px; font-size: 1.05rem; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .status {
+    display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 999px;
+    background: #243044; color: var(--accent2);
+  }
+  .status.almost { color: var(--warn); background: #3a3018; }
+  .status.ready { color: var(--good); background: #16321f; }
+  .bar { height: 8px; background: #0b0e14; border-radius: 999px; overflow: hidden; margin: 12px 0 8px; border: 1px solid var(--line); }
+  .bar > span { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+  .row { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .save { color: var(--good); font-weight: 700; }
+  .section { margin-top: 42px; }
+  .section h2 { font-size: 1.35rem; margin: 0 0 12px; letter-spacing: -.01em; }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+    background: #12332e; color: var(--accent); font-weight: 800; font-size: 13px; margin-bottom: 8px;
+  }
+  .calc label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+  .calc input, .join-box input {
+    width: 100%; background: #0b0e14; border: 1px solid var(--line); color: var(--text);
+    border-radius: 10px; padding: 10px 12px; font-size: 15px; margin-bottom: 12px;
+  }
+  .join-box input { margin-bottom: 10px; }
+  .callout {
+    border: 1px solid #3a3018; background: #221c10; color: #fde68a; border-radius: var(--radius);
+    padding: 12px 14px; font-size: 14px; margin-top: 18px;
+  }
+  .faq details { border-top: 1px solid var(--line); padding: 12px 0; }
+  .faq summary { cursor: pointer; font-weight: 600; }
+  .faq p { color: var(--muted); margin: 8px 0 0; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 18px; }
+  footer p { margin: 0 0 8px; }
+  .modal-back {
+    position: fixed; inset: 0; background: rgba(0,0,0,.55); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 20;
+  }
+  .modal-back.open { display: flex; }
+  .modal { width: min(420px, 100%); background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="home"><a href="/">← Dukktape Studios</a></p>
+    <div class="badge"><i></i> Demo only · Rockford / Caledonia 61011 · No money collected</div>
+    <h1>Same car. More buyers. One dealer quote.</h1>
+    <p class="lead">Group Lot gathers people who want the same vehicle, then asks a dealer for a volume price. You still buy your own car from the dealer — you just don’t negotiate alone.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" id="scrollLots" type="button">Browse open lots</button>
+      <button class="btn-ghost" id="scrollHow" type="button">How it works</button>
+    </div>
+    <div class="callout"><strong>Not a shared bank account.</strong> Nobody dumps the full car price into a pot here. That gets legally messy. This demo only tracks interest. When a lot fills, a dealer quotes the group; each person signs their own deal.</div>
+
+    <section class="section" id="how">
+      <h2>How it works</h2>
+      <div class="grid steps">
+        <div class="card"><div class="step-num">1</div><h3>Pick a lot</h3><p class="meta">Choose the exact car (or start one). Same trim, same area.</p></div>
+        <div class="card"><div class="step-num">2</div><h3>Pool fills</h3><p class="meta">Friends, neighbors, strangers join until the minimum hits.</p></div>
+        <div class="card"><div class="step-num">3</div><h3>Dealers quote</h3><p class="meta">One ask for 8–10 of the same car. That’s fleet-style leverage.</p></div>
+        <div class="card"><div class="step-num">4</div><h3>You buy yours</h3><p class="meta">Title, finance, trade-in — still between you and the dealer. Drive home.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="lots">
+      <h2>Open lots near 61011</h2>
+      <div class="grid lots" id="lotGrid"></div>
+    </section>
+
+    <section class="section">
+      <h2>What you might save</h2>
+      <div class="card calc">
+        <div class="calc-grid">
+          <div>
+            <label for="sticker">Sticker / asking</label>
+            <input id="sticker" type="number" value="32000">
+          </div>
+          <div>
+            <label for="group">Group quote (est.)</label>
+            <input id="group" type="number" value="29500">
+          </div>
+          <div>
+            <label for="solo">Solo negotiated (guess)</label>
+            <input id="solo" type="number" value="30800">
+          </div>
+        </div>
+        <p id="calcOut" class="save" style="margin:4px 0 0; font-size:1.05rem;"></p>
+        <p class="meta" style="margin:6px 0 0;">Estimates only — real quotes come from dealers when a lot is ready.</p>
+      </div>
+    </section>
+
+    <section class="section faq">
+      <h2>Straight answers</h2>
+      <details open>
+        <summary>Why not just pool the money and buy in bulk?</summary>
+        <p>Holding everyone’s car money looks like escrow or acting like a dealer, which can need licenses. Safer model: pool the demand, get one volume quote, each person buys from the dealer.</p>
+      </details>
+      <details>
+        <summary>Do I still go to a dealership?</summary>
+        <p>Usually yes for paperwork and pickup — but the price fight is already done as a group. Some dealers will deliver.</p>
+      </details>
+      <details>
+        <summary>Is this a live service?</summary>
+        <p>No. This is a Dukktape Studios concept demo. Joins stay on your device (localStorage). Not legal advice.</p>
+      </details>
+    </section>
+
+    <footer>
+      <p>Group Lot · Demo only · No money collected · Not legal advice · Dukktape Studios concept</p>
+      <p class="home"><a href="/">← Dukktape Studios</a></p>
+    </footer>
+  </div>
+
+  <div class="modal-back" id="modal">
+    <div class="modal join-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle" style="margin-top:0;">Join this lot</h3>
+      <p class="meta" id="modalMeta"></p>
+      <label class="meta" for="name">Name</label>
+      <input id="name" placeholder="Alex" autocomplete="name">
+      <label class="meta" for="email">Email</label>
+      <input id="email" type="email" placeholder="you@email.com" autocomplete="email">
+      <p class="meta">Saved only in this browser for the demo. Nothing is sent anywhere.</p>
+      <div style="display:flex; gap:8px; margin-top:8px;">
+        <button class="btn-primary" id="joinBtn" type="button">I’m in (demo)</button>
+        <button class="btn-ghost" id="cancelBtn" type="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+const SEED = [
+  { id:'camry', name:'2026 Toyota Camry LE', region:'61011 · new', target:10, count:7, sticker:29500, off:1800, status:'almost' },
+  { id:'civic', name:'2026 Honda Civic Sport', region:'61011 · new', target:8, count:3, sticker:27400, off:1400, status:'open' },
+  { id:'mav', name:'2026 Ford Maverick XL', region:'Rockford area · new', target:10, count:9, sticker:26995, off:2200, status:'almost' },
+  { id:'outback', name:'2025 Subaru Outback Premium', region:'N. IL · new', target:8, count:8, sticker:34900, off:2500, status:'ready' },
+  { id:'cpo', name:'2023 Camry SE · CPO', region:'61011 · certified used', target:6, count:2, sticker:24900, off:900, status:'open' },
+  { id:'rav', name:'2026 Toyota RAV4 LE', region:'Rockford · new', target:12, count:5, sticker:31500, off:2000, status:'open' },
+];
+
+const storeKey = 'grouplot-demo-v1';
+function load() {
+  try { return JSON.parse(localStorage.getItem(storeKey)) || {}; } catch { return {}; }
+}
+function save(data) { localStorage.setItem(storeKey, JSON.stringify(data)); }
+
+function statusLabel(s) {
+  if (s === 'ready') return 'Ready to quote';
+  if (s === 'almost') return 'Almost full';
+  return 'Open';
+}
+
+function lots() {
+  const overrides = load().counts || {};
+  return SEED.map(l => {
+    const count = overrides[l.id] != null ? overrides[l.id] : l.count;
+    let status = 'open';
+    if (count >= l.target) status = 'ready';
+    else if (count >= Math.ceil(l.target * 0.7)) status = 'almost';
+    return { ...l, count, status };
+  });
+}
+
+let activeId = null;
+
+function render() {
+  const grid = document.getElementById('lotGrid');
+  grid.innerHTML = lots().map(l => {
+    const pct = Math.min(100, Math.round(100 * l.count / l.target));
+    const full = l.status === 'ready';
+    return `<article class="card" data-id="${l.id}">
+      <div class="row"><span class="status ${l.status}">${statusLabel(l.status)}</span><span class="meta">${l.region}</span></div>
+      <h3 style="margin-top:10px">${l.name}</h3>
+      <div class="bar"><span style="width:${pct}%"></span></div>
+      <div class="row"><span class="meta">${l.count} of ${l.target} buyers</span><span class="save">~$${l.off.toLocaleString()} off est.</span></div>
+      <div style="margin-top:12px"><button class="btn-primary btn-small join" type="button" data-id="${l.id}" ${full ? 'disabled' : ''}>${full ? 'Lot full — quote next' : 'Join this lot'}</button></div>
+    </article>`;
+  }).join('');
+  grid.querySelectorAll('button.join').forEach(btn => {
+    btn.addEventListener('click', () => openModal(btn.dataset.id));
+  });
+}
+
+function openModal(id) {
+  const l = lots().find(x => x.id === id);
+  if (!l || l.count >= l.target) return;
+  activeId = id;
+  document.getElementById('modalTitle').textContent = 'Join: ' + l.name;
+  document.getElementById('modalMeta').textContent = `${l.count} of ${l.target} so far · demo join only`;
+  document.getElementById('modal').classList.add('open');
+  document.getElementById('name').focus();
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  activeId = null;
+}
+
+document.getElementById('joinBtn').addEventListener('click', () => {
+  if (!activeId) return;
+  const data = load();
+  data.counts = data.counts || {};
+  const base = SEED.find(x => x.id === activeId);
+  const current = data.counts[activeId] != null ? data.counts[activeId] : base.count;
+  if (current < base.target) data.counts[activeId] = current + 1;
+  data.profile = {
+    name: document.getElementById('name').value.trim() || 'Demo buyer',
+    email: document.getElementById('email').value.trim() || ''
+  };
+  save(data);
+  closeModal();
+  render();
+});
+document.getElementById('cancelBtn').addEventListener('click', closeModal);
+document.getElementById('modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+document.getElementById('scrollLots').addEventListener('click', () => document.getElementById('lots').scrollIntoView({behavior:'smooth'}));
+document.getElementById('scrollHow').addEventListener('click', () => document.getElementById('how').scrollIntoView({behavior:'smooth'}));
+
+function calc() {
+  const sticker = +document.getElementById('sticker').value || 0;
+  const group = +document.getElementById('group').value || 0;
+  const solo = +document.getElementById('solo').value || 0;
+  const vsSticker = sticker - group;
+  const vsSolo = solo - group;
+  document.getElementById('calcOut').textContent =
+    `Group quote beats sticker by $${vsSticker.toLocaleString()} and beats a typical solo deal by $${vsSolo.toLocaleString()}.`;
+}
+['sticker','group','solo'].forEach(id => document.getElementById(id).addEventListener('input', calc));
+calc();
+render();
+</script>
+<script data-goatcounter="https://dukktape.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
