@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Launch a Card Game for Profit | Dukktape Studios</title>
+<meta name="description" content="A step-by-step path from a working card-game prototype to a sale: print on demand, crowdfunding, or a print run. Get your own quotes.">
+<link rel="preload" href="../assets/fonts/nunito-latin-800.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/nunito-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/nunito-latin-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../assets/fonts/nunito-latin-800.woff2") format("woff2");
+}
+:root {
+  --paper: #f6efe3;
+  --card: #fffaf3;
+  --ink: #2c241c;
+  --ink-soft: #5c4636;
+  --green: #1d6840;
+  --green-deep: #143f28;
+  --orange: #e07a2f;
+  --orange-deep: #8d3f10;
+  --brown: #6b442c;
+  --silver: #c5ced6;
+  --silver-dark: #8e99a4;
+  --line: #eadcc8;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Nunito, ui-rounded, "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background:
+    radial-gradient(1100px 480px at 50% -120px, #ffe3c4 0%, transparent 70%),
+    radial-gradient(700px 380px at 100% 0%, #e5f3e4 0%, transparent 55%),
+    radial-gradient(640px 360px at -10% 12%, #f8e4d0 0%, transparent 50%),
+    var(--paper);
+}
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: #fff;
+  color: var(--green-deep);
+  padding: 8px 12px;
+  border-radius: 10px;
+  z-index: 6;
+  font-weight: 800;
+}
+.skip:focus,
+.skip:focus-visible { top: 12px; }
+a { color: var(--green-deep); text-underline-offset: .16em; text-decoration-thickness: 2px; }
+a:hover, a:focus-visible { color: var(--orange-deep); }
+:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.page {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+header.page { padding-top: 28px; }
+.back { margin: 0 0 1rem; font-weight: 800; }
+.back a { text-decoration: none; }
+h1 {
+  margin: 0 0 .55rem;
+  font-size: clamp(1.9rem, 5.5vw, 2.7rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--green-deep);
+}
+.deck { margin: 0 0 1rem; font-size: 1.12rem; }
+.notice {
+  margin: 0 0 1.15rem;
+  padding: .85rem 1rem .95rem;
+  background: #fff7e8;
+  border: 1px solid #f0d7b4;
+  border-left: 4px solid var(--orange);
+  border-radius: 14px;
+  font-weight: 700;
+}
+.notice strong { color: var(--orange-deep); }
+.toc {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+.toc-inner { max-width: 46rem; margin: 0 auto; padding: 8px 22px 10px; }
+.toc-label {
+  margin: 0 0 4px;
+  font-size: .92rem;
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+.toc ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+.toc a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: .35rem .8rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: .95rem;
+  white-space: nowrap;
+}
+.toc a:hover,
+.toc a:focus-visible,
+.toc a[aria-current="true"] {
+  background: #fff1e2;
+  border-color: var(--orange);
+  color: var(--orange-deep);
+}
+main.page { padding-top: 18px; padding-bottom: 8px; }
+section[id],
+.steps > li { scroll-margin-top: 11rem; }
+.idea {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.15rem 1.2rem 1.25rem;
+  margin: 0 0 14px;
+  box-shadow: 0 8px 20px rgba(92, 58, 28, .05);
+}
+h2 {
+  margin: 0 0 .8rem;
+  color: var(--green);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.2;
+  border-bottom: 3px solid var(--silver);
+  padding-bottom: .35rem;
+  position: relative;
+}
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 4.6rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--orange);
+}
+h3 { margin: 0 0 .45rem; font-size: 1.12rem; color: var(--green-deep); line-height: 1.3; }
+h4 { margin: 1.1rem 0 .35rem; font-size: 1.05rem; color: var(--brown); }
+.lede { margin: 0 0 .85rem; color: var(--ink-soft); }
+.idea p { margin: 0 0 .75rem; }
+.idea p:last-child { margin-bottom: 0; }
+.idea ul, .links { margin: 0 0 .85rem; padding-left: 1.2rem; }
+.idea li { margin: .4rem 0; }
+.example {
+  margin: 0 0 1rem;
+  padding: .8rem .95rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.next {
+  margin: 0 0 .8rem;
+  padding: .75rem .9rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green);
+  border-radius: 14px;
+  font-weight: 800;
+}
+.steps { list-style: none; margin: 0; padding: 0; }
+.steps > li {
+  position: relative;
+  margin: 0 0 12px;
+  padding: 1rem 1rem 1.05rem 4.5rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.steps > li:last-child { margin-bottom: 0; }
+.num {
+  position: absolute;
+  left: .9rem;
+  top: 1rem;
+  width: 2.45rem;
+  height: 2.45rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  font-weight: 800;
+}
+.steps p { margin: 0 0 .7rem; }
+.stop { margin: .15rem 0 0; font-weight: 800; color: var(--orange-deep); }
+.table-wrap { margin: 0 0 1rem; }
+table { width: 100%; border-collapse: collapse; }
+caption {
+  text-align: left;
+  font-weight: 800;
+  color: var(--green-deep);
+  margin: 0 0 .55rem;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: .65rem .5rem;
+  border-bottom: 1px solid var(--line);
+}
+thead th { color: var(--green-deep); }
+.note { margin: 0 0 .8rem; color: var(--ink-soft); font-size: .98rem; }
+.progress {
+  height: 14px;
+  background: #eadfce;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 0 0 6px;
+}
+.progress > div {
+  height: 100%;
+  width: 0;
+  background: var(--green);
+}
+.check { list-style: none; margin: 0 0 12px; padding: 0; }
+.check li { margin: 0 0 8px; }
+.check label {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: .75rem .85rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  cursor: pointer;
+  min-height: 48px;
+}
+.check input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: .2rem;
+  flex: none;
+  accent-color: var(--green);
+}
+.check label:has(input:checked) {
+  background: #f3f8f4;
+  border-color: #b7d7c4;
+}
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: .55rem 1rem;
+  border-radius: 12px;
+  border: 2px solid var(--green-deep);
+  background: var(--green);
+  color: #fff;
+  font: inherit;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+a.btn, a.btn:hover, a.btn:focus-visible { color: #fff; text-decoration: none; }
+.btn.ghost { background: #fff; color: var(--green-deep); }
+button.btn.ghost:hover,
+button.btn.ghost:focus-visible,
+a.btn.ghost:hover,
+a.btn.ghost:focus-visible {
+  background: var(--green-deep);
+  color: #fff;
+}
+.links { margin-bottom: 0; }
+.links li { margin: .5rem 0; }
+.visitor-wrap { text-align: center; padding: 8px 16px 0; }
+.visitor-badge {
+  display: inline-block;
+  margin: 0 auto;
+  padding: .5rem 1rem;
+  background: linear-gradient(#fff, #f3f8f4);
+  color: var(--green-deep);
+  border: 2px solid var(--silver);
+  border-radius: 999px;
+  font-weight: 800;
+  box-shadow: 0 3px 0 #e7b07a;
+}
+.visitor-badge[hidden] { display: none !important; }
+.visitor-count { color: var(--orange-deep); }
+footer {
+  text-align: center;
+  padding: 18px 20px 32px;
+  color: var(--ink-soft);
+  font-size: .95rem;
+  font-weight: 700;
+}
+footer::before {
+  content: "";
+  display: block;
+  width: min(168px, 42vw);
+  height: 10px;
+  margin: 8px auto 16px;
+  border-radius: 2px;
+  background: linear-gradient(#f5f7f8, #c5ced6 55%, #eef1f4);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(80, 55, 30, .12);
+}
+footer p { margin: .25rem 0; }
+footer a { font-weight: 800; text-decoration: none; }
+@media (max-width: 680px) {
+  .table-wrap table, .table-wrap thead, .table-wrap tbody, .table-wrap tr, .table-wrap th, .table-wrap td { display: block; }
+  .table-wrap thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+  .table-wrap tr {
+    margin: 0 0 12px;
+    padding: .25rem 0 .45rem;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+  .table-wrap th[scope="row"] {
+    border: 0;
+    padding: .75rem .85rem .15rem;
+    font-size: 1.05rem;
+  }
+  .table-wrap td { border: 0; padding: .35rem .85rem; }
+  .table-wrap td::before {
+    content: attr(data-label);
+    display: block;
+    font-weight: 800;
+    color: var(--green-deep);
+    font-size: .88rem;
+  }
+}
+@media (max-width: 720px) {
+  .toc-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+  .toc ul {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+  .toc a { flex: none; }
+  section[id],
+  .steps > li { scroll-margin-top: 6.5rem; }
+}
+@media (max-width: 420px) {
+  .page, .toc-inner { padding-left: 14px; padding-right: 14px; }
+  header.page { padding-top: 20px; }
+  .idea { padding: 1rem .9rem 1.1rem; }
+  .steps > li { padding-left: 4.15rem; padding-right: .85rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .progress > div { transition: width .25s ease; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (forced-colors: active) {
+  .notice, .idea, .steps > li, .check label, .btn, .toc a, .num, .table-wrap tr {
+    border: 1px solid CanvasText;
+  }
+}
+@media print {
+  .toc, .skip, .visitor-wrap, .actions, .btn { display: none !important; }
+  body { background: #fff; }
+  .idea, .steps > li, .table-wrap tr { box-shadow: none; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="page">
+  <p class="back"><a href="../">← Home</a></p>
+  <h1>Launch a card game for profit</h1>
+  <p class="deck">From a working prototype to money in the account. Do one step, then stop. The prices below are planning ranges. Get your own quotes.</p>
+  <p class="notice"><strong>Not legal or financial advice. Not a print quote.</strong> Verify live fees on the shop's site, and verify prices with your own printer quotes, before you spend money.</p>
+</header>
+<nav class="toc" aria-label="On this page">
+  <div class="toc-inner">
+    <p class="toc-label">On this page</p>
+    <ul>
+      <li><a href="#path">Path</a></li>
+      <li><a href="#routes">Sell routes</a></li>
+      <li><a href="#money">Money math</a></li>
+      <li><a href="#legal">Legal</a></li>
+      <li><a href="#after">After the sale</a></li>
+      <li><a href="#focus">Focus</a></li>
+      <li><a href="#checklist">Checklist</a></li>
+      <li><a href="#links">Links</a></li>
+    </ul>
+  </div>
+</nav>
+<main id="content" class="page">
+  <section class="idea" id="path">
+    <h2>The whole path</h2>
+    <p class="example">Dukktape Studios publishes small games on this site. <a href="../rooster-rumble/">Rooster Rumble</a> is a rooster battle card game with a public rules page and a card list. Use it as a picture of a simple game page. It is an example, and your costs will be your own.</p>
+    <p class="lede">Twelve steps, from a locked ruleset to a second look at the numbers. A longer publish walkthrough lives at <a href="https://shufflekit.com/blog/how-to-publish-a-card-game" target="_blank" rel="noopener">ShuffleKit<span class="sr"> (opens in a new tab)</span></a>.</p>
+    <p id="next-step" class="next" role="status">Next: Rules and card list are final.</p>
+    <p class="actions"><a class="btn" id="jump-next" href="#step-1">Jump to the next step</a></p>
+    <ol class="steps">
+      <li id="step-1">
+        <h3><span class="num">1</span>Lock the game</h3>
+        <p>Finish the rules and the card list. Run a blind playtest: strangers, and the rulebook only. Fix the game until they can finish with you out of the room. Polish the art after the game works.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-2">
+        <h3><span class="num">2</span>Build a real prototype</h3>
+        <p>Sleeve a home print, or order one print-on-demand proof. Shops people use for a first proof include <a href="https://www.thegamecrafter.com/" target="_blank" rel="noopener">The Game Crafter<span class="sr"> (opens in a new tab)</span></a>, MakePlayingCards, and DriveThruCards. Take photos. You will want them when you sell.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-3">
+        <h3><span class="num">3</span>Finish print-ready art and rules</h3>
+        <p>Use the printer's template. Export at 300 dpi. Include bleed and trim. Outline the fonts. Size the rules for the box. Count the cards before you choose a tuck box.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-4">
+        <h3><span class="num">4</span>Protect what you can</h3>
+        <p>Copyright covers your art, your rulebook text, and your layout. The idea of a card game, and the way the rules play, sit outside copyright. Registering with <a href="https://www.copyright.gov/register/tx-games.html" target="_blank" rel="noopener">Copyright.gov<span class="sr"> (opens in a new tab)</span></a> is optional. It can help if you later need to enforce the right.</p>
+        <p>A trademark can cover the name and the logo. Search the <a href="https://www.uspto.gov/trademarks/basics/trademark-patent-copyright" target="_blank" rel="noopener">USPTO trademark basics<span class="sr"> (opens in a new tab)</span></a> before you print boxes. Games are often filed in Class 28.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-5">
+        <h3><span class="num">5</span>Put sales under a real business</h3>
+        <p>Before money moves, use an LLC or a sole proprietorship, plus a bank account that is separate from personal spending. Track income and expenses. Ask a tax pro once sales start. This page leaves the choice of business form to you and that pro.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-6">
+        <h3><span class="num">6</span>Pick one sell route</h3>
+        <p>Print on demand tests demand. A crowdfunding campaign can pay for a print run. Savings can pay for a print run when demand is already real. A publisher pitch hands the operations to someone else. First games usually start with print on demand.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-7">
+        <h3><span class="num">7</span>Get quotes and set a price</h3>
+        <p>For print on demand, the price is the print cost plus the shop's royalty. For a print run, send the same spec to three printers. Add freight, duties, storage, and fulfillment.</p>
+        <p>Public guides often plan retail at about 3 to 5 times the landed cost of one copy, after fees. Build your price from your quote.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-8">
+        <h3><span class="num">8</span>Make a home page for buyers</h3>
+        <p>Show photos, a rules PDF, a short how-to-play clip, and a way to buy or join a Notify Me list. A simple page is enough. <a href="../rooster-rumble/">Rooster Rumble</a> is one public game page on this site.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-9">
+        <h3><span class="num">9</span>Build a tiny audience first</h3>
+        <p>Start a mailing list, a Discord, game nights, and a few reviewer prototypes. Crowdfunding usually wants about 6 to 12 months of this work before launch day. Print on demand can sell while the list is still small.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-10">
+        <h3><span class="num">10</span>Launch sales</h3>
+        <p>Print on demand: publish the listing and tell the list. Crowdfunding: pre-launch, then the live campaign, then a pledge manager. Print run: approve the proofs, manufacture, then fulfill. <a href="https://launch.kickstarter.com/tabletop-games" target="_blank" rel="noopener">Kickstarter's tabletop launch guide<span class="sr"> (opens in a new tab)</span></a> is the crowdfunding version of this step.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-11">
+        <h3><span class="num">11</span>Fulfill the orders</h3>
+        <p>Plan packaging, carriers, and customs. Pad the calendar. Ship a test box to yourself before you ship to anyone else. On a crowdfunding campaign, put manufacturing and shipping inside the goal. The goal is the smallest run you can deliver, plus freight, fulfillment, fees, and a cushion.</p>
+        <p>Read <a href="https://www.kickstarter.com/help/handbook/fulfillment" target="_blank" rel="noopener">Kickstarter's fulfillment handbook<span class="sr"> (opens in a new tab)</span></a> before you promise a date.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-12">
+        <h3><span class="num">12</span>Iterate after real sales</h3>
+        <p>Cut waste. Change the price if demand holds. Make an expansion when the base game is selling. Log the real unit cost before you spend on the next print.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="idea" id="routes">
+    <h2>Sell routes</h2>
+    <p class="lede">Pick one route for this game. You can change routes on the next game.</p>
+    <div class="table-wrap">
+      <table>
+        <caption>Four ways to sell</caption>
+        <thead>
+          <tr>
+            <th scope="col">Route</th>
+            <th scope="col">Money down</th>
+            <th scope="col">Cost per copy</th>
+            <th scope="col">Fits when</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Print on demand</th>
+            <td data-label="Money down">About a proof, often $10 or more</td>
+            <td data-label="Cost per copy">High</td>
+            <td data-label="Fits when">First game, demand unknown</td>
+          </tr>
+          <tr>
+            <th scope="row">Crowdfund, then print</th>
+            <td data-label="Money down">Marketing plus a prototype</td>
+            <td data-label="Cost per copy">Low, because backers fund the run</td>
+            <td data-label="Fits when">You can build an audience</td>
+          </tr>
+          <tr>
+            <th scope="row">Print run from savings</th>
+            <td data-label="Money down">Thousands up front</td>
+            <td data-label="Cost per copy">Lowest</td>
+            <td data-label="Fits when">Demand is already proven, or this is a later game</td>
+          </tr>
+          <tr>
+            <th scope="row">Pitch a publisher</th>
+            <td data-label="Money down">Time plus a prototype</td>
+            <td data-label="Cost per copy">The publisher keeps most of the margin</td>
+            <td data-label="Fits when">You want someone else to handle manufacturing and sales</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 id="pod">Print on demand</h3>
+    <p>You upload the files once. The shop prints a copy when someone orders it. Public notes on shops such as The Game Crafter and DriveThruCards often leave the maker about 70% of the amount above the print cost. Open the shop's current royalty page and run your own price. Match the template, order a proof, set retail, then publish.</p>
+
+    <h3 id="crowdfund">Crowdfund, then print</h3>
+    <p>Kickstarter's public fees have been about 5%, plus payment processing around 3% and $0.30 per pledge. Gamefound sits in a similar range. A working budget often uses about 8% for platform fees and 10 to 20% of the goal for marketing. Read the live fee page. The goal covers the smallest deliverable run, freight, fulfillment, fees, and a contingency. Build the audience for about 6 to 12 months first. After funding: pledge manager, a physical proof, the print run, then shipping.</p>
+
+    <h3 id="print-run">Print run</h3>
+    <p>Offset printing often starts around 500 to 1,000 copies. Names that show up in public manufacture guides include PrintNinja, Panda, Delano, and Shuffled Ink. One public planning example is about $5 to $7 a copy at 500 copies for a 54-card deck plus a tuck box, using PrintNinja-style published numbers. Get your quote. Proof to pallet is often 2 to 3 months. Send the same spec to three printers, order a physical proof, and decide where the boxes will live.</p>
+    <p>Two public write-ups: <a href="https://chicagogameandcard.com/guides/how-to-manufacture-a-board-game" target="_blank" rel="noopener">Chicago Game and Card on manufacturing<span class="sr"> (opens in a new tab)</span></a>, and <a href="https://help.thegamecrafter.com/article/438-long-run-printers" target="_blank" rel="noopener">The Game Crafter's note on long-run printers<span class="sr"> (opens in a new tab)</span></a>.</p>
+
+    <h3>Pitch a publisher</h3>
+    <p>You spend time and a solid prototype. The publisher takes on manufacturing and sales, and keeps most of the margin. Choose this when you want the operations off your desk.</p>
+  </section>
+
+  <section class="idea" id="money">
+    <h2>Money math</h2>
+    <p class="lede">Planning ranges from public 2026 guides. Each line is a place to start a quote. Your invoice replaces the range.</p>
+    <ul>
+      <li>A print-on-demand proof is often about the cost of a takeout meal. Simple decks on public shop pages are often about $9 to $20.</li>
+      <li>A common print-on-demand split leaves the maker about 70% of the margin above the print cost. Confirm it in that shop's calculator.</li>
+      <li>A bulk run of 500 to 1,000 copies is often planned around $2,000 to $6,000 before freight and tariffs. The spread is wide.</li>
+      <li>Crowdfunding fees are often budgeted near 8%, with marketing near 10 to 20% of the goal.</li>
+      <li>A UPC or GTIN from GS1 US has been about $30 for a single barcode when shops will stock the game. A pure print-on-demand listing, or a crowdfunding-only release, can wait on the barcode until a store asks. Check the current GS1 US price.</li>
+    </ul>
+  </section>
+
+  <section class="idea" id="legal">
+    <h2>Legal, in plain language</h2>
+    <ul>
+      <li>Copyright covers art, text, and layout. It leaves out the bare idea and the how-to-play. See the <a href="https://www.copyright.gov/register/tx-games.html" target="_blank" rel="noopener">Copyright.gov games page<span class="sr"> (opens in a new tab)</span></a>.</li>
+      <li>A trademark covers the name and the logo. Search before the boxes are printed. USPTO Class 28 is the usual class for games. Start at the <a href="https://www.uspto.gov/trademarks/basics/trademark-patent-copyright" target="_blank" rel="noopener">USPTO basics page<span class="sr"> (opens in a new tab)</span></a>.</li>
+      <li>Patents are rare for card games, and they are expensive.</li>
+      <li>Safety marks and age labels depend on the country. Settle them before the press run.</li>
+      <li>Use a written contract with each artist, manufacturer, and fulfillment partner.</li>
+    </ul>
+  </section>
+
+  <section class="idea" id="after">
+    <h2>After the first sale</h2>
+    <p>Write the FAQ once. Ask a buyer for a photo or a short review. Log unit cost, shipping, and returns. After those numbers are real, look at an expansion or a better print through crowdfunding.</p>
+  </section>
+
+  <section class="idea" id="focus">
+    <h2>Focus tricks</h2>
+    <ul>
+      <li>This week: order one paid print-on-demand proof of the deck that is closest to done.</li>
+      <li>One sticky note holds one step title.</li>
+      <li>Run the blind playtest before you polish the art.</li>
+      <li>If a large print bill makes you anxious, stay on print on demand until more than 20 strangers have bought a copy.</li>
+      <li>A faceless brand is fine. Sell the cards.</li>
+    </ul>
+  </section>
+
+  <section class="idea" id="checklist">
+    <h2>Checklist</h2>
+    <p class="lede">A public list for this path. Your checks stay on this device. Print the page if paper helps.</p>
+    <div class="progress" id="progress" role="progressbar" aria-valuemin="0" aria-valuemax="13" aria-valuenow="0" aria-labelledby="count">
+      <div id="bar"></div>
+    </div>
+    <p class="note" id="count">0 of 13 done</p>
+    <ul class="check" id="checks">
+      <li data-jump="#step-1"><label><input type="checkbox" data-i="0"><span>Rules and card list are final</span></label></li>
+      <li data-jump="#step-1"><label><input type="checkbox" data-i="1"><span>Strangers finished a blind playtest from the rulebook alone</span></label></li>
+      <li data-jump="#step-2"><label><input type="checkbox" data-i="2"><span>A real prototype is in hand</span></label></li>
+      <li data-jump="#step-3"><label><input type="checkbox" data-i="3"><span>Print-ready files match the printer template</span></label></li>
+      <li data-jump="#step-4"><label><input type="checkbox" data-i="4"><span>Copyright and trademark homework is done, or you chose to wait</span></label></li>
+      <li data-jump="#step-5"><label><input type="checkbox" data-i="5"><span>A separate business account is ready before money moves</span></label></li>
+      <li data-jump="#step-6"><label><input type="checkbox" data-i="6"><span>One sell route is chosen</span></label></li>
+      <li data-jump="#step-7"><label><input type="checkbox" data-i="7"><span>Quotes are saved and the price comes from those quotes</span></label></li>
+      <li data-jump="#step-8"><label><input type="checkbox" data-i="8"><span>A buyer page is live</span></label></li>
+      <li data-jump="#step-9"><label><input type="checkbox" data-i="9"><span>A small audience exists</span></label></li>
+      <li data-jump="#step-10"><label><input type="checkbox" data-i="10"><span>Sales are open</span></label></li>
+      <li data-jump="#step-11"><label><input type="checkbox" data-i="11"><span>A test shipment arrived at your own door</span></label></li>
+      <li data-jump="#after"><label><input type="checkbox" data-i="12"><span>Unit cost, shipping, and returns are logged</span></label></li>
+    </ul>
+    <p class="actions">
+      <button type="button" class="btn ghost" id="print-btn">Print this guide</button>
+      <button type="button" class="btn ghost" id="clear-checks">Clear my checks</button>
+    </p>
+  </section>
+
+  <section class="idea" id="links">
+    <h2>Links</h2>
+    <ul class="links">
+      <li><a href="https://shufflekit.com/blog/how-to-publish-a-card-game" target="_blank" rel="noopener">ShuffleKit: how to publish a card game<span class="sr"> (opens in a new tab)</span></a></li>
+      <li><a href="https://chicagogameandcard.com/guides/how-to-manufacture-a-board-game" target="_blank" rel="noopener">Chicago Game and Card: how to manufacture a board game<span class="sr"> (opens in a new tab)</span></a></li>
+      <li><a href="https://launch.kickstarter.com/tabletop-games" target="_blank" rel="noopener">Kickstarter: tabletop games launch guide<span class="sr"> (opens in a new tab)</span></a></li>
+      <li><a href="https://www.kickstarter.com/help/handbook/fulfillment" target="_blank" rel="noopener">Kickstarter: fulfillment handbook<span class="sr"> (opens in a new tab)</span></a></li>
+      <li><a href="https://www.uspto.gov/trademarks/basics/trademark-patent-copyright" target="_blank" rel="noopener">USPTO: trademark, patent, and copyright<span class="sr"> (opens in a new tab)</span></a></li>
+      <li><a href="https://www.copyright.gov/register/tx-games.html" target="_blank" rel="noopener">Copyright.gov: registering games<span class="sr"> (opens in a new tab)</span></a></li>
+      <li><a href="https://www.thegamecrafter.com/" target="_blank" rel="noopener">The Game Crafter<span class="sr"> (opens in a new tab)</span></a></li>
+      <li><a href="https://help.thegamecrafter.com/article/438-long-run-printers" target="_blank" rel="noopener">The Game Crafter: long-run printers<span class="sr"> (opens in a new tab)</span></a></li>
+      <li><a href="../rooster-rumble/">Rooster Rumble, a Dukktape card game on this site</a></li>
+    </ul>
+    <p class="note">Sources: ShuffleKit publish guide, Chicago Game and Card manufacture guide, Kickstarter tabletop and fulfillment pages, USPTO, and Copyright.gov. Checked November 2026.</p>
+  </section>
+
+  <section class="idea" id="disclaimer">
+    <h2>Disclaimer</h2>
+    <p>This page is not legal, tax, or financial advice. It is not a quote from a printer, a crowdfunding site, or a government office. Print prices, royalties, freight, duties, and platform fees change. The ranges here are planning notes from public guides. Get your own quotes, and read the current terms, before you spend money.</p>
+  </section>
+</main>
+<div class="visitor-wrap"><p id="visitor-badge" class="visitor-badge" role="status" aria-live="polite" hidden></p></div>
+<footer>
+  <p><a href="../">Dukktape Studios</a></p>
+  <p>© 2026 Dukktape Studios</p>
+</footer>
+<script>
+(function () {
+  var KEY = "dukktape-launch-card-game-checks";
+  var ul = document.getElementById("checks");
+  var boxes = [].slice.call(ul.querySelectorAll('input[type="checkbox"]'));
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+  boxes.forEach(function (box) {
+    box.checked = !!saved[box.getAttribute("data-i")];
+  });
+  function render() {
+    var n = 0;
+    var nextLi = null;
+    boxes.forEach(function (box) {
+      if (box.checked) n++;
+      else if (!nextLi) nextLi = box.closest("li");
+    });
+    var max = boxes.length;
+    document.getElementById("bar").style.width = (max ? (n / max) * 100 : 0) + "%";
+    var progress = document.getElementById("progress");
+    progress.setAttribute("aria-valuenow", String(n));
+    progress.setAttribute("aria-valuemax", String(max));
+    document.getElementById("count").textContent = n + " of " + max + " done";
+    var next = document.getElementById("next-step");
+    var jump = document.getElementById("jump-next");
+    if (!nextLi) {
+      next.textContent = "Checklist complete. Keep the unit cost, shipping, and returns written down before you plan an expansion.";
+      jump.setAttribute("href", "#after");
+      jump.textContent = "Read the after-sale notes";
+    } else {
+      var label = nextLi.querySelector("span");
+      next.textContent = "Next: " + (label ? label.textContent : "the open step");
+      jump.setAttribute("href", nextLi.getAttribute("data-jump") || "#path");
+      jump.textContent = "Jump to the next step";
+    }
+  }
+  ul.addEventListener("change", function (e) {
+    var box = e.target;
+    if (!box || box.type !== "checkbox") return;
+    saved[box.getAttribute("data-i")] = box.checked;
+    try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (err) {}
+    render();
+  });
+  document.getElementById("clear-checks").addEventListener("click", function () {
+    if (!window.confirm("Clear the checks saved on this device?")) return;
+    saved = {};
+    try { localStorage.removeItem(KEY); } catch (err) {}
+    boxes.forEach(function (box) { box.checked = false; });
+    render();
+  });
+  document.getElementById("print-btn").addEventListener("click", function () { window.print(); });
+  render();
+})();
+(function () {
+  var links = [].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if (!("IntersectionObserver" in window)) return;
+  var byId = {};
+  links.forEach(function (a) {
+    var id = a.getAttribute("href").slice(1);
+    if (id) byId[id] = a;
+  });
+  var current = "";
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var id = entry.target.id;
+      if (current === id) return;
+      current = id;
+      links.forEach(function (a) { a.removeAttribute("aria-current"); });
+      if (byId[id]) byId[id].setAttribute("aria-current", "true");
+    });
+  }, { rootMargin: "-30% 0px -60% 0px", threshold: 0 });
+  Object.keys(byId).forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+})();
+</script>
+<script>
+(function () {
+  var storageKey = "dukktape-launch-card-game-visitor-number";
+  var badge = document.getElementById("visitor-badge");
+  var hitUrl = "https://abacus.jasoncameron.dev/hit/dukktapestudios.github.io/launch-card-game-uniques";
+
+  function showVisitor(n) {
+    var count = document.createElement("span");
+    count.className = "visitor-count";
+    count.textContent = String(n);
+    badge.replaceChildren(document.createTextNode("You're visitor #"), count, document.createTextNode(", welcome!"));
+    badge.hidden = false;
+  }
+  function savedNumber() {
+    try {
+      var raw = localStorage.getItem(storageKey);
+      var n = Number(raw);
+      if (!raw || !Number.isInteger(n) || n < 1) return null;
+      return n;
+    } catch (err) { return null; }
+  }
+  function remember(n) {
+    try { localStorage.setItem(storageKey, String(n)); return true; } catch (err) { return false; }
+  }
+  function canStore() {
+    try {
+      var probe = storageKey + "-probe";
+      localStorage.setItem(probe, "1");
+      localStorage.removeItem(probe);
+      return true;
+    } catch (err) { return false; }
+  }
+  var already = savedNumber();
+  if (already) showVisitor(already);
+  else if (canStore()) {
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, 8000);
+    fetch(hitUrl, { signal: controller.signal, credentials: "omit", cache: "no-store", referrerPolicy: "no-referrer" })
+      .then(function (res) { if (!res.ok) throw new Error("count"); return res.json(); })
+      .then(function (data) {
+        var n = Number(data && data.value);
+        if (!Number.isInteger(n) || n < 1) throw new Error("count");
+        if (!remember(n)) throw new Error("count");
+        showVisitor(n);
+      })
+      .catch(function () { try { localStorage.removeItem(storageKey); } catch (err) {} })
+      .finally(function () { clearTimeout(timer); });
+  }
+})();
+</script>
+<script data-goatcounter="https://dukktape.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

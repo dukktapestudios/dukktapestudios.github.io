@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GI Bill: From Apply to Sitting in Class | Dukktape Studios</title>
+<meta name="description" content="A focus-friendly path from a Post-9/11 GI Bill application to a seat in class. One step at a time. Not official VA advice.">
+<link rel="preload" href="../assets/fonts/nunito-latin-800.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/nunito-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/nunito-latin-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../assets/fonts/nunito-latin-800.woff2") format("woff2");
+}
+:root {
+  --paper: #f6efe3;
+  --card: #fffaf3;
+  --ink: #2c241c;
+  --ink-soft: #5c4636;
+  --green: #1d6840;
+  --green-deep: #143f28;
+  --orange: #e07a2f;
+  --orange-deep: #8d3f10;
+  --brown: #6b442c;
+  --silver: #c5ced6;
+  --silver-dark: #8e99a4;
+  --line: #eadcc8;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Nunito, ui-rounded, "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background:
+    radial-gradient(1100px 480px at 50% -120px, #ffe3c4 0%, transparent 70%),
+    radial-gradient(700px 380px at 100% 0%, #e5f3e4 0%, transparent 55%),
+    radial-gradient(640px 360px at -10% 12%, #f8e4d0 0%, transparent 50%),
+    var(--paper);
+}
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: #fff;
+  color: var(--green-deep);
+  padding: 8px 12px;
+  border-radius: 10px;
+  z-index: 6;
+  font-weight: 800;
+}
+.skip:focus,
+.skip:focus-visible { top: 12px; }
+a { color: var(--green-deep); text-underline-offset: .16em; text-decoration-thickness: 2px; }
+a:hover, a:focus-visible { color: var(--orange-deep); }
+:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.page {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+header.page { padding-top: 28px; }
+.back { margin: 0 0 1rem; font-weight: 800; }
+.back a { text-decoration: none; }
+h1 {
+  margin: 0 0 .55rem;
+  font-size: clamp(1.9rem, 5.5vw, 2.7rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--green-deep);
+}
+.deck { margin: 0 0 1rem; font-size: 1.12rem; }
+.notice {
+  margin: 0 0 1.15rem;
+  padding: .85rem 1rem .95rem;
+  background: #fff7e8;
+  border: 1px solid #f0d7b4;
+  border-left: 4px solid var(--orange);
+  border-radius: 14px;
+  font-weight: 700;
+}
+.notice strong { color: var(--orange-deep); }
+.toc {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+.toc-inner { max-width: 46rem; margin: 0 auto; padding: 8px 22px 10px; }
+.toc-label {
+  margin: 0 0 4px;
+  font-size: .92rem;
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+.toc ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+.toc a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: .35rem .8rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: .95rem;
+  white-space: nowrap;
+}
+.toc a:hover,
+.toc a:focus-visible,
+.toc a[aria-current="true"] {
+  background: #fff1e2;
+  border-color: var(--orange);
+  color: var(--orange-deep);
+}
+main.page { padding-top: 18px; padding-bottom: 8px; }
+section[id],
+.steps > li { scroll-margin-top: 11rem; }
+.idea {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.15rem 1.2rem 1.25rem;
+  margin: 0 0 14px;
+  box-shadow: 0 8px 20px rgba(92, 58, 28, .05);
+}
+h2 {
+  margin: 0 0 .8rem;
+  color: var(--green);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.2;
+  border-bottom: 3px solid var(--silver);
+  padding-bottom: .35rem;
+  position: relative;
+}
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 4.6rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--orange);
+}
+h3 { margin: 0 0 .45rem; font-size: 1.12rem; color: var(--green-deep); line-height: 1.3; }
+.lede { margin: 0 0 .85rem; color: var(--ink-soft); }
+.idea p { margin: 0 0 .75rem; }
+.idea p:last-child { margin-bottom: 0; }
+.idea ul, .links { margin: 0 0 .85rem; padding-left: 1.2rem; }
+.idea li { margin: .4rem 0; }
+.facts { margin: 0 0 1rem; padding-left: 1.2rem; }
+.facts li { margin: .45rem 0; }
+.next {
+  margin: 0 0 .8rem;
+  padding: .75rem .9rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green);
+  border-radius: 14px;
+  font-weight: 800;
+}
+.steps { list-style: none; margin: 0; padding: 0; }
+.steps > li {
+  position: relative;
+  margin: 0 0 12px;
+  padding: 1rem 1rem 1.05rem 4.5rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.steps > li:last-child { margin-bottom: 0; }
+.num {
+  position: absolute;
+  left: .9rem;
+  top: 1rem;
+  width: 2.45rem;
+  height: 2.45rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  font-weight: 800;
+}
+.steps p { margin: 0 0 .7rem; }
+.stop { margin: .15rem 0 0; font-weight: 800; color: var(--orange-deep); }
+.fields { display: grid; gap: 10px; margin: 0 0 12px; }
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 800;
+  color: var(--green-deep);
+}
+.field input {
+  font: inherit;
+  font-weight: 700;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--silver-dark);
+  border-radius: 12px;
+  padding: .65rem .75rem;
+  min-height: 48px;
+  width: 100%;
+}
+.note { margin: 0 0 .8rem; color: var(--ink-soft); font-size: .98rem; }
+.progress {
+  height: 14px;
+  background: #eadfce;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 0 0 6px;
+}
+.progress > div {
+  height: 100%;
+  width: 0;
+  background: var(--green);
+}
+.check { list-style: none; margin: 0 0 12px; padding: 0; }
+.check li { margin: 0 0 8px; }
+.check label {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: .75rem .85rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  cursor: pointer;
+  min-height: 48px;
+}
+.check input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: .2rem;
+  flex: none;
+  accent-color: var(--green);
+}
+.check label:has(input:checked) {
+  background: #f3f8f4;
+  border-color: #b7d7c4;
+}
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: .55rem 1rem;
+  border-radius: 12px;
+  border: 2px solid var(--green-deep);
+  background: var(--green);
+  color: #fff;
+  font: inherit;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+a.btn, a.btn:hover, a.btn:focus-visible { color: #fff; text-decoration: none; }
+.btn.ghost { background: #fff; color: var(--green-deep); }
+button.btn.ghost:hover,
+button.btn.ghost:focus-visible,
+a.btn.ghost:hover,
+a.btn.ghost:focus-visible {
+  background: var(--green-deep);
+  color: #fff;
+}
+.call {
+  margin: 0 0 .8rem;
+  padding: .9rem 1rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.call a {
+  display: inline-block;
+  margin-top: .15rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+.links { margin-bottom: 0; }
+.links li { margin: .5rem 0; }
+.visitor-wrap { text-align: center; padding: 8px 16px 0; }
+.visitor-badge {
+  display: inline-block;
+  margin: 0 auto;
+  padding: .5rem 1rem;
+  background: linear-gradient(#fff, #f3f8f4);
+  color: var(--green-deep);
+  border: 2px solid var(--silver);
+  border-radius: 999px;
+  font-weight: 800;
+  box-shadow: 0 3px 0 #e7b07a;
+}
+.visitor-badge[hidden] { display: none !important; }
+.visitor-count { color: var(--orange-deep); }
+footer {
+  text-align: center;
+  padding: 18px 20px 32px;
+  color: var(--ink-soft);
+  font-size: .95rem;
+  font-weight: 700;
+}
+footer::before {
+  content: "";
+  display: block;
+  width: min(168px, 42vw);
+  height: 10px;
+  margin: 8px auto 16px;
+  border-radius: 2px;
+  background: linear-gradient(#f5f7f8, #c5ced6 55%, #eef1f4);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(80, 55, 30, .12);
+}
+footer p { margin: .25rem 0; }
+footer a { font-weight: 800; text-decoration: none; }
+@media (max-width: 720px) {
+  .toc-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+  .toc ul {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+  .toc a { flex: none; }
+  section[id],
+  .steps > li { scroll-margin-top: 6.5rem; }
+}
+@media (max-width: 420px) {
+  .page, .toc-inner { padding-left: 14px; padding-right: 14px; }
+  header.page { padding-top: 20px; }
+  .idea { padding: 1rem .9rem 1.1rem; }
+  .steps > li { padding-left: 4.15rem; padding-right: .85rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .progress > div { transition: width .25s ease; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (forced-colors: active) {
+  .notice, .idea, .steps > li, .check label, .btn, .toc a, .num {
+    border: 1px solid CanvasText;
+  }
+}
+@media print {
+  .toc, .skip, .visitor-wrap, .actions, .btn { display: none !important; }
+  body { background: #fff; }
+  .idea, .steps > li { box-shadow: none; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="page">
+  <p class="back"><a href="../">← Home</a></p>
+  <h1>GI Bill: from apply to sitting in class</h1>
+  <p class="deck">One step at a time. Do that step, then stop. This page is for days when focus is short.</p>
+  <p class="notice"><strong>Not official VA guidance. Not legal or financial advice.</strong> Verify your benefit, your months, and your school on <a href="https://www.va.gov/education/how-to-apply/" target="_blank" rel="noopener">VA.gov<span class="sr"> (opens in a new tab)</span></a> and with your School Certifying Official.</p>
+</header>
+<nav class="toc" aria-label="On this page">
+  <div class="toc-inner">
+    <p class="toc-label">On this page</p>
+    <ul>
+      <li><a href="#snapshot">Snapshot</a></li>
+      <li><a href="#steps">Steps</a></li>
+      <li><a href="#checklist">Checklist</a></li>
+      <li><a href="#focus">If you get stuck</a></li>
+      <li><a href="#links">Official links</a></li>
+    </ul>
+  </div>
+</nav>
+<main id="content" class="page">
+  <section class="idea" id="snapshot">
+    <h2>Your snapshot</h2>
+    <p class="lede">Fill this with your numbers from VA.gov. The boxes start empty. What you type stays in this browser.</p>
+    <ul class="facts">
+      <li>Benefit to look up: Post-9/11 GI Bill (Chapter 33). Your rate percent is on the Statement of Benefits.</li>
+      <li>Months left and months used are on that same Statement of Benefits.</li>
+      <li>Expiration: many Post-9/11 benefits now have no end date. Confirm yours.</li>
+      <li>Proof for the school: a printable Statement of Benefits, or a Certificate of Eligibility (COE).</li>
+      <li>Regional processing office: read it on your VA letters.</li>
+    </ul>
+    <form id="snapshot-form" autocomplete="off">
+      <div class="fields">
+        <label class="field">Benefit name
+          <input data-field="benefit" type="text" maxlength="80" placeholder="Name on your Statement of Benefits" autocomplete="off">
+        </label>
+        <label class="field">Your rate percent
+          <input data-field="rate" type="text" maxlength="80" placeholder="Percent on your Statement of Benefits" autocomplete="off">
+        </label>
+        <label class="field">Months left
+          <input data-field="left" type="text" maxlength="80" placeholder="From VA.gov" autocomplete="off">
+        </label>
+        <label class="field">Months used
+          <input data-field="used" type="text" maxlength="80" placeholder="From VA.gov" autocomplete="off">
+        </label>
+        <label class="field">Expiration or end date
+          <input data-field="expires" type="text" maxlength="80" placeholder="Confirm on VA.gov" autocomplete="off">
+        </label>
+        <label class="field">Proof you will give the school
+          <input data-field="proof" type="text" maxlength="80" placeholder="Statement of Benefits or COE" autocomplete="off">
+        </label>
+        <label class="field">Regional office on your letters
+          <input data-field="office" type="text" maxlength="80" placeholder="Named on your VA letters" autocomplete="off">
+        </label>
+      </div>
+    </form>
+    <p class="actions"><button type="button" class="btn ghost" id="clear-snapshot">Clear my numbers</button></p>
+  </section>
+
+  <section class="idea" id="steps">
+    <h2>The path</h2>
+    <p class="lede">Eight steps. Finish one. Then stop. Come back for the next one.</p>
+    <p id="next-step" class="next" role="status">Next: Know your benefit level and months left.</p>
+    <p class="actions"><a class="btn" id="jump-next" href="#step-1">Jump to the next step</a></p>
+    <ol class="steps">
+      <li id="step-1">
+        <h3><span class="num">1</span>Sign in and confirm you already applied</h3>
+        <p>Sign in on <a href="https://www.va.gov/education/how-to-apply/" target="_blank" rel="noopener">VA.gov education benefits<span class="sr"> (opens in a new tab)</span></a>. If you already have a Statement of Benefits or a COE, download that proof and move on.</p>
+        <p>If you have never applied, use Form 22-1990 online. You will need your Social Security number, direct deposit, and a school if you already know it. VA.gov has listed an average decision time of about 30 days. Your letter may take a different amount of time.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-2">
+        <h3><span class="num">2</span>Get proof for the school</h3>
+        <p>Download or print the Statement of Benefits or the COE. Keep the PDF on your phone. Give it to the School Certifying Official (SCO). Ask for the SCO by that title.</p>
+        <p>Read <a href="https://benefits.va.gov/gibill/understandingyourcoe.asp" target="_blank" rel="noopener">what a COE is<span class="sr"> (opens in a new tab)</span></a> if the words are fuzzy.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-3">
+        <h3><span class="num">3</span>Pick one VA-approved program</h3>
+        <p>Open the <a href="https://www.va.gov/education/gi-bill-comparison-tool/" target="_blank" rel="noopener">GI Bill Comparison Tool<span class="sr"> (opens in a new tab)</span></a>. Confirm the school is approved. Pick one program: a degree, a trade, or a certificate.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-4">
+        <h3><span class="num">4</span>Apply and get accepted</h3>
+        <p>Apply through the school admissions office. When you apply, ask for the veterans office or the SCO contact.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-5">
+        <h3><span class="num">5</span>Register for the term</h3>
+        <p>Register for courses the approved program requires. Save the schedule. Tell the SCO you are using Chapter 33.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-6">
+        <h3><span class="num">6</span>Give the SCO your proof</h3>
+        <p>Email or upload the Statement of Benefits or COE, plus your schedule. Ask the SCO to certify you in Enrollment Manager.</p>
+        <p>VA guidance used by schools says Chapter 33 can be certified up to 180 days before the term starts, and should be certified within 30 days after it starts. Ask your SCO which date they use.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-7">
+        <h3><span class="num">7</span>Watch the payment setup</h3>
+        <p>Tuition and fees go to the school. Housing and book money, when you are more than half time, go to you. Confirm direct deposit on VA.gov.</p>
+        <p>Talk to the SCO before you drop a class. A drop can create a debt.</p>
+        <p class="stop">Then stop.</p>
+      </li>
+      <li id="step-8">
+        <h3><span class="num">8</span>Verify enrollment on day one</h3>
+        <p>Show up. Post-9/11 students verify enrollment each month, online or by text. Housing payments need that verification and an active enrollment.</p>
+        <p>The steps are on <a href="https://www.va.gov/education/verify-school-enrollment/" target="_blank" rel="noopener">VA.gov: verify school enrollment<span class="sr"> (opens in a new tab)</span></a>.</p>
+        <p class="stop">Then stop. You are in class.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="idea" id="checklist">
+    <h2>Checklist</h2>
+    <p class="lede">Check these off as you finish them. The checks stay on this device. You can also print the page.</p>
+    <div class="progress" id="progress" role="progressbar" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0" aria-labelledby="count">
+      <div id="bar"></div>
+    </div>
+    <p class="note" id="count">0 of 7 done</p>
+    <ul class="check" id="checks">
+      <li data-jump="#step-1"><label><input type="checkbox" data-i="0"><span>Know your benefit level and months left</span></label></li>
+      <li data-jump="#step-2"><label><input type="checkbox" data-i="1"><span>Have the Statement of Benefits or COE on hand</span></label></li>
+      <li data-jump="#step-3"><label><input type="checkbox" data-i="2"><span>Chosen one school and one session</span></label></li>
+      <li data-jump="#step-4"><label><input type="checkbox" data-i="3"><span>Applied and accepted</span></label></li>
+      <li data-jump="#step-5"><label><input type="checkbox" data-i="4"><span>Registered for the term or session</span></label></li>
+      <li data-jump="#step-6"><label><input type="checkbox" data-i="5"><span>SCO has the proof and will certify</span></label></li>
+      <li data-jump="#step-8"><label><input type="checkbox" data-i="6"><span>Sitting in class or training on day one</span></label></li>
+    </ul>
+    <p class="actions">
+      <button type="button" class="btn ghost" id="print-btn">Print this guide</button>
+      <button type="button" class="btn ghost" id="clear-checks">Clear my checks</button>
+    </p>
+  </section>
+
+  <section class="idea" id="focus">
+    <h2>If you get stuck</h2>
+    <div class="call">
+      <p>Education Call Center</p>
+      <p><a href="tel:+18884424551">1-888-GIBILL-1 (1-888-442-4551)</a></p>
+      <p>Monday through Friday, about 7 a.m. to 6 p.m. Central.</p>
+    </div>
+    <ul>
+      <li>One step per day. Write only that step title on a sticky note.</li>
+      <li>Save every PDF in one folder named School.</li>
+      <li>If focus or a low mood stalls you, text a friend only the next step title and a day. Example: "Step 3, by Friday." If you need to talk with someone now, call or text 988.</li>
+      <li>The day you are accepted, put the next term open date on your calendar.</li>
+      <li>You can also ask a question at <a href="https://ask.va.gov/" target="_blank" rel="noopener">Ask VA<span class="sr"> (opens in a new tab)</span></a>.</li>
+    </ul>
+  </section>
+
+  <section class="idea" id="links">
+    <h2>Official links</h2>
+    <ul class="links">
+      <li><a href="https://www.va.gov/education/how-to-apply/" target="_blank" rel="noopener">VA.gov: how to apply for education benefits<span class="sr"> (opens in a new tab)</span></a></li>
+      <li><a href="https://www.va.gov/education/gi-bill-comparison-tool/" target="_blank" rel="noopener">GI Bill Comparison Tool<span class="sr"> (opens in a new tab)</span></a></li>
+      <li><a href="https://benefits.va.gov/gibill/understandingyourcoe.asp" target="_blank" rel="noopener">Understanding your Certificate of Eligibility<span class="sr"> (opens in a new tab)</span></a></li>
+      <li><a href="https://www.va.gov/education/verify-school-enrollment/" target="_blank" rel="noopener">Verify school enrollment<span class="sr"> (opens in a new tab)</span></a></li>
+      <li><a href="https://ask.va.gov/" target="_blank" rel="noopener">Ask VA<span class="sr"> (opens in a new tab)</span></a></li>
+    </ul>
+    <p class="note">Sources: VA.gov how-to-apply, benefits.va.gov on the COE and school certifying official timing, and VA.gov verify-school-enrollment. Checked November 2026.</p>
+  </section>
+
+  <section class="idea" id="disclaimer">
+    <h2>Disclaimer</h2>
+    <p>This page is not affiliated with, endorsed by, or run by the U.S. Department of Veterans Affairs. It is not official VA guidance. It is not legal or financial advice. Rates, months remaining, expiration rules, and school approval change. Read your own Statement of Benefits on VA.gov, and confirm the plan with your School Certifying Official, before you act.</p>
+  </section>
+</main>
+<div class="visitor-wrap"><p id="visitor-badge" class="visitor-badge" role="status" aria-live="polite" hidden></p></div>
+<footer>
+  <p><a href="../">Dukktape Studios</a></p>
+  <p>© 2026 Dukktape Studios</p>
+</footer>
+<script>
+(function () {
+  var KEY = "dukktape-gi-bill-checks";
+  var ul = document.getElementById("checks");
+  var boxes = [].slice.call(ul.querySelectorAll('input[type="checkbox"]'));
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+  boxes.forEach(function (box) {
+    box.checked = !!saved[box.getAttribute("data-i")];
+  });
+  function render() {
+    var n = 0;
+    var nextLi = null;
+    boxes.forEach(function (box) {
+      if (box.checked) n++;
+      else if (!nextLi) nextLi = box.closest("li");
+    });
+    var max = boxes.length;
+    document.getElementById("bar").style.width = (max ? (n / max) * 100 : 0) + "%";
+    var progress = document.getElementById("progress");
+    progress.setAttribute("aria-valuenow", String(n));
+    progress.setAttribute("aria-valuemax", String(max));
+    document.getElementById("count").textContent = n + " of " + max + " done";
+    var next = document.getElementById("next-step");
+    var jump = document.getElementById("jump-next");
+    if (!nextLi) {
+      next.textContent = "Checklist complete. Show up on day one. Then put the next term open date on your calendar.";
+      jump.setAttribute("href", "#focus");
+      jump.textContent = "Read the focus notes";
+    } else {
+      var label = nextLi.querySelector("span");
+      next.textContent = "Next: " + (label ? label.textContent : "the open step");
+      jump.setAttribute("href", nextLi.getAttribute("data-jump") || "#steps");
+      jump.textContent = "Jump to the next step";
+    }
+  }
+  ul.addEventListener("change", function (e) {
+    var box = e.target;
+    if (!box || box.type !== "checkbox") return;
+    saved[box.getAttribute("data-i")] = box.checked;
+    try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (err) {}
+    render();
+  });
+  document.getElementById("clear-checks").addEventListener("click", function () {
+    if (!window.confirm("Clear the checks saved on this device?")) return;
+    saved = {};
+    try { localStorage.removeItem(KEY); } catch (err) {}
+    boxes.forEach(function (box) { box.checked = false; });
+    render();
+  });
+  document.getElementById("print-btn").addEventListener("click", function () { window.print(); });
+  render();
+})();
+(function () {
+  var KEY = "dukktape-gi-bill-snapshot";
+  var form = document.getElementById("snapshot-form");
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+  form.addEventListener("submit", function (e) { e.preventDefault(); });
+  [].forEach.call(form.querySelectorAll("[data-field]"), function (input) {
+    var key = input.getAttribute("data-field");
+    if (typeof saved[key] === "string") input.value = saved[key];
+    input.addEventListener("input", function () {
+      saved[key] = input.value;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (err) {}
+    });
+  });
+  document.getElementById("clear-snapshot").addEventListener("click", function () {
+    if (!window.confirm("Clear the numbers you typed on this device?")) return;
+    saved = {};
+    try { localStorage.removeItem(KEY); } catch (err) {}
+    [].forEach.call(form.querySelectorAll("[data-field]"), function (input) { input.value = ""; });
+  });
+})();
+(function () {
+  var links = [].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if (!("IntersectionObserver" in window)) return;
+  var byId = {};
+  links.forEach(function (a) {
+    var id = a.getAttribute("href").slice(1);
+    if (id) byId[id] = a;
+  });
+  var current = "";
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var id = entry.target.id;
+      if (current === id) return;
+      current = id;
+      links.forEach(function (a) { a.removeAttribute("aria-current"); });
+      if (byId[id]) byId[id].setAttribute("aria-current", "true");
+    });
+  }, { rootMargin: "-30% 0px -60% 0px", threshold: 0 });
+  Object.keys(byId).forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+})();
+</script>
+<script>
+(function () {
+  var storageKey = "dukktape-gi-bill-visitor-number";
+  var badge = document.getElementById("visitor-badge");
+  var hitUrl = "https://abacus.jasoncameron.dev/hit/dukktapestudios.github.io/gi-bill-uniques";
+
+  function showVisitor(n) {
+    var count = document.createElement("span");
+    count.className = "visitor-count";
+    count.textContent = String(n);
+    badge.replaceChildren(document.createTextNode("You're visitor #"), count, document.createTextNode(", welcome!"));
+    badge.hidden = false;
+  }
+  function savedNumber() {
+    try {
+      var raw = localStorage.getItem(storageKey);
+      var n = Number(raw);
+      if (!raw || !Number.isInteger(n) || n < 1) return null;
+      return n;
+    } catch (err) { return null; }
+  }
+  function remember(n) {
+    try { localStorage.setItem(storageKey, String(n)); return true; } catch (err) { return false; }
+  }
+  function canStore() {
+    try {
+      var probe = storageKey + "-probe";
+      localStorage.setItem(probe, "1");
+      localStorage.removeItem(probe);
+      return true;
+    } catch (err) { return false; }
+  }
+  var already = savedNumber();
+  if (already) showVisitor(already);
+  else if (canStore()) {
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, 8000);
+    fetch(hitUrl, { signal: controller.signal, credentials: "omit", cache: "no-store", referrerPolicy: "no-referrer" })
+      .then(function (res) { if (!res.ok) throw new Error("count"); return res.json(); })
+      .then(function (data) {
+        var n = Number(data && data.value);
+        if (!Number.isInteger(n) || n < 1) throw new Error("count");
+        if (!remember(n)) throw new Error("count");
+        showVisitor(n);
+      })
+      .catch(function () { try { localStorage.removeItem(storageKey); } catch (err) {} })
+      .finally(function () { clearTimeout(timer); });
+  }
+})();
+</script>
+<script data-goatcounter="https://dukktape.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
