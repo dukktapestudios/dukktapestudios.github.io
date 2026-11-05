@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DigiAlex · Cluster Crash Course</title>
+<style>
+  :root{
+    --bg:#050a12; --panel:#0b1524; --stroke:rgba(120,190,255,.28);
+    --cyan:#00F0FF; --amber:#FFC14A; --green:#3dff9a; --purple:#B44DFF;
+    --text:#e8f4ff; --muted:rgba(170,210,255,.72); --soft:#9fe7ff;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; font-family:"Segoe UI",system-ui,sans-serif; color:var(--text);
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(0,240,255,.12), transparent 55%),
+      radial-gradient(900px 500px at 90% 0%, rgba(180,77,255,.1), transparent 50%),
+      var(--bg);
+    line-height:1.55;
+  }
+  a{color:var(--cyan); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:980px; margin:0 auto; padding:28px 20px 80px}
+  header.hero{
+    border:1px solid var(--stroke); border-radius:18px; padding:28px 26px;
+    background:linear-gradient(135deg, rgba(8,18,36,.9), rgba(6,12,28,.75));
+    box-shadow:0 0 40px rgba(0,180,255,.08), inset 0 1px 0 rgba(255,255,255,.05);
+    margin-bottom:22px;
+  }
+  .kicker{font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--cyan)}
+  h1{margin:6px 0 8px; font-size:clamp(26px,4vw,36px); letter-spacing:.02em}
+  .lede{color:var(--muted); max-width:62ch; margin:0}
+  .badge{
+    display:inline-block; margin-top:14px; padding:5px 10px; border-radius:999px;
+    border:1px solid rgba(255,120,120,.45); color:#ffb0b0; font-size:11px; letter-spacing:.08em;
+  }
+  nav.toc{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px;
+    margin:18px 0 28px;
+  }
+  nav.toc a{
+    display:block; padding:12px 14px; border-radius:12px; border:1px solid var(--stroke);
+    background:rgba(10,22,40,.7); color:var(--soft); text-decoration:none; font-size:13px;
+  }
+  nav.toc a strong{display:block; color:#fff; font-size:14px; margin-bottom:2px}
+  nav.toc a:hover{border-color:rgba(0,240,255,.55); box-shadow:0 0 18px rgba(0,240,255,.12)}
+  section{
+    border:1px solid var(--stroke); border-radius:16px; padding:22px 22px 18px;
+    background:rgba(8,16,30,.72); margin-bottom:16px;
+  }
+  section h2{margin:0 0 10px; font-size:20px; color:#fff}
+  section h2 .n{color:var(--cyan); margin-right:8px; font-variant-numeric:tabular-nums}
+  section h3{margin:16px 0 6px; font-size:15px; color:var(--amber)}
+  p,li{color:var(--muted)}
+  p{margin:0 0 10px}
+  ul,ol{margin:0 0 10px; padding-left:1.2em}
+  li{margin:4px 0}
+  .callout{
+    margin:12px 0; padding:12px 14px; border-radius:12px;
+    border:1px solid rgba(0,240,255,.35); background:rgba(0,240,255,.06);
+    color:var(--soft); font-size:14px;
+  }
+  .warn{
+    border-color:rgba(255,193,74,.4); background:rgba(255,193,74,.07); color:#ffe29a;
+  }
+  .good{
+    border-color:rgba(61,255,154,.35); background:rgba(61,255,154,.06); color:#b8ffd6;
+  }
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  @media (max-width:720px){.grid2{grid-template-columns:1fr}}
+  .card{
+    border:1px solid var(--stroke); border-radius:12px; padding:14px; background:rgba(0,0,0,.22);
+  }
+  .card h4{margin:0 0 6px; color:#fff; font-size:14px}
+  .card.yes{border-color:rgba(61,255,154,.4)}
+  .card.no{border-color:rgba(255,107,122,.4)}
+  .steps{counter-reset:step}
+  .steps li{list-style:none; margin:0 0 12px; padding:12px 14px 12px 48px; position:relative;
+    border:1px solid var(--stroke); border-radius:12px; background:rgba(0,0,0,.18)}
+  .steps li:before{
+    counter-increment:step; content:counter(step);
+    position:absolute; left:12px; top:12px; width:26px; height:26px; border-radius:50%;
+    background:rgba(0,240,255,.15); border:1px solid rgba(0,240,255,.45);
+    color:var(--cyan); font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center;
+  }
+  .steps{padding-left:0}
+  table{width:100%; border-collapse:collapse; font-size:14px; margin:8px 0 4px}
+  th,td{border-bottom:1px solid rgba(120,180,255,.15); padding:8px 6px; text-align:left; vertical-align:top}
+  th{color:var(--cyan); font-weight:600; font-size:12px; letter-spacing:.06em; text-transform:uppercase}
+  footer{margin-top:28px; color:rgba(160,190,220,.5); font-size:12px; text-align:center}
+  .start{
+    border:1px solid rgba(61,255,154,.45); background:linear-gradient(135deg,rgba(61,255,154,.1),rgba(0,240,255,.06));
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="kicker">DigiAlex crash course</div>
+    <h1>Clustering computers into one workhorse</h1>
+    <p class="lede">
+      Plain-English guide for Alexander: you’ve got a Windows tower (<strong style="color:#fff">DESKTOP-3R0QMFO</strong>),
+      a GPU laptop, and other machines. Parts are scarce and pricey — so networking what you already own into a
+      <em>job-splitting</em> cluster is the smart move. This is not magic CPU fusion. It’s a team of machines sharing work.
+    </p>
+    <span class="badge">PREVIEW · not saved to your PC</span>
+  </header>
+
+  <section class="start" id="start">
+    <h2><span class="n">★</span>Start here (5-minute plan)</h2>
+    <ol class="steps">
+      <li><strong style="color:#fff">Pick the brain.</strong> Use the <strong style="color:#fff">GPU laptop</strong> as the “boss” for AI/image jobs (it has the graphics chip). Use the Windows tower as a strong worker + file home base.</li>
+      <li><strong style="color:#fff">Wire one extra machine.</strong> Ethernet cable from switch/router to both PCs. Skip Wi‑Fi for big file moves.</li>
+      <li><strong style="color:#fff">Hand it one job.</strong> First success = “tower renders this video / laptop generates these images while I browse on the other.” Not Kubernetes day one.</li>
+      <li><strong style="color:#fff">Then scale.</strong> Add a third PC, then a simple queue, then Kubernetes only if you still want the serious route.</li>
+    </ol>
+    <div class="callout good">Goal of week 1: one computer does a job for you while you keep using another. That’s already a cluster in spirit.</div>
+  </section>
+
+  <nav class="toc" aria-label="Contents">
+    <a href="#what"><strong>1. What it is</strong>And what it isn’t</a>
+    <a href="#work"><strong>2. What splits</strong>AI, video, agents vs not</a>
+    <a href="#tools"><strong>3. Tools</strong>K8s, SSH, queues</a>
+    <a href="#net"><strong>4. Networking</strong>Ethernet vs Wi‑Fi</a>
+    <a href="#path"><strong>5. Beginner path</strong>Brain → one job → scale</a>
+    <a href="#cost"><strong>6. Cost</strong>Mostly free software</a>
+  </nav>
+
+  <section id="what">
+    <h2><span class="n">01</span>What clustering is — and isn’t</h2>
+    <div class="grid2">
+      <div class="card yes">
+        <h4>It is</h4>
+        <ul>
+          <li>Several computers cooperating on <em>different pieces</em> of work</li>
+          <li>A “farm” that finishes a batch of jobs faster (many images, many exports, many agent tasks)</li>
+          <li>Sharing storage, GPUs, and overnight idle time across the house</li>
+        </ul>
+      </div>
+      <div class="card no">
+        <h4>It isn’t</h4>
+        <ul>
+          <li>Gluing two CPUs into one faster single-core beast</li>
+          <li>Making Word, Chrome, or one game run at 2× speed automatically</li>
+          <li>Free magic — someone still has to <em>split</em> the work and collect results</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout warn" style="margin-top:12px">
+      Analogy: a cluster is a construction crew, not a forklift with a bigger engine. One person still can’t lift a house alone faster by “merging muscles” — but ten people can frame walls in parallel.
+    </div>
+    <h3>Two common patterns</h3>
+    <ul>
+      <li><strong style="color:#fff">Batch parallel:</strong> 50 AI images → 25 on the laptop GPU, 25 on another GPU/CPU box.</li>
+      <li><strong style="color:#fff">Specialist roles:</strong> GPU box does generation; tower does encoding/storage; a small box runs always-on agents.</li>
+    </ul>
+  </section>
+
+  <section id="work">
+    <h2><span class="n">02</span>What kinds of work split well</h2>
+    <div class="grid2">
+      <div class="card yes">
+        <h4>Splits well</h4>
+        <ul>
+          <li><strong style="color:#fff">AI image generation</strong> — each image (or batch) is independent</li>
+          <li><strong style="color:#fff">Video</strong> — encode different clips, or proxy/transcode queues</li>
+          <li><strong style="color:#fff">Agent / bot jobs</strong> — scrapes, digests, research batches, overnight routines</li>
+          <li><strong style="color:#fff">3D / renders</strong> — frame ranges across machines</li>
+          <li><strong style="color:#fff">Data crunch</strong> — many files processed the same way</li>
+        </ul>
+      </div>
+      <div class="card no">
+        <h4>Splits poorly</h4>
+        <ul>
+          <li>One tight game loop or single app UI</li>
+          <li>Work that needs constant back-and-forth on tiny data over a slow link</li>
+          <li>Anything that must stay on one GPU’s VRAM mid-generation</li>
+          <li>“Make this one Word doc feel faster” — clustering won’t help</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:12px">Rule of thumb: if you can write a checklist of <em>independent tickets</em>, a cluster helps. If it’s one sticky conversation with itself, keep it on one machine.</p>
+  </section>
+
+  <section id="tools">
+    <h2><span class="n">03</span>Practical tools (easy → serious)</h2>
+    <table>
+      <thead><tr><th>Tool</th><th>Difficulty</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:#fff">SSH / Remote Desktop + “you run this”</strong></td>
+          <td>Easy</td>
+          <td>First win. Hand a script or folder to the other PC and collect the output.</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff">Shared folder + watch folder</strong></td>
+          <td>Easy</td>
+          <td>Drop jobs in <code>\\tower\inbox</code>, worker picks them up, drops results in <code>outbox</code>.</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff">Task queue</strong> (Redis + RQ, Celery, Huey, or even a tiny Python/Node queue)</td>
+          <td>Medium</td>
+          <td>Many jobs, retries, “workers pull next task.” Great for agents and image batches.</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff">Docker Compose</strong> across 1–2 hosts</td>
+          <td>Medium</td>
+          <td>Same recipe on each machine; less “works on my PC.”</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff">Kubernetes (K8s)</strong> — free, open source</td>
+          <td>Hard (worth it later)</td>
+          <td>Serious route: schedule containers across nodes, restart failures, scale workers. Start with <em>k3s</em> or <em>minikube/kind</em> before a full cluster.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      For DigiAlex / Dukktape work: begin with <strong>GPU laptop = generator</strong>, <strong>Windows tower = encode + store + agents</strong>, linked by a folder or a tiny queue. Graduate to k3s only after the boring handoff works twice.
+    </div>
+    <h3>Windows note</h3>
+    <p>Your tower runs Windows. Workers can be Windows or Linux. Mixed shops are normal: OpenSSH Server on Windows, or WSL2 for Linux tools, or keep GPU apps native on Windows and only queue the jobs.</p>
+  </section>
+
+  <section id="net">
+    <h2><span class="n">04</span>Networking — why Ethernet wins</h2>
+    <p>Clusters chat a lot: models, video frames, datasets. Wi‑Fi looks fine for browsing and then falls over when two machines shove gigabytes at each other.</p>
+    <ul>
+      <li><strong style="color:#fff">Wired Ethernet (Gigabit)</strong> — stable, low latency, ~100+ MB/s real-world file copies. This is the backbone.</li>
+      <li><strong style="color:#fff">Wi‑Fi</strong> — OK for remote control and light status. Bad as the only pipe for AI models or 4K footage.</li>
+      <li><strong style="color:#fff">Small switch</strong> — if the router is far or short on ports, a 5‑port Gigabit switch on the desk (~$15–25) keeps the workhorses on copper.</li>
+    </ul>
+    <div class="callout warn">
+      Practical setup: tower + laptop + (optional) spare PC all into the same Gigabit switch, switch uplink to the house router. Same subnet, fixed DHCP reservations or static IPs so scripts don’t lose the workers.
+    </div>
+    <h3>Minimum checklist</h3>
+    <ul>
+      <li>Cat5e/Cat6 cables that actually click in</li>
+      <li>File sharing or SSH allowed on the LAN (private network profile on Windows)</li>
+      <li>Firewall rule for your job port only — don’t expose the cluster to the public internet</li>
+    </ul>
+  </section>
+
+  <section id="path">
+    <h2><span class="n">05</span>Step-by-step beginner path</h2>
+    <ol class="steps">
+      <li>
+        <strong style="color:#fff">Name the roles.</strong><br>
+        Brain (scheduler / where you sit): GPU laptop for creative AI.<br>
+        Muscle: DESKTOP-3R0QMFO for long encodes, storage, overnight agents.<br>
+        Rookie: any spare PC — give it one boring job first.
+      </li>
+      <li>
+        <strong style="color:#fff">Connect copper.</strong><br>
+        Plug both machines into Ethernet. Confirm they ping each other by name or IP. Turn on network discovery / OpenSSH as needed.
+      </li>
+      <li>
+        <strong style="color:#fff">Share one inbox.</strong><br>
+        Create <code>D:\cluster\inbox</code> and <code>D:\cluster\outbox</code> on the tower (or a NAS folder). From the laptop, map the share. Drop one test file; open it from the other PC.
+      </li>
+      <li>
+        <strong style="color:#fff">Hand one real job.</strong><br>
+        Example A: laptop fills <code>inbox</code> with prompts; a worker script on the GPU box (or tower) generates and writes PNGs to <code>outbox</code>.<br>
+        Example B: tower watches a folder of clips and ffmpeg-encodes them overnight while you sleep.
+      </li>
+      <li>
+        <strong style="color:#fff">Add a queue (optional week 2).</strong><br>
+        Replace “watch folder” with a tiny Redis/RQ or even a SQLite job table so failed jobs retry and two workers don’t grab the same file.
+      </li>
+      <li>
+        <strong style="color:#fff">Only then touch Kubernetes.</strong><br>
+        Install <strong>k3s</strong> on a Linux box (or k3d/kind for learning). Run one worker Deployment. If that feels heavy, stay on the queue — many home studios never need full K8s.
+      </li>
+    </ol>
+  </section>
+
+  <section id="cost">
+    <h2><span class="n">06</span>Rough cost</h2>
+    <table>
+      <thead><tr><th>Item</th><th>Ballpark</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Kubernetes / k3s / Docker / OpenSSH / ffmpeg / Python queues</td><td><strong style="color:var(--green)">$0</strong></td><td>Free software</td></tr>
+        <tr><td>Ethernet cables (Cat6)</td><td>$8–20</td><td>Buy lengths that reach without strain</td></tr>
+        <tr><td>5–8 port Gigabit switch</td><td>$15–35</td><td>Only if you need ports or a desk hub</td></tr>
+        <tr><td>Spare HDD/SSD for shared scratch</td><td>$0 if you have one</td><td>Fast local disk beats Wi‑Fi every time</td></tr>
+        <tr><td>New GPUs / server parts</td><td>Skip for now</td><td>Whole point: use what you own while parts are scarce</td></tr>
+      </tbody>
+    </table>
+    <div class="callout good">
+      Honest total to start: <strong>about $0–40</strong> if you already own the PCs. The scarce resource is patience for the first clean handoff — not another GPU lottery.
+    </div>
+  </section>
+
+  <section>
+    <h2>Quick myth-bust</h2>
+    <ul>
+      <li><strong style="color:#fff">“Will two PCs make Cyberpunk run smoother?”</strong> No. Games don’t split like that.</li>
+      <li><strong style="color:#fff">“Do I need Kubernetes to say I have a cluster?”</strong> No. Two machines + a job queue is a cluster.</li>
+      <li><strong style="color:#fff">“Can Wi‑Fi be good enough?”</strong> For remote desktop, yes. For shoving models and 4K around, wire it.</li>
+      <li><strong style="color:#fff">“Should the Windows tower be the brain?”</strong> It can be — especially for agents and storage. Put GPU-heavy creative jobs on the GPU laptop.</li>
+    </ul>
+  </section>
+
+  <footer>
+    DigiAlex Cluster Crash Course · preview build · tailored for DESKTOP-3R0QMFO + GPU laptop · PC files not modified
+  </footer>
+</div>
+</body>
+</html>

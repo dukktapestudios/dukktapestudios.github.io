@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>DigiAlex Fleet Status — animated preview</title>
+<style>
+  :root{
+    --bg:#01030a;
+    --accent:#00F0FF;
+    --accent2:#FFC14A;
+    --accent3:#B44DFF;
+    --live:#3dff9a;
+    --bad:#ff6b7a;
+    --glass:rgba(8,18,36,.72);
+    --stroke:rgba(120,190,255,.38);
+    --stroke-hot:rgba(0,240,255,.55);
+    --text:#e8f4ff;
+    --muted:rgba(170,210,255,.65);
+    --title:#7ef0ff;
+    --value:#9fe7ff;
+  }
+  html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);
+    font-family:"Segoe UI",system-ui,sans-serif;color:var(--text)}
+  canvas#map{position:fixed;inset:0;width:100%;height:100%;display:block}
+  #hud{position:fixed;inset:0;pointer-events:none;z-index:5}
+  #tag{
+    position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:20;
+    background:rgba(0,0,0,.7);border:1px solid rgba(255,120,120,.55);color:#ffb0b0;
+    font-size:10px;letter-spacing:.1em;padding:5px 12px;border-radius:8px;
+  }
+  #header{
+    position:absolute;top:36px;left:50%;transform:translateX(-50%);
+    display:flex;align-items:flex-end;gap:12px;z-index:6;
+  }
+  #header .brand{
+    background:var(--glass);border:1px solid var(--stroke);border-radius:14px;
+    padding:10px 16px;backdrop-filter:blur(14px);
+    box-shadow:0 8px 28px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06), 0 0 30px rgba(0,180,255,.08);
+  }
+  #header .brand .kicker{font-size:10px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;text-shadow:0 0 10px rgba(0,240,255,.35)}
+  #header .brand h1{margin:2px 0 0;font-size:20px;font-weight:700;letter-spacing:.06em;color:#fff}
+  #header .brand .sub{font-size:11px;color:var(--muted);margin-top:2px}
+  #header .stat{
+    background:var(--glass);border:1px solid var(--stroke);border-radius:12px;
+    padding:8px 12px;min-width:72px;backdrop-filter:blur(14px);text-align:center;
+  }
+  #header .stat .n{font-size:18px;font-weight:700;color:var(--accent2);line-height:1}
+  #header .stat .l{font-size:9px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-top:4px}
+  .panel{position:absolute;top:36px;bottom:18px;width:250px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+  .panel.left{left:16px}
+  .panel.right{right:16px}
+  .panel .ptitle{
+    background:var(--glass);border:1px solid var(--stroke);border-radius:12px;
+    padding:8px 12px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--title);
+    backdrop-filter:blur(14px);
+  }
+  .panel .ptitle span{color:var(--muted);letter-spacing:.08em;margin-left:6px;text-transform:none;font-size:10px}
+  .card{
+    background:var(--glass);border:1px solid var(--stroke);border-radius:12px;
+    padding:10px 12px;backdrop-filter:blur(14px);
+    box-shadow:0 6px 20px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+    transition:opacity .35s, filter .35s, border-color .35s;
+  }
+  .card.off{opacity:.42;filter:grayscale(.7) brightness(.8);border-color:rgba(120,160,200,.25)}
+  .card.on-live{
+    border-color:var(--stroke-hot);
+    box-shadow:0 0 18px rgba(0,240,255,.22), 0 6px 20px rgba(0,0,0,.35);
+  }
+  .card .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .card .name{font-size:13px;font-weight:650}
+  .card .badge{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:999px;border:1px solid transparent}
+  .card .badge.drone{color:#9fe7ff;border-color:rgba(0,240,255,.45);background:rgba(0,240,255,.12)}
+  .card .badge.rover{color:#ffe29a;border-color:rgba(255,193,74,.45);background:rgba(255,193,74,.12)}
+  .card .meta{display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:var(--muted)}
+  .card .state{margin-top:6px;font-size:11px;font-weight:600}
+  .card .state.on-patrol,.card .state.takeoff{color:var(--live)}
+  .card .state.approach{color:var(--accent)}
+  .card .state.charging{color:var(--accent2)}
+  .card .state.docked{color:var(--muted)}
+  .bat{margin-top:7px;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+  .bat>i{display:block;height:100%;border-radius:3px}
+  .bat>i.ok{background:linear-gradient(90deg,#00F0FF,#3dff9a)}
+  .bat>i.mid{background:linear-gradient(90deg,#FFC14A,#ffb347)}
+  .bat>i.low{background:linear-gradient(90deg,#ff6b7a,#ff9a3c)}
+  .pwr{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:middle;box-shadow:0 0 6px currentColor}
+  .pwr.on{background:var(--live);color:var(--live)}
+  .pwr.off{background:#889;color:#889}
+  #net.card{
+    border-color:rgba(0,240,255,.5);
+    background:linear-gradient(135deg,rgba(2,10,24,.78),rgba(8,18,40,.7));
+    box-shadow:0 0 22px rgba(0,240,255,.16), 0 6px 20px rgba(0,0,0,.35);
+  }
+  #net .kicker{font-size:9px;letter-spacing:.16em;color:var(--accent);text-transform:uppercase}
+  #net h2{margin:2px 0 8px;font-size:14px;font-weight:700}
+  #net .row{display:flex;justify-content:space-between;margin:4px 0;font-size:11px}
+  #net .row .k{color:var(--muted)}
+  #net .row .v{font-weight:700;color:var(--value)}
+  #net .row .v.up{color:var(--live)}
+  #net .row .v.down{color:var(--accent2)}
+  #net .status{margin-top:7px;font-size:10px;color:var(--live)}
+  #net .status .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--live);margin-right:6px;box-shadow:0 0 8px var(--live)}
+  #dukktape.card{
+    border-color:rgba(255,193,74,.5);
+    background:linear-gradient(135deg,rgba(18,14,8,.82),rgba(10,18,36,.72));
+    box-shadow:0 0 24px rgba(255,193,74,.14), 0 6px 20px rgba(0,0,0,.35);
+    margin-top:auto;
+  }
+  #dukktape .kicker{font-size:9px;letter-spacing:.16em;color:var(--accent2);text-transform:uppercase}
+  #dukktape h2{margin:2px 0 2px;font-size:14px;font-weight:700}
+  #dukktape .mask{font-size:10px;color:rgba(220,200,160,.7);margin-bottom:6px}
+  #dukktape .bal{font-size:28px;font-weight:700;text-shadow:0 0 16px rgba(255,193,74,.35)}
+  #dukktape .note{margin-top:6px;font-size:9px;color:rgba(180,200,220,.55);line-height:1.35}
+  #legend{
+    position:absolute;left:282px;bottom:18px;
+    background:var(--glass);border:1px solid var(--stroke);border-radius:12px;
+    padding:10px 12px;backdrop-filter:blur(14px);font-size:11px;min-width:160px;
+  }
+  #legend .t{font-size:10px;letter-spacing:.16em;color:var(--title);text-transform:uppercase;margin-bottom:6px}
+  #legend .row{display:flex;align-items:center;gap:8px;margin:4px 0;color:var(--muted)}
+  #legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+  #legend i.drone{background:linear-gradient(135deg,#00F0FF,#3dff9a)}
+  #legend i.rover{background:linear-gradient(135deg,#FFC14A,#B44DFF)}
+  #legend i.path{background:transparent;border:2px dashed rgba(0,240,255,.75);border-radius:50%}
+  #legend i.sat{background:rgba(140,180,220,.5)}
+  #clock{
+    position:absolute;right:282px;bottom:18px;text-align:right;
+    font-size:10px;letter-spacing:.14em;color:var(--muted);
+    background:var(--glass);border:1px solid var(--stroke);border-radius:10px;
+    padding:8px 12px;backdrop-filter:blur(14px);
+  }
+  #attrib{position:absolute;left:282px;bottom:118px;font-size:9px;color:rgba(160,190,220,.45);max-width:280px;line-height:1.35}
+</style>
+</head>
+<body>
+<canvas id="map"></canvas>
+<div id="hud">
+  <div id="tag">PREVIEW ONLY · animated · not saved to your PC</div>
+  <div id="header">
+    <div class="brand">
+      <div class="kicker">DigiAlex · 3616 Hunter Rd</div>
+      <h1>FLEET STATUS</h1>
+      <div class="sub">Rotating patrol · land · charge · takeoff · mock only</div>
+    </div>
+    <div class="stat"><div class="n" id="nActive">0</div><div class="l">Active</div></div>
+    <div class="stat"><div class="n" id="nDrone">0</div><div class="l">Drones</div></div>
+    <div class="stat"><div class="n" id="nRover">0</div><div class="l">Rovers</div></div>
+  </div>
+  <div class="panel left">
+    <div class="ptitle">Drones <span>air units · rotating</span></div>
+    <div id="droneCards"></div>
+    <div class="card" id="net">
+      <div class="kicker">Network</div>
+      <h2>Internet &amp; speed</h2>
+      <div class="row"><span class="k">Status</span><span class="v up">Online</span></div>
+      <div class="row"><span class="k">Down</span><span class="v down" id="dl">187 Mbps</span></div>
+      <div class="row"><span class="k">Up</span><span class="v up" id="ul">42 Mbps</span></div>
+      <div class="row"><span class="k">Ping</span><span class="v" id="ping">18 ms</span></div>
+      <div class="row"><span class="k">ISP</span><span class="v" style="font-weight:500">Starlink</span></div>
+      <div class="status"><span class="dot"></span>Uptime 99.2% · 30d</div>
+    </div>
+  </div>
+  <div class="panel right">
+    <div class="ptitle">Rovers <span>ground units</span></div>
+    <div id="roverCards"></div>
+    <div class="card" id="dukktape">
+      <div class="kicker">Business</div>
+      <h2>Dukktape Studios</h2>
+      <div class="mask">USAA checking · ···0958</div>
+      <div class="bal">$0.00</div>
+      <div class="note">Live from Finance sync · available $0.00</div>
+    </div>
+  </div>
+  <div id="legend">
+    <div class="t">Legend</div>
+    <div class="row"><i class="drone"></i> Drone (air)</div>
+    <div class="row"><i class="rover"></i> Rover (ground)</div>
+    <div class="row"><i class="path"></i> Patrol loop</div>
+    <div class="row"><i class="sat"></i> Esri World Imagery</div>
+  </div>
+  <div id="attrib">Preview only · PC files untouched · always ≥1 drone moving</div>
+  <div id="clock"><span id="clockTxt">--</span> · DEMO</div>
+</div>
+<script>
+(() => {
+  const canvas = document.getElementById("map");
+  const ctx = canvas.getContext("2d");
+  let W = 0, H = 0, t0 = performance.now();
+  const _qs = new URLSearchParams(location.search);
+  const _tStart = parseFloat(_qs.get('t') || '0') || 0;
+  // Shift clock so elapsed starts at _tStart seconds (for multi-frame preview capture)
+  t0 = performance.now() - _tStart * 1000;
+  const sat = new Image();
+  sat.src = "satellite.jpg";
+  let satReady = false;
+  sat.onload = () => { satReady = true; };
+
+  const pathPts = [
+    [0.28,0.30],[0.42,0.22],[0.58,0.20],[0.72,0.28],[0.78,0.42],
+    [0.80,0.58],[0.72,0.72],[0.55,0.80],[0.38,0.78],[0.26,0.66],
+    [0.22,0.48],[0.28,0.30]
+  ];
+  function samplePath(pts, seg = 40) {
+    const out = [];
+    const p = pts.map(q => ({x:q[0], y:q[1]}));
+    for (let i = 0; i < p.length - 1; i++) {
+      const p0 = p[Math.max(0, i-1)], p1 = p[i], p2 = p[i+1], p3 = p[Math.min(p.length-1, i+2)];
+      for (let j = 0; j < seg; j++) {
+        const t = j / seg, t2 = t*t, t3 = t2*t;
+        const x = 0.5*((2*p1.x)+(-p0.x+p2.x)*t+(2*p0.x-5*p1.x+4*p2.x-p3.x)*t2+(-p0.x+3*p1.x-3*p2.x+p3.x)*t3);
+        const y = 0.5*((2*p1.y)+(-p0.y+p2.y)*t+(2*p0.y-5*p1.y+4*p2.y-p3.y)*t2+(-p0.y+3*p1.y-3*p2.y+p3.y)*t3);
+        out.push({x, y});
+      }
+    }
+    return out;
+  }
+  let path = [], pathLen = [];
+  function rebuildPath() {
+    path = samplePath(pathPts, 48);
+    pathLen = [0];
+    for (let i = 1; i < path.length; i++) {
+      pathLen[i] = pathLen[i-1] + Math.hypot((path[i].x-path[i-1].x)*W, (path[i].y-path[i-1].y)*H);
+    }
+  }
+  function pointAt(dist) {
+    const total = pathLen[pathLen.length - 1] || 1;
+    let d = ((dist % total) + total) % total;
+    let i = 1;
+    while (i < pathLen.length && pathLen[i] < d) i++;
+    const i0 = Math.max(0, i - 1), i1 = Math.min(path.length - 1, i);
+    const seg = pathLen[i1] - pathLen[i0] || 1;
+    const u = (d - pathLen[i0]) / seg;
+    const a = path[i0], b = path[i1];
+    return { x:(a.x+(b.x-a.x)*u)*W, y:(a.y+(b.y-a.y)*u)*H, ang:Math.atan2((b.y-a.y)*H,(b.x-a.x)*W) };
+  }
+
+  const dock = { x: 0.55, y: 0.48 };
+  // Cycle lengths (seconds) — staggered so always one in motion
+  const T_PATROL = 18, T_APPROACH = 4, T_CHARGE = 6, T_TAKEOFF = 3.5;
+  const CYCLE = T_PATROL + T_APPROACH + T_CHARGE + T_TAKEOFF; // ~31.5s
+
+  const drones = [
+    { id:"D-01", name:"Cetus-1", type:"drone", phaseOffset: 0 },
+    { id:"D-02", name:"Cetus-2", type:"drone", phaseOffset: CYCLE / 3 },
+    { id:"D-03", name:"Scout-Air", type:"drone", phaseOffset: (2 * CYCLE) / 3 }
+  ];
+  const rovers = [
+    { id:"R-01", name:"Yard Dog", type:"rover", battery:91, power:true, mode:"on-patrol", speed:22, offset:0.18 },
+    { id:"R-02", name:"Fence Runner", type:"rover", battery:73, power:true, mode:"on-patrol", speed:18, offset:0.55 }
+  ];
+
+  function droneState(u, elapsed) {
+    const t = ((elapsed + u.phaseOffset) % CYCLE + CYCLE) % CYCLE;
+    let mode, progress, battery, power = true;
+    if (t < T_PATROL) {
+      mode = "on-patrol"; progress = t / T_PATROL;
+      battery = 95 - progress * 28;
+    } else if (t < T_PATROL + T_APPROACH) {
+      mode = "approach"; progress = (t - T_PATROL) / T_APPROACH;
+      battery = 67 - progress * 4;
+    } else if (t < T_PATROL + T_APPROACH + T_CHARGE) {
+      mode = "charging"; progress = (t - T_PATROL - T_APPROACH) / T_CHARGE;
+      battery = 63 + progress * 37;
+      // pads as ON but docked glow
+    } else {
+      mode = "takeoff"; progress = (t - T_PATROL - T_APPROACH - T_CHARGE) / T_TAKEOFF;
+      battery = 100 - progress * 5;
+    }
+    return { mode, progress, battery: Math.round(Math.min(100, Math.max(5, battery))), power };
+  }
+
+  function dronePose(u, elapsed, now) {
+    const st = droneState(u, elapsed);
+    const total = pathLen[pathLen.length-1] || 1;
+    const dockPx = { x: dock.x * W, y: dock.y * H };
+    // Pad slot offset so 3 drones don't stack
+    const slot = drones.indexOf(u);
+    const pad = { x: dockPx.x - 22 + slot * 22, y: dockPx.y - 6 };
+
+    if (st.mode === "on-patrol") {
+      // travel along loop; start from nearest point after takeoff inject
+      const dist = (st.progress * 0.92 + 0.04 + slot * 0.31) * total;
+      const p = pointAt(dist);
+      return { x: p.x, y: p.y - 8, ang: p.ang, alt: 1, ...st };
+    }
+    if (st.mode === "approach") {
+      // leave path near dock approach and lerp to pad
+      const near = pointAt((0.92 + slot * 0.02) * total);
+      const e = easeInOut(st.progress);
+      return {
+        x: near.x + (pad.x - near.x) * e,
+        y: (near.y - 8) + (pad.y - (near.y - 8)) * e,
+        ang: near.ang + ( -Math.PI/2 - near.ang) * e,
+        alt: 1 - e * 0.85,
+        ...st
+      };
+    }
+    if (st.mode === "charging") {
+      const bob = Math.sin(now / 400) * 1.2;
+      return { x: pad.x, y: pad.y + bob, ang: -Math.PI/2, alt: 0.12, ...st };
+    }
+    // takeoff: rise from pad then join path
+    const e = easeInOut(st.progress);
+    const join = pointAt((0.02 + slot * 0.31) * total);
+    return {
+      x: pad.x + (join.x - pad.x) * e,
+      y: pad.y + ((join.y - 8) - pad.y) * e - Math.sin(e * Math.PI) * 28,
+      ang: -Math.PI/2 + (join.ang + Math.PI/2) * e,
+      alt: 0.15 + e * 0.85,
+      ...st
+    };
+  }
+
+  function easeInOut(t){ return t<0.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2; }
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    rebuildPath();
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  function drawSatellite() {
+    if (!satReady) { ctx.fillStyle = "#01030a"; ctx.fillRect(0,0,W,H); return; }
+    const iw = sat.naturalWidth, ih = sat.naturalHeight;
+    const scale = Math.max(W / iw, H / ih);
+    const dw = iw * scale, dh = ih * scale;
+    ctx.drawImage(sat, (W-dw)/2, (H-dh)/2, dw, dh);
+    ctx.fillStyle = "rgba(1,3,10,.32)";
+    ctx.fillRect(0,0,W,H);
+    const g = ctx.createRadialGradient(W*0.5,H*0.48,80,W*0.5,H*0.5,Math.max(W,H)*0.65);
+    g.addColorStop(0,"rgba(0,0,0,0)");
+    g.addColorStop(1,"rgba(0,0,0,.5)");
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+  }
+
+  function drawPatrolPath(now) {
+    if (path.length < 2) return;
+    ctx.save();
+    ctx.beginPath();
+    path.forEach((p,i) => { const x=p.x*W,y=p.y*H; i?ctx.lineTo(x,y):ctx.moveTo(x,y); });
+    ctx.strokeStyle = "rgba(0,240,255,.22)"; ctx.lineWidth = 4; ctx.stroke();
+    ctx.setLineDash([12, 10]);
+    ctx.lineDashOffset = -((now / 35) % 44);
+    ctx.strokeStyle = "rgba(0,240,255,.9)"; ctx.lineWidth = 2; ctx.stroke();
+    ctx.setLineDash([]);
+    for (let i = 0; i < pathPts.length - 1; i++) {
+      ctx.beginPath(); ctx.arc(pathPts[i][0]*W, pathPts[i][1]*H, 3.5, 0, Math.PI*2);
+      ctx.fillStyle = "rgba(255,193,74,.95)"; ctx.fill();
+    }
+    // charging pad glow
+    const pulse = 0.5 + 0.5 * Math.sin(now / 500);
+    ctx.beginPath(); ctx.arc(dock.x*W, dock.y*H, 16 + pulse*3, 0, Math.PI*2);
+    ctx.strokeStyle = `rgba(255,193,74,${0.45+pulse*0.35})`; ctx.lineWidth = 2; ctx.stroke();
+    ctx.beginPath(); ctx.arc(dock.x*W, dock.y*H, 8, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(255,193,74,${0.15+pulse*0.1})`; ctx.fill();
+    ctx.fillStyle = "rgba(255,230,180,.9)";
+    ctx.font = "600 10px Segoe UI, system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("CHARGE PAD", dock.x*W, dock.y*H + 28);
+    ctx.restore();
+  }
+
+  function drawDrone(pose, name, now) {
+    const { x, y, ang, alt, mode, power } = pose;
+    ctx.save();
+    ctx.globalAlpha = power ? (0.55 + alt * 0.45) : 0.35;
+    ctx.translate(x, y); ctx.rotate(ang);
+    const pulse = mode === "on-patrol" || mode === "takeoff" || mode === "approach"
+      ? (0.5 + 0.5 * Math.sin(now/280)) : 0.2;
+    const r = 10 + alt * 5 + pulse * 2;
+    ctx.beginPath(); ctx.arc(0, 0, r + 4, 0, Math.PI*2);
+    ctx.strokeStyle = `rgba(0,240,255,${0.2+pulse*0.2})`; ctx.stroke();
+    // rotor blur when moving
+    if (mode !== "charging" && mode !== "docked") {
+      ctx.strokeStyle = `rgba(157,231,255,${0.25+pulse*0.2})`;
+      ctx.beginPath(); ctx.ellipse(0,0, r+6, 3, 0, 0, Math.PI*2); ctx.stroke();
+    }
+    ctx.fillStyle = mode === "charging" ? "#FFC14A" : "#00F0FF";
+    ctx.beginPath(); ctx.moveTo(10,0); ctx.lineTo(-6,-7); ctx.lineTo(-6,7); ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+    ctx.globalAlpha = 0.95;
+    ctx.fillStyle = "#d8f8ff";
+    ctx.font = "600 10px Segoe UI, system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(name, x, y - 18 - alt * 4);
+    if (mode === "approach") {
+      ctx.fillStyle = "rgba(0,240,255,.75)";
+      ctx.font = "500 9px Segoe UI, system-ui, sans-serif";
+      ctx.fillText("landing…", x, y + 16);
+    } else if (mode === "takeoff") {
+      ctx.fillStyle = "rgba(61,255,154,.85)";
+      ctx.font = "500 9px Segoe UI, system-ui, sans-serif";
+      ctx.fillText("taking off", x, y + 16);
+    } else if (mode === "charging") {
+      ctx.fillStyle = "rgba(255,193,74,.85)";
+      ctx.font = "500 9px Segoe UI, system-ui, sans-serif";
+      ctx.fillText("charging", x, y + 16);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawRover(x, y, ang, u) {
+    ctx.save();
+    ctx.globalAlpha = 1;
+    ctx.translate(x,y); ctx.rotate(ang);
+    ctx.fillStyle = "#FFC14A";
+    ctx.fillRect(-9,-6,16,12);
+    ctx.fillStyle = "rgba(30,20,5,.85)";
+    ctx.fillRect(-10,-8,5,3); ctx.fillRect(-10,5,5,3);
+    ctx.fillRect(4,-8,5,3); ctx.fillRect(4,5,5,3);
+    ctx.restore();
+    ctx.fillStyle = "#ffe9b0";
+    ctx.font = "600 10px Segoe UI, system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(u.name, x, y + 20);
+  }
+
+  function cardHtml(u) {
+    const bat = Math.round(u.battery);
+    const cls = bat > 50 ? "ok" : bat > 25 ? "mid" : "low";
+    const labels = {
+      "on-patrol":"On patrol", approach:"Coming in to land", charging:"On charge pad",
+      takeoff:"Taking off", docked:"Docked · standby", offline:"Offline"
+    };
+    const stateLabel = labels[u.mode] || u.mode;
+    const isLive = u.power && (u.mode === "on-patrol" || u.mode === "takeoff" || u.mode === "approach");
+    const isOff = !u.power;
+    const cardCls = "card" + (isOff ? " off" : "") + (isLive ? " on-live" : "");
+    return `<div class="${cardCls}">
+      <div class="top"><div class="name">${u.name}</div><span class="badge ${u.type}">${u.type}</span></div>
+      <div class="meta"><span>${u.id}</span><span>${bat}%</span></div>
+      <div class="bat"><i class="${cls}" style="width:${bat}%"></i></div>
+      <div class="state ${u.mode}"><span class="pwr ${u.power?"on":"off"}"></span>${stateLabel} · ${u.power?"ON":"OFF"}</div>
+    </div>`;
+  }
+
+  function renderCards(droneViews) {
+    document.getElementById("droneCards").innerHTML = droneViews.map(cardHtml).join("");
+    document.getElementById("roverCards").innerHTML = rovers.map(cardHtml).join("");
+    document.getElementById("nDrone").textContent = drones.length;
+    document.getElementById("nRover").textContent = rovers.length;
+    const moving = droneViews.filter(d => d.mode === "on-patrol" || d.mode === "approach" || d.mode === "takeoff").length
+      + rovers.filter(r => r.mode === "on-patrol").length;
+    document.getElementById("nActive").textContent = moving;
+  }
+
+  let last = performance.now(), cardAcc = 0;
+
+  function frame(now) {
+    const dt = Math.min(0.05, (now - last) / 1000);
+    last = now;
+    const elapsed = (now - t0) / 1000;
+
+    drawSatellite();
+    drawPatrolPath(now);
+
+    const droneViews = drones.map(d => {
+      const pose = dronePose(d, elapsed, now);
+      drawDrone(pose, d.name, now);
+      return { id:d.id, name:d.name, type:"drone", battery:pose.battery, power:pose.power, mode:pose.mode };
+    });
+
+    const total = pathLen[pathLen.length-1] || 1;
+    rovers.forEach(u => {
+      u.battery = Math.min(100, Math.max(40, u.battery + (Math.random()-0.52)*0.05));
+      const p = pointAt(u.offset * total + elapsed * u.speed);
+      drawRover(p.x, p.y, p.ang, u);
+    });
+
+    cardAcc += dt;
+    if (cardAcc > 0.35) { cardAcc = 0; renderCards(droneViews); }
+
+    if (Math.random() < 0.012) {
+      document.getElementById("dl").textContent = (170 + Math.random()*40|0) + " Mbps";
+      document.getElementById("ul").textContent = (35 + Math.random()*15|0) + " Mbps";
+      document.getElementById("ping").textContent = (12 + Math.random()*20|0) + " ms";
+    }
+    document.getElementById("clockTxt").textContent =
+      new Date().toLocaleTimeString("en-US", { hour:"2-digit", minute:"2-digit", second:"2-digit" });
+    requestAnimationFrame(frame);
+  }
+  // first cards
+  renderCards(drones.map(d => ({...d, battery:80, power:true, mode:"on-patrol"})));
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
