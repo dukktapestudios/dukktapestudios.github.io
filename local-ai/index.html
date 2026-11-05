@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Standalone Offline AI — DigiAlex Crash Course</title>
+<style>
+body{margin:0;font-family:Segoe UI,system-ui,sans-serif;background:#050a12;color:#e8f4ff;background-image:radial-gradient(900px 400px at 20% -10%,rgba(0,240,255,.12),transparent 55%)}
+.wrap{max-width:900px;margin:0 auto;padding:40px 20px}.k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#00F0FF}
+h1{margin:4px 0 8px}h2{color:#9fe7ff;margin-top:0}p,li{color:rgba(190,220,255,.82);line-height:1.6}
+.card{margin:18px 0;padding:20px 22px;border-radius:14px;border:1px solid rgba(120,190,255,.3);background:rgba(8,18,36,.75);backdrop-filter:blur(8px)}
+code,pre{background:rgba(0,240,255,.07);border:1px solid rgba(0,240,255,.2);border-radius:8px;color:#bff6ff}
+code{padding:1px 6px}pre{padding:12px;overflow:auto}table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid rgba(120,190,255,.2);text-align:left;vertical-align:top}th{color:#00F0FF}
+a{color:#00F0FF}.note{border-left:3px solid #00F0FF;padding-left:12px}
+</style></head><body><div class="wrap">
+<div class="k">DigiAlex · Crash Course</div><h1>Standalone offline AI</h1>
+<p>Run your own AI on your own computer — no cloud, no subscription, works when the internet is down. <a href="../">← All guides</a></p>
+<div class="card"><h2>1 · What a standalone AI actually is</h2>
+<p>Two pieces: a <b>model file</b> (the "brain," a few GB download) and <b>runner software</b> that loads it and answers you. Download once; after that everything runs locally — your prompts never leave the machine.</p></div>
+<div class="card"><h2>2 · The software: Ollama (free)</h2>
+<p><a href="https://ollama.com/download">Ollama</a> is the easiest route on Windows, macOS, or Linux. One installer, one command to pull a model, and it automatically exposes a local API at <code>http://localhost:11434</code> that other programs can call.</p></div>
+<div class="card"><h2>3 · Minimums</h2><ul>
+<li><b>RAM:</b> 8 GB bare minimum (3B-class models); 16 GB is comfortable.</li>
+<li><b>Storage:</b> ~10 GB free (SSD strongly preferred); 50+ GB if you'll collect several models.</li>
+<li><b>GPU:</b> optional. CPU-only works for small models, just slower. Any GPU with ~4 GB+ VRAM speeds things up a lot.</li>
+<li><b>OS:</b> Windows 10/11, macOS 12+, or Linux.</li></ul>
+<p class="note">Rule of thumb: a model needs roughly its file size in memory, plus ~1–2 GB headroom. If it fits in GPU VRAM it's fast; if it spills to system RAM it slows down.</p></div>
+<div class="card"><h2>4 · The range: cheapest → most capable</h2><table>
+<tr><th>Tier</th><th>Hardware</th><th>Models that fit</th><th>Realistically does</th></tr>
+<tr><td>CPU-only</td><td>Any modern PC, 8–16 GB RAM</td><td>1B–3B (Llama 3.2 3B, Phi-3 mini, Gemma small)</td><td>Short drafting, summaries, simple Q&amp;A, basic agent tasks — a few words/sec</td></tr>
+<tr><td>Entry GPU</td><td>4–8 GB VRAM</td><td>3B–8B (Llama 3.1 8B, Qwen 7B, Mistral 7B)</td><td>Solid drafting &amp; summarizing, reliable simple agent jobs, light image gen (SD 1.5)</td></tr>
+<tr><td>Mid-range GPU</td><td>12–16 GB VRAM</td><td>8B–14B, some 20B quantized</td><td>Good writing, coding help, tool-using agents, SDXL image generation</td></tr>
+<tr><td>High-end</td><td>24 GB+ VRAM (or 2 GPUs / 64 GB+ unified-memory Mac)</td><td>30B–70B quantized</td><td>Closest to a strong cloud assistant: reasoning, long docs, multi-step agents, fast image gen (Flux)</td></tr></table></div>
+<div class="card"><h2>5 · Goal to shoot for</h2>
+<p>For something that feels like a <b>strong everyday assistant</b>: <b>24 GB VRAM + 32–64 GB system RAM + 1 TB SSD</b>, running a ~30B model (e.g. Qwen 32B / Gemma 27B class). It still won't match the very best cloud models on hard reasoning, but it handles real work offline. Start small first — you can always upgrade the GPU later.</p></div>
+<div class="card"><h2>6 · Step by step</h2><ol>
+<li>Install Ollama from <a href="https://ollama.com/download">ollama.com/download</a> and run the installer.</li>
+<li>Open a terminal (PowerShell) and pull a small model:<pre>ollama pull llama3.2:3b</pre></li>
+<li>Chat with it:<pre>ollama run llama3.2:3b</pre>Type a question; <code>/bye</code> to exit. Unplug the internet and try again — it still works.</li>
+<li>Run it headless for agent jobs (the background service starts automatically; or):<pre>ollama serve</pre></li>
+<li>Call it from scripts:<pre>curl http://localhost:11434/api/generate -d "{\"model\":\"llama3.2:3b\",\"prompt\":\"Summarize today's coop log\",\"stream\":false}"</pre></li>
+<li>Check what's loaded: <code>ollama list</code> · <code>ollama ps</code></li></ol></div>
+<div class="card"><h2>7 · Plugging into DigiAlex</h2><ul>
+<li><b>Agents:</b> point DigiAlex agents at <code>http://localhost:11434</code> (Ollama also offers an OpenAI-compatible endpoint at <code>/v1</code>) instead of a cloud API — summaries, drafts, and routine jobs run locally.</li>
+<li><b>Monitoring:</b> sensor readings (propane, well, coop temps) go to a small script that asks the local model to flag anomalies and write a plain-English status.</li>
+<li><b>LoRa mesh:</b> mesh messages land on the house hub via MQTT → script → local model → short reply back over the mesh. AI help with cell and internet both down.</li>
+<li>To share it with other machines on your LAN, set <code>OLLAMA_HOST=0.0.0.0</code> — keep it off the public internet.</li></ul></div>
+<div class="card"><h2>8 · Rough cost</h2><ul>
+<li><b>$0</b> — Ollama and models are free; runs on hardware you already have.</li>
+<li><b>~$300–1,500 used</b> — a bigger GPU later (12–24 GB VRAM) for mid-range/high-end tiers.</li>
+<li>Power: a few cents per hour of heavy use.</li></ul></div>
+</div></body></html>
