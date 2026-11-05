@@ -419,7 +419,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
       }
       $("list").innerHTML = S.map((s, i) => {
         const old = /unconfirmed/.test(s.year);
-        return '<label class="spot"><input type="checkbox" id="c' + i + '"' + (old ? "" : " checked") + "> <b>" + esc(s.name) + '</b> <span class="tag' + (old ? " old" : "") + '">' + esc(s.year) + "</span><br>"
+        return '<label class="spot"><input type="checkbox" id="c' + i + '"> <b>' + esc(s.name) + '</b> <span class="tag' + (old ? " old" : "") + '">' + esc(s.year) + "</span><br>"
           + "📍 " + esc(s.addr) + " (" + mi(s, home).toFixed(1) + " mi) · ⏰ " + hm(s.win[0] * 60) + "–" + hm(s.win[1] * 60) + "<br>"
           + "🎁 " + esc(s.deal) + "<br>🪪 " + esc(s.proof) + ' · <a target="_blank" rel="noopener" href="' + esc(s.source) + '">source</a></label>';
       }).join("")
