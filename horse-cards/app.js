@@ -41,8 +41,7 @@
     { file: "082_winx.jpg", name: "Winx" },
     { file: "086_red-rum.jpg", name: "Red Rum" },
     { file: "087_arkle.jpg", name: "Arkle" },
-    { file: "185_riverton.jpg", name: "Riverton" },
-    { file: "186_kali.jpg", name: "Kali" }
+    { file: "185_riverton.jpg", name: "Riverton" }
   ];
   var chaseById = {};
   CHASE.forEach(function (item) {

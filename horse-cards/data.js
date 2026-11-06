@@ -189,7 +189,6 @@
     ["kabarda", "Kabarda", "Breed", "Common", "North Caucasus", "A sure-footed mountain horse of the North Caucasus.", 7, 9, 8, "bay"],
     ["manipuri", "Manipuri Pony", "Breed", "Common", "Manipur, India", "A pony of Manipur, long used for polo.", 7, 7, 8, "bay"],
     ["riverton", "Riverton", "Personal", "Legendary", "Home", "He's just a baby. A 2,000 lb baby.", 5, 7, 10, "gray"],
-    ["kali", "Kali", "Personal", "Legendary", "Home", "The silliest goose and the chunkiest of monkeys.", 4, 7, 10, "chestnut"],
 
     ["id-appaloosa-color", "Appaloosa (Color)", "Colors & Breeds", "Common", "", "A spotted coat with mottled skin, white sclera around the eye and striped hooves.", 5, 5, 5, "spotted"],
     ["id-bay", "Bay", "Colors & Breeds", "Common", "", "Brown or reddish-brown body with black points: black mane, tail and lower legs.", 5, 5, 5, "bay"],
