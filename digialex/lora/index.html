@@ -106,13 +106,14 @@
 <div class="wrap">
   <p class="hub"><a href="../">← DigiAlex Guides</a></p>
   <header class="hero">
-    <div class="kicker">DigiAlex crash course · Hunter Rd homestead</div>
+    <div class="kicker">DigiAlex crash course · example rural property</div>
     <h1>Build a LoRa mesh for off-grid text &amp; sensors</h1>
     <p class="lede">
-      Beginner path for <strong style="color:#fff">3616 Hunter Rd, Caledonia/Rockford, IL 61011</strong>
-      (~10+ acre rural homestead: house, coop, barn, goats). When cell/internet die, a cheap
+      Beginner path for an <strong style="color:#fff">example rural property</strong>:
+      a house, a barn, and an outbuilding on open ground. This layout is fictional and is not a real address.
+      When cell and internet fail, a cheap
       <strong style="color:#fff">915&nbsp;MHz Meshtastic</strong> mesh keeps short texts and sensor telemetry
-      hopping around the property. Complements — does not replace — your HF NVIS emergency plan.
+      hopping around the property. It complements a separate HF NVIS radio plan. It does not replace one.
     </p>
     <span class="badge">US915 · Meshtastic · Heltec V3 · Phase 1 ≈ $350</span>
   </header>
@@ -123,7 +124,7 @@
       <li><strong style="color:#fff">Buy 2× Heltec WiFi LoRa 32 V3 (915&nbsp;MHz)</strong> + one LiPo each. Flash Meshtastic, set region <strong style="color:#fff">US</strong>, prove house↔handheld text.</li>
       <li><strong style="color:#fff">Weatherproof barn + coop</strong> (IP65 box, external 5&nbsp;dBi antenna, solar). Add a cheap BME280 on the coop for temp/humidity.</li>
       <li><strong style="color:#fff">Raise the house antenna</strong>, walk-test the fence with the Meshtastic app, then add an edge solar node only where SNR dies.</li>
-      <li><strong style="color:#fff">MQTT into DigiAlex</strong> when Wi‑Fi exists. Keep HF NVIS (FT‑818 / IC‑705 + wire) as the regional layer.</li>
+      <li><strong style="color:#fff">MQTT into DigiAlex</strong> when Wi‑Fi exists. Keep a separate HF NVIS radio and a wire antenna as the regional layer.</li>
     </ol>
     <div class="callout good">Goal of week 1: two boards text each other outdoors. That’s already a mesh in spirit.</div>
   </section>
@@ -170,12 +171,12 @@
       <li><strong style="color:#fff">DigiAlex stays local-first:</strong> sensors → mesh packet → optional MQTT → your dashboard — not a vendor cloud.</li>
       <li><strong style="color:#fff">Part 15 LoRa:</strong> no ham license for this layer (antenna ≤6&nbsp;dBi or cut power).</li>
     </ul>
-    <div class="callout">Think of LoRa as the homestead <em>LAN</em>. HF NVIS is the regional <em>WAN</em>. Use both.</div>
+    <div class="callout">Think of LoRa as the property <em>LAN</em>. HF NVIS is the regional <em>WAN</em>. Use both.</div>
   </section>
 
   <section id="map">
     <h2><span class="n">03</span>Placement map (height + LOS beat power)</h2>
-    <pre class="map">                    N (Hunter Rd roughly)
+    <pre class="map">                    N (far side of the example lot)
                          |
             [E1 EDGE]----+----[E2 EDGE optional]
              solar       |      solar / fence line
@@ -195,7 +196,7 @@
         <tr><td><strong style="color:#fff">B1 Barn</strong></td><td>Exterior wall / eave, clear of metal roof</td><td><code>CLIENT</code></td><td>Metal roofs kill 915&nbsp;MHz; outside antenna keeps the hop alive.</td></tr>
         <tr><td><strong style="color:#fff">C1 Coop</strong></td><td>South eave/post + unshaded solar</td><td><code>CLIENT</code> + telemetry</td><td>Classic RF shadow; chicken sensors stay off-cloud.</td></tr>
         <tr><td><strong style="color:#fff">G1 Goat</strong></td><td>Fence post / shelter ridge</td><td><code>CLIENT</code></td><td>Optional mid-field hop if pasture sits in a dip.</td></tr>
-        <tr><td><strong style="color:#fff">E1 Edge</strong></td><td>Property high point / tree line</td><td><code>CLIENT</code></td><td>Extends toward Hunter Rd neighbors on a private channel.</td></tr>
+        <tr><td><strong style="color:#fff">E1 Edge</strong></td><td>Property high point / tree line</td><td><code>CLIENT</code></td><td>Extends toward the far fence on a private channel.</td></tr>
         <tr><td><strong style="color:#fff">E2</strong></td><td>Opposite corner</td><td><code>CLIENT</code></td><td>Phase 2 only if walk-test shows a dead corner.</td></tr>
       </tbody>
     </table>
@@ -243,9 +244,9 @@
       <li><strong style="color:#fff">Prove the link.</strong> Flash 2× Heltec V3 915 with Meshtastic web flasher. Region <strong style="color:#fff">US</strong>. Create a private encrypted channel. Send a text house↔second board. Never TX without an antenna attached.</li>
       <li><strong style="color:#fff">Weatherproof barn + coop.</strong> IP65 box, cable glands, external 5&nbsp;dBi omni clear of metal. South-facing solar. Add BME280 on coop I²C; enable Environment Telemetry.</li>
       <li><strong style="color:#fff">Raise house antenna + walk-test.</strong> Mount H1 high. Walk the fence with phone BLE + handheld; note SNR collapses. Add edge solar only where needed.</li>
-      <li><strong style="color:#fff">Edge solar (E1).</strong> Property high point toward the longest sightline (often N/E toward Hunter Rd).</li>
+      <li><strong style="color:#fff">Edge solar (E1).</strong> Property high point toward the longest sightline on the example lot.</li>
       <li><strong style="color:#fff">MQTT → DigiAlex.</strong> On the house hub, enable MQTT JSON uplink to a local broker when Wi‑Fi is up. DigiAlex ingests telemetry. When internet is down, phone + mesh still work locally.</li>
-      <li><strong style="color:#fff">Keep HF separate.</strong> Practice NVIS schedule on FT‑818 / IC‑705; don’t push coop temps over HF.</li>
+      <li><strong style="color:#fff">Keep HF separate.</strong> Practice NVIS on a separate HF radio. Don’t send outbuilding temperatures over HF.</li>
     </ol>
   </section>
 
@@ -255,8 +256,8 @@
       <li>Open <a href="https://meshtastic.org" target="_blank" rel="noopener">meshtastic.org</a> → web flasher → pick Heltec V3 / T‑Beam → flash over USB.</li>
       <li>Install Meshtastic Android or iOS app. Connect over BLE (or serial).</li>
       <li>Set <strong style="color:#fff">LoRa region = US</strong>. Confirm hardware is 915&nbsp;MHz (not 868/433).</li>
-      <li>Create a <strong style="color:#fff">private channel</strong> with a strong PSK. Share only with family nodes.</li>
-      <li>Device role on a 10‑acre plot: almost everything = <code>CLIENT</code>. Avoid roof <code>ROUTER</code>/<code>REPEATER</code> unless you intend to serve a wide public mesh.</li>
+      <li>Create a <strong style="color:#fff">private channel</strong> with a strong PSK. Share it only with the nodes you control.</li>
+      <li>Device role on a spread-out rural lot: almost everything = <code>CLIENT</code>. Avoid roof <code>ROUTER</code>/<code>REPEATER</code> unless you intend to serve a wide public mesh.</li>
       <li>Name nodes clearly: <code>H1-House</code>, <code>B1-Barn</code>, <code>C1-Coop</code>, <code>E1-Edge</code>, <code>HH-TBeam</code>.</li>
     </ol>
     <h3>Range expectations (rural N IL)</h3>
@@ -312,7 +313,7 @@
   </section>
 
   <footer>
-    DigiAlex · Dukktape Studios · LoRa mesh crash course for 3616 Hunter Rd · design sourced from homestead LoRa plan · prices verify before buy
+    DigiAlex · Dukktape Studios · LoRa mesh crash course for an example rural property · prices verify before buy
   </footer>
 </div>
 </body>
