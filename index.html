@@ -289,6 +289,79 @@ h2::after {
   border-color: var(--silver-dark);
   background: #fff;
 }
+.tablist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+.project-tabs:not(.is-ready) .tablist { display: none; }
+.tablist [role="tab"] {
+  flex: 1 1 11rem;
+  min-height: 48px;
+  padding: .45rem .9rem;
+  border: 2px solid var(--green);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--green-deep);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+.tablist [role="tab"][aria-selected="true"] {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green-deep);
+}
+.tablist [role="tab"]:hover,
+.tablist [role="tab"]:focus-visible {
+  border-color: var(--orange);
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.tablist [role="tab"][aria-selected="true"]:hover,
+.tablist [role="tab"][aria-selected="true"]:focus-visible {
+  color: #fff;
+}
+.panel-label {
+  margin: .15rem 0 .8rem;
+  color: var(--green);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+.project-tabs.is-ready .panel-label { display: none; }
+.drawer > summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .35rem .8rem;
+  cursor: pointer;
+  list-style: none;
+}
+.drawer > summary::-webkit-details-marker { display: none; }
+.drawer > summary::marker { content: ""; }
+.drawer > summary h2 { flex: 1 1 12rem; margin-bottom: 0; }
+.drawer-state {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 800;
+  color: var(--green-deep);
+}
+.drawer-state::before { content: "Show"; }
+.drawer[open] > summary .drawer-state::before { content: "Hide"; }
+.drawer > summary:focus { outline: none; }
+.drawer > summary:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+.project-tabs [role="tabpanel"]:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
 .contact a {
   display: inline-block;
   margin: 2px 0;
@@ -374,6 +447,7 @@ footer {
 @media (max-width: 420px) {
   section { padding: 16px 14px 4px; }
   .duck-btn img { width: min(74vw, 280px); }
+  .tablist [role="tab"] { flex-basis: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .tag { transform: none; }
@@ -414,50 +488,69 @@ footer {
   <p>Hi, I'm Dukktape. I teach myself how the internet and AI work by turning ideas into real things: websites, programs, and games. I use AI to patchwork them together. They're usually held together with duct tape, but working is working.</p>
   <p>My goal is to show you that you can just start. It doesn't have to be pretty or perfect. Build it rough, hobble it together, and figure it out as you go.</p>
 </section>
-<section>
+<section id="projects">
   <h2>Projects</h2>
-  <div class="cards">
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/landlord-guide/">Landlord Crash Course</a></h3><p>Free beginner lessons, a rent-ready checklist, and a worksheet for cash flow and break-even rent. Estimates only, not legal or investment advice.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/common-ground/">Common Ground</a></h3><p>In development. A buyer and seller name priorities, keep private walk-away limits, and both approve a non-binding summary. The app is not available here yet.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/b2b-sales-course/">B2B Software Sales Crash Course</a></h3><p>Teach yourself SDR and enterprise deal skills on a fictional company. Drills and capstones. Not a job or income promise.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/veterans-day/">Veterans Day route</a></h3><p>Free meals and deals for Wednesday, Nov 11, 2026. Check spots near your ZIP and build a route that follows each offer's hours.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/stories/">Bookshelf</a></h3><p>A shelf of studio books.</p><p class="visits" data-paths="/stories/ /stories/books/rivers-run-wolf-cry/ /stories/books/random-ideas/">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/irl-armory/">IRL Armory</a></h3><p>WoW-style character page you can share.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/rooster-rumble/">Rooster Rumble</a></h3><p>Rooster battle card game. Knock out all 3 enemy roosters.</p><p class="visits" data-paths="/rooster-rumble/ /rooster-rumble/cards/">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/horse-genetics/">Horse Genetics</a></h3><p>Free foal coat color calculator.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/horse-cards/">Hoofprint Legends</a></h3><p>Catalog of 205 cards: history, racing, breeds, and one from home.</p><p class="visits" data-paths="/horse-cards/ /horse-cards/shop.html">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/roundpen/">Round Pen</a></h3><p>Pressure and release horse training game.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/usda-504/">USDA 504 Repair Helper</a></h3><p>Simple step-by-step guide to the USDA home repair loan and grant.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/foia/">FOIA Made Easy</a></h3><p>Free tool that drafts a public-records request in your browser.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/affect-me/">How Does It Affect Me</a></h3><p>Enter your ZIP and situation to see the laws in all states and federal laws that affect you and how your reps voted.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/hypocrisy-tracker/">Hypocrisy Tracker</a></h3><p>Search any member of Congress. Pick the values you care about. See documented said-vs-did evidence, not ads.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/self-reliance/">Rural Self-Reliance Checklist</a></h3><p>Basic checklist every rural household should shoot for: water, heat, power, food, and more.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/money/">Money Basics</a></h3><p>Plain-English guide to start where you are, from a crisis to building wealth.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/cyber-crash-course/">Cybersecurity Crash Course (100% Free)</a></h3><p>A free, practical crash course: get safe this week, learn the core ideas, and earn free badges.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/white-hat-crash-course/">White Hat Hacking Crash Course (100% Free)</a></h3><p>A free beginner path to ethical hacking: labs, CTFs, and a first bug bounty, only on systems you have permission to test.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/raspberry-pi/">Raspberry Pi Crash Course</a></h3><p>Learn Pi hardware from zero: GPIO, camera, sensors, then ESP32.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/">DigiAlex Guides</a></h3><p>Hub for the DigiAlex toolkit: cluster, LoRa mesh, fleet dashboard, and offline AI.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/lora/">LoRa Mesh Crash Course</a></h3><p>Off-grid 915 MHz Meshtastic: placement, parts, and MQTT into DigiAlex.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/cluster/">Cluster Crash Course</a></h3><p>Network multiple PCs into one workhorse: what splits, Ethernet, and a beginner path.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/fleet/">Fleet Status</a></h3><p>Sample satellite fleet dashboard mock: drones, network, and balance. Demo only.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/local-ai/">Standalone Offline AI Crash Course</a></h3><p>Run your own AI offline with Ollama — minimums, hardware tiers, DigiAlex hookup.</p><p class="visits" data-paths="/digialex/local-ai/ /local-ai/">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/group-lot/">Group Lot</a></h3><p>Pool demand for the same car so a dealer can quote a volume price. Demo only. No money collected.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/smv-calculator/">SMV Calculator</a></h3><p>For-fun self-check of health, habits, and career. Rough score, not science.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/theory/">How I see life and reality</a></h3><p>Personal notes on God, free will, the multiverse, the Bible, the Trinity, and consciousness.</p><p class="visits">👁 0 visits</p></div>
+  <div class="project-tabs">
+    <div class="tablist" role="tablist" aria-label="Project groups">
+      <button type="button" role="tab" id="tab-courses" aria-controls="panel-courses" aria-selected="true" tabindex="0">Crash Courses</button>
+      <button type="button" role="tab" id="tab-other" aria-controls="panel-other" aria-selected="false" tabindex="-1">Other Projects</button>
+    </div>
+    <div role="tabpanel" id="panel-courses" aria-labelledby="tab-courses" tabindex="0">
+      <h3 class="panel-label">Crash Courses</h3>
+      <div class="cards">
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/b2b-sales-course/">B2B Software Sales Crash Course</a></h3><p>Teach yourself SDR and enterprise deal skills on a fictional company. Drills and capstones. Not a job or income promise.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/local-ai/">Standalone Offline AI Crash Course</a></h3><p>Run your own AI offline with Ollama — minimums, hardware tiers, DigiAlex hookup.</p><p class="visits" data-paths="/digialex/local-ai/ /local-ai/">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/lora/">LoRa Mesh Crash Course</a></h3><p>Off-grid 915 MHz Meshtastic: placement, parts, and MQTT into DigiAlex.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/cluster/">Cluster Crash Course</a></h3><p>Network multiple PCs into one workhorse: what splits, Ethernet, and a beginner path.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/landlord-guide/">Landlord Crash Course</a></h3><p>Free beginner lessons, a rent-ready checklist, and a worksheet for cash flow and break-even rent. Estimates only, not legal or investment advice.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/raspberry-pi/">Raspberry Pi Crash Course</a></h3><p>Learn Pi hardware from zero: GPIO, camera, sensors, then ESP32.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/white-hat-crash-course/">White Hat Hacking Crash Course (100% Free)</a></h3><p>A free beginner path to ethical hacking: labs, CTFs, and a first bug bounty, only on systems you have permission to test.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/cyber-crash-course/">Cybersecurity Crash Course (100% Free)</a></h3><p>A free, practical crash course: get safe this week, learn the core ideas, and earn free badges.</p><p class="visits">👁 0 visits</p></div>
+      </div>
+    </div>
+    <div role="tabpanel" id="panel-other" aria-labelledby="tab-other" tabindex="0">
+      <h3 class="panel-label">Other Projects</h3>
+      <div class="cards">
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/common-ground/">Common Ground</a></h3><p>In development. A buyer and seller name priorities, keep private walk-away limits, and both approve a non-binding summary. The app is not available here yet.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/veterans-day/">Veterans Day route</a></h3><p>Free meals and deals for Wednesday, Nov 11, 2026. Check spots near your ZIP and build a route that follows each offer's hours.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/stories/">Bookshelf</a></h3><p>A shelf of studio books.</p><p class="visits" data-paths="/stories/ /stories/books/rivers-run-wolf-cry/ /stories/books/random-ideas/">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/irl-armory/">IRL Armory</a></h3><p>WoW-style character page you can share.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/rooster-rumble/">Rooster Rumble</a></h3><p>Rooster battle card game. Knock out all 3 enemy roosters.</p><p class="visits" data-paths="/rooster-rumble/ /rooster-rumble/cards/">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/horse-genetics/">Horse Genetics</a></h3><p>Free foal coat color calculator.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/horse-cards/">Hoofprint Legends</a></h3><p>Catalog of 205 cards: history, racing, breeds, and one from home.</p><p class="visits" data-paths="/horse-cards/ /horse-cards/shop.html">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/roundpen/">Round Pen</a></h3><p>Pressure and release horse training game.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/usda-504/">USDA 504 Repair Helper</a></h3><p>Simple step-by-step guide to the USDA home repair loan and grant.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/foia/">FOIA Made Easy</a></h3><p>Free tool that drafts a public-records request in your browser.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/affect-me/">How Does It Affect Me</a></h3><p>Enter your ZIP and situation to see the laws in all states and federal laws that affect you and how your reps voted.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/hypocrisy-tracker/">Hypocrisy Tracker</a></h3><p>Search any member of Congress. Pick the values you care about. See documented said-vs-did evidence, not ads.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/self-reliance/">Rural Self-Reliance Checklist</a></h3><p>Basic checklist every rural household should shoot for: water, heat, power, food, and more.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/money/">Money Basics</a></h3><p>Plain-English guide to start where you are, from a crisis to building wealth.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/">DigiAlex Guides</a></h3><p>Hub for the DigiAlex toolkit: cluster, LoRa mesh, fleet dashboard, and offline AI.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/fleet/">Fleet Status</a></h3><p>Sample satellite fleet dashboard mock: drones, network, and balance. Demo only.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/group-lot/">Group Lot</a></h3><p>Pool demand for the same car so a dealer can quote a volume price. Demo only. No money collected.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/smv-calculator/">SMV Calculator</a></h3><p>For-fun self-check of health, habits, and career. Rough score, not science.</p><p class="visits">👁 0 visits</p></div>
+        <div class="card"><h3><a href="https://dukktapestudios.github.io/theory/">How I see life and reality</a></h3><p>Personal notes on God, free will, the multiverse, the Bible, the Trinity, and consciousness.</p><p class="visits">👁 0 visits</p></div>
+      </div>
+    </div>
   </div>
 </section>
 <section id="junk-drawer">
-  <h2>Junk Drawer</h2>
-  <p class="section-intro">Early concepts I may come back to.</p>
-  <div class="cards">
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/space/">NETSPACE</a></h3><p>Space game where every website is a star system.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/animal-tactics/">Animal Tactics</a></h3><p>Simple animal tabletop battle game.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/coop-quest/">Coop Quest</a></h3><p>Walk Hatchwick, meet stray birds, and keep a flock of six.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/chicken-tender/">Chicken Tender</a></h3><p>Breed chickens, pass down their colors, and fill the yard book.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/mech-vr/">Rivethull</a></h3><p>Heavy box-walker prototype for a headset or a desktop browser.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/dnd/">Dungeon Night</a></h3><p>Simple online D&amp;D game with friends and an AI DM.</p><p class="visits">👁 0 visits</p></div>
-    <div class="card"><h3><a href="https://dukktapestudios.github.io/spurs/">Spur Trainer</a></h3><p>Learn proper, light spur use with pressure and release.</p><p class="visits">👁 0 visits</p></div>
-  </div>
+  <details class="drawer">
+    <summary>
+      <h2>Junk Drawer</h2>
+      <span class="drawer-state" aria-hidden="true"></span>
+    </summary>
+    <p class="section-intro">Early concepts I may come back to.</p>
+    <div class="cards">
+      <div class="card"><h3><a href="https://dukktapestudios.github.io/space/">NETSPACE</a></h3><p>Space game where every website is a star system.</p><p class="visits">👁 0 visits</p></div>
+      <div class="card"><h3><a href="https://dukktapestudios.github.io/animal-tactics/">Animal Tactics</a></h3><p>Simple animal tabletop battle game.</p><p class="visits">👁 0 visits</p></div>
+      <div class="card"><h3><a href="https://dukktapestudios.github.io/coop-quest/">Coop Quest</a></h3><p>Walk Hatchwick, meet stray birds, and keep a flock of six.</p><p class="visits">👁 0 visits</p></div>
+      <div class="card"><h3><a href="https://dukktapestudios.github.io/chicken-tender/">Chicken Tender</a></h3><p>Breed chickens, pass down their colors, and fill the yard book.</p><p class="visits">👁 0 visits</p></div>
+      <div class="card"><h3><a href="https://dukktapestudios.github.io/mech-vr/">Rivethull</a></h3><p>Heavy box-walker prototype for a headset or a desktop browser.</p><p class="visits">👁 0 visits</p></div>
+      <div class="card"><h3><a href="https://dukktapestudios.github.io/dnd/">Dungeon Night</a></h3><p>Simple online D&amp;D game with friends and an AI DM.</p><p class="visits">👁 0 visits</p></div>
+      <div class="card"><h3><a href="https://dukktapestudios.github.io/spurs/">Spur Trainer</a></h3><p>Learn proper, light spur use with pressure and release.</p><p class="visits">👁 0 visits</p></div>
+    </div>
+  </details>
 </section>
 <section>
   <h2>Follow &amp; Contact</h2>
@@ -657,6 +750,45 @@ footer {
       });
     })(cards[i]);
   }
+})();
+</script>
+<script>
+(function () {
+  var root = document.querySelector(".project-tabs");
+  if (!root) return;
+  var tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
+  function panelFor(tab) {
+    return document.getElementById(tab.getAttribute("aria-controls"));
+  }
+  function select(tab) {
+    tabs.forEach(function (item) {
+      var on = item === tab;
+      item.setAttribute("aria-selected", on ? "true" : "false");
+      item.tabIndex = on ? 0 : -1;
+      var panel = panelFor(item);
+      if (panel) panel.hidden = !on;
+    });
+  }
+  tabs.forEach(function (tab, index) {
+    tab.addEventListener("click", function () {
+      select(tab);
+    });
+    tab.addEventListener("keydown", function (event) {
+      var key = event.key;
+      var next = -1;
+      if (key === "ArrowRight" || key === "ArrowDown") next = (index + 1) % tabs.length;
+      else if (key === "ArrowLeft" || key === "ArrowUp") next = (index - 1 + tabs.length) % tabs.length;
+      else if (key === "Home") next = 0;
+      else if (key === "End") next = tabs.length - 1;
+      if (next < 0) return;
+      event.preventDefault();
+      select(tabs[next]);
+      tabs[next].focus();
+    });
+  });
+  var current = root.querySelector('[role="tab"][aria-selected="true"]') || tabs[0];
+  select(current);
+  root.classList.add("is-ready");
 })();
 </script>
 <script data-goatcounter="https://dukktape.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
