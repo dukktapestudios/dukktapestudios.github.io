@@ -43,6 +43,25 @@ files.forEach(function (full) {
     failed += 1;
     console.error("computer hostname in " + rel);
   }
+  if (rel === "veterans-day/data.json") {
+    var parsed = JSON.parse(text);
+    function zipKeys(obj) {
+      var n = 0;
+      if (obj && typeof obj === "object" && !Array.isArray(obj)) {
+        Object.keys(obj).forEach(function (key) {
+          if (/^\d{5}$/.test(key)) n += 1;
+          n += zipKeys(obj[key]);
+        });
+      } else if (Array.isArray(obj)) {
+        obj.forEach(function (item) { n += zipKeys(item); });
+      }
+      return n;
+    }
+    if (zipKeys(parsed) > 0) {
+      failed += 1;
+      console.error("area code used as a data key in " + rel);
+    }
+  }
   if (rel.endsWith(".html")) {
     var tags = text.match(zipField) || [];
     tags.forEach(function (tag) {
@@ -54,6 +73,10 @@ files.forEach(function (full) {
   }
 });
 
+if (fs.existsSync(path.join(root, "digialex/fleet/preview.png"))) {
+  failed += 1;
+  console.error("removed dashboard image is present again");
+}
 if (failed) {
   console.error(failed + " privacy-guard findings");
   process.exit(1);
