@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documents Checklist | Dukktape Studios</title>
+<meta name="description" content="A generic documents checklist. Mark what you have. Checkmarks stay in this browser and nothing is uploaded.">
+<meta name="color-scheme" content="dark">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; script-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<link rel="preload" href="../assets/fonts/nunito-latin-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="wrap">
+<header class="hero">
+  <p class="back"><a href="/">← Dukktape Studios</a></p>
+  <p class="kicker">Open checklist</p>
+  <h1>Documents Checklist</h1>
+  <p class="deck">A generic list anyone can use. Check “I have that” for papers you already keep. The page never asks you to type a name, number, or secret, and it never uploads a document.</p>
+  <p class="notice"><strong>Marks stay on this device.</strong> Checkmarks and the blank, partial, or filed packet status are saved in this browser only. They are not an account, they are not sent to a server, and another device starts blank. Clearing site data deletes them. The export file is document marks only. This is an education checklist, not legal, tax, medical, or benefits advice.</p>
+  <ul class="legend">
+    <li><strong>Original</strong> The document the issuer gave you. Keep it somewhere durable, separate from everyday copies.</li>
+    <li><strong>Certified copy</strong> A copy an official office issues or stamps as official. A plain photocopy is not the same thing.</li>
+    <li><strong>Encrypted backup</strong> A scan inside encrypted storage, kept apart from the only paper copy.</li>
+  </ul>
+</header>
+<nav class="toc" aria-label="Categories">
+  <a href="#schedule">Schedule</a>
+  <a href="#cat-va">VA</a>
+  <a href="#cat-housing">Housing</a>
+  <a href="#cat-tax">Tax</a>
+  <a href="#cat-banking">Banking</a>
+  <a href="#cat-school">School</a>
+  <a href="#cat-vehicles">Vehicles</a>
+  <a href="#cat-identity">Identity</a>
+  <a href="#cat-medical">Medical</a>
+  <a href="#cat-benefits">Benefits</a>
+  <a href="#cat-security">Crypto / security notes</a>
+</nav>
+<div class="tools" id="tools">
+  <div class="progress-row">
+    <p class="progress-label" id="progress-label">Count appears when JavaScript runs. The list below is already complete.</p>
+    <p class="packet-summary" id="packet-summary"></p>
+  </div>
+  <div class="progress" id="progress" role="progressbar" aria-valuemin="0" aria-valuemax="56" aria-valuenow="0" aria-labelledby="progress-label">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+  <div class="controls">
+    <div class="search" role="search">
+      <label for="q">Search</label>
+      <div class="search-row">
+        <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Document type">
+        <button type="button" id="clear-search" class="quiet">Clear search</button>
+      </div>
+    </div>
+    <div>
+      <span class="sr" id="filter-label">Filter</span>
+      <div class="filters" role="group" aria-labelledby="filter-label">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="need" aria-pressed="false">Still needed</button>
+        <button type="button" data-filter="have" aria-pressed="false">Have it</button>
+      </div>
+    </div>
+    <div class="actions" aria-describedby="io-help">
+      <button type="button" id="export">Export marks</button>
+      <button type="button" id="import">Import marks</button>
+      <button type="button" id="reset" class="danger">Clear marks</button>
+      <input id="import-file" type="file" accept="application/json,.json" tabindex="-1" aria-label="Import checklist marks file">
+    </div>
+  </div>
+  <p class="meta" id="io-help">Search text is not saved. Export and import move document checkmarks and packet status only. Schedule marks stay on this device and are not in that file. Documents cannot be uploaded.</p>
+  <p class="meta" id="save-note" role="status"></p>
+  <p class="meta" id="shown-count" aria-live="polite"></p>
+</div>
+<main id="content">
+<section class="panel schedule" id="schedule">
+  <h2>Yearly adult responsibilities schedule</h2>
+  <p class="blurb">A checklist only. This page does not send reminders, notifications, or calendar items. A checked box means done for the period named on that group. When the period ends, the box starts empty again. Reset a group to clear it sooner. These marks stay in this browser and are not included in the export file.</p>
+  <div class="period" data-period="day">
+    <div class="period-head">
+      <h3>Daily</h3>
+      <p class="period-now" data-period-label="day">Applies to today only. Tomorrow these start unchecked.</p>
+      <p class="count" data-period-count="day"></p>
+      <button type="button" data-reset-period="day">Reset daily marks</button>
+    </div>
+    <ul class="items">
+      <li class="sched-item" data-item="day-meds">
+        <label class="check" for="day-meds"><input id="day-meds" type="checkbox" data-schedule="day-meds" data-period-kind="day" aria-describedby="guide-day-meds"><span><span class="sr">Done for this period: </span>Medications</span></label>
+        <p class="guide" id="guide-day-meds">Take medications only as prescribed. Do not type medicine names here.</p>
+      </li>
+      <li class="sched-item" data-item="day-money">
+        <label class="check" for="day-money"><input id="day-money" type="checkbox" data-schedule="day-money" data-period-kind="day" aria-describedby="guide-day-money"><span><span class="sr">Done for this period: </span>Five-minute money glance</span></label>
+        <p class="guide" id="guide-day-money">Spend about five minutes looking. Do not type amounts or account numbers here.</p>
+      </li>
+      <li class="sched-item" data-item="day-task">
+        <label class="check" for="day-task"><input id="day-task" type="checkbox" data-schedule="day-task" data-period-kind="day" aria-describedby="guide-day-task"><span><span class="sr">Done for this period: </span>One real task from a list</span></label>
+        <p class="guide" id="guide-day-task">Do one real task from a list you keep elsewhere. Do not type the task here.</p>
+      </li>
+    </ul>
+  </div>
+  <div class="period" data-period="month">
+    <div class="period-head">
+      <h3>Monthly</h3>
+      <p class="period-now" data-period-label="month">Applies to this month only. Next month these start unchecked.</p>
+      <p class="count" data-period-count="month"></p>
+      <button type="button" data-reset-period="month">Reset monthly marks</button>
+    </div>
+    <ul class="items">
+      <li class="sched-item" data-item="month-bills">
+        <label class="check" for="month-bills"><input id="month-bills" type="checkbox" data-schedule="month-bills" data-period-kind="month" aria-describedby="guide-month-bills"><span><span class="sr">Done for this period: </span>Pay bills</span></label>
+        <p class="guide" id="guide-month-bills">Pay what is due. Do not type confirmation numbers here.</p>
+      </li>
+      <li class="sched-item" data-item="month-statements">
+        <label class="check" for="month-statements"><input id="month-statements" type="checkbox" data-schedule="month-statements" data-period-kind="month" aria-describedby="guide-month-statements"><span><span class="sr">Done for this period: </span>Review bank and credit card statements</span></label>
+        <p class="guide" id="guide-month-statements">Read the statements for anything unexpected. Do not type transactions here.</p>
+      </li>
+      <li class="sched-item" data-item="month-budget">
+        <label class="check" for="month-budget"><input id="month-budget" type="checkbox" data-schedule="month-budget" data-period-kind="month" aria-describedby="guide-month-budget"><span><span class="sr">Done for this period: </span>Quick budget glance</span></label>
+        <p class="guide" id="guide-month-budget">Glance at the plan you keep elsewhere. Do not type figures here.</p>
+      </li>
+    </ul>
+  </div>
+  <div class="period" data-period="quarter">
+    <div class="period-head">
+      <h3>Quarterly</h3>
+      <p class="period-now" data-period-label="quarter">Applies to this quarter only. Next quarter these start unchecked.</p>
+      <p class="count" data-period-count="quarter"></p>
+      <button type="button" data-reset-period="quarter">Reset quarterly marks</button>
+    </div>
+    <ul class="items">
+      <li class="sched-item" data-item="quarter-invest">
+        <label class="check" for="quarter-invest"><input id="quarter-invest" type="checkbox" data-schedule="quarter-invest" data-period-kind="quarter" aria-describedby="guide-quarter-invest"><span><span class="sr">Done for this period: </span>Review investments or retirement contributions</span></label>
+        <p class="guide" id="guide-quarter-invest">See whether contributions are what you intended. Do not type balances here.</p>
+      </li>
+      <li class="sched-item" data-item="quarter-insurance">
+        <label class="check" for="quarter-insurance"><input id="quarter-insurance" type="checkbox" data-schedule="quarter-insurance" data-period-kind="quarter" aria-describedby="guide-quarter-insurance"><span><span class="sr">Done for this period: </span>Check insurance coverage</span></label>
+        <p class="guide" id="guide-quarter-insurance">See whether coverage still fits. Do not type policy numbers here.</p>
+      </li>
+    </ul>
+  </div>
+  <div class="period" data-period="half">
+    <div class="period-head">
+      <h3>Twice a year</h3>
+      <p class="period-now" data-period-label="half">Applies to this half of the year only. The next half starts unchecked.</p>
+      <p class="count" data-period-count="half"></p>
+      <button type="button" data-reset-period="half">Reset twice-a-year marks</button>
+    </div>
+    <ul class="items">
+      <li class="sched-item" data-item="half-smoke">
+        <label class="check" for="half-smoke"><input id="half-smoke" type="checkbox" data-schedule="half-smoke" data-period-kind="half" aria-describedby="guide-half-smoke"><span><span class="sr">Done for this period: </span>Change smoke detector batteries</span></label>
+        <p class="guide" id="guide-half-smoke">Follow the device instructions. Sealed-life models differ and may not use a battery change.</p>
+      </li>
+      <li class="sched-item" data-item="half-dryer">
+        <label class="check" for="half-dryer"><input id="half-dryer" type="checkbox" data-schedule="half-dryer" data-period-kind="half" aria-describedby="guide-half-dryer"><span><span class="sr">Done for this period: </span>Clean dryer vent</span></label>
+        <p class="guide" id="guide-half-dryer">Clear lint the way the maker describes. This is a checkbox, not a repair guide.</p>
+      </li>
+    </ul>
+  </div>
+  <div class="period" data-period="year">
+    <div class="period-head">
+      <h3>Annually</h3>
+      <p class="period-now" data-period-label="year">Applies to this year only. Next year these start unchecked.</p>
+      <p class="count" data-period-count="year"></p>
+      <button type="button" data-reset-period="year">Reset annual marks</button>
+    </div>
+    <ul class="items">
+      <li class="sched-item" data-item="year-taxes">
+        <label class="check" for="year-taxes"><input id="year-taxes" type="checkbox" data-schedule="year-taxes" data-period-kind="year" aria-describedby="guide-year-taxes"><span><span class="sr">Done for this period: </span>File taxes</span></label>
+        <p class="guide" id="guide-year-taxes">File the return that is due. Keep the papers in the Tax packet, not in this box.</p>
+      </li>
+      <li class="sched-item" data-item="year-will">
+        <label class="check" for="year-will"><input id="year-will" type="checkbox" data-schedule="year-will" data-period-kind="year" aria-describedby="guide-year-will"><span><span class="sr">Done for this period: </span>Review or update will or beneficiaries</span></label>
+        <p class="guide" id="guide-year-will">Confirm a will or beneficiary choices still match the intent. Do not type names here.</p>
+      </li>
+      <li class="sched-item" data-item="year-physical">
+        <label class="check" for="year-physical"><input id="year-physical" type="checkbox" data-schedule="year-physical" data-period-kind="year" aria-describedby="guide-year-physical"><span><span class="sr">Done for this period: </span>Get a physical</span></label>
+        <p class="guide" id="guide-year-physical">Base this on clinician advice. This list is not medical advice and does not book a visit.</p>
+      </li>
+      <li class="sched-item" data-item="year-passwords">
+        <label class="check" for="year-passwords"><input id="year-passwords" type="checkbox" data-schedule="year-passwords" data-period-kind="year" aria-describedby="guide-year-passwords"><span><span class="sr">Done for this period: </span>Review critical-account passwords</span></label>
+        <p class="guide" id="guide-year-passwords">Change a critical login if it is weak, reused, or exposed. A strong unique login does not need a yearly swap. Do not type secrets here.</p>
+      </li>
+      <li class="sched-item" data-item="year-inventory">
+        <label class="check" for="year-inventory"><input id="year-inventory" type="checkbox" data-schedule="year-inventory" data-period-kind="year" aria-describedby="guide-year-inventory"><span><span class="sr">Done for this period: </span>Inventory important documents</span></label>
+        <p class="guide" id="guide-year-inventory">Walk the packets on this page. Do not type document details here.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+<p id="onboarding-help" class="callout">Living onboarding is the packet mark for a category: blank, partial, or filed. Blank means not started. Partial means some papers are gathered. Filed means the papers you have are stored the way the guidance describes. Checking a box does not change that mark.</p>
+<noscript><p class="notice">JavaScript is off. You can still read and check the list, but this browser will not remember the marks. Nothing is sent to a server either way.</p></noscript>
+
+<section class="packet" id="cat-va" data-category="va" data-state="blank">
+  <div class="packet-head">
+    <h2><span>01</span> VA</h2>
+    <p class="blurb">Veterans benefits and service papers.</p>
+    <div class="status">
+      <label for="status-va">Living onboarding
+        <select id="status-va" data-status-for="va" aria-describedby="onboarding-help">
+          <option value="blank">Blank</option>
+          <option value="partial">Partial</option>
+          <option value="filed">Filed</option>
+        </select>
+      </label>
+    </div>
+    <p class="count" data-count-for="va"></p>
+  </div>
+  <ul class="items">
+    <li class="item" data-item="va-dd214">
+      <label class="check" for="va-dd214"><input id="va-dd214" type="checkbox" data-check="va-dd214" aria-describedby="guide-va-dd214"><span><span class="sr">I have that: </span>Separation document (DD-214 or equivalent)</span></label>
+      <p class="guide" id="guide-va-dd214">Keep the original in a fire-resistant folder, ask for a certified copy when an office requires one, and store an encrypted scan apart from the paper.</p>
+    </li>
+    <li class="item" data-item="va-decision">
+      <label class="check" for="va-decision"><input id="va-decision" type="checkbox" data-check="va-decision" aria-describedby="guide-va-decision"><span><span class="sr">I have that: </span>Disability decision letter</span></label>
+      <p class="guide" id="guide-va-decision">Keep the original letter, carry a plain copy to appointments, and put an encrypted backup with your other scans.</p>
+    </li>
+    <li class="item" data-item="va-health">
+      <label class="check" for="va-health"><input id="va-health" type="checkbox" data-check="va-health" aria-describedby="guide-va-health"><span><span class="sr">I have that: </span>Health care enrollment letter</span></label>
+      <p class="guide" id="guide-va-health">Keep the original at home, carry a copy, and use an encrypted backup for the scan.</p>
+    </li>
+    <li class="item" data-item="va-coe">
+      <label class="check" for="va-coe"><input id="va-coe" type="checkbox" data-check="va-coe" aria-describedby="guide-va-coe"><span><span class="sr">I have that: </span>Education benefit certificate of eligibility</span></label>
+      <p class="guide" id="guide-va-coe">Keep the official letter or PDF as the record, share a copy with a school, and store an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="va-survivor">
+      <label class="check" for="va-survivor"><input id="va-survivor" type="checkbox" data-check="va-survivor" aria-describedby="guide-va-survivor"><span><span class="sr">I have that: </span>Dependency or survivor decision, if it applies</span></label>
+      <p class="guide" id="guide-va-survivor">Keep the original decision, use a copy for follow-up, and add an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="va-records">
+      <label class="check" for="va-records"><input id="va-records" type="checkbox" data-check="va-records" aria-describedby="guide-va-records"><span><span class="sr">I have that: </span>Service treatment records you chose to keep</span></label>
+      <p class="guide" id="guide-va-records">Keep these with private medical papers and use an encrypted backup, not an open shared folder.</p>
+    </li>
+  </ul>
+</section>
+
+<section class="packet" id="cat-housing" data-category="housing" data-state="blank">
+  <div class="packet-head">
+    <h2><span>02</span> Housing</h2>
+    <p class="blurb">Home ownership, rental, and insurance papers.</p>
+    <div class="status">
+      <label for="status-housing">Living onboarding
+        <select id="status-housing" data-status-for="housing" aria-describedby="onboarding-help">
+          <option value="blank">Blank</option>
+          <option value="partial">Partial</option>
+          <option value="filed">Filed</option>
+        </select>
+      </label>
+    </div>
+    <p class="count" data-count-for="housing"></p>
+  </div>
+  <ul class="items">
+    <li class="item" data-item="housing-deed">
+      <label class="check" for="housing-deed"><input id="housing-deed" type="checkbox" data-check="housing-deed" aria-describedby="guide-housing-deed"><span><span class="sr">I have that: </span>Deed or recorded ownership document</span></label>
+      <p class="guide" id="guide-housing-deed">Keep the recorded document, order a certified copy when an office asks, and store an encrypted backup of the scan.</p>
+    </li>
+    <li class="item" data-item="housing-lease">
+      <label class="check" for="housing-lease"><input id="housing-lease" type="checkbox" data-check="housing-lease" aria-describedby="guide-housing-lease"><span><span class="sr">I have that: </span>Lease or rental agreement</span></label>
+      <p class="guide" id="guide-housing-lease">Keep the fully signed original or official PDF, leave a plain copy where you can reach it, and store an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="housing-mortgage">
+      <label class="check" for="housing-mortgage"><input id="housing-mortgage" type="checkbox" data-check="housing-mortgage" aria-describedby="guide-housing-mortgage"><span><span class="sr">I have that: </span>Mortgage statement or payoff letter</span></label>
+      <p class="guide" id="guide-housing-mortgage">Keep the latest statement and any payoff letter as copies, with an encrypted backup. Do not type loan numbers here.</p>
+    </li>
+    <li class="item" data-item="housing-insurance">
+      <label class="check" for="housing-insurance"><input id="housing-insurance" type="checkbox" data-check="housing-insurance" aria-describedby="guide-housing-insurance"><span><span class="sr">I have that: </span>Homeowner or renter insurance declarations</span></label>
+      <p class="guide" id="guide-housing-insurance">The declarations page is the useful copy. Keep it with the policy and store an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="housing-tax">
+      <label class="check" for="housing-tax"><input id="housing-tax" type="checkbox" data-check="housing-tax" aria-describedby="guide-housing-tax"><span><span class="sr">I have that: </span>Property tax bill</span></label>
+      <p class="guide" id="guide-housing-tax">Keep the latest bill, store older bills you still need as copies, and use an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="housing-hoa">
+      <label class="check" for="housing-hoa"><input id="housing-hoa" type="checkbox" data-check="housing-hoa" aria-describedby="guide-housing-hoa"><span><span class="sr">I have that: </span>HOA or condo documents, if they apply</span></label>
+      <p class="guide" id="guide-housing-hoa">Keep the current rules and statements as copies and store an encrypted backup.</p>
+    </li>
+  </ul>
+</section>
+
+<section class="packet" id="cat-tax" data-category="tax" data-state="blank">
+  <div class="packet-head">
+    <h2><span>03</span> Tax</h2>
+    <p class="blurb">Returns and the papers that support them.</p>
+    <div class="status">
+      <label for="status-tax">Living onboarding
+        <select id="status-tax" data-status-for="tax" aria-describedby="onboarding-help">
+          <option value="blank">Blank</option>
+          <option value="partial">Partial</option>
+          <option value="filed">Filed</option>
+        </select>
+      </label>
+    </div>
+    <p class="count" data-count-for="tax"></p>
+  </div>
+  <ul class="items">
+    <li class="item" data-item="tax-return">
+      <label class="check" for="tax-return"><input id="tax-return" type="checkbox" data-check="tax-return" aria-describedby="guide-tax-return"><span><span class="sr">I have that: </span>Filed tax return</span></label>
+      <p class="guide" id="guide-tax-return">Keep the filed copy for the years the tax agency expects, and store an encrypted backup apart from the paper.</p>
+    </li>
+    <li class="item" data-item="tax-income">
+      <label class="check" for="tax-income"><input id="tax-income" type="checkbox" data-check="tax-income" aria-describedby="guide-tax-income"><span><span class="sr">I have that: </span>Wage and income forms</span></label>
+      <p class="guide" id="guide-tax-income">Keep the original forms the payer sent and store an encrypted backup. Do not type the amounts into this page.</p>
+    </li>
+    <li class="item" data-item="tax-transcript">
+      <label class="check" for="tax-transcript"><input id="tax-transcript" type="checkbox" data-check="tax-transcript" aria-describedby="guide-tax-transcript"><span><span class="sr">I have that: </span>Filing confirmation or tax transcript</span></label>
+      <p class="guide" id="guide-tax-transcript">A transcript from the tax agency is an official copy. Keep the PDF and an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="tax-payments">
+      <label class="check" for="tax-payments"><input id="tax-payments" type="checkbox" data-check="tax-payments" aria-describedby="guide-tax-payments"><span><span class="sr">I have that: </span>Payment or estimated-tax receipts</span></label>
+      <p class="guide" id="guide-tax-payments">Keep the receipt copy with the return it belongs to and store an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="tax-records">
+      <label class="check" for="tax-records"><input id="tax-records" type="checkbox" data-check="tax-records" aria-describedby="guide-tax-records"><span><span class="sr">I have that: </span>Deduction records kept with the return</span></label>
+      <p class="guide" id="guide-tax-records">Keep the copies that support the return and store an encrypted backup. Do not list the details here.</p>
+    </li>
+    <li class="item" data-item="tax-letter">
+      <label class="check" for="tax-letter"><input id="tax-letter" type="checkbox" data-check="tax-letter" aria-describedby="guide-tax-letter"><span><span class="sr">I have that: </span>Tax identity letter, if the agency sent one</span></label>
+      <p class="guide" id="guide-tax-letter">Keep that letter offline with the tax papers. Do not type any code from it into this page.</p>
+    </li>
+  </ul>
+</section>
+
+<section class="packet" id="cat-banking" data-category="banking" data-state="blank">
+  <div class="packet-head">
+    <h2><span>04</span> Banking</h2>
+    <p class="blurb">Institution papers, without balances or numbers.</p>
+    <div class="status">
+      <label for="status-banking">Living onboarding
+        <select id="status-banking" data-status-for="banking" aria-describedby="onboarding-help">
+          <option value="blank">Blank</option>
+          <option value="partial">Partial</option>
+          <option value="filed">Filed</option>
+        </select>
+      </label>
+    </div>
+    <p class="count" data-count-for="banking"></p>
+  </div>
+  <ul class="items">
+    <li class="item" data-item="bank-letter">
+      <label class="check" for="bank-letter"><input id="bank-letter" type="checkbox" data-check="bank-letter" aria-describedby="guide-bank-letter"><span><span class="sr">I have that: </span>Bank welcome letter or signature card</span></label>
+      <p class="guide" id="guide-bank-letter">Keep the paper the institution gave you offline. Do not type account numbers into this page.</p>
+    </li>
+    <li class="item" data-item="bank-deposit">
+      <label class="check" for="bank-deposit"><input id="bank-deposit" type="checkbox" data-check="bank-deposit" aria-describedby="guide-bank-deposit"><span><span class="sr">I have that: </span>Direct-deposit instruction sheet</span></label>
+      <p class="guide" id="guide-bank-deposit">Store the original offline. This page is only a checkmark, not a place for routing numbers.</p>
+    </li>
+    <li class="item" data-item="bank-statement">
+      <label class="check" for="bank-statement"><input id="bank-statement" type="checkbox" data-check="bank-statement" aria-describedby="guide-bank-statement"><span><span class="sr">I have that: </span>Statement you chose to keep</span></label>
+      <p class="guide" id="guide-bank-statement">Keep the copy for as long as you need it and store an encrypted backup. Do not type balances here.</p>
+    </li>
+    <li class="item" data-item="bank-freeze">
+      <label class="check" for="bank-freeze"><input id="bank-freeze" type="checkbox" data-check="bank-freeze" aria-describedby="guide-bank-freeze"><span><span class="sr">I have that: </span>Credit freeze confirmation</span></label>
+      <p class="guide" id="guide-bank-freeze">Keep the confirmation copy and an encrypted backup. Do not type any code from it into this page.</p>
+    </li>
+    <li class="item" data-item="bank-beneficiary">
+      <label class="check" for="bank-beneficiary"><input id="bank-beneficiary" type="checkbox" data-check="bank-beneficiary" aria-describedby="guide-bank-beneficiary"><span><span class="sr">I have that: </span>Beneficiary designation</span></label>
+      <p class="guide" id="guide-bank-beneficiary">Keep the institution's copy and an encrypted backup. Do not type names or numbers here.</p>
+    </li>
+    <li class="item" data-item="bank-box">
+      <label class="check" for="bank-box"><input id="bank-box" type="checkbox" data-check="bank-box" aria-describedby="guide-bank-box"><span><span class="sr">I have that: </span>Safe-deposit agreement, if you use one</span></label>
+      <p class="guide" id="guide-bank-box">Keep the agreement copy. Do not make a list of the box contents on this page.</p>
+    </li>
+  </ul>
+</section>
+
+<section class="packet" id="cat-school" data-category="school" data-state="blank">
+  <div class="packet-head">
+    <h2><span>05</span> School</h2>
+    <p class="blurb">Enrollment, completion, and school health papers.</p>
+    <div class="status">
+      <label for="status-school">Living onboarding
+        <select id="status-school" data-status-for="school" aria-describedby="onboarding-help">
+          <option value="blank">Blank</option>
+          <option value="partial">Partial</option>
+          <option value="filed">Filed</option>
+        </select>
+      </label>
+    </div>
+    <p class="count" data-count-for="school"></p>
+  </div>
+  <ul class="items">
+    <li class="item" data-item="school-enroll">
+      <label class="check" for="school-enroll"><input id="school-enroll" type="checkbox" data-check="school-enroll" aria-describedby="guide-school-enroll"><span><span class="sr">I have that: </span>Enrollment or acceptance letter</span></label>
+      <p class="guide" id="guide-school-enroll">Keep a copy for your records and an encrypted backup of the PDF.</p>
+    </li>
+    <li class="item" data-item="school-transcript">
+      <label class="check" for="school-transcript"><input id="school-transcript" type="checkbox" data-check="school-transcript" aria-describedby="guide-school-transcript"><span><span class="sr">I have that: </span>Official transcript</span></label>
+      <p class="guide" id="guide-school-transcript">An official transcript is the certified copy a school issues. A student printout is only an everyday copy.</p>
+    </li>
+    <li class="item" data-item="school-diploma">
+      <label class="check" for="school-diploma"><input id="school-diploma" type="checkbox" data-check="school-diploma" aria-describedby="guide-school-diploma"><span><span class="sr">I have that: </span>Diploma or completion certificate</span></label>
+      <p class="guide" id="guide-school-diploma">Store the original safely, order a certified copy when an office requires one, and keep an encrypted backup of a scan.</p>
+    </li>
+    <li class="item" data-item="school-aid">
+      <label class="check" for="school-aid"><input id="school-aid" type="checkbox" data-check="school-aid" aria-describedby="guide-school-aid"><span><span class="sr">I have that: </span>Financial aid award letter</span></label>
+      <p class="guide" id="guide-school-aid">Keep the letter as a copy and an encrypted backup. Do not type award numbers here.</p>
+    </li>
+    <li class="item" data-item="school-health">
+      <label class="check" for="school-health"><input id="school-health" type="checkbox" data-check="school-health" aria-describedby="guide-school-health"><span><span class="sr">I have that: </span>School health form</span></label>
+      <p class="guide" id="guide-school-health">Give the school the copy it asked for and keep the original with medical papers, plus an encrypted backup.</p>
+    </li>
+  </ul>
+</section>
+
+<section class="packet" id="cat-vehicles" data-category="vehicles" data-state="blank">
+  <div class="packet-head">
+    <h2><span>06</span> Vehicles</h2>
+    <p class="blurb">Title, registration, and insurance papers.</p>
+    <div class="status">
+      <label for="status-vehicles">Living onboarding
+        <select id="status-vehicles" data-status-for="vehicles" aria-describedby="onboarding-help">
+          <option value="blank">Blank</option>
+          <option value="partial">Partial</option>
+          <option value="filed">Filed</option>
+        </select>
+      </label>
+    </div>
+    <p class="count" data-count-for="vehicles"></p>
+  </div>
+  <ul class="items">
+    <li class="item" data-item="vehicle-title">
+      <label class="check" for="vehicle-title"><input id="vehicle-title" type="checkbox" data-check="vehicle-title" aria-describedby="guide-vehicle-title"><span><span class="sr">I have that: </span>Vehicle title</span></label>
+      <p class="guide" id="guide-vehicle-title">Keep the original somewhere safer than the glove box, ask the motor agency about a certified copy, and store an encrypted scan apart from the paper.</p>
+    </li>
+    <li class="item" data-item="vehicle-registration">
+      <label class="check" for="vehicle-registration"><input id="vehicle-registration" type="checkbox" data-check="vehicle-registration" aria-describedby="guide-vehicle-registration"><span><span class="sr">I have that: </span>Current registration</span></label>
+      <p class="guide" id="guide-vehicle-registration">The card you carry is an everyday copy. Keep the receipt and an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="vehicle-insurance">
+      <label class="check" for="vehicle-insurance"><input id="vehicle-insurance" type="checkbox" data-check="vehicle-insurance" aria-describedby="guide-vehicle-insurance"><span><span class="sr">I have that: </span>Insurance card and declarations</span></label>
+      <p class="guide" id="guide-vehicle-insurance">Carry the card copy, keep the declarations page, and store an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="vehicle-payoff">
+      <label class="check" for="vehicle-payoff"><input id="vehicle-payoff" type="checkbox" data-check="vehicle-payoff" aria-describedby="guide-vehicle-payoff"><span><span class="sr">I have that: </span>Loan payoff letter, if any</span></label>
+      <p class="guide" id="guide-vehicle-payoff">Keep the letter as a copy and an encrypted backup. Do not type loan numbers here.</p>
+    </li>
+    <li class="item" data-item="vehicle-inspection">
+      <label class="check" for="vehicle-inspection"><input id="vehicle-inspection" type="checkbox" data-check="vehicle-inspection" aria-describedby="guide-vehicle-inspection"><span><span class="sr">I have that: </span>Inspection or emissions certificate, where required</span></label>
+      <p class="guide" id="guide-vehicle-inspection">Keep the current paper and drop older ones when the local rule says you may.</p>
+    </li>
+  </ul>
+</section>
+
+<section class="packet" id="cat-identity" data-category="identity" data-state="blank">
+  <div class="packet-head">
+    <h2><span>07</span> Identity</h2>
+    <p class="blurb">Civil records and identity credentials.</p>
+    <div class="status">
+      <label for="status-identity">Living onboarding
+        <select id="status-identity" data-status-for="identity" aria-describedby="onboarding-help">
+          <option value="blank">Blank</option>
+          <option value="partial">Partial</option>
+          <option value="filed">Filed</option>
+        </select>
+      </label>
+    </div>
+    <p class="count" data-count-for="identity"></p>
+  </div>
+  <ul class="items">
+    <li class="item" data-item="id-birth">
+      <label class="check" for="id-birth"><input id="id-birth" type="checkbox" data-check="id-birth" aria-describedby="guide-id-birth"><span><span class="sr">I have that: </span>Birth certificate</span></label>
+      <p class="guide" id="guide-id-birth">Keep the certified copy from vital records. A photocopy is not a certified copy. Store an encrypted scan apart from the paper.</p>
+    </li>
+    <li class="item" data-item="id-passport">
+      <label class="check" for="id-passport"><input id="id-passport" type="checkbox" data-check="id-passport" aria-describedby="guide-id-passport"><span><span class="sr">I have that: </span>Passport or passport card</span></label>
+      <p class="guide" id="guide-id-passport">The booklet is the original credential. Do not pack every other original in the same bag, and avoid an unencrypted photo of the page.</p>
+    </li>
+    <li class="item" data-item="id-card">
+      <label class="check" for="id-card"><input id="id-card" type="checkbox" data-check="id-card" aria-describedby="guide-id-card"><span><span class="sr">I have that: </span>Social Security card or equivalent number card</span></label>
+      <p class="guide" id="guide-id-card">Keep the card offline. Never type the number into this page, a note, or the export.</p>
+    </li>
+    <li class="item" data-item="id-license">
+      <label class="check" for="id-license"><input id="id-license" type="checkbox" data-check="id-license" aria-describedby="guide-id-license"><span><span class="sr">I have that: </span>State ID or driver license</span></label>
+      <p class="guide" id="guide-id-license">The card is the credential. A photocopy is not a substitute. Keep any scan in encrypted storage, not in an open inbox.</p>
+    </li>
+    <li class="item" data-item="id-status">
+      <label class="check" for="id-status"><input id="id-status" type="checkbox" data-check="id-status" aria-describedby="guide-id-status"><span><span class="sr">I have that: </span>Citizenship or immigration status document, if it applies</span></label>
+      <p class="guide" id="guide-id-status">Keep the original, use a certified copy only when an office accepts one, and store an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="id-civil">
+      <label class="check" for="id-civil"><input id="id-civil" type="checkbox" data-check="id-civil" aria-describedby="guide-id-civil"><span><span class="sr">I have that: </span>Marriage, divorce, or name-change certificate, if it applies</span></label>
+      <p class="guide" id="guide-id-civil">Order the certified copy from the court or vital records office, use a photocopy day to day, and keep an encrypted backup.</p>
+    </li>
+  </ul>
+</section>
+
+<section class="packet" id="cat-medical" data-category="medical" data-state="blank">
+  <div class="packet-head">
+    <h2><span>08</span> Medical</h2>
+    <p class="blurb">Coverage and care papers. Names of medicines stay off this page.</p>
+    <div class="status">
+      <label for="status-medical">Living onboarding
+        <select id="status-medical" data-status-for="medical" aria-describedby="onboarding-help">
+          <option value="blank">Blank</option>
+          <option value="partial">Partial</option>
+          <option value="filed">Filed</option>
+        </select>
+      </label>
+    </div>
+    <p class="count" data-count-for="medical"></p>
+  </div>
+  <ul class="items">
+    <li class="item" data-item="med-card">
+      <label class="check" for="med-card"><input id="med-card" type="checkbox" data-check="med-card" aria-describedby="guide-med-card"><span><span class="sr">I have that: </span>Health insurance card</span></label>
+      <p class="guide" id="guide-med-card">Carry a copy if you need it and keep an encrypted backup. Do not type member numbers here.</p>
+    </li>
+    <li class="item" data-item="med-directive">
+      <label class="check" for="med-directive"><input id="med-directive" type="checkbox" data-check="med-directive" aria-describedby="guide-med-directive"><span><span class="sr">I have that: </span>Advance directive or health care proxy</span></label>
+      <p class="guide" id="guide-med-directive">Keep the signed original, give copies to the people who must have them, and store an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="med-list">
+      <label class="check" for="med-list"><input id="med-list" type="checkbox" data-check="med-list" aria-describedby="guide-med-list"><span><span class="sr">I have that: </span>Medication and allergy list</span></label>
+      <p class="guide" id="guide-med-list">Keep the list on paper or in encrypted storage. Do not type medicine names into this page.</p>
+    </li>
+    <li class="item" data-item="med-vax">
+      <label class="check" for="med-vax"><input id="med-vax" type="checkbox" data-check="med-vax" aria-describedby="guide-med-vax"><span><span class="sr">I have that: </span>Vaccination record</span></label>
+      <p class="guide" id="guide-med-vax">Keep the official copy and an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="med-bills">
+      <label class="check" for="med-bills"><input id="med-bills" type="checkbox" data-check="med-bills" aria-describedby="guide-med-bills"><span><span class="sr">I have that: </span>Medical bills or benefit explanations you are keeping</span></label>
+      <p class="guide" id="guide-med-bills">Keep the copies for the year you still need and store an encrypted backup. Do not type claim numbers here.</p>
+    </li>
+  </ul>
+</section>
+
+<section class="packet" id="cat-benefits" data-category="benefits" data-state="blank">
+  <div class="packet-head">
+    <h2><span>09</span> Benefits</h2>
+    <p class="blurb">Award letters and plan statements.</p>
+    <div class="status">
+      <label for="status-benefits">Living onboarding
+        <select id="status-benefits" data-status-for="benefits" aria-describedby="onboarding-help">
+          <option value="blank">Blank</option>
+          <option value="partial">Partial</option>
+          <option value="filed">Filed</option>
+        </select>
+      </label>
+    </div>
+    <p class="count" data-count-for="benefits"></p>
+  </div>
+  <ul class="items">
+    <li class="item" data-item="ben-award">
+      <label class="check" for="ben-award"><input id="ben-award" type="checkbox" data-check="ben-award" aria-describedby="guide-ben-award"><span><span class="sr">I have that: </span>Benefit award or denial letter</span></label>
+      <p class="guide" id="guide-ben-award">Keep the original letter, take a copy to appointments, and store an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="ben-pension">
+      <label class="check" for="ben-pension"><input id="ben-pension" type="checkbox" data-check="ben-pension" aria-describedby="guide-ben-pension"><span><span class="sr">I have that: </span>Retirement or pension statement</span></label>
+      <p class="guide" id="guide-ben-pension">Keep the latest statement as a copy and an encrypted backup. Do not type plan numbers here.</p>
+    </li>
+    <li class="item" data-item="ben-notice">
+      <label class="check" for="ben-notice"><input id="ben-notice" type="checkbox" data-check="ben-notice" aria-describedby="guide-ben-notice"><span><span class="sr">I have that: </span>Public benefit eligibility notice, if it applies</span></label>
+      <p class="guide" id="guide-ben-notice">Keep the current notice and an encrypted backup. Do not type case numbers here.</p>
+    </li>
+    <li class="item" data-item="ben-booklet">
+      <label class="check" for="ben-booklet"><input id="ben-booklet" type="checkbox" data-check="ben-booklet" aria-describedby="guide-ben-booklet"><span><span class="sr">I have that: </span>Life or disability insurance booklet</span></label>
+      <p class="guide" id="guide-ben-booklet">The booklet and any certificate are the copies to keep, with an encrypted backup.</p>
+    </li>
+    <li class="item" data-item="ben-decision">
+      <label class="check" for="ben-decision"><input id="ben-decision" type="checkbox" data-check="ben-decision" aria-describedby="guide-ben-decision"><span><span class="sr">I have that: </span>Worker or unemployment decision, if it applies</span></label>
+      <p class="guide" id="guide-ben-decision">Keep the decision copy and an encrypted backup.</p>
+    </li>
+  </ul>
+</section>
+
+<section class="packet" id="cat-security" data-category="security" data-state="blank">
+  <div class="packet-head">
+    <h2><span>10</span> Crypto / security notes</h2>
+    <p class="blurb">Habits and locations only. No secrets are entered here.</p>
+    <div class="status">
+      <label for="status-security">Living onboarding
+        <select id="status-security" data-status-for="security" aria-describedby="onboarding-help">
+          <option value="blank">Blank</option>
+          <option value="partial">Partial</option>
+          <option value="filed">Filed</option>
+        </select>
+      </label>
+    </div>
+    <p class="count" data-count-for="security"></p>
+  </div>
+  <ul class="items">
+    <li class="item" data-item="sec-manager">
+      <label class="check" for="sec-manager"><input id="sec-manager" type="checkbox" data-check="sec-manager" aria-describedby="guide-sec-manager"><span><span class="sr">I have that: </span>A password manager is in use</span></label>
+      <p class="guide" id="guide-sec-manager">The manager holds secrets. This page only records that you use one.</p>
+    </li>
+    <li class="item" data-item="sec-factor">
+      <label class="check" for="sec-factor"><input id="sec-factor" type="checkbox" data-check="sec-factor" aria-describedby="guide-sec-factor"><span><span class="sr">I have that: </span>App-based second factor is on for important logins</span></label>
+      <p class="guide" id="guide-sec-factor">Record the checkmark only. Do not enter codes or backup codes here.</p>
+    </li>
+    <li class="item" data-item="sec-recovery">
+      <label class="check" for="sec-recovery"><input id="sec-recovery" type="checkbox" data-check="sec-recovery" aria-describedby="guide-sec-recovery"><span><span class="sr">I have that: </span>Recovery-kit location is written on paper</span></label>
+      <p class="guide" id="guide-sec-recovery">Write the location on paper kept offline. Do not enter recovery words or codes on this page.</p>
+    </li>
+    <li class="item" data-item="sec-device">
+      <label class="check" for="sec-device"><input id="sec-device" type="checkbox" data-check="sec-device" aria-describedby="guide-sec-device"><span><span class="sr">I have that: </span>Hardware key or signer is stored offline, if you use one</span></label>
+      <p class="guide" id="guide-sec-device">Keep the device offline. This page does not ask what is stored on it.</p>
+    </li>
+    <li class="item" data-item="sec-backup">
+      <label class="check" for="sec-backup"><input id="sec-backup" type="checkbox" data-check="sec-backup" aria-describedby="guide-sec-backup"><span><span class="sr">I have that: </span>Encrypted backup of everyday files exists</span></label>
+      <p class="guide" id="guide-sec-backup">The backup should be encrypted and kept apart from the only copy of those files.</p>
+    </li>
+    <li class="item" data-item="sec-note">
+      <label class="check" for="sec-note"><input id="sec-note" type="checkbox" data-check="sec-note" aria-describedby="guide-sec-note"><span><span class="sr">I have that: </span>A non-secret note says where instructions live</span></label>
+      <p class="guide" id="guide-sec-note">The note can point to a drawer in plain language. Do not paste instructions or any secret into this page.</p>
+    </li>
+  </ul>
+</section>
+
+<section class="panel sources" id="sources">
+  <h2>Where to ask for an official copy</h2>
+  <p class="guide">The agency that issued a document is the place to order a certified copy. This page does not order one and does not collect a form.</p>
+  <ol>
+    <li><a href="https://www.va.gov/records/get-military-service-records/">Military service records</a></li>
+    <li><a href="https://www.irs.gov/individuals/get-transcript">Tax transcript</a></li>
+    <li><a href="https://www.ssa.gov/number-card">Social Security number card</a></li>
+    <li><a href="https://www.usa.gov/replace-vital-documents">Vital records, from USA.gov</a></li>
+    <li><a href="https://www.cisa.gov/secure-our-world">Everyday device safety, from CISA</a></li>
+  </ol>
+</section>
+</main>
+<p class="page-footer">Dukktape Studios. Generic template. Document checkmarks never leave this browser unless you export the marks file. Schedule marks are not in that file.</p>
+<p class="sr" id="announce" aria-live="polite"></p>
+<dialog id="reset-dialog" aria-labelledby="reset-title">
+  <h2 id="reset-title">Clear marks on this device?</h2>
+  <p>This removes every document checkmark, sets every packet back to blank, and clears schedule marks in this browser. It does not delete a document, because this page never holds documents.</p>
+  <div class="actions">
+    <button type="button" id="reset-cancel">Keep marks</button>
+    <button type="button" id="reset-confirm" class="danger">Clear marks</button>
+  </div>
+</dialog>
+</div>
+<script src="store.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
