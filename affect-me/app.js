@@ -142,12 +142,14 @@ function watchBills(bills, keys) {
 }
 function watchSection(selected, bills, hasStateBills, stateName, shown) {
   const keys = WATCH_ORDER.filter(k => selected.includes(k) && WATCH[k]);
+  const areaCount = keys.reduce((n, k) => n + WATCH[k].areas.length, 0);
+  const summary = `<summary><h2>What to watch (${areaCount} ${areaCount === 1 ? "area" : "areas"})</h2></summary>`;
   const contacts = shown.map(([m, role]) => {
     const who = `${esc(m.name)} (${esc(role)})`;
     return m.url ? `<a href="${esc(m.url)}" target="_blank" rel="noopener">${who}</a>` : who;
   }).join("; ");
   const act = `<p class="nk"><span class="lbl">How to act.</span> Vote in primary elections and in local elections. Those races decide many of the offices that set taxes, schools, and state law. Contact the lawmakers listed above${contacts ? ": " + contacts : "."}</p>`;
-  if (!keys.length) return `<section class="card" id="watch"><h2>What to watch</h2><p>Check the boxes that fit you, or set Home, to see policy areas worth following.</p>${act}</section>`;
+  if (!keys.length) return `<section class="card" id="watch"><details class="watch-details">${summary}<p>Check the boxes that fit you, or set Home, to see policy areas worth following.</p>${act}</details></section>`;
   const items = keys.map(k => {
     const w = WATCH[k];
     const areas = w.areas.map(a => {
@@ -159,9 +161,9 @@ function watchSection(selected, bills, hasStateBills, stateName, shown) {
     return `<li class="watch-item"><h3>${esc(w.title)}</h3><ul class="areas">${areas}</ul></li>`;
   }).join("");
   const pending = hasStateBills ? "" : `<p class="nk">${esc(stateName)} bills coming soon, so the links below are federal bills only.</p>`;
-  return `<section class="card" id="watch"><h2>What to watch</h2>
+  return `<section class="card" id="watch"><details class="watch-details">${summary}
    <p class="small dim">These are policy areas tied to what you marked. The label is the level of government that mainly decides that area. Links are bills already loaded for ${esc(stateName)} and for Congress whose title or official summary contains those words. This page does not rank outcomes.</p>
-   ${pending}<ul class="watch">${items}</ul>${act}</section>`;
+   ${pending}<ul class="watch">${items}</ul>${act}</details></section>`;
 }
 function voteRow(v, mine, getVote) {
   const reps = mine.filter(m => m.chamber === v.chamber || m.chamber === "council");
@@ -204,14 +206,14 @@ $("#f").addEventListener("submit", async e => { e.preventDefault();
   const terms = [prof.county && prof.county.length > 2 ? new RegExp(`\\b${prof.county.replace(/[^\w ]/g, "")}\\b(?=\\s+county|\\s+co\\b)`, "i") : null,
                  prof.city && prof.city.length > 2 ? new RegExp(`\\b${prof.city.replace(/[^\w ]/g, "")}\\b`, "i") : null].filter(Boolean);
   const loadedBills = [...usB.bills, ...(hasStateBills ? stB.bills : [])];
-  h += watchSection(selected, loadedBills, hasStateBills, S.name, shown);
   const all = loadedBills.map(b => {
     const local = b.scope === "state" && terms.some(r => r.test(b.title + " " + b.summary));
     return {b, local, ...score(b, prof, local)}; }).filter(x => x.hits.length || x.local).sort((a, b) => b.s - a.s);
-  h += `<section class="card"><h2>What affects you (${all.length})</h2>
+  h += `<section class="card" id="affects"><h2>What affects you (${all.length})</h2>
    ${Object.keys(topics).length ? "" : `<p>Check a few boxes so I can match laws to you.</p>`}
    ${hasStateBills ? "" : `<p class="nk">${esc(S.name)} bills coming soon. Federal bills and your lawmakers are shown for now.</p>`}
    <p class="small dim">“Local” means a state bill that names your county or town. There's no county-board or city-council data in this site yet.</p></section>`;
+  h += watchSection(selected, loadedBills, hasStateBills, S.name, shown);
   for (const {b, hits, local} of all.slice(0, 300)) {
     const reasons = [...new Set(hits.map(t => topics[t]))];
     const fedV = (m, v) => usMem.votes?.[m.bioguide]?.[v.key];
