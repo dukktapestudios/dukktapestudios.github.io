@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Team Command</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1b1f24;--mut:#5b6573;--bd:#d7dce2;--ac:#2f5bd3;--warn:#a15c00;--bad:#b42318}
+@media (prefers-color-scheme:dark){:root{--bg:#121417;--card:#1c1f24;--tx:#e9ecef;--mut:#a3acb8;--bd:#353a42;--ac:#7aa2ff;--warn:#f0b35a;--bad:#ff8a80}}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,sans-serif;background:var(--bg);color:var(--tx)}
+main{max-width:1100px;margin:auto;padding:16px}h1{margin:.2em 0}h2{font-size:1.15em;margin:1.4em 0 .5em}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:8px 0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+input,textarea,select,button{font:inherit;color:inherit;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:7px 9px}
+textarea{width:100%;min-height:60px}input[type=text]{width:100%}button{cursor:pointer}button.pri{background:var(--ac);color:#fff;border-color:var(--ac)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.mut{color:var(--mut);font-size:.9em}.warn{color:var(--warn)}.bad{color:var(--bad)}.tag{border:1px solid var(--bd);border-radius:99px;padding:1px 8px;font-size:.8em}
+.org{text-align:center}.org .top{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.org .kids{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px;border-top:2px solid var(--bd);padding-top:12px}
+.node{border:1px solid var(--bd);border-radius:10px;padding:6px 10px;background:var(--card);min-width:140px}.node.off{opacity:.45;text-decoration:line-through}
+table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid var(--bd);padding:6px;text-align:left;vertical-align:top}
+.sr{position:absolute;left:-9999px}
+</style></head><body><main>
+<h1>Team Command</h1>
+<p class="mut">You hold final authority. CODY is an AI planning partner that advises only. "AI helper" fields describe assistants a human uses; nothing here deploys or contacts any agent. Works offline; no network, no tracking.</p>
+<p id="store" class="mut" role="status"></p>
+
+<section class="card" aria-labelledby="gH"><h2 id="gH">Goal</h2>
+<label for="goal">What do you want to accomplish?</label>
+<input id="goal" type="text" placeholder="e.g. Test a simple sign-up tool with 5 consenting volunteers">
+<div class="row" style="margin-top:8px"><button class="pri" id="gen">Generate starter plan</button><button id="copyP">Copy AI prompt</button></div>
+<p class="mut">Starter plan = local rule-based template matching (keywords + role capability text). It is not AI reasoning. For a richer breakdown, copy the prompt into a real AI assistant.</p>
+</section>
+
+<section aria-labelledby="oH"><h2 id="oH">Org chart</h2><div class="card org" id="org"></div></section>
+
+<section aria-labelledby="pH"><h2 id="pH">Plan (editable)</h2><div id="warns" role="alert"></div><div class="card" style="overflow-x:auto"><table><thead><tr><th>Stage</th><th>Task</th><th>Role</th><th>Output</th><th>Depends on</th></tr></thead><tbody id="plan"></tbody></table><p id="noplan" class="mut">Enter a goal and generate a plan.</p></div></section>
+
+<section aria-labelledby="rH"><h2 id="rH">Roles / modules</h2>
+<div class="row"><button id="add">Add role</button></div><div class="grid" id="roles"></div></section>
+
+<section aria-labelledby="bH"><h2 id="bH">Backup</h2><div class="card row">
+<button id="exp">Export JSON</button><label class="tag" for="imp" style="cursor:pointer;padding:7px 10px">Import JSON</label><input id="imp" type="file" accept=".json,application/json" class="sr">
+<button id="reset">Reset to defaults</button></div>
+<p class="mut">Rules: spending, contacting people, and publishing need your approval. Physical, legal, and safety work needs qualified professionals. One pilot at a time.</p></section>
+</main>
+<script>
+"use strict";
+const KEY="teamCommand.v1";
+const STAGES=["clarify","plan","research","build","review","delivery"];
+const DEF=()=>({goal:"",plan:[],roles:[
+ {id:"r1",name:"Project / Delivery Lead",stage:["clarify","plan","delivery"],caps:"plan schedule deadline coordinate deliver launch",human:"",ai:"AI drafts task lists and status summaries",on:true},
+ {id:"r2",name:"Research / Community Needs",stage:["research"],caps:"research interview survey needs community data sources",human:"",ai:"AI organizes notes and summarizes themes",on:true},
+ {id:"r3",name:"Build / Technical / Field",stage:["build"],caps:"build tool code app prototype repair install field test",human:"",ai:"AI drafts designs, code, checklists",on:true},
+ {id:"r4",name:"Outreach / Partnerships",stage:["delivery"],caps:"outreach partner volunteer recruit message event promote",human:"",ai:"AI drafts messages (you approve sending)",on:true},
+ {id:"r5",name:"Operations / Resources",stage:["plan"],caps:"budget money supplies fund purchase logistics records",human:"",ai:"AI tracks costs and compares options",on:true},
+ {id:"r6",name:"Quality / Safety Review",stage:["review"],caps:"review safety quality risk legal privacy check",human:"",ai:"AI drafts risk checklists",on:true}]});
+let S, persist=true;
+function load(){try{const t=localStorage.getItem(KEY);S=t?validate(JSON.parse(t)):DEF();}catch(e){persist=false;S=DEF();}
+ if(!S)S=DEF();setStore();}
+function setStore(){document.getElementById("store").textContent=persist?"Saved automatically in this browser (localStorage).":"Browser storage unavailable for this file: changes last only until you close the tab. Use Export JSON to keep them.";}
+function save(){if(!persist)return;try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){persist=false;setStore();}}
+const str=(v,n)=>typeof v==="string"?v.slice(0,n):"";
+function validate(o){if(!o||typeof o!=="object"||!Array.isArray(o.roles))return null;
+ const roles=o.roles.slice(0,50).filter(r=>r&&typeof r==="object").map((r,i)=>({id:str(r.id,40)||("r"+Date.now()+i),name:str(r.name,80)||"Untitled role",
+  stage:Array.isArray(r.stage)?r.stage.filter(s=>STAGES.includes(s)):[],caps:str(r.caps,400),human:str(r.human,80),ai:str(r.ai,200),on:r.on!==false}));
+ const ids=new Set(roles.map(r=>r.id));
+ const plan=Array.isArray(o.plan)?o.plan.slice(0,100).filter(p=>p&&typeof p==="object").map(p=>({stage:STAGES.includes(p.stage)?p.stage:"plan",task:str(p.task,300),role:ids.has(p.role)?p.role:"",out:str(p.out,300),dep:str(p.dep,100)})):[];
+ return {goal:str(o.goal,300),roles,plan};}
+function el(t,a,txt){const e=document.createElement(t);if(a)for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;return e;}
+const TPL={clarify:["Define success for: {g}","One-line mission + done criteria"],plan:["Break \"{g}\" into steps, owners, budget limit","Approved plan"],
+ research:["Learn what affected people need re: {g}","Needs summary with sources"],build:["Make the smallest version for: {g}","Working draft / prototype"],
+ review:["Check quality, safety, privacy of: {g}","Review sign-off or fix list"],delivery:["Deliver / pilot with consenting users: {g}","Pilot result + lessons"]};
+function score(r,words){const c=(r.caps+" "+r.name).toLowerCase();return words.filter(w=>w.length>2&&c.includes(w)).length;}
+function generate(goal){const words=goal.toLowerCase().split(/[^a-z0-9]+/);const act=S.roles.filter(r=>r.on);const warns=[];
+ const plan=STAGES.map((st,i)=>{let c=act.filter(r=>r.stage.includes(st));if(!c.length){warns.push("No active role covers \""+st+"\". Add or enable a role with that stage.");}
+  c.sort((a,b)=>score(b,words)-score(a,words));const t=TPL[st];return {stage:st,task:t[0].replace("{g}",goal),role:c[0]?c[0].id:"",out:t[1],dep:i?STAGES[i-1]:"—"};});
+ act.forEach(r=>{if(!r.stage.length&&score(r,words)>0)plan.splice(-1,0,{stage:"build",task:"Apply "+r.name+" capability to: "+goal,role:r.id,out:"Contribution per role description",dep:"plan"});});
+ if(/money|fund|buy|budget|\$/.test(goal.toLowerCase()))warns.push("Goal mentions money: spending needs your approval.");
+ if(/build|install|electric|structur|legal|medical/.test(goal.toLowerCase()))warns.push("May need a qualified professional for physical, legal, or safety work.");
+ return {plan,warns};}
+let lastWarns=[];
+function render(){document.getElementById("goal").value=S.goal;
+ const org=document.getElementById("org");org.replaceChildren();const top=el("div",{class:"top"});
+ const y=el("div",{class:"node"});y.append(el("strong",null,"You"),el("div",{class:"mut"},"Director / Founder · final say"));
+ const c=el("div",{class:"node"});c.append(el("strong",null,"CODY"),el("div",{class:"mut"},"AI planning partner · advises"));top.append(y,c);
+ const kids=el("div",{class:"kids"});S.roles.forEach(r=>{const n=el("div",{class:"node"+(r.on?"":" off")});n.append(el("strong",null,r.name),el("div",{class:"mut"},"Human: "+(r.human||"Unassigned")));kids.append(n);});
+ org.append(top,kids);
+ const rc=document.getElementById("roles");rc.replaceChildren();
+ S.roles.forEach((r,idx)=>{const d=el("div",{class:"card"});const f=(lab,key,ta)=>{const id="f"+r.id+key;const l=el("label",{for:id},lab);const i=el(ta?"textarea":"input",{id,type:"text"});i.value=r[key];i.addEventListener("change",()=>{r[key]=i.value.slice(0,400);commit();});d.append(l,i);};
+  f("Role name","name");f("Human owner (blank = Unassigned)","human");f("AI helper (how they use AI)","ai");f("Capabilities (keywords)","caps",true);
+  const sg=el("fieldset",{style:"border:0;padding:0;margin:6px 0"});sg.append(el("legend",{class:"mut"},"Workflow stages"));
+  STAGES.forEach(s=>{const id="s"+r.id+s;const cb=el("input",{type:"checkbox",id});cb.checked=r.stage.includes(s);cb.addEventListener("change",()=>{r.stage=STAGES.filter(x=>x===s?cb.checked:r.stage.includes(x));commit();});const l=el("label",{for:id,style:"margin-right:8px"});l.append(cb,document.createTextNode(" "+s));sg.append(l);});d.append(sg);
+  const row=el("div",{class:"row"});const tg=el("button",null,r.on?"Disable":"Enable");tg.setAttribute("aria-pressed",String(!r.on));tg.onclick=()=>{r.on=!r.on;commit();};
+  const up=el("button",{"aria-label":"Move "+r.name+" up"},"↑");up.disabled=idx===0;up.onclick=()=>{S.roles.splice(idx-1,0,S.roles.splice(idx,1)[0]);commit();};
+  const rm=el("button",{class:"bad"},"Remove");rm.onclick=()=>{if(confirm("Remove role \""+r.name+"\"? Plan tasks assigned to it become unassigned.")){S.roles.splice(idx,1);S.plan.forEach(p=>{if(p.role===r.id)p.role="";});commit();}};
+  row.append(tg,up,rm);d.append(row);rc.append(d);});
+ const tb=document.getElementById("plan");tb.replaceChildren();document.getElementById("noplan").hidden=S.plan.length>0;
+ S.plan.forEach(p=>{const tr=el("tr");tr.append(el("td",null,p.stage));
+  const cell=(k)=>{const td=el("td");const i=el("input",{type:"text","aria-label":k+" for "+p.stage});i.value=p[k];i.onchange=()=>{p[k]=i.value.slice(0,300);commit(true);};td.append(i);return td;};
+  const sd=el("td");const sel=el("select",{"aria-label":"Role for "+p.stage});sel.append(el("option",{value:""},"— Unassigned —"));
+  S.roles.filter(r=>r.on).forEach(r=>{const o=el("option",{value:r.id},r.name+(r.human?" ("+r.human+")":""));sel.append(o);});sel.value=p.role;
+  sel.onchange=()=>{p.role=sel.value;commit(true);};sd.append(sel);if(!p.role)sd.append(el("div",{class:"warn"},"Missing capability / owner"));
+  tr.append(cell("task"),sd,cell("out"),cell("dep"));tb.append(tr);});
+ const w=document.getElementById("warns");w.replaceChildren();lastWarns.forEach(m=>w.append(el("p",{class:"warn"},"⚠ "+m)));}
+function commit(noRender){S.plan.forEach(p=>{const r=S.roles.find(x=>x.id===p.role);if(!r||!r.on)p.role="";});save();if(!noRender)render();else render();}
+function prompt_(){return "I lead a small human team (I have final say). Goal: "+(S.goal||"[goal]")+"\nRoles available:\n"+S.roles.filter(r=>r.on).map(r=>"- "+r.name+" (stages: "+r.stage.join(", ")+"; capabilities: "+r.caps+"; human: "+(r.human||"Unassigned")+")").join("\n")+
+ "\nBreak the goal into tasks across clarify, plan, research, build, review, delivery. For each: task, best role, output, dependencies, what a human must verify. Flag missing capabilities. Do not invent facts or people. Note that spending, contacting anyone, or publishing needs my approval, and physical/legal/safety work needs qualified professionals.";}
+document.getElementById("gen").onclick=()=>{const g=document.getElementById("goal").value.trim().slice(0,300);if(!g){alert("Enter a goal first.");return;}
+ if(S.plan.length&&!confirm("Replace the current plan (including your edits)?"))return;S.goal=g;const r=generate(g);S.plan=r.plan;lastWarns=r.warns;commit();};
+document.getElementById("goal").onchange=e=>{S.goal=e.target.value.slice(0,300);save();};
+document.getElementById("copyP").onclick=async()=>{S.goal=document.getElementById("goal").value.slice(0,300);const t=prompt_();try{await navigator.clipboard.writeText(t);alert("Prompt copied.");}catch(e){window.prompt("Copy this prompt:",t);}};
+document.getElementById("add").onclick=()=>{S.roles.push({id:"r"+Date.now(),name:"New role",stage:[],caps:"",human:"",ai:"",on:true});commit();};
+document.getElementById("exp").onclick=()=>{const b=new Blob([JSON.stringify(S,null,2)],{type:"application/json"});const a=el("a",{href:URL.createObjectURL(b),download:"team-command-backup.json"});document.body.append(a);a.click();a.remove();};
+document.getElementById("imp").onchange=e=>{const f=e.target.files[0];if(!f)return;if(f.size>1e6){alert("File too large.");return;}const rd=new FileReader();
+ rd.onload=()=>{let v=null;try{v=validate(JSON.parse(rd.result));}catch(x){}if(!v){alert("Not a valid Team Command backup.");return;}if(confirm("Replace current data with this backup?")){S=v;lastWarns=[];commit();}e.target.value="";};rd.readAsText(f);};
+document.getElementById("reset").onclick=()=>{if(confirm("Reset everything to defaults? Your roles, owners and plan will be erased.")){S=DEF();lastWarns=[];commit();}};
+if(typeof module!=="undefined")module.exports={validate,generate,DEF,get S(){return S},set S(v){S=v}};
+load();render();
+</script></body></html>
