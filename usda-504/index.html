@@ -7,7 +7,7 @@
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f6f4ee;color:#233;line-height:1.6;font-size:17px}
 header{background:#2f5d50;color:#fff;padding:26px 18px;text-align:center}
 header h1{margin:0;font-size:1.8em}header p{margin:6px 0 0;opacity:.9}
-nav{background:#e7efe9;padding:8px;text-align:center;position:sticky;top:0;z-index:5;font-size:.9em}
+nav{background:#e7efe9;padding:8px;text-align:center;position:sticky;top:var(--dts-donate-offset, 0px);z-index:5;font-size:.9em}
 nav a{display:inline-block;margin:3px 6px;color:#2f5d50;text-decoration:none;font-weight:bold}
 main{max-width:780px;margin:auto;padding:10px 16px 30px}
 section{background:#fff;border:1px solid #dde3dc;border-radius:12px;padding:16px 18px;margin:18px 0}
@@ -37,7 +37,13 @@ footer{text-align:center;padding:20px;color:#667;font-size:.9em}
 .visitor-count{color:#8a5a12}
 #feedback-box{margin-top:8px;max-width:100%}
 #feedback-box .giscus,#feedback-box .giscus-frame{max-width:100%}
-</style></head><body>
+</style><link rel="stylesheet" href="../assets/donate-bar.css">
+</head><body>
+<aside class="dts-donate" aria-label="Donations">
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=ducttapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+</aside>
+
 <header><h1>USDA 504 Repair Helper</h1><p>A simple, step-by-step guide to the USDA Section 504 Home Repair loan and grant.</p></header>
 <nav><a href="#eligible">Am I eligible?</a><a href="#get">What you can get</a><a href="#steps">Step by step</a><a href="#mistakes">Mistakes</a><a href="#contacts">Contacts</a><a href="#links">Official links</a></nav>
 <main>

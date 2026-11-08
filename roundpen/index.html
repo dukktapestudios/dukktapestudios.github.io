@@ -2,17 +2,23 @@
 <title>Round Pen – Pressure & Release Trainer</title>
 <style>
 html,body{margin:0;height:100%;background:#2b2118;color:#f3e9d8;font-family:system-ui,Segoe UI,Arial,sans-serif;overflow:hidden;touch-action:none}
-canvas{display:block;width:100vw;height:100vh}
-#hud{position:fixed;top:8px;left:8px;background:#0008;padding:8px 10px;border-radius:10px;font-size:14px;min-width:190px;pointer-events:none}
+canvas{display:block;width:100%;height:calc(100vh - var(--dts-donate-offset))}
+#hud{position:fixed;top:calc(8px + var(--dts-donate-offset));left:8px;background:#0008;padding:8px 10px;border-radius:10px;font-size:14px;min-width:190px;pointer-events:none}
 .bar{height:9px;background:#0006;border-radius:5px;margin:2px 0 6px;overflow:hidden}.bar i{display:block;height:100%}
-#lesson{position:fixed;top:8px;right:8px;max-width:330px;background:#0009;padding:10px 12px;border-radius:10px;font-size:14px;line-height:1.35}
+#lesson{position:fixed;top:calc(8px + var(--dts-donate-offset));right:8px;max-width:330px;background:#0009;padding:10px 12px;border-radius:10px;font-size:14px;line-height:1.35}
 #lesson b{color:#ffd27a}#tip{color:#cfe8c8;margin-top:6px}
 #btns{position:fixed;bottom:12px;right:12px;display:flex;gap:10px}
 button{font-size:16px;padding:14px 18px;border-radius:12px;border:0;background:#c9832e;color:#fff;font-weight:700}
 #flag.on{background:#d33}
 #help{position:fixed;bottom:12px;left:12px;font-size:12px;background:#0008;padding:6px 9px;border-radius:8px;max-width:55vw}
 #msg{position:fixed;top:45%;left:50%;transform:translate(-50%,-50%);font-size:22px;font-weight:800;color:#ffe9a8;text-shadow:0 2px 6px #000;pointer-events:none;text-align:center}
-</style></head><body>
+</style><link rel="stylesheet" href="../assets/donate-bar.css">
+</head><body>
+<aside class="dts-donate" aria-label="Donations">
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=ducttapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+</aside>
+
 <canvas id="c"></canvas>
 <div id="hud"><div>Gait: <b id="gait">Halt</b> · <span id="dirt">→</span></div>
 Pressure<div class="bar"><i id="pb" style="background:#e9a23b"></i></div>
@@ -27,7 +33,7 @@ Trust<div class="bar"><i id="tb" style="background:#5fc06a"></i></div>
 (()=>{
 const cv=document.getElementById('c'),cx=cv.getContext('2d');
 const R=200,RAIL=178; // pen radius, horse rail radius (world units)
-let W,H,S;function rs(){W=cv.width=innerWidth*devicePixelRatio;H=cv.height=innerHeight*devicePixelRatio;S=Math.min(W,H)/(2*R+60);}addEventListener('resize',rs);rs();
+let W,H,S;function rs(){var bar=document.querySelector(".dts-donate");var gap=bar?bar.offsetHeight:0;W=cv.width=innerWidth*devicePixelRatio;H=cv.height=Math.max(1,innerHeight-gap)*devicePixelRatio;S=Math.min(W,H)/(2*R+60);}addEventListener('resize',rs);rs();
 const GAITS=['Halt','Walk','Trot','Lope','BOLTING'],GSPD=[0,0.28,0.6,1.0,1.45];
 const st={t:{x:0,y:0,vx:0,vy:0,face:0},flag:false,
  h:{a:Math.PI/2,dir:1,spd:0,gait:0,x:0,y:RAIL,head:0,mode:'rail',turnT:0,lick:0},

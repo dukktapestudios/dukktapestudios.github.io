@@ -102,7 +102,7 @@ h1 {
 }
 .toc {
   position: sticky;
-  top: 0;
+  top: var(--dts-donate-offset, 0px);
   z-index: 4;
   display: flex;
   gap: 8px;

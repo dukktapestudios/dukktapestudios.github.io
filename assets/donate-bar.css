@@ -1,0 +1,57 @@
+/* Shared donation bar. Charcoal and orange, in normal flow so it takes space. */
+:root {
+  --dts-donate-offset: 4.5rem;
+}
+@media (max-width: 720px) {
+  :root { --dts-donate-offset: 8.75rem; }
+}
+.dts-donate {
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 100000;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px 16px;
+  min-height: var(--dts-donate-offset);
+  margin: 0;
+  padding: 8px 14px;
+  background: #171b1e;
+  color: #f0f0e8;
+  border-bottom: 1px solid #3a4143;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+}
+.dts-donate-line {
+  margin: 0;
+  flex: 1 1 16rem;
+  color: #f0f0e8;
+}
+.dts-donate-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  background: #efb671;
+  color: #171b1e;
+  font-weight: 700;
+  text-decoration: none;
+}
+.dts-donate-link:hover { background: #f3c48a; color: #171b1e; }
+.dts-donate-link:focus { outline: none; }
+.dts-donate-link:focus-visible {
+  outline: 3px solid #f7f4ee;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dts-donate, .dts-donate-link { transition: none; animation: none; }
+}
