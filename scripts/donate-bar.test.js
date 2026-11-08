@@ -7,7 +7,7 @@ var path = require("path");
 var root = path.join(__dirname, "..");
 var skip = { "google55c4ad63a2c821ad.html": true };
 var line = "Free to use. Donations welcome — they keep this going.";
-var href = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=ducttapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD";
+var href = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=dukktapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD";
 var pages = [];
 
 function walk(dir) {
@@ -51,7 +51,7 @@ pages.forEach(function (rel) {
   var asideStart = html.indexOf('<aside class="dts-donate"');
   var aside = html.slice(asideStart, html.indexOf("</aside>", asideStart));
   assert.ok(aside.indexOf(">Donate</a>") !== -1 && aside.indexOf(">Donate</a>") < aside.indexOf(line), "Donate is leftmost, before the support line " + rel);
-  assert.ok(html.indexOf("business=dukktapestudios%40gmail.com") === -1, "contact email is not the recipient " + rel);
+  assert.ok(html.indexOf("ducttapestudios") === -1, "wrong recipient address is absent " + rel);
   assert.ok(html.indexOf("paypal.me") === -1, "no assumed PayPal.Me " + rel);
   assert.ok(!/paypalobjects|paypal\.com\/sdk|paypal\.com\/sdk\/js/i.test(html), "no PayPal script " + rel);
   assert.ok(!/tax-deductible|nonprofit|501\(c\)/i.test(html.slice(html.indexOf("dts-donate"), html.indexOf("dts-donate") + 800)), "no nonprofit claim " + rel);
