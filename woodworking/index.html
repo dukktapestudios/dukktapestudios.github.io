@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Woodworking Business Guide | Dukktape Studios</title>
+<meta name="description" content="A practical Dukktape Studios guide from hobby woodworking to first sales: starter tools, 12 projects, selling, Illinois setup, and a 30-day plan.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; script-src 'unsafe-inline'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<style>
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/nunito-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/nunito-latin-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../assets/fonts/nunito-latin-800.woff2") format("woff2");
+}
+:root {
+  --paper: #f6efe3;
+  --card: #fffaf3;
+  --ink: #2c241c;
+  --ink-soft: #5c4636;
+  --green: #1d6840;
+  --green-deep: #143f28;
+  --orange: #e07a2f;
+  --orange-deep: #8d3f10;
+  --brown: #6b442c;
+  --silver: #c5ced6;
+  --silver-dark: #8e99a4;
+  --line: #eadcc8;
+  --warn: #fff3d6;
+  --forest-l: #e5efe6;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Nunito, ui-rounded, "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background:
+    radial-gradient(1100px 480px at 50% -120px, #ffe3c4 0%, transparent 70%),
+    radial-gradient(700px 380px at 100% 0%, #e5f3e4 0%, transparent 55%),
+    var(--paper);
+  overflow-wrap: break-word;
+}
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: #fff;
+  color: var(--green-deep);
+  padding: 8px 12px;
+  border-radius: 10px;
+  z-index: 6;
+  font-weight: 800;
+}
+.skip:focus { top: 12px; }
+a { color: var(--green-deep); text-underline-offset: .16em; text-decoration-thickness: 2px; }
+a:hover, a:focus-visible { color: var(--orange-deep); }
+img { max-width: 100%; height: auto; }
+header.hero {
+  text-align: center;
+  padding: 22px 16px 18px;
+  background: radial-gradient(circle at 50% 40%, rgba(255, 206, 156, .5), transparent 26rem);
+}
+.brand {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .35rem;
+  color: var(--brown);
+  text-decoration: none;
+  font-weight: 800;
+}
+.brand img {
+  width: 132px;
+  height: auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 8px 10px;
+  box-shadow: 0 6px 16px rgba(92, 58, 28, .1);
+}
+.studio { font-size: 1.15rem; letter-spacing: -0.02em; }
+header.hero h1 {
+  margin: .85rem 0 0;
+  font-size: clamp(1.85rem, 5vw, 2.7rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--green-deep);
+}
+header.hero .deck { margin: .45rem auto 0; max-width: 40rem; }
+header.hero .meta { margin: .7rem auto 0; max-width: 42rem; color: var(--ink-soft); font-size: .95rem; }
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--green-deep);
+  padding: .45rem .7rem;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: .35rem;
+  justify-content: flex-start;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  max-width: 100%;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: .4rem .75rem;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  font-weight: 800;
+  font-size: .88rem;
+  line-height: 1.2;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+nav a:hover, nav a:focus-visible {
+  color: #fff;
+  background: rgba(255,255,255,.14);
+  border-color: var(--orange);
+}
+main { max-width: 64rem; margin: 0 auto; padding: 1rem 1.1rem 3rem; }
+section { margin: 2.1rem 0; scroll-margin-top: 4.25rem; }
+h2 {
+  margin: 0 0 .8rem;
+  color: var(--green);
+  font-size: 1.5rem;
+  font-weight: 800;
+  border-bottom: 3px solid var(--silver);
+  padding-bottom: .35rem;
+  position: relative;
+}
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 4.6rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--orange);
+}
+h3 { color: var(--green-deep); margin-bottom: .3rem; font-weight: 800; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: 1rem; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 1px 3px rgba(60, 40, 20, .06);
+  min-width: 0;
+}
+.card h3 { margin-top: 0; }
+.note { background: var(--warn); border-left: 5px solid var(--orange); padding: .7rem 1rem; border-radius: 8px; }
+.safe { background: var(--forest-l); border-left: 5px solid var(--green); padding: .7rem 1rem; border-radius: 8px; }
+.tag { display: inline-block; font-size: .72rem; font-weight: 800; padding: .1rem .5rem; border-radius: 99px; background: var(--forest-l); color: var(--green); margin-right: .3rem; }
+.tag.m { background: #f3e3cc; color: var(--brown); }
+.tag.h { background: #f1d6d0; color: #7a2e1f; }
+details { background: var(--card); border: 1px solid var(--line); border-radius: 18px; margin: .6rem 0; padding: .2rem 1rem; }
+summary { cursor: pointer; font-weight: 800; padding: .6rem 0; color: var(--brown); }
+.table-scroll { width: 100%; max-width: 100%; overflow-x: auto; margin: .4rem 0 1rem; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+table { width: 100%; min-width: 52rem; border-collapse: collapse; font-size: .92rem; background: var(--card); }
+th, td { border: 1px solid var(--line); padding: .45rem .6rem; text-align: left; vertical-align: top; overflow-wrap: normal; word-break: normal; }
+th { background: #f3e9d8; color: var(--brown); }
+.ext::after { content: " \2197"; font-size: .8em; }
+ol.plan li, ul li { margin: .25rem 0; }
+footer { background: var(--green-deep); color: #f5ead8; padding: 1.5rem 1.1rem; font-size: .9rem; }
+footer a { color: #ffe3c4; }
+footer .wrap { max-width: 64rem; margin: 0 auto; }
+.calc label { display: block; margin: .45rem 0; }
+.calc input {
+  width: 7rem;
+  max-width: 100%;
+  font: inherit;
+  padding: .25rem .4rem;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+}
+.calc output { font-weight: 800; color: var(--green); }
+.fine { margin: .2rem 0 .6rem; color: var(--ink-soft); font-size: .92rem; }
+@media (max-width: 600px) {
+  body { font-size: 1rem; }
+  header.hero { padding: 16px 12px 14px; }
+  main { padding: .6rem .8rem 2.4rem; }
+  nav { padding: .4rem .5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+@media print {
+  nav, .calc, .noprint, .skip { display: none; }
+  body { background: #fff; font-size: 12pt; }
+  header.hero { background: none; padding: 0; }
+  details { border: none; }
+  details > * { display: block; }
+  .card { box-shadow: none; break-inside: avoid; }
+  a.ext::after { content: " (" attr(href) ")"; font-size: 8pt; word-break: break-all; }
+  footer { background: none; color: #000; }
+  footer a { color: #000; }
+  .table-scroll { overflow: visible; }
+  table { min-width: 0; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#start">Skip to content</a>
+<header class="hero">
+<a class="brand" href="../">
+<img src="../logo.jpg" width="300" height="169" alt="Dukktape Studios logo">
+<span class="studio">Dukktape Studios</span>
+</a>
+<h1>Woodworking Business Guide</h1>
+<p class="deck">A practical, start-small path from hobby woodworking to your first sales.</p>
+<p class="meta">This page includes its own text, styles, and price calculator. Links marked ↗ open outside websites and videos, which need an internet connection. Links and prices were checked November 7, 2026, and may change.</p>
+</header>
+<nav aria-label="Sections">
+<a href="#start">1. Getting Started</a><a href="#tools">2. Tools</a><a href="#projects">3. Projects</a><a href="#safety">Safety</a><a href="#selling">4. Selling</a><a href="#business">Illinois Setup</a><a href="#plan">5. First 30 Days</a><a href="#sources">Sources</a>
+</nav>
+<main>
+<section id="start">
+<h2>1. Getting Started: Hobby to Selling</h2>
+<div class="grid">
+<div class="card"><h3>Start small</h3><p>Pick one or two simple products and build them several times. Repeating a design improves quality, speed, and your cost estimates.</p></div>
+<div class="card"><h3>Prove demand</h3><p>Before buying more tools, show samples to friends, local shops, or online buyers. Take note of which items, sizes, and finishes people ask about.</p></div>
+<div class="card"><h3>Track every dollar</h3><p>Record lumber, glue, sandpaper, finish, hardware, fees, and your time. Without these numbers, you can't price items properly.</p></div>
+<div class="card"><h3>Grow on purpose</h3><p>Buy bigger tools only when a specific product needs them and your sales or orders justify the cost.</p></div>
+</div>
+<p class="note">Selling handmade goods can be rewarding, but income is not guaranteed. Treat your first months as testing.</p>
+</section>
+
+<section id="tools">
+<h2>2. Tools Needed</h2>
+<h3>Starter kit</h3>
+<p>Ranges are built from two or more real listed prices where available (budget model → better model). They are a budgeting guide, not a quote.</p>
+<div class="table-scroll"><table>
+<tr><th>Tool</th><th>Why</th><th>Rough range (USD)</th><th>Price evidence</th></tr>
+<tr><td>Hand saw</td><td>Straight cuts without power; a pull saw is a popular choice.</td><td><strong>$22–$50</strong></td><td>Stanley 15-in. hand saw $21.89 (<a class="ext" href="https://www.homedepot.com/p/Stanley-15-in-Hand-Saw-with-Plastic-Handle-20-046H/100002615">Home Depot</a>*); Suizan Japanese pull saw $49.90 (<a class="ext" href="https://infinitytools.com/products/japanese-pull-saws">Infinity Tools</a>)</td></tr>
+<tr><td>Cordless drill/driver kit</td><td>Pilot holes and screws.</td><td><strong>$80–$100</strong> (entry kits)</td><td>SKIL 12V drill + detail sander kit $79.99 (<a class="ext" href="https://www.skil.com/products/pwr-core-12-brushless-12v-compact-drill-driver-detail-sander-combo-kit-cb8436a-10">SKIL</a>); DEWALT ATOMIC 20V kit about $99 sale at Home Depot, Nov 2026 (<a class="ext" href="https://slickdeals.net/f/20257809-99-home-depot-dewalt-atomic-20v-lithium-ion-cordless-compact-1-2-in-drill-driver-kit-with-2-0ah-battery-and-charger">deal post</a>)</td></tr>
+<tr><td>Random-orbit sander</td><td>Smooth, sellable surfaces.</td><td><strong>$69–$100</strong> (corded is the budget pick)</td><td>RYOBI RS290G corded 5-in. $69.00 (<a class="ext" href="https://www.ryobitools.com/en-us/products/33287161195">RYOBI</a>); SKIL 20V sander kit with battery $99.99 (<a class="ext" href="https://www.skil.com/products/pwrcore-20v-random-orbital-sander-kit-sr6604b-10">SKIL</a>). Premium cordless kits cost more, e.g. DEWALT with 4Ah battery $225.65 (<a class="ext" href="https://www.homedepot.com/p/DEWALT-20V-MAX-Cordless-Brushless-5-in-Random-Orbital-Sander-and-1-20V-Premium-Lithium-Ion-4-0Ah-Battery-DCW210BWDCB204/318348748">Home Depot</a>*)</td></tr>
+<tr><td>Clamps (start with 4)</td><td>Glue-ups and holding work.</td><td><strong>About $130 for 4</strong> (about $32 each)</td><td>IRWIN QUICK-GRIP $31.98 each (<a class="ext" href="https://www.lowes.com/pd/IRWIN-QUICK-GRIP-Clamp/1000119643">Lowe's</a>*). Only one verified U.S. price, so treat as approximate; sizes vary widely.</td></tr>
+<tr><td>Tape measure + square</td><td>Accurate layout.</td><td><strong>About $27–$57</strong> (pair)</td><td>Stanley 25 ft tape $12.19 to FatMax 25 ft $41.89 (<a class="ext" href="https://www.staples.com/Tape-Measures/cat_CL167137">Staples</a>*); Swanson 7-in. Speed Square $15.01–$15.47 (<a class="ext" href="https://www.dkhardware.com/swanson-s0101-speed-series-pocket-square-aluminum-7-1-4-in-l-7-in-w-product-6560602.html">DK Hardware</a>*, Home Depot)</td></tr>
+<tr><td>Safety gear bundle</td><td>Eyes, ears, lungs.</td><td><strong>About $57–$67</strong></td><td>Sum of: safety glasses $6.32–$15.69 (<a class="ext" href="https://www.wwhardware.com/shop-tools-and-accessories/safety-and-protection/shop-glasses">Woodworker's Hardware</a>) + 3M Peltor Optime 101 earmuffs $42.47 (<a class="ext" href="https://walkerssawshop.com/peltor/">Walker's Saw Shop</a>) + one 3M N95 woodworking respirator $8.49 (<a class="ext" href="https://www.unoclean.com/3M-Personal-Safety-Products-Tread-Tapes-Caution-Tape-Amenities.aspx">UnoClean</a>). Disposable respirators need replacing; reusable half-masks cost more.</td></tr>
+</table></div>
+<h3>Step-up tools (later)</h3>
+<div class="table-scroll"><table>
+<tr><th>Tool</th><th>Use</th><th>Rough new range (USD)</th><th>Price evidence</th></tr>
+<tr><td>Table saw</td><td>Repeatable rip cuts</td><td><strong>$330–$600</strong></td><td>SKIL 10-in. with stand $329.99 (<a class="ext" href="https://www.skil.com/products/15-amp-10inch-table-saw-ts6307-00">SKIL</a>); DEWALT DWE7491RS $599 (<a class="ext" href="https://www.amazon.com/clp/B071JQLDCG">Amazon DEWALT page</a>)</td></tr>
+<tr><td>Miter saw</td><td>Crosscuts and angles</td><td><strong>$179–$279</strong></td><td>RYOBI 10-in. compound $179 (<a class="ext" href="https://www.ryobitools.com/en-us/products/33287178889">RYOBI</a>); DEWALT DWS713 10-in. $279 (<a class="ext" href="https://www.amazon.com/clp/B071JQLDCG">Amazon DEWALT page</a>)</td></tr>
+<tr><td>Planer</td><td>Even thickness</td><td><strong>$370–$770</strong></td><td>WEN 13-in. benchtop $369.99 (<a class="ext" href="https://wenproducts.com/collections/planers-jointers">WEN</a>); DEWALT DW735 $769 (<a class="ext" href="https://toolup.com/collections/dewalt-planers">ToolUp</a>*)</td></tr>
+<tr><td>Jointer</td><td>Flat faces, square edges</td><td><strong>About $315+</strong></td><td>WEN 6-in. jointer $314.99 (<a class="ext" href="https://wenproducts.com/collections/planers-jointers">WEN</a>). Only one current price verified; larger jointers cost more.</td></tr>
+</table></div>
+<p class="note">Prices observed November 7, 2026 from retailer and manufacturer listings; they change often and don't include tax or shipping. * Site blocked automated link checks; price taken from search results of that page. Buying used can lower these costs.</p>
+<p class="safe"><strong>Buying used:</strong> Used tools can save money, but only buy them if they're complete and safe. Check that guards, riving knives, blade brakes, cords, and switches all work. Make sure the manual is available and there's no damage. If a tool's safety equipment is missing, don't buy it.</p>
+</section>
+
+<section id="projects">
+<h2>3. Project Progression</h2>
+<p>All plan links below are free to read. Some sites also offer paid extras or memberships, which you can skip. The step summaries are my own short overviews, so follow the linked plan for exact measurements. Build times are not listed because they vary widely.</p>
+
+<h3>Simple <span class="tag">Beginner</span></h3>
+<details><summary>Cutting board</summary>
+<p>Free guide: <a class="ext" href="https://www.instructables.com/Make-Cutting-Boards-With-Minimal-Tools/">Make Cutting Boards With Minimal Tools (Instructables)</a> · <a class="ext" href="https://www.instructables.com/How-to-Make-Hardwood-Edge-Grain-Cutting-Boards/">How to Make Hardwood Edge Grain Cutting Boards (Instructables)</a></p>
+<p>Video: <a class="ext" href="https://www.youtube.com/watch?v=_x3OGwc3CiE">"How to Make an End Grain Cutting Board with Tom McLaughlin, Part 1" (Epic Woodworking)</a>. End grain is a more advanced version, so start with edge grain.</p>
+<p>Workflow: choose a food-appropriate hardwood → glue strips → flatten and sand → round the edges → apply a food-safe finish according to the manufacturer's instructions.</p>
+<p class="note">Use known, clean hardwood. Do not use pallet wood, treated lumber, or unknown wood for food items.</p></details>
+<details><summary>Small shelf</summary>
+<p>Free plan: <a class="ext" href="https://www.ana-white.com/woodworking-projects/simple-wall-shelf-books-or-magazines">Simple Wall Shelf for Books or Magazines (Ana White)</a></p>
+<p>Workflow: cut parts → assemble with glue and screws → sand → finish → mount into wall studs or use anchors rated for the load.</p></details>
+<details><summary>Picture frame</summary>
+<p>Free plan: <a class="ext" href="https://www.ana-white.com/woodworking-projects/no-miter-cut-picture-frames">No Miter Cut Picture Frames (Ana White)</a></p>
+<p>Video: <a class="ext" href="https://www.youtube.com/watch?v=rc4ACVofxyQ">"Plywood picture frame" (Steve Ramsey, Woodworking for Mere Mortals)</a></p>
+<p>Workflow: build the jigs → cut matching parts → glue → sand → finish → add the glass or backer and hanger.</p></details>
+<details><summary>Birdhouse</summary>
+<p>Reader build plus related plans: <a class="ext" href="https://ana-white.com/community-projects/simple-diy-birdhouse">Simple DIY Birdhouse (Ana White community)</a></p>
+<p>Videos: <a class="ext" href="https://www.youtube.com/watch?v=MqDcem62MP0">"How to Make a Birdhouse with 1 board | Simple DIY" (Specific Love Creations)</a> · <a class="ext" href="https://www.youtube.com/watch?v=aIWeUvfy0MM">"Build-It-Yourself Birdhouse Instructional Video" (Jonnyco)</a></p>
+<p>Workflow: use untreated outdoor-suitable wood → cut the panels → add drainage and ventilation holes → make the roof or side removable for cleaning.</p></details>
+<details><summary>Plant stand</summary>
+<p>Free plan: <a class="ext" href="https://www.ana-white.com/woodworking-projects/diy-plant-stand">DIY Plant Stand (Ana White)</a>. The full plan may require entering an email address.</p>
+<p>Workflow: cut the legs and top → assemble square → sand → apply an exterior finish if it will go outdoors.</p></details>
+
+<h3>Medium <span class="tag m">Intermediate</span></h3>
+<details><summary>Small table</summary>
+<p>Free plan: <a class="ext" href="https://www.ana-white.com/woodworking-projects/simple-adirondack-side-table">Simple Adirondack Side Table (Ana White)</a></p>
+<p>Workflow: build the frame → attach the legs → attach top boards with even overhang → sand → finish.</p></details>
+<details><summary>Stool</summary>
+<p>Free plans: <a class="ext" href="https://www.ana-white.com/woodworking-projects/simple-wood-stool">Simple Wood Stool (Ana White)</a> and <a class="ext" href="https://www.ana-white.com/woodworking-projects/essential-two-step-stool">Essential Two Step Stool (Ana White)</a></p>
+<p class="note">Stools carry weight. Use glue and proper fasteners, test them carefully before use or sale, and do not sell any stool that racks, cracks, or wobbles.</p></details>
+<details><summary>Box with joinery</summary>
+<p>Free guide: <a class="ext" href="https://www.instructables.com/How-to-Make-a-Wooden-Box-Joint-Box/">How to Make a Wooden Box Joint Box (Instructables)</a></p>
+<p>Workflow: mill even stock → cut the box joints with a jig → dry-fit → glue square → cut off the lid → add hinges.</p></details>
+<details><summary>Wall shelf with brackets</summary>
+<p>Free plan roundup: <a class="ext" href="https://www.ana-white.com/blog/20-best-floating-shelf-plans">20+ Best Floating Shelf Plans (Ana White)</a>. It includes bracket-style designs, and some entries link to other sites.</p>
+<p>Workflow: choose a bracket design → screw into studs → check level → tell buyers about weight limits.</p></details>
+
+<h3>Harder <span class="tag h">Advanced</span></h3>
+<details><summary>Chair</summary>
+<p>Free plans: <a class="ext" href="https://www.ana-white.com/blog/the-top-free-adirondack-chair-plans">The Top FREE Adirondack Chair Plans (Ana White)</a> · <a class="ext" href="https://www.popularwoodworking.com/projects/simple_side_chair/">Easy-to-Make Side Chair (Popular Woodworking)</a></p>
+<p class="note">Chairs carry the most liability risk. Build several for personal use before selling. Test their strength, and consider product-liability insurance.</p></details>
+<details><summary>Cabinet</summary>
+<p>Free guide: <a class="ext" href="https://www.instructables.com/Toy-Organization-Cabinet-With-a-Walnut-Bench-and-D/">Toy Organization Cabinet With a Walnut Bench and Dovetail Drawers (Instructables)</a></p>
+<p>Workflow: build the carcass → add the face frame → fit drawers or doors → finish → secure tall furniture to the wall to prevent tipping.</p></details>
+<details><summary>Live-edge slab</summary>
+<p>Free guide: <a class="ext" href="https://www.instructables.com/Live-Edge-Slab-Coffee-Table/">Live Edge Slab Coffee Table (Instructables)</a></p>
+<p>Video: <a class="ext" href="https://www.youtube.com/watch?v=-wL68WivYi8">"The 14 Rules of Epoxy Table Making" (Blacktail Studio)</a> · Channel: <a class="ext" href="https://www.youtube.com/@blacktailstudio">Blacktail Studio</a></p>
+<p>Workflow: buy a properly dried slab → flatten → stabilize cracks → sand → finish → attach the base so the wood can move. Slabs and epoxy are expensive, so learn on smaller pieces first.</p></details>
+
+<h3>Helpful general videos</h3>
+<ul>
+<li><a class="ext" href="https://www.youtube.com/watch?v=zCNgrOR8FEU">"A Total Beginner's Guide to Woodworking" (Steve Ramsey)</a></li>
+<li><a class="ext" href="https://www.youtube.com/watch?v=qDYPGgjQmF4">"So, you think you know how to sand, eh?" (Stumpy Nubs)</a></li>
+<li><a class="ext" href="https://www.youtube.com/watch?v=ikGOKY5r0lk">"7 Inexpensive tools that are changing workshops" (Stumpy Nubs)</a> · Channel: <a class="ext" href="https://www.youtube.com/@stumpynubs">Stumpy Nubs</a></li>
+<li>Ana White catalog: <a class="ext" href="https://www.ana-white.com/plans">Free Woodworking Plans</a></li>
+</ul>
+</section>
+
+<section id="safety">
+<h2>Safety Essentials</h2>
+<div class="grid">
+<div class="card"><h3>Power tools</h3><p>Read every manual. Keep guards and riving knives installed, use push sticks, and never reach over a moving blade. Anyone under 18 should work only with adult supervision.</p></div>
+<div class="card"><h3>Dust</h3><p>Wood dust can harm your lungs. Use dust collection or a shop vacuum, plus a properly fitted respirator rated for fine dust, and clean the shop regularly.</p></div>
+<div class="card"><h3>Food items</h3><p>Use known hardwoods and a finish labeled food-safe. Follow its cure times. Never use pallet or treated wood for food items.</p></div>
+<div class="card"><h3>Load-bearing items</h3><p>Chairs, stools, and shelves must be test-loaded carefully. Include weight and care notes for buyers.</p></div>
+</div>
+</section>
+
+<section id="selling">
+<h2>4. Selling</h2>
+<div class="grid">
+<div class="card"><h3>Etsy</h3><p>Etsy charges listing, transaction, and payment-processing fees. Check the current fees on <a class="ext" href="https://help.etsy.com/hc/en-us/articles/115014483627-What-are-the-Fees-and-Taxes-for-Selling-on-Etsy">Etsy Help: fees and taxes</a> before setting prices. Shipping large furniture is costly, so small items usually work better.</p></div>
+<div class="card"><h3>Facebook Marketplace</h3><p>It works well for local pickup and larger pieces. Shipped orders have Facebook fees, so check <a class="ext" href="https://www.facebook.com/help/620680138523186">Facebook Help</a>. For safety, meet buyers in public places.</p></div>
+<div class="card"><h3>Craft fairs</h3><p>Booth fees vary. Bring varied price points, clear signs, a card reader, and business cards.</p></div>
+<div class="card"><h3>Consignment and farm stores</h3><p>Local farm, feed, and gift stores may sell your items for a commission. Get the commission rate, payment schedule, and damage policy in writing.</p></div>
+</div>
+<h3>Pricing basics</h3>
+<p>Price = materials + consumables + labor + overhead + selling fees + profit. Shipping and sales tax are separate.</p>
+<p class="note"><strong>Example only (made-up numbers):</strong> A cutting board might include $18 in lumber, $4 for glue, sandpaper, and finish, 2.5 hours of labor at $20/hour ($50), $5 overhead, and about $8 in selling fees. That totals $85. Adding 15% profit gives about $98. Your real numbers will differ.</p>
+<div class="card calc noprint"><h3>Quick price calculator</h3>
+<p class="fine">The calculator runs in this browser. Nothing you type is saved or sent.</p>
+<label>Materials $ <input id="c_mat" type="number" value="18" min="0"></label>
+<label>Consumables $ <input id="c_con" type="number" value="4" min="0"></label>
+<label>Hours <input id="c_hrs" type="number" value="2.5" min="0" step="0.25"> × rate $ <input id="c_rate" type="number" value="20" min="0"></label>
+<label>Overhead $ <input id="c_ovh" type="number" value="5" min="0"></label>
+<label>Fees $ <input id="c_fee" type="number" value="8" min="0"></label>
+<label>Profit % <input id="c_pro" type="number" value="15" min="0"></label>
+<p>Suggested price: <output id="c_out">$0</output> (shipping and tax are separate)</p></div>
+</section>
+
+<section id="business">
+<h2>Illinois Business Setup Basics</h2>
+<p class="note">This is general information, not legal or tax advice, and rules can change. Check official sources, your county, and a tax professional. This guide doesn't register anything for you.</p>
+<details open><summary>Sole proprietorship and assumed name (DBA)</summary>
+<p>A sole proprietorship is the simplest setup: you and the business are legally the same. If you use a name other than your full legal name, Illinois' Assumed Business Name Act requires you to file with your county clerk and publish a notice in a newspaper. See the <a class="ext" href="https://dceo.illinois.gov/smallbizassistance/beginhere/stepbystepguide.html">Illinois DCEO step-by-step guide</a>.</p></details>
+<details><summary>Sales tax: register with IDOR before taxable sales</summary>
+<p>Illinois retailers selling tangible goods generally must register with the Illinois Department of Revenue (IDOR) before making sales. They can register through <a class="ext" href="https://mytax.illinois.gov/">MyTax Illinois</a> using Form REG-1. See <a class="ext" href="https://tax.illinois.gov/businesses/registration.html">IDOR Business Registration</a> and <a class="ext" href="https://tax.illinois.gov/research/publications/pubs/retailers-overview-of-sales-and-use-tax/registering-your-business.html">Pub-113: Registering your Business</a>. Online marketplaces may collect tax on some sales, so confirm your obligations with IDOR.</p></details>
+<details><summary>Other items to check</summary>
+<ul><li><strong>Zoning and home occupation:</strong> Ask your city or county about running a business from home, including noise, deliveries, and customer visits.</li>
+<li><strong>Insurance:</strong> Homeowner's policies may not cover business equipment or liability. Ask about product-liability coverage.</li>
+<li><strong>Records:</strong> Keep a separate bank account, receipts, mileage, and sales logs. Federal tax ID info is available at <a class="ext" href="https://www.sba.gov/business-guide/launch-your-business/get-federal-state-tax-id-numbers">SBA</a>.</li></ul></details>
+</section>
+
+<section id="plan">
+<h2>5. First 30 Days</h2>
+<div class="grid">
+<div class="card"><h3>Week 1: Set up and research</h3><ol class="plan"><li>Set a small starting budget and stick to it.</li><li>Set up a safe workspace with safety gear.</li><li>Browse Etsy, Marketplace, and local fairs, and record prices for 2–3 product ideas.</li><li>Start a cost spreadsheet.</li></ol></div>
+<div class="card"><h3>Week 2: Build samples</h3><ol class="plan"><li>Build 2–3 of one beginner item.</li><li>Record materials and actual time.</li><li>Ask for honest feedback.</li></ol></div>
+<div class="card"><h3>Week 3: Photos, pricing, and paperwork</h3><ol class="plan"><li>Take photos in daylight against a plain background.</li><li>Calculate prices with the formula.</li><li>Review the DBA and IDOR rules; register if required before taxable sales.</li></ol></div>
+<div class="card"><h3>Week 4: List and improve</h3><ol class="plan"><li>List items or bring them to a local shop or fair.</li><li>Track views, questions, and sales.</li><li>Adjust products and prices, then plan the next month.</li></ol></div>
+</div>
+</section>
+
+<section id="sources">
+<h2>Sources</h2>
+<p>All links were checked November 7, 2026. Some retail and government sites blocked automated checks, so those were confirmed through search results instead. Prices are snapshots and may change.</p>
+<ul>
+<li>Plans: <a class="ext" href="https://www.ana-white.com/plans">Ana White</a>, <a class="ext" href="https://www.instructables.com/How-to-Make-a-Wooden-Box-Joint-Box/">Instructables</a>, <a class="ext" href="https://www.popularwoodworking.com/projects/simple_side_chair/">Popular Woodworking</a></li>
+<li>Tool prices: <a class="ext" href="https://www.skil.com/products/15-amp-10inch-table-saw-ts6307-00">SKIL</a>, <a class="ext" href="https://www.ryobitools.com/en-us/products/33287178889">RYOBI</a>, <a class="ext" href="https://wenproducts.com/collections/planers-jointers">WEN</a>, <a class="ext" href="https://www.homedepot.com/p/DEWALT-20V-MAX-Cordless-Brushless-5-in-Random-Orbital-Sander-and-1-20V-Premium-Lithium-Ion-4-0Ah-Battery-DCW210BWDCB204/318348748">Home Depot</a> (blocked automated checks), <a class="ext" href="https://www.lowes.com/pd/IRWIN-QUICK-GRIP-Clamp/1000119643">Lowe's</a> (blocked automated checks), <a class="ext" href="https://slickdeals.net/f/20257809-99-home-depot-dewalt-atomic-20v-lithium-ion-cordless-compact-1-2-in-drill-driver-kit-with-2-0ah-battery-and-charger">Slickdeals</a></li>
+<li>Selling: <a class="ext" href="https://help.etsy.com/hc/en-us/articles/115014483627-What-are-the-Fees-and-Taxes-for-Selling-on-Etsy">Etsy Help</a>, <a class="ext" href="https://www.facebook.com/help/620680138523186">Facebook Help</a></li>
+<li>Illinois: <a class="ext" href="https://tax.illinois.gov/businesses/registration.html">IDOR</a>, <a class="ext" href="https://mytax.illinois.gov/">MyTax Illinois</a>, <a class="ext" href="https://dceo.illinois.gov/smallbizassistance/beginhere/stepbystepguide.html">DCEO</a></li>
+</ul>
+</section>
+</main>
+<footer><div class="wrap"><p>Woodworking Business Guide from Dukktape Studios. Information was checked November 7, 2026. It is general information, not legal, tax, or safety certification. External plans and videos belong to their creators. <a href="../">Dukktape Studios home</a> · <a href="#start">Back to top</a></p></div></footer>
+<script>
+(function(){var ids=["c_mat","c_con","c_hrs","c_rate","c_ovh","c_fee","c_pro"];function v(i){return parseFloat(document.getElementById(i).value)||0}
+function calc(){var base=v("c_mat")+v("c_con")+v("c_hrs")*v("c_rate")+v("c_ovh")+v("c_fee");document.getElementById("c_out").textContent="$"+(base*(1+v("c_pro")/100)).toFixed(2)}
+ids.forEach(function(i){document.getElementById(i).addEventListener("input",calc)});calc();})();
+</script>
+</body>
+</html>
