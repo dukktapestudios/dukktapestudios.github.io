@@ -4,567 +4,747 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dukktape Studios</title>
-<meta name="description" content="Teaching myself the internet and AI, one duct-taped idea at a time.">
-<link rel="preload" href="assets/fonts/nunito-latin-800.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="description" content="A place for useful ideas. Practical guides, creative projects, and tools from Dukktape Studios.">
+<meta name="theme-color" content="#171b1e">
+<link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face {
-  font-family: Nunito;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/inter-latin-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/inter-latin-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("assets/fonts/nunito-latin-600.woff2") format("woff2");
+  src: url("assets/fonts/inter-latin-600.woff2") format("woff2");
 }
 @font-face {
-  font-family: Nunito;
+  font-family: Inter;
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("assets/fonts/nunito-latin-700.woff2") format("woff2");
-}
-@font-face {
-  font-family: Nunito;
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url("assets/fonts/nunito-latin-800.woff2") format("woff2");
+  src: url("assets/fonts/inter-latin-700.woff2") format("woff2");
 }
 :root {
-  --paper: #f6efe3;
-  --card: #fffaf3;
-  --ink: #2c241c;
-  --ink-soft: #5c4636;
-  --green: #1d6840;
-  --green-deep: #143f28;
-  --orange: #e07a2f;
-  --orange-deep: #8d3f10;
-  --brown: #6b442c;
-  --silver: #c5ced6;
-  --silver-dark: #8e99a4;
-  --line: #eadcc8;
+  --bg: #171b1e;
+  --raise: #22282c;
+  --disc: #2a3034;
+  --circle: #34383c;
+  --line: #3a4143;
+  --ring: #606c70;
+  --text: #f0f0e8;
+  --muted: #b4b4b4;
+  --orange: #efb671;
+  --ink: #171b1e;
+  --max: 1120px;
 }
 * { box-sizing: border-box; }
+html { color-scheme: dark; }
 body {
   margin: 0;
-  font-family: Nunito, ui-rounded, "Segoe UI", sans-serif;
-  font-weight: 600;
-  font-size: 1.05rem;
-  line-height: 1.65;
-  color: var(--ink);
-  background:
-    radial-gradient(1100px 480px at 50% -120px, #ffe3c4 0%, transparent 70%),
-    radial-gradient(700px 380px at 100% 0%, #e5f3e4 0%, transparent 55%),
-    radial-gradient(640px 360px at -10% 12%, #f8e4d0 0%, transparent 50%),
-    var(--paper);
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--bg);
 }
 .skip {
   position: absolute;
   left: 12px;
   top: -48px;
-  background: #fff;
-  color: var(--green-deep);
+  background: var(--orange);
+  color: var(--ink);
   padding: 8px 12px;
-  border-radius: 10px;
-  z-index: 3;
-  font-weight: 800;
+  border-radius: 8px;
+  z-index: 5;
+  font-weight: 700;
+  text-decoration: none;
 }
 .skip:focus { top: 12px; }
-a { color: var(--green-deep); text-underline-offset: .16em; text-decoration-thickness: 2px; }
-a:hover, a:focus-visible { color: var(--orange-deep); }
+a { color: var(--text); }
 img { max-width: 100%; height: auto; }
-.hero {
-  text-align: center;
-  padding: 22px 16px 6px;
-  background: radial-gradient(circle at 50% 46%, rgba(255, 206, 156, .5), transparent 26rem);
+:focus { outline: none; }
+:focus-visible {
+  outline: 3px solid #f7f4ee;
+  outline-offset: 3px;
 }
-.logo {
-  width: 108px;
-  height: auto;
-  background: #fff;
-  border-radius: 16px;
-  padding: 8px 10px;
-  box-shadow: 0 6px 16px rgba(92, 58, 28, .1);
+.wrap {
+  width: min(var(--max), calc(100% - 40px));
+  margin: 0 auto;
 }
-.say {
-  min-height: 4.8rem;
+.topbar {
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner {
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  margin: .85rem auto .15rem;
-  max-width: 40rem;
-  padding: 0 12px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 28px;
+  min-height: 76px;
 }
-.hint {
+.brand {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  align-items: center;
+}
+.site-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.site-nav a:hover,
+.site-nav a:focus-visible { color: var(--text); }
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  grid-template-areas:
+    "eyebrow duck"
+    "title duck"
+    "lede duck"
+    "deck duck"
+    "cta duck"
+    "quip duck";
+  column-gap: 36px;
+  row-gap: 0;
+  align-items: center;
+  padding: 54px 0 46px;
+}
+.eyebrow {
+  grid-area: eyebrow;
+  margin: 0 0 18px;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+h1 {
+  grid-area: title;
   margin: 0;
-  color: var(--ink-soft);
-  font-weight: 800;
+  font-size: clamp(3.3rem, 6.5vw, 5.15rem);
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: -0.045em;
 }
-.bubble {
-  position: relative;
-  margin: 0 0 14px;
-  max-width: min(92vw, 28rem);
-  padding: .7rem 1rem .75rem;
-  background: #fffdf8;
+.lede {
+  grid-area: lede;
+  margin: 22px 0 0;
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.deck {
+  grid-area: deck;
+  margin: 12px 0 0;
+  max-width: 34rem;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+.cta {
+  grid-area: cta;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.7rem 1.15rem;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.btn-primary {
+  background: var(--orange);
   color: var(--ink);
-  border: 2px solid var(--silver-dark);
-  border-radius: 18px;
-  font-weight: 800;
-  box-shadow: 0 8px 18px rgba(92, 58, 28, .1);
+  border: 1px solid var(--orange);
 }
-.bubble::before,
-.bubble::after {
+.btn-primary:hover,
+.btn-primary:focus-visible { background: #f3c48a; }
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(240, 240, 232, 0.85);
+}
+.btn-ghost:hover,
+.btn-ghost:focus-visible { background: rgba(240, 240, 232, 0.06); }
+.quip {
+  grid-area: quip;
+  margin: 14px 0 0;
+  min-height: 1.4em;
+  color: var(--muted);
+  font-weight: 500;
+}
+.quip[hidden] { display: none; }
+.hero-duck {
+  grid-area: duck;
+  justify-self: center;
+  min-width: 0;
+  max-width: 100%;
+}
+.duck-plate {
+  position: relative;
+  width: min(100%, 430px);
+  max-width: 100%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  overflow: clip;
+}
+.duck-plate::before {
   content: "";
   position: absolute;
-  left: 50%;
-  border: 10px solid transparent;
+  inset: 7%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 42%, #3a4144 0%, var(--disc) 68%, #23282b 100%);
+  box-shadow: 0 28px 50px rgba(0, 0, 0, 0.35);
 }
-.bubble::after {
-  bottom: -20px;
-  margin-left: -10px;
-  border-top-color: var(--silver-dark);
+.duck-plate::after {
+  content: "";
+  position: absolute;
+  inset: 3%;
+  border-radius: 50%;
+  border: 1.5px solid rgba(198, 206, 210, 0.45);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  transform: rotate(28deg);
+  pointer-events: none;
 }
-.bubble::before {
-  bottom: -16px;
-  margin-left: -10px;
-  border-top-color: #fffdf8;
-  z-index: 1;
-}
-.bubble[hidden],
-.hint[hidden],
-.visitor-badge[hidden] { display: none !important; }
 .duck-btn {
-  display: inline-block;
+  position: relative;
+  z-index: 1;
+  width: 92%;
   padding: 0;
   border: 0;
   background: transparent;
-  border-radius: 50%;
+  border-radius: 40%;
   cursor: pointer;
   line-height: 0;
-  overflow: hidden;
-  box-shadow:
-    0 0 0 6px #e7ecef,
-    0 0 0 11px #b7c2cb,
-    0 16px 28px rgba(110, 64, 24, .28);
 }
 .duck-btn img {
-  width: min(72vw, 320px);
+  width: 100%;
+  max-width: 100%;
   height: auto;
   display: block;
-  border-radius: 50%;
 }
-.duck-btn:focus { outline: none; }
-.duck-btn:focus-visible {
-  outline: 3px solid var(--orange);
-  outline-offset: 8px;
-}
-h1 {
-  margin: .85rem 0 0;
-  font-size: clamp(2.15rem, 6vw, 3.35rem);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  color: var(--green-deep);
-}
-.studio {
-  margin: .2rem 0 .55rem;
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: var(--brown);
-}
-.tag {
-  display: inline-block;
-  max-width: min(92vw, 36rem);
-  margin: .15rem auto .4rem;
-  padding: .45rem .9rem;
-  background: linear-gradient(#f7f8f9, #d7dee5);
-  color: #3e342c;
-  font-weight: 800;
-  border-radius: 7px;
-  box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(70, 50, 30, .08);
-  transform: rotate(-0.5deg);
-}
-.site-nav {
-  margin: 16px 0 6px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-}
-.nav-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: .45rem 1.1rem;
-  background: #fff;
-  color: var(--green-deep);
-  border: 2px solid var(--green);
-  border-radius: 999px;
-  font-weight: 800;
-  text-decoration: none;
-}
-.nav-link:hover,
-.nav-link:focus-visible {
-  color: var(--orange-deep);
-  border-color: var(--orange);
-  background: #fff7ee;
-}
-.merch {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: .45rem 1.25rem;
-  background: var(--orange);
-  color: #fff;
-  border-radius: 999px;
-  font-weight: 800;
-  text-decoration: none;
-  box-shadow: 0 4px 0 var(--orange-deep);
-}
-.merch:hover,
-.merch:focus-visible {
-  color: #fff;
-  background: var(--orange-deep);
-  outline: 2px solid var(--green-deep);
-  outline-offset: 3px;
-}
-.banner {
-  width: 100%;
-  max-height: 420px;
-  object-fit: cover;
-  display: block;
-}
-main { padding-bottom: 8px; }
-section {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 18px 22px 6px;
-}
-h2 {
-  margin: 0 0 .7rem;
-  color: var(--green);
-  font-size: 1.5rem;
-  font-weight: 800;
-  border-bottom: 3px solid var(--silver);
-  padding-bottom: .35rem;
-  position: relative;
-}
-h2::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  width: 4.6rem;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--orange);
-}
-.section-intro {
-  margin: 0 0 .95rem;
-}
-.cards {
+.start {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 14px;
+  grid-template-columns: minmax(180px, 260px) 1fr;
+  gap: 20px 28px;
+  align-items: center;
+  padding: 34px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
-.card {
+.start h2,
+.band h2,
+.catalog h2,
+.prose h2 {
+  margin: 0;
+  font-size: clamp(1.7rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.start p,
+.section-intro {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+.cats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.cat {
   display: flex;
   flex-direction: column;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 14px 16px 15px;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+  min-height: 44px;
+  padding: 8px;
+  border-radius: 16px;
 }
-.card h3 { margin: 0 0 6px; font-size: 1.08rem; font-weight: 800; }
-.card p { margin: 0; color: var(--ink-soft); }
-.card .visits {
-  margin-top: auto;
-  padding-top: 10px;
-  font-size: .82rem;
-  line-height: 1.3;
+.cat-icon {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--circle);
+  color: var(--orange);
+  box-shadow: inset 0 0 0 1px var(--ring);
+  margin-bottom: 12px;
 }
-.card:hover,
-.card:focus-within {
-  border-color: var(--silver-dark);
-  background: #fff;
+.cat-icon svg { display: block; }
+.cat-name {
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
-.tablist {
+.cat-blurb {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  max-width: 14rem;
+}
+.cat:hover .cat-icon,
+.cat:focus-visible .cat-icon {
+  box-shadow: inset 0 0 0 1.5px var(--orange);
+}
+.band { padding: 36px 0 8px; }
+.band-head,
+.catalog-head {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 14px;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin-bottom: 16px;
 }
-.project-tabs:not(.is-ready) .tablist { display: none; }
-.tablist [role="tab"] {
-  flex: 1 1 11rem;
-  min-height: 48px;
-  padding: .45rem .9rem;
-  border: 2px solid var(--green);
-  border-radius: 999px;
-  background: #fff;
-  color: var(--green-deep);
-  font: inherit;
-  font-weight: 800;
-  cursor: pointer;
+.view-all {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
-.tablist [role="tab"][aria-selected="true"] {
-  background: var(--green);
-  color: #fff;
-  border-color: var(--green-deep);
+.view-all:hover,
+.view-all:focus-visible { color: var(--text); }
+.feature-grid,
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
 }
-.tablist [role="tab"]:hover,
-.tablist [role="tab"]:focus-visible {
-  border-color: var(--orange);
-  outline: 3px solid var(--orange);
-  outline-offset: 2px;
+.feature,
+.card {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 20px 20px 18px;
+  display: flex;
+  flex-direction: column;
+  min-height: 196px;
 }
-.tablist [role="tab"][aria-selected="true"]:hover,
-.tablist [role="tab"][aria-selected="true"]:focus-visible {
-  color: #fff;
+.kicker {
+  margin: 0 0 12px;
+  color: var(--orange);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
-.panel-label {
-  margin: .15rem 0 .8rem;
-  color: var(--green);
-  font-size: 1.15rem;
-  font-weight: 800;
+.feature h3,
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 1.28rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
 }
-.project-tabs.is-ready .panel-label { display: none; }
+.feature p,
+.card p { margin: 0; color: var(--muted); }
+.feature a.more,
+.card h3 a {
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+}
+.feature a.more {
+  margin-top: auto;
+  padding-top: 18px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.feature a.more:hover,
+.feature a.more:focus-visible,
+.card h3 a:hover,
+.card h3 a:focus-visible { color: var(--orange); }
+.card h3 a {
+  text-decoration: underline;
+  text-decoration-color: rgba(239, 182, 113, 0.75);
+  text-underline-offset: 0.16em;
+}
+.visits {
+  margin-top: auto;
+  padding-top: 14px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.catalog { padding: 34px 0 10px; border-top: 1px solid var(--line); scroll-margin-top: 18px; }
+#about, #contact { scroll-margin-top: 18px; }
+.catalog .cards { margin-top: 16px; }
+.drawer { margin-top: 18px; }
 .drawer > summary {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: .35rem .8rem;
+  gap: 12px;
+  min-height: 48px;
   cursor: pointer;
   list-style: none;
 }
 .drawer > summary::-webkit-details-marker { display: none; }
 .drawer > summary::marker { content: ""; }
-.drawer > summary h2 { flex: 1 1 12rem; margin-bottom: 0; }
+.drawer > summary h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
 .drawer-state {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  font-weight: 800;
-  color: var(--green-deep);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.92rem;
 }
 .drawer-state::before { content: "Show"; }
 .drawer[open] > summary .drawer-state::before { content: "Hide"; }
-.drawer > summary:focus { outline: none; }
-.drawer > summary:focus-visible {
-  outline: 3px solid var(--orange);
-  outline-offset: 4px;
-  border-radius: 10px;
-}
-.project-tabs [role="tabpanel"]:focus-visible {
-  outline: 3px solid var(--orange);
-  outline-offset: 3px;
-  border-radius: 12px;
-}
+.drawer .section-intro { margin-bottom: 14px; }
+.prose { padding: 28px 0 8px; border-top: 1px solid var(--line); }
+.prose p { max-width: 44rem; color: var(--muted); }
+.prose p strong, .contact { color: var(--text); }
 .contact a {
-  display: inline-block;
-  margin: 2px 0;
-  padding: .05rem .45rem;
-  border-radius: 999px;
-  background: #fff;
-  border: 1px solid var(--line);
-  text-decoration: none;
-  font-weight: 800;
+  color: var(--text);
+  font-weight: 600;
+  text-underline-offset: 0.16em;
 }
 .contact a:hover,
-.contact a:focus-visible {
-  background: #fff1e2;
-  border-color: var(--orange);
-  outline: none;
-}
-.farewell {
-  text-align: center;
+.contact a:focus-visible { color: var(--orange); }
+.footer {
   margin-top: 18px;
-  padding: 8px 16px 4px;
+  border-top: 1px solid var(--line);
+  padding: 22px 0 36px;
 }
-.farewell::before {
-  content: "";
-  display: block;
-  width: min(168px, 42vw);
-  height: 10px;
-  margin: 0 auto 16px;
-  border-radius: 2px;
-  background: linear-gradient(#f5f7f8, #c5ced6 55%, #eef1f4);
-  box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(80, 55, 30, .12);
+.footer-brand {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px 24px;
+  align-items: baseline;
 }
+.footer-brand p { margin: 0; }
+.footer-brand .tagline { color: var(--muted); }
 .visitor-badge {
-  display: inline-block;
-  margin: 0 auto 4px;
-  padding: .5rem 1rem;
-  background: linear-gradient(#fff, #f3f8f4);
-  color: var(--green-deep);
-  border: 2px solid var(--silver);
-  border-radius: 999px;
-  font-weight: 800;
-  box-shadow: 0 3px 0 #e7b07a;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
 }
-.visitor-count { color: var(--orange-deep); }
-footer {
-  text-align: center;
-  padding: 14px 20px 28px;
-  color: var(--ink-soft);
-  font-size: .95rem;
-  font-weight: 700;
+.visitor-badge[hidden] { display: none; }
+.visitor-count { color: var(--orange); font-weight: 700; }
+.legal {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "eyebrow"
+      "title"
+      "lede"
+      "duck"
+      "deck"
+      "cta"
+      "quip";
+    padding-top: 32px;
+  }
+  .hero-duck { margin: 8px 0 6px; }
+  .start { grid-template-columns: 1fr; }
+  .feature-grid,
+  .cards { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 861px) and (max-width: 1040px) {
+  .cards { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .wrap { width: min(var(--max), calc(100% - 28px)); }
+  .topbar-inner {
+    flex-wrap: wrap;
+    align-items: center;
+    min-height: 0;
+    row-gap: 0;
+    padding: 10px 0 4px;
+  }
+  .site-nav {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 4px 18px;
+  }
+  .cats,
+  .feature-grid,
+  .cards { grid-template-columns: 1fr; }
+  .cats { justify-items: center; }
+  .footer-brand { flex-direction: column; }
+  h1 { font-size: clamp(2.8rem, 14vw, 3.6rem); }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .duck-btn { transform-origin: 50% 75%; }
-  .duck-btn:hover,
-  .duck-btn:focus-visible { animation: bob .85s ease-in-out; }
-  .duck-btn.is-wiggling,
-  .duck-btn.is-wiggling:hover,
-  .duck-btn.is-wiggling:focus-visible { animation: wiggle .5s ease-in-out; }
-  .bubble:not([hidden]) { animation: pop .28s ease-out; }
-  .card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease; }
+  html { scroll-behavior: smooth; }
+  .duck-btn { transform-origin: 50% 70%; }
+  .duck-btn.is-wiggling { animation: wiggle 0.5s ease-in-out; }
+  .feature,
+  .card { transition: border-color 0.2s ease, transform 0.2s ease; }
+  .feature:hover,
+  .feature:focus-within,
   .card:hover,
   .card:focus-within {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(92, 58, 28, .12);
+    transform: translateY(-3px);
+    border-color: #4a5458;
   }
-  a { transition: color .15s ease, background-color .15s ease, border-color .15s ease; }
-}
-@keyframes bob {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  40% { transform: translateY(-8px) rotate(-2.4deg); }
-  72% { transform: translateY(-3px) rotate(2deg); }
 }
 @keyframes wiggle {
   0% { transform: rotate(0deg); }
-  22% { transform: rotate(-6deg) translateY(-4px); }
-  48% { transform: rotate(5deg) translateY(-2px); }
-  72% { transform: rotate(-3deg); }
+  25% { transform: rotate(-3deg); }
+  55% { transform: rotate(2.5deg); }
   100% { transform: rotate(0deg); }
 }
-@keyframes pop {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
-}
-@media (max-width: 420px) {
-  section { padding: 16px 14px 4px; }
-  .duck-btn img { width: min(74vw, 280px); }
-  .tablist [role="tab"] { flex-basis: 100%; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .tag { transform: none; }
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation: none !important;
     transition: none !important;
-    scroll-behavior: auto !important;
   }
 }
 </style>
 </head>
 <body>
-<a class="skip" href="#about">Skip to content</a>
-<main>
-<header class="hero">
-  <img class="logo" src="logo.jpg" width="300" height="169" alt="Dukktape Studios logo">
-  <div class="say">
-    <p id="duck-hint" class="hint">Click the duck for a hello.</p>
-    <p id="quip" class="bubble" role="status" aria-live="polite" hidden></p>
+<a class="skip" href="#content">Skip to content</a>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="/">Dukktape Studios</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="#projects">Projects</a>
+      <a href="#guides">Guides</a>
+      <a href="#tools">Tools</a>
+    </nav>
   </div>
-  <button type="button" class="duck-btn" id="duck-btn" aria-controls="quip" aria-describedby="duck-hint" aria-expanded="false">
-    <picture>
-      <source srcset="assets/dukktape-duck.webp" type="image/webp">
-      <img src="assets/dukktape-duck.png" width="800" height="800" alt="Dukktape, a cartoon green duck with brown hair and beard, a headset, and a roll of duct tape" decoding="async" fetchpriority="high">
-    </picture>
-  </button>
-  <h1>Hey, I'm Dukktape</h1>
-  <p class="studio">Dukktape Studios</p>
-  <p class="tag">Teaching myself the internet and AI, one duct-taped idea at a time.</p>
-  <nav class="site-nav" aria-label="Site">
-    <a class="merch" href="https://dukktape-studios-shop.fourthwall.com/" target="_blank" rel="noopener">Merch</a>
-    <a class="nav-link" href="/veterans-day/">Veterans Day route</a>
-  </nav>
 </header>
-<img class="banner" src="banner.jpg" alt="Dukktape building a house with boards and duct tape" onerror="this.style.display='none'">
-<section id="about">
-  <h2>About</h2>
-  <p>Hi, I'm Dukktape. I teach myself how the internet and AI work by turning ideas into real things: websites, programs, and games. I use AI to patchwork them together. They're usually held together with duct tape, but working is working.</p>
-  <p>My goal is to show you that you can just start. It doesn't have to be pretty or perfect. Build it rough, hobble it together, and figure it out as you go.</p>
-</section>
-<section id="projects">
-  <h2>Projects</h2>
-  <div class="project-tabs">
-    <div class="tablist" role="tablist" aria-label="Project groups">
-      <button type="button" role="tab" id="tab-courses" aria-controls="panel-courses" aria-selected="true" tabindex="0">Crash Courses</button>
-      <button type="button" role="tab" id="tab-other" aria-controls="panel-other" aria-selected="false" tabindex="-1">Other Projects</button>
-    </div>
-    <div role="tabpanel" id="panel-courses" aria-labelledby="tab-courses" tabindex="0">
-      <h3 class="panel-label">Crash Courses</h3>
-      <div class="cards">
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/b2b-sales-course/">B2B Software Sales Crash Course</a></h3><p>Teach yourself SDR and enterprise deal skills on a fictional company. Drills and capstones. Not a job or income promise.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/local-ai/">Standalone Offline AI Crash Course</a></h3><p>Run your own AI offline with Ollama — minimums, hardware tiers, DigiAlex hookup.</p><p class="visits" data-paths="/digialex/local-ai/ /local-ai/">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/lora/">LoRa Mesh Crash Course</a></h3><p>Off-grid 915 MHz Meshtastic: placement, parts, and MQTT into DigiAlex.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/cluster/">Cluster Crash Course</a></h3><p>Network multiple PCs into one workhorse: what splits, Ethernet, and a beginner path.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/landlord-guide/">Landlord Crash Course</a></h3><p>Free beginner lessons, a rent-ready checklist, and a worksheet for cash flow and break-even rent. Estimates only, not legal or investment advice.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/raspberry-pi/">Raspberry Pi Crash Course</a></h3><p>Learn Pi hardware from zero: GPIO, camera, sensors, then ESP32.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/white-hat-crash-course/">White Hat Hacking Crash Course (100% Free)</a></h3><p>A free beginner path to ethical hacking: labs, CTFs, and a first bug bounty, only on systems you have permission to test.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/cyber-crash-course/">Cybersecurity Crash Course (100% Free)</a></h3><p>A free, practical crash course: get safe this week, learn the core ideas, and earn free badges.</p><p class="visits">👁 0 visits</p></div>
+<main id="content">
+  <div class="wrap hero">
+    <p class="eyebrow">Guides / Projects / Tools</p>
+    <div class="hero-duck">
+      <div class="duck-plate">
+        <button type="button" class="duck-btn" id="duck-btn" aria-controls="quip" aria-describedby="duck-hint" aria-expanded="false">
+          <img src="assets/studio-duck.png" width="512" height="512" alt="White cartoon duck with a silver duct-tape bow tie" decoding="async" fetchpriority="high">
+        </button>
       </div>
     </div>
-    <div role="tabpanel" id="panel-other" aria-labelledby="tab-other" tabindex="0">
-      <h3 class="panel-label">Other Projects</h3>
-      <div class="cards">
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/common-ground/">Common Ground</a></h3><p>In development. A buyer and seller name priorities, keep private walk-away limits, and both approve a non-binding summary. The app is not available here yet.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/veterans-day/">Veterans Day route</a></h3><p>Free meals and deals for Wednesday, Nov 11, 2026. Check spots near your ZIP and build a route that follows each offer's hours.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/stories/">Bookshelf</a></h3><p>A shelf of studio books.</p><p class="visits" data-paths="/stories/ /stories/books/rivers-run-wolf-cry/ /stories/books/random-ideas/">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/irl-armory/">IRL Armory</a></h3><p>WoW-style character page you can share.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/rooster-rumble/">Rooster Rumble</a></h3><p>Rooster battle card game. Knock out all 3 enemy roosters.</p><p class="visits" data-paths="/rooster-rumble/ /rooster-rumble/cards/">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/horse-genetics/">Horse Genetics</a></h3><p>Free foal coat color calculator.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/horse-cards/">Hoofprint Legends</a></h3><p>Catalog of 205 cards: history, racing, breeds, and one from home.</p><p class="visits" data-paths="/horse-cards/ /horse-cards/shop.html">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/roundpen/">Round Pen</a></h3><p>Pressure and release horse training game.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/usda-504/">USDA 504 Repair Helper</a></h3><p>Simple step-by-step guide to the USDA home repair loan and grant.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/foia/">FOIA Made Easy</a></h3><p>Free tool that drafts a public-records request in your browser.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/affect-me/">How Does It Affect Me</a></h3><p>Enter your ZIP and situation to see the laws in all states and federal laws that affect you and how your reps voted.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/hypocrisy-tracker/">Hypocrisy Tracker</a></h3><p>Search any member of Congress. Pick the values you care about. See documented said-vs-did evidence, not ads.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/self-reliance/">Rural Self-Reliance Checklist</a></h3><p>Basic checklist every rural household should shoot for: water, heat, power, food, and more.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/money/">Money Basics</a></h3><p>Plain-English guide to start where you are, from a crisis to building wealth.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/">DigiAlex Guides</a></h3><p>Hub for the DigiAlex toolkit: cluster, LoRa mesh, fleet dashboard, and offline AI.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/digialex/fleet/">Fleet Status</a></h3><p>Sample satellite fleet dashboard mock: drones, network, and balance. Demo only.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/group-lot/">Group Lot</a></h3><p>Pool demand for the same car so a dealer can quote a volume price. Demo only. No money collected.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/smv-calculator/">SMV Calculator</a></h3><p>For-fun self-check of health, habits, and career. Rough score, not science.</p><p class="visits">👁 0 visits</p></div>
-        <div class="card"><h3><a href="https://dukktapestudios.github.io/theory/">How I see life and reality</a></h3><p>Personal notes on God, free will, the multiverse, the Bible, the Trinity, and consciousness.</p><p class="visits">👁 0 visits</p></div>
-      </div>
+    <h1>Dukktape<br>Studios</h1>
+    <p class="lede">A place for useful ideas.</p>
+    <p class="deck">Practical guides, creative projects, and tools to help you make things.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#projects">Browse projects →</a>
+      <a class="btn btn-ghost" href="#guides">Find a guide</a>
+    </div>
+    <p id="duck-hint" class="visually-hidden">Select the duck for a hello.</p>
+    <p id="quip" class="quip" role="status" aria-live="polite" hidden></p>
+  </div>
+
+  <div class="wrap start">
+    <div>
+      <h2>Start here</h2>
+      <p>Pick what you need.</p>
+    </div>
+    <div class="cats">
+      <a class="cat" href="#projects">
+        <span class="cat-icon" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="3" width="7.2" height="7.2" rx="1.6" stroke="currentColor" stroke-width="1.8"/>
+            <rect x="13.8" y="3" width="7.2" height="7.2" rx="1.6" stroke="currentColor" stroke-width="1.8"/>
+            <rect x="3" y="13.8" width="7.2" height="7.2" rx="1.6" stroke="currentColor" stroke-width="1.8"/>
+            <rect x="13.8" y="13.8" width="7.2" height="7.2" rx="1.6" stroke="currentColor" stroke-width="1.8"/>
+          </svg>
+        </span>
+        <span class="cat-name">Projects</span>
+        <span class="cat-blurb">See what's being made</span>
+      </a>
+      <a class="cat" href="#guides">
+        <span class="cat-icon" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+            <path d="M12 6.2c-1.7-1-3.6-1.6-6-1.7H4.2v13.3H6c2.1 0 4 .5 6 1.7 2-1.2 3.9-1.7 6-1.7h1.8V4.5H18c-2.4.1-4.3.7-6 1.7z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+            <path d="M12 6.2v13.3" stroke="currentColor" stroke-width="1.7"/>
+          </svg>
+        </span>
+        <span class="cat-name">Guides</span>
+        <span class="cat-blurb">Learn something useful</span>
+      </a>
+      <a class="cat" href="#tools">
+        <span class="cat-icon" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+            <path d="M14.8 6.2a4.1 4.1 0 0 0-5.5 5.4L4.2 16.7 6.5 19l5.1-5.1a4.1 4.1 0 0 0 5.4-5.5L14.6 10.8l-2-.5-.5-2 2.7-2.1z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="cat-name">Tools</span>
+        <span class="cat-blurb">Try practical experiments</span>
+      </a>
     </div>
   </div>
-</section>
-<section id="junk-drawer">
-  <details class="drawer">
-    <summary>
-      <h2>Junk Drawer</h2>
-      <span class="drawer-state" aria-hidden="true"></span>
-    </summary>
-    <p class="section-intro">Early concepts I may come back to.</p>
-    <div class="cards">
-      <div class="card"><h3><a href="https://dukktapestudios.github.io/space/">NETSPACE</a></h3><p>Space game where every website is a star system.</p><p class="visits">👁 0 visits</p></div>
-      <div class="card"><h3><a href="https://dukktapestudios.github.io/animal-tactics/">Animal Tactics</a></h3><p>Simple animal tabletop battle game.</p><p class="visits">👁 0 visits</p></div>
-      <div class="card"><h3><a href="https://dukktapestudios.github.io/coop-quest/">Coop Quest</a></h3><p>Walk Hatchwick, meet stray birds, and keep a flock of six.</p><p class="visits">👁 0 visits</p></div>
-      <div class="card"><h3><a href="https://dukktapestudios.github.io/chicken-tender/">Chicken Tender</a></h3><p>Breed chickens, pass down their colors, and fill the yard book.</p><p class="visits">👁 0 visits</p></div>
-      <div class="card"><h3><a href="https://dukktapestudios.github.io/mech-vr/">Rivethull</a></h3><p>Heavy box-walker prototype for a headset or a desktop browser.</p><p class="visits">👁 0 visits</p></div>
-      <div class="card"><h3><a href="https://dukktapestudios.github.io/dnd/">Dungeon Night</a></h3><p>Simple online D&amp;D game with friends and an AI DM.</p><p class="visits">👁 0 visits</p></div>
-      <div class="card"><h3><a href="https://dukktapestudios.github.io/spurs/">Spur Trainer</a></h3><p>Learn proper, light spur use with pressure and release.</p><p class="visits">👁 0 visits</p></div>
+
+  <section class="wrap band" aria-labelledby="featured-title">
+    <div class="band-head">
+      <h2 id="featured-title">Featured</h2>
+      <a class="view-all" href="#projects">View all →</a>
     </div>
-  </details>
-</section>
-<section>
-  <h2>Follow &amp; Contact</h2>
-  <p class="contact">Twitch (games and whatever I'm into): <a href="https://twitch.tv/dukktapetv">dukktapetv</a><br>
-  YouTube: <a href="https://www.youtube.com/@dukktapestudios">@dukktapestudios</a><br>
-  X: <a href="https://x.com/dukktapeStudios">@dukktapeStudios</a><br>
-  GitHub (my code): <a href="https://github.com/dukktapestudios">dukktapestudios</a><br>
-  Email: <a href="mailto:dukktapestudios@gmail.com">dukktapestudios@gmail.com</a></p>
-</section>
+    <div class="feature-grid">
+      <article class="feature">
+        <p class="kicker">Guide</p>
+        <h3>Woodworking Guide</h3>
+        <p>Project ideas, pricing, and selling tips.</p>
+        <a class="more" href="https://dukktapestudios.github.io/woodworking/">Read the guide →</a>
+      </article>
+      <article class="feature">
+        <p class="kicker">Project</p>
+        <h3>HoofPrint Legends</h3>
+        <p>Horse-inspired collectible card designs.</p>
+        <a class="more" href="https://dukktapestudios.github.io/horse-cards/">View the project →</a>
+      </article>
+      <article class="feature">
+        <p class="kicker">Tools</p>
+        <h3>AI Experiments</h3>
+        <p>Creative tests and software projects.</p>
+        <a class="more" href="https://dukktapestudios.github.io/ai-create/">Explore tools →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap catalog" id="projects" aria-labelledby="projects-title">
+    <div class="catalog-head">
+      <h2 id="projects-title">Projects</h2>
+    </div>
+    <p class="section-intro">Games, stories, and things in progress.</p>
+    <div class="cards">
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/horse-cards/">Hoofprint Legends</a></h3><p>Catalog of 205 cards: history, racing, breeds, and one from home.</p><p class="visits" data-paths="/horse-cards/ /horse-cards/shop.html">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/rooster-rumble/">Rooster Rumble</a></h3><p>Rooster battle card game. Knock out all 3 enemy roosters.</p><p class="visits" data-paths="/rooster-rumble/ /rooster-rumble/cards/">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/stories/">Bookshelf</a></h3><p>A shelf of studio books.</p><p class="visits" data-paths="/stories/ /stories/books/rivers-run-wolf-cry/ /stories/books/random-ideas/">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/irl-armory/">IRL Armory</a></h3><p>WoW-style character page you can share.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/roundpen/">Round Pen</a></h3><p>Pressure and release horse training game.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/common-ground/">Common Ground</a></h3><p>In development. A buyer and seller name priorities, keep private walk-away limits, and both approve a non-binding summary. The app is not available here yet.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/group-lot/">Group Lot</a></h3><p>Pool demand for the same car so a dealer can quote a volume price. Demo only. No money collected.</p><p class="visits">0 visits</p></article>
+    </div>
+    <details class="drawer" id="junk-drawer">
+      <summary>
+        <h3>Junk Drawer</h3>
+        <span class="drawer-state" aria-hidden="true"></span>
+      </summary>
+      <p class="section-intro">Early concepts I may come back to.</p>
+      <div class="cards">
+        <article class="card"><h3><a href="https://dukktapestudios.github.io/space/">NETSPACE</a></h3><p>Space game where every website is a star system.</p><p class="visits">0 visits</p></article>
+        <article class="card"><h3><a href="https://dukktapestudios.github.io/animal-tactics/">Animal Tactics</a></h3><p>Simple animal tabletop battle game.</p><p class="visits">0 visits</p></article>
+        <article class="card"><h3><a href="https://dukktapestudios.github.io/coop-quest/">Coop Quest</a></h3><p>Walk Hatchwick, meet stray birds, and keep a flock of six.</p><p class="visits">0 visits</p></article>
+        <article class="card"><h3><a href="https://dukktapestudios.github.io/chicken-tender/">Chicken Tender</a></h3><p>Breed chickens, pass down their colors, and fill the yard book.</p><p class="visits">0 visits</p></article>
+        <article class="card"><h3><a href="https://dukktapestudios.github.io/mech-vr/">Rivethull</a></h3><p>Heavy box-walker prototype for a headset or a desktop browser.</p><p class="visits">0 visits</p></article>
+        <article class="card"><h3><a href="https://dukktapestudios.github.io/dnd/">Dungeon Night</a></h3><p>Simple online D&amp;D game with friends and an AI DM.</p><p class="visits">0 visits</p></article>
+        <article class="card"><h3><a href="https://dukktapestudios.github.io/spurs/">Spur Trainer</a></h3><p>Learn proper, light spur use with pressure and release.</p><p class="visits">0 visits</p></article>
+      </div>
+    </details>
+  </section>
+
+  <section class="wrap catalog" id="guides" aria-labelledby="guides-title">
+    <div class="catalog-head">
+      <h2 id="guides-title">Guides</h2>
+    </div>
+    <p class="section-intro">Courses and practical write-ups.</p>
+    <div class="cards">
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/woodworking/">Woodworking Business Guide</a></h3><p>A practical path from hobby woodworking to first sales: starter tools, project ideas, pricing, and selling.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/b2b-sales-course/">B2B Software Sales Crash Course</a></h3><p>Teach yourself SDR and enterprise deal skills on a fictional company. Drills and capstones. Not a job or income promise.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/digialex/local-ai/">Standalone Offline AI Crash Course</a></h3><p>Run your own AI offline with Ollama — minimums, hardware tiers, DigiAlex hookup.</p><p class="visits" data-paths="/digialex/local-ai/ /local-ai/">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/digialex/lora/">LoRa Mesh Crash Course</a></h3><p>Off-grid 915 MHz Meshtastic: placement, parts, and MQTT into DigiAlex.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/digialex/cluster/">Cluster Crash Course</a></h3><p>Network multiple PCs into one workhorse: what splits, Ethernet, and a beginner path.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/landlord-guide/">Landlord Crash Course</a></h3><p>Free beginner lessons, a rent-ready checklist, and a worksheet for cash flow and break-even rent. Estimates only, not legal or investment advice.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/raspberry-pi/">Raspberry Pi Crash Course</a></h3><p>Learn Pi hardware from zero: GPIO, camera, sensors, then ESP32.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/white-hat-crash-course/">White Hat Hacking Crash Course (100% Free)</a></h3><p>A free beginner path to ethical hacking: labs, CTFs, and a first bug bounty, only on systems you have permission to test.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/cyber-crash-course/">Cybersecurity Crash Course (100% Free)</a></h3><p>A free, practical crash course: get safe this week, learn the core ideas, and earn free badges.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/money/">Money Basics</a></h3><p>Plain-English guide to start where you are, from a crisis to building wealth.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/digialex/">DigiAlex Guides</a></h3><p>Hub for the DigiAlex toolkit: cluster, LoRa mesh, fleet dashboard, and offline AI.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/usda-504/">USDA 504 Repair Helper</a></h3><p>Simple step-by-step guide to the USDA home repair loan and grant.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/theory/">How I see life and reality</a></h3><p>Personal notes on God, free will, the multiverse, the Bible, the Trinity, and consciousness.</p><p class="visits">0 visits</p></article>
+    </div>
+  </section>
+
+  <section class="wrap catalog" id="tools" aria-labelledby="tools-title">
+    <div class="catalog-head">
+      <h2 id="tools-title">Tools</h2>
+    </div>
+    <p class="section-intro">Calculators, checkers, and small experiments.</p>
+    <div class="cards">
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/ai-create/">Create Anything with AI</a></h3><p>A short beginner course for learning, solving problems, and making things with AI.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/veterans-day/">Veterans Day route</a></h3><p>Free meals and deals for Wednesday, Nov 11, 2026. Check spots near your ZIP and build a route that follows each offer's hours.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/horse-genetics/">Horse Genetics</a></h3><p>Free foal coat color calculator.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/foia/">FOIA Made Easy</a></h3><p>Free tool that drafts a public-records request in your browser.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/affect-me/">How Does It Affect Me</a></h3><p>Enter your ZIP and situation to see the laws in all states and federal laws that affect you and how your reps voted.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/hypocrisy-tracker/">Hypocrisy Tracker</a></h3><p>Search any member of Congress. Pick the values you care about. See documented said-vs-did evidence, not ads.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/self-reliance/">Rural Self-Reliance Checklist</a></h3><p>Basic checklist every rural household should shoot for: water, heat, power, food, and more.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/smv-calculator/">SMV Calculator</a></h3><p>For-fun self-check of health, habits, and career. Rough score, not science.</p><p class="visits">0 visits</p></article>
+      <article class="card"><h3><a href="https://dukktapestudios.github.io/digialex/fleet/">Fleet Status</a></h3><p>Sample satellite fleet dashboard mock: drones, network, and balance. Demo only.</p><p class="visits">0 visits</p></article>
+    </div>
+  </section>
+
+  <section class="wrap prose" id="about">
+    <h2>About</h2>
+    <p>Hi, I'm Dukktape. I teach myself how the internet and AI work by turning ideas into real things: websites, programs, and games. I use AI to patchwork them together. They're usually held together with duct tape, but working is working.</p>
+    <p>My goal is to show you that you can just start. It doesn't have to be pretty or perfect. Build it rough, hobble it together, and figure it out as you go.</p>
+  </section>
+  <section class="wrap prose" id="contact">
+    <h2>Follow &amp; Contact</h2>
+    <p class="contact">Twitch (games and whatever I'm into): <a href="https://twitch.tv/dukktapetv">dukktapetv</a><br>
+    YouTube: <a href="https://www.youtube.com/@dukktapestudios">@dukktapestudios</a><br>
+    X: <a href="https://x.com/dukktapeStudios">@dukktapeStudios</a><br>
+    GitHub (my code): <a href="https://github.com/dukktapestudios">dukktapestudios</a><br>
+    Email: <a href="mailto:dukktapestudios@gmail.com">dukktapestudios@gmail.com</a><br>
+    Merch: <a href="https://dukktape-studios-shop.fourthwall.com/" target="_blank" rel="noopener">Dukktape Studios shop</a></p>
+  </section>
 </main>
-<div class="farewell">
-  <p id="visitor-badge" class="visitor-badge" role="status" aria-live="polite" hidden></p>
-  <footer>© 2026 Dukktape Studios. All rights reserved.</footer>
-</div>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-brand">
+      <p>Dukktape Studios</p>
+      <p class="tagline">Simple ideas. Useful things.</p>
+    </div>
+    <p id="visitor-badge" class="visitor-badge" role="status" aria-live="polite" hidden></p>
+    <p class="legal">© 2026 Dukktape Studios. All rights reserved.</p>
+  </div>
+</footer>
 <script>
 (function () {
   var quips = [
@@ -585,7 +765,7 @@ footer {
     quipIndex = (quipIndex + 1) % quips.length;
     quip.textContent = quips[quipIndex];
     quip.hidden = false;
-    hint.hidden = true;
+    if (hint) hint.hidden = true;
     btn.setAttribute("aria-expanded", "true");
     if (reduceMotion) return;
     btn.classList.remove("is-wiggling");
@@ -597,11 +777,14 @@ footer {
   btn.addEventListener("animationend", function () {
     btn.classList.remove("is-wiggling");
   });
-
-  /* Unique visitors via Abacus. The service stores only a public integer.
-     No API key, no cookies, and no personal data is sent. Each browser
-     increments once. The visitor number stays in localStorage (not a cookie)
-     so a return visit still reads "You're visitor #N" without counting again. */
+})();
+</script>
+<script>
+/* Unique visitors via Abacus. The service stores only a public integer.
+   No API key, no cookies, and no personal data is sent. Each browser
+   increments once. The visitor number stays in localStorage (not a cookie)
+   so a return visit still reads "You're visitor #N" without counting again. */
+(function () {
   var storageKey = "dukktape-studios-visitor-number";
   var badge = document.getElementById("visitor-badge");
   var hitUrl = "https://abacus.jasoncameron.dev/hit/dukktapestudios.github.io/homepage-uniques";
@@ -696,7 +879,7 @@ footer {
   }
 
   function show(el, n) {
-    el.textContent = "👁 " + n.toLocaleString("en-US") + " visits";
+    el.textContent = n.toLocaleString("en-US") + (n === 1 ? " visit" : " visits");
   }
 
   function pathsFor(card, el) {
@@ -750,45 +933,6 @@ footer {
       });
     })(cards[i]);
   }
-})();
-</script>
-<script>
-(function () {
-  var root = document.querySelector(".project-tabs");
-  if (!root) return;
-  var tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
-  function panelFor(tab) {
-    return document.getElementById(tab.getAttribute("aria-controls"));
-  }
-  function select(tab) {
-    tabs.forEach(function (item) {
-      var on = item === tab;
-      item.setAttribute("aria-selected", on ? "true" : "false");
-      item.tabIndex = on ? 0 : -1;
-      var panel = panelFor(item);
-      if (panel) panel.hidden = !on;
-    });
-  }
-  tabs.forEach(function (tab, index) {
-    tab.addEventListener("click", function () {
-      select(tab);
-    });
-    tab.addEventListener("keydown", function (event) {
-      var key = event.key;
-      var next = -1;
-      if (key === "ArrowRight" || key === "ArrowDown") next = (index + 1) % tabs.length;
-      else if (key === "ArrowLeft" || key === "ArrowUp") next = (index - 1 + tabs.length) % tabs.length;
-      else if (key === "Home") next = 0;
-      else if (key === "End") next = tabs.length - 1;
-      if (next < 0) return;
-      event.preventDefault();
-      select(tabs[next]);
-      tabs[next].focus();
-    });
-  });
-  var current = root.querySelector('[role="tab"][aria-selected="true"]') || tabs[0];
-  select(current);
-  root.classList.add("is-ready");
 })();
 </script>
 <script data-goatcounter="https://dukktape.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
