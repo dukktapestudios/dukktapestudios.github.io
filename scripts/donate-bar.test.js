@@ -32,6 +32,7 @@ assert.strictEqual(pages.indexOf("google55c4ad63a2c821ad.html"), -1);
 
 var css = fs.readFileSync(path.join(root, "assets/donate-bar.css"), "utf8");
 assert.ok(css.indexOf("flex-wrap: wrap") !== -1, "bar wraps");
+assert.ok(css.indexOf("justify-content: flex-start") !== -1, "bar content starts at the left");
 assert.ok(css.indexOf("min-height: 44px") !== -1, "donate control is a touch target");
 assert.ok(css.indexOf(":focus-visible") !== -1);
 assert.ok(css.indexOf("#171b1e") !== -1);
@@ -47,6 +48,9 @@ pages.forEach(function (rel) {
   assert.strictEqual((html.split(line).length - 1), 1, "exact line once " + rel);
   assert.strictEqual((html.split('class="dts-donate-link"').length - 1), 1, "one donate link " + rel);
   assert.ok(html.indexOf('href="' + href + '">Donate</a>') !== -1, "destination " + rel);
+  var asideStart = html.indexOf('<aside class="dts-donate"');
+  var aside = html.slice(asideStart, html.indexOf("</aside>", asideStart));
+  assert.ok(aside.indexOf(">Donate</a>") !== -1 && aside.indexOf(">Donate</a>") < aside.indexOf(line), "Donate is leftmost, before the support line " + rel);
   assert.ok(html.indexOf("business=dukktapestudios%40gmail.com") === -1, "contact email is not the recipient " + rel);
   assert.ok(html.indexOf("paypal.me") === -1, "no assumed PayPal.Me " + rel);
   assert.ok(!/paypalobjects|paypal\.com\/sdk|paypal\.com\/sdk\/js/i.test(html), "no PayPal script " + rel);

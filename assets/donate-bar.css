@@ -29,8 +29,9 @@
 }
 .dts-donate-line {
   margin: 0;
-  flex: 1 1 16rem;
+  flex: 1 1 12rem;
   color: #f0f0e8;
+  text-align: left;
 }
 .dts-donate-link {
   display: inline-flex;
