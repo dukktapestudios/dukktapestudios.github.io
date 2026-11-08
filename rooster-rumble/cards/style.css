@@ -56,7 +56,7 @@ h1 {
 .tagline { margin: 6px 0 0; font-weight: 800; }
 .controls {
   position: sticky;
-  top: 0;
+  top: var(--dts-donate-offset, 0px);
   z-index: 5;
   background: var(--felt-dark);
   padding: 10px;

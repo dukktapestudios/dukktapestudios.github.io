@@ -5,10 +5,10 @@
 *{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#000;font-family:Consolas,"Segoe UI",monospace;color:#9fe8ff}
 canvas{display:block}
 .panel{position:fixed;background:rgba(4,14,26,.78);border:1px solid #1f6f8f;box-shadow:0 0 12px #0af3;padding:8px 10px;font-size:13px;pointer-events:none}
-#hud{left:10px;top:10px;min-width:220px}#hud b{color:#fff}
-#sys{left:50%;top:10px;transform:translateX(-50%);text-align:center;display:flex;gap:8px;align-items:center}
+#hud{left:10px;top:calc(10px + var(--dts-donate-offset));min-width:220px}#hud b{color:#fff}
+#sys{left:50%;top:calc(10px + var(--dts-donate-offset));transform:translateX(-50%);text-align:center;display:flex;gap:8px;align-items:center}
 #sys img{width:24px;height:24px;image-rendering:pixelated}
-#targets{right:10px;top:10px;width:260px;max-height:60vh;overflow:hidden}
+#targets{right:10px;top:calc(10px + var(--dts-donate-offset));width:260px;max-height:60vh;overflow:hidden}
 #targets div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sel{color:#ff0;background:#330}
 #msg{left:50%;bottom:60px;transform:translateX(-50%);color:#fff;text-align:center;border-color:#fa0}
 #hint{left:10px;bottom:10px;opacity:.7}
@@ -26,7 +26,13 @@ input{background:#021;color:#fff;border:1px solid #2aa3d0;padding:8px;width:100%
 #log{max-height:160px;overflow:auto}
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<link rel="stylesheet" href="../assets/donate-bar.css">
 </head><body>
+<aside class="dts-donate" aria-label="Donations">
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=ducttapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+</aside>
+
 <div id="hud" class="panel"></div>
 <div id="sys" class="panel"><img id="fav" alt="" onerror="this.style.visibility='hidden'" onload="this.style.visibility=''"><span id="sysname"></span></div>
 <div id="targets" class="panel"></div>
@@ -79,9 +85,15 @@ const DEF={credits:200,cargo:0,cargoMax:40,mine:1,guns:1,shieldLv:1,hull:100,shi
 let S=Object.assign({},DEF,JSON.parse(localStorage.getItem('netspace_save')||'{}'));
 const save=()=>localStorage.setItem('netspace_save',JSON.stringify(S));
 // ---------- three setup ----------
-const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));document.body.prepend(renderer.domElement);
-const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,1,80000);
-addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+function donateGap(){var bar=document.querySelector(".dts-donate");return bar?bar.offsetHeight:0}
+function fitSpace(){var h=Math.max(1,innerHeight-donateGap());renderer.setSize(innerWidth,h);camera.aspect=innerWidth/h;camera.updateProjectionMatrix()}
+const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(70,innerWidth/Math.max(1,innerHeight-donateGap()),1,80000);
+fitSpace();
+var donateBar=document.querySelector(".dts-donate");
+if(donateBar) document.body.insertBefore(renderer.domElement, donateBar.nextSibling);
+else document.body.prepend(renderer.domElement);
+addEventListener('resize',fitSpace);
 scene.add(new THREE.AmbientLight(0x334455,1.2));
 const sunLight=new THREE.PointLight(0xffffff,3,0,0);scene.add(sunLight);
 // stars
@@ -149,7 +161,7 @@ addEventListener('keydown',e=>{if(UI.open){if(e.key==='Escape')UI.close();return
  if(e.code==='KeyH')UI.show('help');if(e.code==='KeyN')openNav();if(e.code==='KeyM')openLog();
  if(e.code==='KeyT')cycle(asteroids);if(e.code==='KeyY')cycle(pirates);if(e.code==='KeyF')tryDock();});
 addEventListener('keyup',e=>K[e.code]=false);
-addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth)*2-1;my=(e.clientY/innerHeight)*2-1;aimEl.style.left=e.clientX+'px';aimEl.style.top=e.clientY+'px'});
+addEventListener('mousemove',e=>{var r=renderer.domElement.getBoundingClientRect();mx=((e.clientX-r.left)/Math.max(1,r.width))*2-1;my=((e.clientY-r.top)/Math.max(1,r.height))*2-1;aimEl.style.left=e.clientX+'px';aimEl.style.top=e.clientY+'px'});
 addEventListener('mousedown',e=>{if(UI.open)return;if(e.button===0)lmb=true;if(e.button===2)rmb=true});
 addEventListener('mouseup',e=>{if(e.button===0)lmb=false;if(e.button===2)rmb=false});
 addEventListener('contextmenu',e=>e.preventDefault());

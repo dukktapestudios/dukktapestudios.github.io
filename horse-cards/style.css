@@ -306,7 +306,7 @@ button[aria-pressed="true"] { background: #fffaf0; }
 }
 .controls {
   position: sticky;
-  top: 0;
+  top: var(--dts-donate-offset, 0px);
   z-index: 4;
   background: var(--field-dark);
   color: #fff8ea;

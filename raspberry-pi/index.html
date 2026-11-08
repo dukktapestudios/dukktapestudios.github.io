@@ -36,7 +36,7 @@
     border-bottom: 1px solid var(--border);
     padding: 1.25rem 1.5rem 1rem;
     position: sticky;
-    top: 0;
+    top: var(--dts-donate-offset, 0px);
     z-index: 10;
   }
   header h1 {
@@ -208,8 +208,14 @@
     font-size: 0.9em;
   }
 </style>
+<link rel="stylesheet" href="../assets/donate-bar.css">
 </head>
 <body>
+<aside class="dts-donate" aria-label="Donations">
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=ducttapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+</aside>
+
 <header>
   <p style="margin:0 0 0.5rem;font-size:0.85rem"><a href="/">← Dukktape Studios</a></p>
   <h1>Raspberry Pi Crash Course</h1>

@@ -283,7 +283,7 @@ footer {
     background-color: #efe6d2;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231c140c' d='M3 9h4l5-4v14l-5-4H3z'/%3E%3Cpath fill='none' stroke='%231c140c' stroke-width='2' stroke-linecap='round' d='M16 10l5 5M21 10l-5 5'/%3E%3C/svg%3E");
   }
-  .dice-banner { top: 8px; }
+  .dice-banner { top: calc(8px + var(--dts-donate-offset, 0px)); }
   .tap-hint { display: block; font-size: .8rem; }
   .row {
     display: grid;
