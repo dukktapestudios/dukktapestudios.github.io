@@ -75,6 +75,7 @@ var required = [
   "https://dukktapestudios.github.io/spurs/",
   "https://dukktapestudios.github.io/woodworking/",
   "https://dukktapestudios.github.io/ai-create/",
+  "https://dukktapestudios.github.io/connected-systems/",
   "https://twitch.tv/dukktapetv",
   "https://www.youtube.com/@dukktapestudios",
   "https://x.com/dukktapeStudios",
@@ -84,6 +85,28 @@ var required = [
 required.forEach(function (url) {
   assert.ok(html.indexOf(url) !== -1, "missing " + url);
 });
+
+var guides = html.split('id="guides"')[1].split('id="tools"')[0];
+var guideHrefs = [];
+var guideRe = /href="([^"]+)"/g;
+var guideMatch;
+while ((guideMatch = guideRe.exec(guides))) guideHrefs.push(guideMatch[1]);
+assert.deepStrictEqual(guideHrefs, [
+  "https://dukktapestudios.github.io/woodworking/",
+  "https://dukktapestudios.github.io/b2b-sales-course/",
+  "https://dukktapestudios.github.io/digialex/local-ai/",
+  "https://dukktapestudios.github.io/digialex/lora/",
+  "https://dukktapestudios.github.io/digialex/cluster/",
+  "https://dukktapestudios.github.io/landlord-guide/",
+  "https://dukktapestudios.github.io/raspberry-pi/",
+  "https://dukktapestudios.github.io/white-hat-crash-course/",
+  "https://dukktapestudios.github.io/cyber-crash-course/",
+  "https://dukktapestudios.github.io/money/",
+  "https://dukktapestudios.github.io/digialex/",
+  "https://dukktapestudios.github.io/usda-504/",
+  "https://dukktapestudios.github.io/theory/",
+  "https://dukktapestudios.github.io/connected-systems/"
+], "guides keep their order and the new course is last");
 
 assert.ok(html.indexOf('data-paths="/digialex/local-ai/ /local-ai/"') !== -1, "offline AI paths");
 assert.ok(html.indexOf('data-paths="/stories/ /stories/books/rivers-run-wolf-cry/ /stories/books/random-ideas/"') !== -1, "bookshelf paths");
