@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iPhone App Store Crash Course | Dukktape Studios</title>
+<meta name="description" content="A beginner course for making a small iPhone app and submitting it to the App Store. Start on Windows or Mac. No approval or income promise.">
+<meta name="theme-color" content="#171b1e">
+<link rel="icon" href="../assets/studio-duck.png" type="image/png">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../assets/donate-bar.css">
+</head>
+<body>
+<aside class="dts-donate" aria-label="Donations">
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=dukktapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+</aside>
+<a class="skip" href="#content">Skip to content</a>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/">Dukktape Studios</a>
+    <a class="home-link" href="/#guides">All guides</a>
+  </div>
+</header>
+<main id="content" class="wrap">
+  <p class="eyebrow">Guide · checked 8 November 2026</p>
+  <h1>Make a small iPhone app, then learn the App Store</h1>
+  <p class="lede">This is a practical course for someone starting from zero. You will build a tiny checklist called One Small Win, first in this browser, then as an Expo project you can later submit to Apple. Finishing the steps means you did the steps. It does not mean Apple will approve the app, that the app will earn money, or that a review will finish on a particular day.</p>
+  <p class="note">The browser checklist on this page was exercised in a desktop browser. The Expo and Swift files were checked for internal consistency and were not compiled, signed, or submitted to Apple from the computer that published this course. Where a button label or price can change, the linked official page wins over this text.</p>
+
+  <nav class="toc" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#first-hour">The first hour, on this page</a></li>
+      <li><a href="#words">Words, the first time you need them</a></li>
+      <li><a href="#kinds">Native, cross-platform, website, no-code</a></li>
+      <li><a href="#route">The route this course follows</a></li>
+      <li><a href="#idea">Pick a tiny idea and write one page</a></li>
+      <li><a href="#screens">Three screens</a></li>
+      <li><a href="#setup">Set up Windows or Mac</a></li>
+      <li><a href="#construct">Construct One Small Win</a></li>
+      <li><a href="#state">State and saving on the device</a></li>
+      <li><a href="#loop">Edit, look, restart</a></li>
+      <li><a href="#tickets">Small tickets and AI help</a></li>
+      <li><a href="#git">Git backups and rollback</a></li>
+      <li><a href="#backend">A backend, only when you need one</a></li>
+      <li><a href="#assets">Images, fonts, and licenses</a></li>
+      <li><a href="#states">Loading, empty, offline, and error</a></li>
+      <li><a href="#access">Accessibility</a></li>
+      <li><a href="#devices">Test on a real phone</a></li>
+      <li><a href="#enroll">The Apple Developer Program</a></li>
+      <li><a href="#signing">Bundle ID, versions, and signing</a></li>
+      <li><a href="#connect">The App Store Connect record</a></li>
+      <li><a href="#icons">Icons and screenshots</a></li>
+      <li><a href="#metadata">Metadata, age, and privacy</a></li>
+      <li><a href="#accounts">Accounts, deletion, and review access</a></li>
+      <li><a href="#export">Export and encryption questions</a></li>
+      <li><a href="#testflight">TestFlight</a></li>
+      <li><a href="#ship">Build, upload, review, release</a></li>
+      <li><a href="#money">Free, paid, and subscriptions</a></li>
+      <li><a href="#guidelines">Copies, scams, templates, and AI</a></li>
+      <li><a href="#after">After it is on the store</a></li>
+      <li><a href="#costs">What is free, optional, and required</a></li>
+      <li><a href="#checklist">Release checklist</a></li>
+      <li><a href="#schedule">A study calendar you can change</a></li>
+      <li><a href="#templates">Templates you can copy</a></li>
+      <li><a href="#trouble">When something breaks</a></li>
+      <li><a href="#tens">Ten-minute tasks</a></li>
+      <li><a href="#glossary">Glossary</a></li>
+      <li><a href="#sources">Sources, checked 8 November 2026</a></li>
+      <li><a href="#limits">What this page did not do</a></li>
+    </ol>
+  </nav>
+
+  <section id="first-hour" aria-labelledby="first-hour-title">
+    <h2 id="first-hour-title"><span class="num">01</span>The first hour, on this page</h2>
+    <p>An iPhone app is a program installed on an iPhone, with its own icon, that a person opens without going through a browser address bar. You do not need a Mac, an Apple Developer membership, or a store listing to learn the shape of one. Those show up later, and some of them cost money. This hour is free and stays in your browser.</p>
+    <p>One Small Win is a fictional checklist. You type one concrete thing, you see it, you mark it done, and you still see it after a refresh. Version 1 has no account, no payment, and no location. That keeps the first version inside what you can understand and test.</p>
+    <h3>Minutes 0 to 15: use the practice app</h3>
+    <p>The panel below is the product, shrunk to a browser. Your list is stored with <code>localStorage</code> on this computer. This page has no form that sends your list anywhere.</p>
+    <div class="phone" id="demo" aria-label="One Small Win practice app">
+      <p>The practice app loads with the page script. If you still see this sentence, the script did not run. You can keep reading. The same behavior is described in the checkpoints.</p>
+    </div>
+    <ol>
+      <li>On Today, type <code>Put the mug in the sink</code> and press Add win.</li>
+      <li>You should see that sentence in large type and the status <strong>1 still open</strong>.</li>
+      <li>Open All wins. Press the sentence. It gains a line through it. Today should then say <strong>0 still open</strong> and show the empty sentence again.</li>
+      <li>Refresh this page. Open All wins. The mug line should still be there. That is persistence: the data survived a restart of the page.</li>
+      <li>Press Remove, then Erase list on this browser. The empty sentence returns. That is the empty state, and it is a real screen, not a failure.</li>
+    </ol>
+    <p class="checkpoint"><strong>Checkpoint.</strong> If refresh keeps the line, you have already built the core of version 1: capture one item, show it, change it, and keep it. The rest of the course is how to put that behavior on an iPhone and, later, in the store.</p>
+    <h3>Minutes 15 to 35: name the three screens</h3>
+    <p>On paper or in the notes box, write three titles: Today, All wins, About. Under Today, write what the person sees with zero items, with one open item, and when the text is blank. Under About, write one honest sentence: the list stays on the device. Leave payments and accounts out. A first app that tries to do those on day one usually stalls on accounts, legal text, and review questions you do not need yet.</p>
+    <label for="spec-notes">Your one-page notes, stored only in this browser</label>
+    <textarea id="spec-notes" data-note="spec">Today: add one win and show how many are open.
+All wins: mark done or remove.
+About: the list stays on the device. No account.</textarea>
+    <p id="note-status" class="muted" role="status">Notes stay in this browser.</p>
+    <h3>Minutes 35 to 60: decide the machine you have</h3>
+    <p>If you have Windows, you can write the app and preview it in a browser. You can also use an Android phone as a learning device. You cannot install Xcode on Windows, and Windows cannot run Apple's iOS Simulator. A finished iOS binary still has to be built on Apple's operating system. Expo's cloud build service does that build for you later, after you choose to spend the Apple membership fee.</p>
+    <p>If you have a Mac, you may follow the same Expo route. A separate section later shows a SwiftUI version for people who want Xcode. Do not mix the two sets of commands in one project.</p>
+    <p class="checkpoint"><strong>Stop here if you want.</strong> You have a working checklist and a written screen list. That is a complete first session. Come back for the install when you have an hour and a computer you can restart.</p>
+  </section>
+
+  <section id="words" aria-labelledby="words-title">
+    <h2 id="words-title"><span class="num">02</span>Words, the first time you need them</h2>
+    <p>People quit app tutorials because the words pile up. Here each word is tied to One Small Win. The glossary at the bottom repeats them in a table you can filter.</p>
+    <dl>
+      <dt><strong>Source code</strong></dt>
+      <dd>The text you edit. For this project it is files such as <code>index.tsx</code> and <code>wins.ts</code>. The phone does not run those files directly. A build turns them into an installable app.</dd>
+      <dt><strong>Frontend</strong></dt>
+      <dd>The part a person sees and touches: the title, the text field, the buttons. In One Small Win the frontend is the three screens.</dd>
+      <dt><strong>Backend</strong></dt>
+      <dd>A program on a server that your app calls. Version 1 has no backend. The list lives on the device. Add a backend when two people must share the same list, or when a secret must stay off the phone.</dd>
+      <dt><strong>API</strong></dt>
+      <dd>A published way for one program to ask another program to do something. An App Store app might call your server's API. Apple also has APIs, which are the system functions your app is allowed to use, such as saving a file.</dd>
+      <dt><strong>Database</strong></dt>
+      <dd>An organized store of records. On the phone, version 1 uses a small local store (browser storage here, AsyncStorage in the Expo project). A database on a server is a later choice, not a requirement for a private checklist.</dd>
+      <dt><strong>Native app</strong></dt>
+      <dd>An app written with the platform's own tools. For iPhone, that means Swift and Xcode on a Mac. The system draws the buttons.</dd>
+      <dt><strong>Cross-platform app</strong></dt>
+      <dd>One project that can produce an iPhone app and an Android app. This course uses Expo, which sits on React Native. You still ship a real iOS binary to Apple. The Android store is a different company, a different fee, and a different review.</dd>
+      <dt><strong>Website and PWA</strong></dt>
+      <dd>A page in a browser. A progressive web app can be saved to a home screen from the browser. That install is not an App Store install. Apple does not review it, and it does not appear in the App Store.</dd>
+      <dt><strong>Simulator</strong></dt>
+      <dd>A Mac program, included with Xcode, that pretends to be an iPhone. It is useful. It is not a physical phone, and it does not exist for Windows.</dd>
+      <dt><strong>Build</strong></dt>
+      <dd>The packaged app file. For the store, the iOS file is an <code>.ipa</code>. Making it requires Apple's build tools, either on a Mac or on a Mac that a cloud service runs for you.</dd>
+      <dt><strong>Signing</strong></dt>
+      <dd>Apple's way of marking who built the app and which app ID it is. A signed build is what TestFlight and the App Store will accept. Expo can create the signing files after you sign in with a paid Apple Developer membership. Apple still issues them.</dd>
+      <dt><strong>Bundle ID</strong></dt>
+      <dd>A unique name for the app, usually written like a backwards domain: <code>app.example.onesmallwin</code>. The example string is a placeholder. After you upload a build, Apple's documentation says you cannot change the bundle ID.</dd>
+      <dt><strong>TestFlight</strong></dt>
+      <dd>Apple's beta app. Testers install your signed build from TestFlight before, or instead of, the public store.</dd>
+      <dt><strong>App Store Connect</strong></dt>
+      <dd>The website where you create the store record, answer privacy questions, upload screenshots, pick a build, and submit for review. The public App Store is what customers see after release.</dd>
+    </dl>
+  </section>
+
+  <section id="kinds" aria-labelledby="kinds-title">
+    <h2 id="kinds-title"><span class="num">03</span>Native, cross-platform, website, no-code</h2>
+    <div class="table-scroll">
+      <table>
+        <caption>Four ways people try to get an iPhone app. Only the first two produce an App Store binary by themselves.</caption>
+        <thead><tr><th scope="col">Path</th><th scope="col">Where you can write it</th><th scope="col">What you actually get</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">SwiftUI in Xcode</th><td>A Mac. Current Xcode 27.2 requires macOS Tahoe 26.6 or later.</td><td>A native iOS app. You archive and upload with Xcode's tools.</td></tr>
+          <tr><th scope="row">Expo and React Native</th><td>Windows, Linux, or Mac for the JavaScript. iOS production builds run on macOS in Expo's cloud, or on your Mac if you choose a local build.</td><td>A native binary you submit to App Store Connect. Android is a separate build and a separate store.</td></tr>
+          <tr><th scope="row">Website or PWA</th><td>Any computer with a browser.</td><td>A site. People can save it from the browser. It is not submitted to Apple unless you also ship a real iOS app, and a thin wrapper around a site is a known rejection under guideline 4.2.</td></tr>
+          <tr><th scope="row">No-code app builder</th><td>Usually a browser.</td><td>A hosted result that may or may not be allowed to become your own store app. Guideline 4.2.6 rejects apps from a commercialized template or generation service unless the content provider submits them and the result is its own product. Read that section before you pay a builder.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Android's store is Google Play. Expo's build setup page, checked the same day, describes a separate one-time Google Play membership of 25 USD if you later distribute there. This course does not walk through Play Console. Shipping to Apple does not list you on Android.</p>
+  </section>
+
+  <section id="route" aria-labelledby="route-title">
+    <h2 id="route-title"><span class="num">04</span>The route this course follows</h2>
+    <p>The recommended route is Expo, because a Windows computer can edit and preview the app, and Expo's submit documentation says <code>eas submit</code> works on Windows, Linux, and macOS. You still need a paid Apple Developer Program membership before a production iOS build can be signed for the store. Cloud signing does not remove Apple review.</p>
+    <p>There are three different iOS runtimes in Expo. Keep them apart:</p>
+    <ul>
+      <li><strong>Expo Go</strong> is a playground app already on the store. Expo's own setup page calls it a place for students to try Expo quickly, and says it is limited and not the environment for a production project. It includes one SDK version. If your project uses another SDK, the phone shows an incompatible-project error. Expo Go does not use your final bundle ID, and behavior around notifications, maps, and other native configuration can differ from the app you will ship.</li>
+      <li><strong>A development build</strong> is your own app, installed on a phone, with Expo's developer tools inside it. It can include native libraries that Expo Go does not contain. Creating one for a physical iPhone uses a signing path and, for a store-style install, the paid program.</li>
+      <li><strong>A production build</strong> is the optimized <code>.ipa</code> you upload. Expo's production tutorial says this build is distributed through App Store Connect, not by dragging a file onto the phone. TestFlight and the store come after that upload. Apple still reviews the first external TestFlight build and the store submission.</li>
+    </ul>
+    <p>On 8 November 2026, Expo's create-a-project page and its Expo Go mismatch page do not describe the same store build of Expo Go. The create page says that during the SDK 58 transition, <code>create-expo-app@latest</code> without a template creates an SDK 57 project, and that SDK 57 is the one to use if you plan on Expo Go on a physical device. The mismatch page says the App Store copy of Expo Go stops at SDK 54, and that SDK 55 and later are not in that store build. Both pages are linked below. When you start, read them again. If the phone rejects the project, stop changing version numbers and use a path that page lists: the web preview, an Android device, the iOS Simulator on a Mac, a development build, or <code>eas go</code> through TestFlight. <code>eas go</code> needs the paid Apple program.</p>
+    <h3>The Mac-only route, kept separate</h3>
+    <p>Choose this only if you will edit in Xcode. Apple's system requirements page lists Xcode 27.2 as a released version that runs on macOS Tahoe 26.6 or later, with the iOS 27.2 SDK. Download Xcode from the Mac App Store or from Apple's developer downloads. The iOS Simulator is part of that install. A sample SwiftUI checklist is in <a href="starter/mac/ContentView.swift">starter/mac/ContentView.swift</a>. It was not built on a Mac here. Put it in a new iOS App target that uses SwiftUI, run it with Xcode's run button, and use Apple's distribution document when you archive. Do not install Expo commands into that Xcode project.</p>
+  </section>
+
+  <section id="idea" aria-labelledby="idea-title">
+    <h2 id="idea-title"><span class="num">05</span>Pick a tiny idea and write one page</h2>
+    <p>A useful first app helps one person finish one job in under a minute. One Small Win does that: capture a task small enough to do today. Your own app can replace the noun. A packing list, a medication reminder you personally understand, or a rehearsal log are the same shape. Leave out anything that needs another company's data, a map, or a login.</p>
+    <p>Write a one-page spec before you install anything. The template is in the templates section. Fill it with fictional sample tasks, never a real address, account, or private phone number. Apple's review guideline 2.3.9 says screenshots should use fictional account information.</p>
+    <p>Reject the idea for version 1 if any line is true: it needs a payment to be useful, it is mostly a link to a website, it copies another app's name or screens, or you cannot explain the success test in one sentence. The success test for One Small Win is: after a force-quit, the last added line is still there.</p>
+    <p class="checkpoint"><strong>Checkpoint.</strong> You can hand the page to someone else and they can tell you whether the app is done without asking what you meant.</p>
+  </section>
+
+  <section id="screens" aria-labelledby="screens-title">
+    <h2 id="screens-title"><span class="num">06</span>Three screens</h2>
+    <div class="flow" aria-label="Screen flow">
+      <span><strong>Today.</strong> One open win, a text field, Add.</span>
+      <span><strong>All wins.</strong> Every line, done, or remove.</span>
+      <span><strong>About.</strong> Where data lives, and later the privacy link.</span>
+      <span><strong>Back.</strong> The system back control returns to Today.</span>
+    </div>
+    <p>Three screens are enough. A tab bar, accounts, settings, and themes can wait until the three screens work. Draw the empty, filled, and error versions of Today on the same sheet. The error version for version 1 is a sentence: the text was empty, or the phone could not save.</p>
+    <p>Navigation means how someone moves between those screens. In the Expo project, Expo Router treats files in <code>src/app</code> as screens. <code>index.tsx</code> is Today. <code>list.tsx</code> is All wins. <code>about.tsx</code> is About. <code>_layout.tsx</code> stacks them and gives each a title. That is the whole map.</p>
+  </section>
+
+  <section id="setup" aria-labelledby="setup-title">
+    <h2 id="setup-title"><span class="num">07</span>Set up Windows or Mac</h2>
+    <p>Expo's create-a-project page lists the system requirement as Node.js LTS, on macOS, Windows (PowerShell and WSL 2), or Linux. Install the current Long Term Support installer from <a href="https://nodejs.org/">nodejs.org</a>. This course does not pin a version number beyond that, because Expo's page says LTS and a later SDK can raise the minimum. If the create command prints a Node version error, install the version that error names.</p>
+    <p>Install Git from <a href="https://git-scm.com/downloads">git-scm.com/downloads</a>. On Windows, the Git installer includes Git Bash. PowerShell is enough for the commands below. Close and reopen the terminal after installing so the new commands are on the path.</p>
+    <pre><code>node -v
+npm -v
+git --version</code></pre>
+    <p>You want three version lines, not the words "not recognized". If Windows says the command is not recognized, the installer did not change the path for this window. Open a new terminal. If it still fails, re-run the Node installer and leave "Add to PATH" selected.</p>
+    <p>Create a folder whose name has no spaces, for example <code>C:\apps</code> or <code>~/apps</code>. You will create the project inside it in the next section. Do not put the project in a folder that syncs every file to a cloud drive if you can avoid it. Those tools lock files while <code>npm</code> is writing them, and the error looks like a random crash.</p>
+    <p class="checkpoint"><strong>Checkpoint.</strong> <code>node -v</code> prints a version. You have not paid Apple. You have not created a store record. That is the correct place to be.</p>
+  </section>
+
+  <section id="construct" aria-labelledby="construct-title">
+    <h2 id="construct-title"><span class="num">08</span>Construct One Small Win</h2>
+    <p>The commands in this section are the Expo route. They were not executed against Apple's build service here. Run them on your machine and compare what you see with the notes.</p>
+    <h3>Create the project</h3>
+    <p>From the folder you chose, run one of these. Use the first if you want the physical-device Expo Go path described on Expo's create page during the SDK 58 transition. Use the second if you are going to preview in a browser, use a simulator, or make a development build.</p>
+    <pre><code>npx create-expo-app@latest one-small-win</code></pre>
+    <pre><code>npx create-expo-app@latest one-small-win --template default@sdk-58</code></pre>
+    <p><code>npx</code> downloads the creator, asks permission the first time, and writes a folder named <code>one-small-win</code>. When it finishes, the terminal returns to a prompt. Expected contents include <code>package.json</code> and a <code>src/app</code> directory. Expo's start-developing page, checked 8 November 2026, says the default template's routes are <code>src/app/index.tsx</code>, <code>src/app/explore.tsx</code>, and <code>src/app/_layout.tsx</code>. If your folder has <code>app/</code> at the root instead of <code>src/app/</code>, follow the folder you actually have. The course files assume <code>src/app</code>.</p>
+    <h3>Replace the sample screens</h3>
+    <pre><code>cd one-small-win
+npx expo install @react-native-async-storage/async-storage</code></pre>
+    <p><code>npx expo install</code> picks a library version that matches the SDK you just created. A plain <code>npm install</code> of a random version is how projects get the incompatible-SDK error later.</p>
+    <p>Copy these files from this course into the project, overwriting the template files with the same names. Delete <code>src/app/explore.tsx</code> if it exists so the old sample tab is gone.</p>
+    <ul>
+      <li><a href="starter/src/app/_layout.tsx">starter/src/app/_layout.tsx</a></li>
+      <li><a href="starter/src/app/index.tsx">starter/src/app/index.tsx</a></li>
+      <li><a href="starter/src/app/list.tsx">starter/src/app/list.tsx</a></li>
+      <li><a href="starter/src/app/about.tsx">starter/src/app/about.tsx</a></li>
+      <li><a href="starter/src/lib/wins.ts">starter/src/lib/wins.ts</a></li>
+    </ul>
+    <p>The screen files import <code>../lib/wins</code>. That path works when <code>wins.ts</code> is at <code>src/lib/wins.ts</code> and the screens are in <code>src/app/</code>. The rules match the browser lesson: blank text is refused, and text longer than 120 characters is refused.</p>
+    <h3>See it in a browser</h3>
+    <p>Expo's web guide says to start the browser with:</p>
+    <pre><code>npx expo start --web</code></pre>
+    <p>If the CLI offers to install web packages, the web guide's install command is:</p>
+    <pre><code>npx expo install react-dom react-native-web @expo/metro-runtime</code></pre>
+    <p>Expo's CLI page also lists the <kbd>W</kbd> key inside <code>npx expo start</code> as "open the project in a web browser". The same page still says that shortcut may require webpack. If <kbd>W</kbd> fails, use the <code>--web</code> command and the install line above rather than hunting an old webpack tutorial. A browser window should open on <code>localhost</code>. Expo's local HTTPS guide describes port 8081 as the dev server port. Your port can differ if 8081 is busy. The terminal prints the address. Use the address the terminal prints.</p>
+    <p>Expected screen: a dark page, the words "0 still open", the empty sentence, a text field, and Add win. Type a short line. It appears above the field. Reload the browser tab. The line remains. That is AsyncStorage in the web preview, which uses browser storage under the hood. It is the same product idea as the panel in section 1. It is still not an iPhone build.</p>
+    <p class="checkpoint"><strong>Checkpoint.</strong> You changed files, started a dev server, and saw your sentence survive a reload. If the terminal shows an error instead, copy the whole error into the troubleshooting section's habit: read the file name, change one thing, run again. Do not start a second project to escape the message.</p>
+    <h3>Open it on a phone, if the versions agree</h3>
+    <pre><code>npx expo start</code></pre>
+    <p>The terminal shows a QR code. Expo's start-developing page says the phone and the computer need the same Wi-Fi, and that a physical iPhone running Expo Go must be signed into the same Expo account as the computer. On the computer that is <code>npx expo login</code>. In Expo Go, the account control is the icon in the top-right. If the network blocks the phone, the same page documents:</p>
+    <pre><code>npx expo start --tunnel</code></pre>
+    <p>Tunnel is slower. Use it when the LAN path fails, then go back. Press <kbd>A</kbd> for an Android emulator or device, or <kbd>I</kbd> for the iOS Simulator. <kbd>I</kbd> requires a Mac with Xcode. Windows will not open an iOS Simulator, and the CLI will say so in its own words if you press <kbd>I</kbd> there.</p>
+  </section>
+
+  <section id="state" aria-labelledby="state-title">
+    <h2 id="state-title"><span class="num">09</span>State and saving on the device</h2>
+    <p>State is the data the screen is showing right now. In Today, that is the list and the half-typed line. React keeps it in memory with <code>useState</code>. Memory disappears when the app process stops. Persistence is the extra step that writes the list to disk.</p>
+    <p>In <code>index.tsx</code>, <code>addWin</code> returns a new list. The screen then calls <code>AsyncStorage.setItem</code> with the key <code>one-small-win-v1</code>. On the next launch, <code>getItem</code> reads that key and <code>parseWins</code> throws away anything that is not a short checklist item. That second half matters. Saved data can be old, empty, or damaged. The app should show an empty list rather than a red crash.</p>
+    <p>Edit one string and confirm you understand the round trip. Change the empty-state sentence in <code>index.tsx</code> from "No open wins…" to "Nothing open yet." Save the file. Expo's start-developing page says Fast Refresh reloads the app when a file changes. You should see the new sentence without creating a new project. If you do not, shake the phone or press <kbd>Cmd</kbd>+<kbd>D</kbd> in the iOS Simulator for the developer menu, and toggle Fast Refresh the way that page describes. On web, reload the tab.</p>
+    <p class="checkpoint"><strong>Checkpoint.</strong> You can point at the line that refuses a blank win, the line that writes storage, and the line that reads it back. Those three lines are the app.</p>
+  </section>
+
+  <section id="loop" aria-labelledby="loop-title">
+    <h2 id="loop-title"><span class="num">10</span>Edit, look, restart</h2>
+    <p>Work in a loop small enough to remember. Change one behavior. Look at the screen. If it is wrong, read the first error, not the tenth.</p>
+    <ol>
+      <li>The red box or the terminal stack trace names a file and a line. Open that file.</li>
+      <li>Read the sentence above the file name. "Unable to resolve module" means an import path does not match a file. "Project is incompatible with this version of Expo Go" means the SDK numbers differ. It does not mean your checklist logic is bad.</li>
+      <li>Fix that one cause. Save. Look again.</li>
+      <li>If the screen is stale, stop the server with <kbd>Ctrl</kbd>+<kbd>C</kbd> and run <code>npx expo start --web</code> again.</li>
+    </ol>
+    <p>A useful bug note has four lines: what you clicked, what you expected, what you saw, and the exact error text. The bug-report template is below. Write it before you ask a person or a model for help. The writing often shows the mistake.</p>
+  </section>
+
+  <section id="tickets" aria-labelledby="tickets-title">
+    <h2 id="tickets-title"><span class="num">11</span>Small tickets and AI help</h2>
+    <p>A ticket is one change you can test. "Build my app" is not a ticket. These are tickets:</p>
+    <ol>
+      <li>Show the empty sentence when the list is empty.</li>
+      <li>Refuse blank input.</li>
+      <li>Keep the list after reload.</li>
+      <li>Add a Remove button that asks the storage to update.</li>
+      <li>Put a privacy-policy sentence on About.</li>
+    </ol>
+    <p>Finish one, look at it, then commit it. An AI coding tool is useful on a ticket that already has a file name and a visible result. It is a poor designer of your whole product. Paste the prompt template. Include the error text. Tell it which files it may edit. Tell it not to add accounts, payments, or new libraries. Read the diff before you run it. You are responsible for the code you submit to Apple, including code a model wrote. Guideline 5.1.2 also requires explicit permission before personal data is shared with a third-party AI service. Do not paste your Apple password, a private key, or a stranger's personal data into a chat.</p>
+    <p class="checkpoint"><strong>Checkpoint.</strong> You have a written ticket list, and the first ticket is already true on your screen. That is the working method, and it is worth more than a large generated project you cannot explain.</p>
+  </section>
+
+  <section id="git" aria-labelledby="git-title">
+    <h2 id="git-title"><span class="num">12</span>Git backups and rollback</h2>
+    <p><code>create-expo-app</code> often creates a Git repository for you. Check before you create a second one:</p>
+    <pre><code>git status</code></pre>
+    <p>If Git says this is not a repository, run <code>git init</code>. Then save a known-good snapshot:</p>
+    <pre><code>git add .
+git status
+git commit -m "Checklist saves a short win"</code></pre>
+    <p><code>git status</code> before the commit shows what will be saved. You want your source files. You do not want <code>.env</code> secrets, <code>.p8</code> App Store keys, or <code>.p12</code> certificates. If those names appear, do not commit them. Add the file name to <code>.gitignore</code> and leave the secrets out of the repository.</p>
+    <p>To throw away uncommitted edits in one file:</p>
+    <pre><code>git restore src/app/index.tsx</code></pre>
+    <p>To undo the last commit while keeping history, create a new commit that reverses it:</p>
+    <pre><code>git revert HEAD</code></pre>
+    <p><code>git reset --hard</code> deletes uncommitted work. Do not use it as a habit. <code>git log --oneline</code> shows the snapshots you can return to. A remote host such as GitHub is a second copy if your disk fails. It is optional for learning and useful before you start paying for a membership, because the project is then not only on one laptop.</p>
+  </section>
+
+  <section id="backend" aria-labelledby="backend-title">
+    <h2 id="backend-title"><span class="num">13</span>A backend, only when you need one</h2>
+    <p>Add a server when the success test requires it. Shared lists, accounts, and hidden API keys need a server. A private checklist does not. If you add one later, these are the rules to design in before you write the request:</p>
+    <ul>
+      <li>Secrets, including database passwords and private API keys, live on the server. The phone receives only what that user may see.</li>
+      <li>Ask for the smallest permission that does the job. Guideline 5.1.1 (iii) is Apple's data-minimization rule. A checklist does not need contacts, photos, or location. If you later need a photo, the system picker is the smaller permission.</li>
+      <li>Say what you collect, in the privacy policy and in App Store Connect. Collecting nothing from the server is a real answer. You still disclose on-device storage if Apple's questionnaire asks about data stored on the device in a way you can access. Read the questions. Do not copy another app's answers.</li>
+      <li>If you add accounts, you take on deletion, password reset, and a demo login for review. Section 23 is the point to read before you build that.</li>
+    </ul>
+    <p>This course does not include a backend project. Building one "just in case" is how a first app stalls.</p>
+  </section>
+
+  <section id="assets" aria-labelledby="assets-title">
+    <h2 id="assets-title"><span class="num">14</span>Images, fonts, and licenses</h2>
+    <p>Version 1 can ship with text and Apple's system font. That avoids a license question. When you add an icon, a photo, or a font, write down who made it and which license you have. "I found it on a search page" is not a license. Guideline 5.2.1 requires you to have rights to third-party material. Guideline 2.3.9 says you are responsible for the rights in your icons, screenshots, and previews.</p>
+    <p>A practical rule: draw a simple mark yourself, or use a resource whose license explicitly allows an app icon. Keep the license file next to the image in your project. The About screen can credit it in one line. Do not use another app's icon, a company logo, or a celebrity photo.</p>
+  </section>
+
+  <section id="states" aria-labelledby="states-title">
+    <h2 id="states-title"><span class="num">15</span>Loading, empty, offline, and error</h2>
+    <p>Each screen needs a sentence for the moments that are not the happy path. One Small Win uses four:</p>
+    <ul>
+      <li><strong>Loading.</strong> "Reading saved wins…" while storage is opening. On a phone this can be fast. The sentence still matters when the disk is slow.</li>
+      <li><strong>Empty.</strong> "No open wins. Add one small thing you can finish." This is the correct first launch. It is not an error.</li>
+      <li><strong>Error.</strong> "Type a win first." or "The win is on screen. Saving it on this phone failed." Say what happened and what still works.</li>
+      <li><strong>Offline.</strong> Version 1 does not use the network for the list, so airplane mode should still add and show wins. Test that on a phone before you claim it. If a later version fetches from a server, the offline sentence must say the list may be old.</li>
+    </ul>
+    <p>In the practice panel, press "Read saved list again". The status tells you how many wins it read. That is the loading path with a visible result.</p>
+  </section>
+
+  <section id="access" aria-labelledby="access-title">
+    <h2 id="access-title"><span class="num">16</span>Accessibility</h2>
+    <p>A first app can be usable if you do a few concrete things. The starter screens use a real text input with a label, buttons that say what they do, and <code>accessibilityLabel</code> on the done and remove controls so the label includes the win text. The practice panel uses the same idea: a label on the field, buttons with names, and a status element that announces the count.</p>
+    <p>On your phone, turn on the largest text size in Settings and open the app. The win should still be readable and the button should still take a tap. Turn on VoiceOver, or TalkBack on Android, and move through Today. You should hear "Win to add" and "Add win", not "button" with no name. Apple's Human Interface Guidelines accessibility chapter is the reference for the platform behavior. Do not ship a control that only works with a color change. Done items in the starter also use a line through the text.</p>
+  </section>
+
+  <section id="devices" aria-labelledby="devices-title">
+    <h2 id="devices-title"><span class="num">17</span>Test on a real phone</h2>
+    <p>A browser preview and a simulator miss the thumb, the notch, and the real text-size setting. Before you pay for a store submission, run the checklist on at least one physical phone if you have one. Expo Go counts as a learning test when the SDK matches. It does not count as the release test. The release test is the TestFlight build, because that build uses your bundle ID and your signing.</p>
+    <div class="table-scroll">
+      <table>
+        <caption>A small device matrix. Write what you saw. "Works on my machine" is not a row.</caption>
+        <thead><tr><th scope="col">Check</th><th scope="col">What you do</th><th scope="col">Pass looks like</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">First launch</th><td>Install, open, add nothing.</td><td>Empty sentence. No crash.</td></tr>
+          <tr><th scope="row">Save</th><td>Add one win. Force-quit. Open again.</td><td>The same words are there.</td></tr>
+          <tr><th scope="row">Large text</th><td>Largest text size in Settings.</td><td>The field and Add are still on screen.</td></tr>
+          <tr><th scope="row">VoiceOver or TalkBack</th><td>Move focus through Today.</td><td>Each control has a name.</td></tr>
+          <tr><th scope="row">Airplane mode</th><td>Enable it. Add a win.</td><td>The win still saves.</td></tr>
+          <tr><th scope="row">Many items</th><td>Add twenty short lines.</td><td>The list scrolls. Remove works.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>This page does not name a minimum iPhone model. After you create the project, read the deployment target your build actually sets, and test on a phone that runs at least that system. Guessing a model year here would go stale.</p>
+  </section>
+
+  <section id="enroll" aria-labelledby="enroll-title">
+    <h2 id="enroll-title"><span class="num">18</span>The Apple Developer Program</h2>
+    <p>You can write and preview for free. Putting the app in TestFlight or the App Store requires the Apple Developer Program. Apple's program page lists the membership at <strong>99 USD per year</strong>. The enrollment page says the same annual fee, in local currency where available, and that prices may vary by region and are shown in local currency during purchase. Individuals who enroll in the Apple Developer app get an auto-renewable subscription until they cancel. Enrolling on the web uses the payment methods that page presents. If you enroll as an individual and pay by card, Apple says the card must be your own.</p>
+    <h3>Individual or organization</h3>
+    <p>This is a public-identity choice, not a styling choice. Apple's enrollment page says an individual or sole proprietor is listed on the App Store under their personal legal name. An alias, nickname, or company name in the name fields delays enrollment. An organization is listed under the legal entity name. Organizations must be a legal entity. Apple says it does not accept DBAs, fictitious names, trade names, or branches. The organization path asks for a D‑U‑N‑S Number, which Dun &amp; Bradstreet assigns. Apple says those numbers are free in most jurisdictions and are not required for government organizations. The person enrolling needs legal authority to bind the organization, a work email on the organization's domain, and a public website that belongs to the organization. A thin social-media page does not qualify, according to that same enrollment page.</p>
+    <p>Identity verification asks individuals for a legal name, phone number, and address. Apple says post-office boxes are not accepted, and that some people are asked for a photo ID. That information is part of enrollment. It is not something you put in the app's screenshots. This course does not collect it.</p>
+    <h3>Two-factor authentication</h3>
+    <p>Apple's sign-in help says two-factor authentication is required for program Account Holders to sign in to their developer account. Two-factor authentication or two-step verification is required for every user of App Store Connect. Turn it on in the Apple Account's Sign-In &amp; Security settings, or follow Apple's support article linked below, before you start enrollment. Have a trusted device available. Apple says it will not ask you for the six-digit code as a support trick. Do not give that code to a helper or paste it into a chat.</p>
+    <h3>Fee waivers, and the program you do not want</h3>
+    <p>Apple offers a fee waiver to qualifying nonprofits, accredited educational institutions, and government entities. Individuals, sole proprietors, and single-person businesses are not eligible. The waiver also requires that the organization not sell digital goods, including paid apps and in-app purchases. If you want to charge for the app later, do not plan on the waiver.</p>
+    <p>The Enterprise program is a different contract at 299 USD per year for private distribution inside a company. It is not how you publish One Small Win on the public App Store. Skip it.</p>
+    <p class="checkpoint"><strong>Checkpoint.</strong> You can say, in one sentence, whose name will appear as the seller, and you know the annual fee shown to you at checkout may be 99 USD or the local price Apple displays. You still do not need to enroll to finish the browser and Expo preview work.</p>
+  </section>
+
+  <section id="signing" aria-labelledby="signing-title">
+    <h2 id="signing-title"><span class="num">19</span>Bundle ID, versions, and signing</h2>
+    <p>Apple's bundle ID documentation says the ID may contain letters, numbers, hyphens, and periods, is case-insensitive, and is typically reverse-DNS. It must match the value in App Store Connect. After you upload a build, you cannot change it, and you cannot delete the explicit App ID tied to it. <code>app.example.onesmallwin</code> in the snippet is a teaching placeholder. Replace <code>example</code> with a string you control and that you are willing to keep forever. Uniqueness is the requirement that blocks you. Two apps cannot share it.</p>
+    <p>Open <code>app.json</code> if the template created JSON. If it created <code>app.config.ts</code>, set the same fields inside the exported object instead of pasting JSON into a TypeScript file. The teaching snippet is <a href="starter/app-json-snippet.json">starter/app-json-snippet.json</a>. Set <code>version</code> to <code>1.0.0</code>. Set <code>ios.bundleIdentifier</code>. Set <code>ios.supportsTablet</code> to <code>false</code> for an iPhone-only first release so you are not also designing an iPad layout. If App Store Connect later asks for iPad screenshots, the binary you uploaded still supports iPad. Believe the upload page.</p>
+    <p>Apple's glossary, checked the same day, defines the version number (<code>CFBundleShortVersionString</code>) as three period-separated integers, such as <code>1.0.0</code>. The build string (<code>CFBundleVersion</code>) is one to three period-separated integers. Customers see the version. App Store Connect uses the build string to tell uploads apart. When an upload is refused as a duplicate, increase the build string and build again. The first public version does not need a "What's New" text. Later versions do.</p>
+    <h3>Who creates the certificates</h3>
+    <p>Apple's technical note on provisioning profiles says a profile ties together who may sign, which app, where it may run, when, and which entitlements it gets. A distribution certificate identifies the developer account. A provisioning profile identifies the app. Expo's credentials page says Expo can generate the distribution certificate, the provisioning profile, and a push key when you run <code>eas build</code> and sign in with an Apple Developer Program membership. Expo stores those files and reuses them. You may also upload your own.</p>
+    <p>Read Expo's page when you do this, because two sentences on it are easy to mix up. The summary table lists a distribution-certificate limit of 2 per account, says the certificate is not app-specific, and says revoking it does not remove apps already on the store. Another sentence says you may only have one. If the page still disagrees with itself, trust the error you get when creation fails, and do not delete a certificate that you still need for an app already in review. Provisioning profiles on that page expire after 12 months. Existing store installs keep running. The next build needs a new profile.</p>
+    <p>One Small Win does not send push notifications. If a prompt is only about a push key, you can skip it. If you are unsure which prompt you are looking at, stop and read it. Signing in to Apple from the Expo CLI is the moment your Apple account password is involved. Use it on a computer you trust. Do not put the password in a file.</p>
+    <p>On an individual membership, Expo's roles page says only the Account Holder can generate signing credentials. On an organization membership, Account Holder and Admin can, and App Manager can when that user has access to Certificates, Identifiers &amp; Profiles.</p>
+  </section>
+
+  <section id="connect" aria-labelledby="connect-title">
+    <h2 id="connect-title"><span class="num">20</span>The App Store Connect record</h2>
+    <p>After the membership is active, sign in at App Store Connect and create an app record. You will be asked for the name, the bundle ID you already chose, and a SKU. Apple's app-information table says the SKU is an internal ID customers do not see. It can contain letters, numbers, hyphens, periods, and underscores, and it cannot start with a hyphen, period, or underscore. You cannot change the SKU later. A teaching SKU is <code>one-small-win-001</code>. Use your own.</p>
+    <p>The name customers see must be at least 2 characters and at most 30. "One Small Win" fits. The subtitle, if you use one, is also limited to 30 characters. The name should describe your app. Guideline 2.3.7 says not to stuff another app's trademark into the name or keywords to catch searches.</p>
+    <p>Expo's submit guide says <code>eas submit</code> can create the App Store Connect app if it does not exist yet, after you sign in with your Apple ID. Creating it yourself first is calmer, because you can read each field. Either way, the bundle ID in the project and the bundle ID on the record must be the same string.</p>
+  </section>
+
+  <section id="icons" aria-labelledby="icons-title">
+    <h2 id="icons-title"><span class="num">21</span>Icons and screenshots</h2>
+    <p>Apple's Xcode icon document says an iOS app can generate the icon sizes from one 1024×1024 image placed in the iOS 1024pt image well. In the Expo route you do not open that well yourself. You put a 1024×1024 PNG at the path named by the <code>icon</code> field, and the cloud build packages it. Confirm the current Expo icon guide on the day you build, then confirm the asset Apple shows in App Store Connect. A tiny transparent gap around a glyph is a common rejection detail: Apple's screenshot specification says images cannot include an alpha channel, and you should treat the icon with the same caution and check the upload error if one appears.</p>
+    <p>Screenshots are required. Apple's specification page, checked 8 November 2026, says you upload 1 to 10 screenshots per device size, as <code>.jpeg</code>, <code>.jpg</code>, or <code>.png</code>, with no alpha channel. To submit, you need at least one screenshot for <strong>iPhone with Dynamic Island (medium display)</strong>. The accepted sizes on that row are:</p>
+    <ul>
+      <li>1179 × 2556, or 2556 × 1179</li>
+      <li>1206 × 2622, or 2622 × 1206</li>
+    </ul>
+    <p>If the app runs on iPad, you also need a 13-inch screenshot at 2064 × 2752 or 2048 × 2732, portrait or landscape as listed. The same page says that starting in April 2027, iPhone Duo screenshots will be required for apps that use the iOS 27.1 SDK or later. That is a future requirement. It is not the requirement for every submission on the day this page was checked. Read the specification again when you upload.</p>
+    <p>Guideline 2.3.3 says screenshots should show the app in use, not only a title card or a splash screen. Capture Today with one fictional win, All wins with a completed line, and About. Three honest shots are better than ten marketing posters.</p>
+  </section>
+
+  <section id="metadata" aria-labelledby="metadata-title">
+    <h2 id="metadata-title"><span class="num">22</span>Metadata, age, and privacy</h2>
+    <p>Apple's platform-version table sets the lengths. Description is required, plain text, up to 4000 characters. Keywords are required, up to 100 bytes, and each keyword must be longer than two characters. Do not repeat the app name. Promotional text is optional, up to 170 characters, and can change without a new binary. Copyright is required: the year and the rights holder. Support URL is required and must lead to real contact information, a legal address, email address, or telephone number, as local law may require. Marketing URL is optional. Privacy Policy URL is required for iOS apps, and guideline 5.1.1 also requires the policy inside the app in an easy-to-find place. The About screen is that place. Version 1's policy can say the checklist stays on the device, the developer does not receive the list, and how a person can delete it (remove the app, or use Erase inside the app).</p>
+    <p>The support page will be public. Use a contact method you are willing to publish. This course does not host that page and does not want your home address in its notes box.</p>
+    <p>Age rating is a questionnaire in App Store Connect, not a number you invent. Apple translates your answers into a global rating and regional ratings where required. For a checklist with no restricted content, answer each frequency honestly, including "none". Guideline 2.3.6 says a wrong rating can surprise people and can draw regulators. Guideline 2.3.8 reserves phrases such as "For Kids" for the Kids Category. Do not put those words in the name unless you mean to meet the Kids rules, which are stricter.</p>
+    <p>Category is your best description. Productivity is the closest fit for a checklist. Guideline 2.3.5 says Apple may change a category that is far off. Read the category definitions before you submit.</p>
+    <p>App privacy details, the nutrition label on the product page, are required for new apps and updates. Include every SDK you ship, not only code you typed. If the app does not collect data off the device, the honest answers are short. Do not add an analytics SDK "for later" and then answer that you collect nothing.</p>
+    <h3>Privacy manifests, required-reason APIs, and tracking</h3>
+    <p>A privacy manifest is a <code>PrivacyInfo.xcprivacy</code> file. Apple's manifest document says it records collected data types and, on iOS, the required-reason APIs the app or SDK uses. Third-party SDKs on Apple's required list must ship their own signed manifest. The required-reason categories in Apple's technical note include active keyboards, disk space, file timestamps, system boot time, and user defaults. User defaults is ordinary preference storage. Your job is not to invent a reason code. If App Store Connect emails you that a manifest or a reason is missing, open the named library's current documentation and Apple's list, then upgrade or declare the reason that list actually contains.</p>
+    <p>Tracking, in Apple's terms, is linking data about a person with data from other companies' apps or sites for advertising, or sharing data with a data broker. A local checklist does not do that. If you later add a tracker that does, you need the App Tracking Transparency permission before tracking, and guideline 5.1.2 says the app may not require that permission in order to function. Version 1 should not show the tracking prompt at all.</p>
+  </section>
+
+  <section id="accounts" aria-labelledby="accounts-title">
+    <h2 id="accounts-title"><span class="num">23</span>Accounts, deletion, and review access</h2>
+    <p>Guideline 5.1.1 (v) says that if the app does not have a significant account-based feature, people should be able to use it without a login. One Small Win qualifies. Do not add a login to look serious.</p>
+    <p>If you later add account creation, the same guideline and Apple's account-deletion article require an in-app way to start deletion of the account and the personal data that goes with it. Hiding the control, or only offering "deactivate", does not meet the article. If the last step happens on a website, the app must link directly to that page. Tell the person if some records must be kept for a legal reason, and how a subscription cancellation is handled. Build the deletion path before you submit the version that creates accounts.</p>
+    <p>Guideline 2.1 says a review submission should be a finished build. Placeholder text and empty websites should be gone. If the app has a login, include a demo account that does not expire, and make sure the backend is on. If you cannot provide a demo account because of a legal or security duty, Apple allows a built-in demo mode only with prior approval, and that mode must show the full functionality. The review-contact name, email, and phone number are required App Review information. They are not shown on the product page. Enter the phone in international format with a leading plus and country code. Apple's own example of the format is a Hong Kong number prefix, <code>+852</code>. Use your real review contact, and keep it out of screenshots.</p>
+  </section>
+
+  <section id="export" aria-labelledby="export-title">
+    <h2 id="export-title"><span class="num">24</span>Export and encryption questions</h2>
+    <p>This section is a map of Apple's forms. It is not legal advice and not a classification of your app. Export rules depend on what encryption you actually ship and where you distribute.</p>
+    <p>Apple's documentation table, checked 8 November 2026, sorts apps three ways:</p>
+    <ul>
+      <li>Encryption limited to what the Apple operating system provides: no documentation uploaded in App Store Connect.</li>
+      <li>An industry-standard algorithm that is not the one inside the Apple operating system: upload a French encryption declaration if you distribute in France.</li>
+      <li>A proprietary algorithm that standards bodies have not accepted: upload a U.S. CCATS and, if you distribute in France, the French declaration.</li>
+    </ul>
+    <p>HTTPS that the system provides is the first row for many simple apps. Adding your own cryptography moves you to a different row. Answer the questions in App Store Connect for the binary you uploaded. Apple says it reviews complete documentation case by case and expects about two business days when the packet is complete. That sentence is Apple's expectation for the encryption review, not a promise about App Review as a whole, and not a promise that an incomplete packet moves at that speed.</p>
+    <p>If documentation is not required, Apple says to set <code>ITSAppUsesNonExemptEncryption</code> in the information property list so TestFlight and the store do not ask every time. Expo's production-build tutorial says the first <code>eas build</code> asks whether the iOS app uses only standard or exempt encryption. Pressing yes, for an app that does not add its own encryption, writes <code>ITSAppUsesNonExemptEncryption: false</code>. The snippet in this course includes that key for the local checklist. If your app's answer is different, remove the key and answer the prompts. A wrong "no" is worse than an extra question.</p>
+  </section>
+
+  <section id="testflight" aria-labelledby="testflight-title">
+    <h2 id="testflight-title"><span class="num">25</span>TestFlight</h2>
+    <p>TestFlight is the supported way to put a beta on a phone. Guideline 2.2 says demos and trial builds do not belong on the public store. Apple's TestFlight overview, checked 8 November 2026, is specific about the limits this course will quote:</p>
+    <ul>
+      <li>You can test a build for up to 90 days. After that, the build is unavailable to testers.</li>
+      <li>Internal testers: up to 100 people who are App Store Connect users with access to your content. They can test for 90 days. Internal testing uses those accounts, so it is the wrong tool for a large public beta.</li>
+      <li>External testers: up to 10,000 people. The first build you add to an external group is sent to App Review. A review is required for that first build. Later builds may not need a full review. Testing starts after approval.</li>
+      <li>The build must include an application identifier in its provisioning profile.</li>
+      <li>Managed Apple Accounts on reserved domains cannot be used as testers.</li>
+    </ul>
+    <p>Testers install Apple's free TestFlight app and accept an email invite or a public link. You write "What to Test" when you add a build. For One Small Win, that note can be: add a line, force-quit, confirm the line remains, try the largest text size. Crash feedback from TestFlight testers appears under TestFlight, Feedback, Crashes. Apple says those crash reports are available for download for 120 days.</p>
+    <p>Internal-only uploads cannot be sent to external testers or to customers. Read the badge on the build. If you only need yourself, an internal group is enough and skips the external beta review until you want outsiders.</p>
+  </section>
+
+  <section id="ship" aria-labelledby="ship-title">
+    <h2 id="ship-title"><span class="num">26</span>Build, upload, review, release</h2>
+    <p>Stay on the Expo route for these commands. The Mac archive path is the last subsection, and it uses Xcode instead.</p>
+    <h3>Cloud build and upload</h3>
+    <p>Install the CLI and sign in to Expo. Expo's docs still call the CLI <code>eas</code> even though the service is now named Expo Build.</p>
+    <pre><code>npm install --global eas-cli
+eas login
+eas build:configure
+eas build --platform ios</code></pre>
+    <p>The first iOS build asks you to sign in to Apple if credentials do not exist yet, and it asks the encryption question from the previous section. When the build succeeds, Expo keeps the <code>.ipa</code>. Submit it with:</p>
+    <pre><code>eas submit --platform ios</code></pre>
+    <p>Expo's submit page says this works on Windows. It also says the build shows up in TestFlight after processing, usually 10 to 15 minutes. That duration is Expo's description of processing, not an Apple service agreement. If processing takes longer, wait and read the status in App Store Connect rather than uploading a second identical build. A later shortcut on Expo's page is <code>eas build --platform ios --auto-submit</code>. The production tutorial says that uploads to TestFlight and does not itself submit the store review. You still open App Store Connect for metadata, screenshots, and the review button.</p>
+    <p>Expo's pricing page, checked the same day, lists a Free plan at 0 USD per month with up to 15 Android builds and 15 iOS builds, on a low-priority queue. The billing FAQ says a free account is not charged overage; when the monthly quota is used, new builds wait until the next calendar month. Paid Expo plans exist (the pricing page listed Starter at 19 USD per month plus usage, and Production at 199 USD per month plus usage). Those prices are optional speed and capacity, not an Apple requirement. Read the pricing page again before you subscribe. A low-priority wait is not a failure.</p>
+    <h3>The store submission</h3>
+    <p>In App Store Connect, open the iOS version. Attach the processed build. Finish screenshots, description, keywords, support URL, privacy policy URL, copyright, age questionnaire, and privacy details. Choose a release option. Apple's release page offers three: release it yourself after approval, release automatically after approval, or release automatically no earlier than a date you enter. If the app is in pre-order setup and has never been released, Apple selects manual release for you.</p>
+    <p>Submit for review. Guideline 2.1 is the standard: the build runs, the links work, and the notes explain anything a reviewer cannot see. For this app the notes can say there is no login and the list stays on the device. If review sends questions, answer in App Store Connect. If they reject the build, the message cites a guideline. Change the app or the metadata to match that citation, increase the build string if the binary changed, upload, and submit again. A rejection is a review outcome. It is not a statement about you.</p>
+    <p>Apple's release page does not promise how long review takes. The clock it does state: after you manually release a version that is Pending Developer Release, it may take up to 24 hours to appear on the store. Apple also emails you if a version sits in Pending Developer Release for more than 30 days. Automatic release goes out after approval without that extra click. Phased release, for an update, spreads an automatic update over 7 days. It is optional and does not apply to the brand-new first release in the same way. Read the control you are looking at.</p>
+    <h3>Mac archive path, only if you chose Xcode</h3>
+    <p>On a Mac, with the SwiftUI target, use Xcode's run button and the Simulator until the checklist behaves. Then use Xcode's archive and distribute flow in Apple's distribution documentation. This environment has no Mac, so this course does not pretend to have clicked through Xcode 27's menus. The labels in your Xcode and Apple's document are the instructions. You still end in App Store Connect with the same metadata, TestFlight, and review steps. Signing on this path is Xcode's automatic signing or profiles you create in the developer account. You do not also run <code>eas build</code> for the same binary.</p>
+    <p class="checkpoint"><strong>Checkpoint.</strong> You can describe the path as files, then a signed build, then processing, then TestFlight, then a review submission, then a release click or an automatic release. You are not owed a date.</p>
+  </section>
+
+  <section id="money" aria-labelledby="money-title">
+    <h2 id="money-title"><span class="num">27</span>Free, paid, and subscriptions</h2>
+    <p>Ship version 1 free, with no in-app purchase. You can learn the store without also learning tax forms and purchase restoration. When you do charge, Apple's rules depend on what you are selling and where the buyer is. The percentages below are the ones on Apple's public pages on 8 November 2026. The contract in your account, for the storefront where the sale happens, is the number that applies. Do not add these percentages together.</p>
+    <div class="table-scroll">
+      <table>
+        <caption>Digital goods on the App Store, from Apple's pages. Confirm the rate in your agreement before you set a price.</caption>
+        <thead><tr><th scope="col">Situation</th><th scope="col">What Apple's page says</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Small Business Program</th><td>15% commission on paid apps and in-app purchases if you qualify. New developers can qualify. Existing developers need proceeds of no more than 1 million USD in the prior calendar year and in the current year, across associated accounts. Above the threshold, the standard rate applies to future sales. You can qualify again in a later year.</td></tr>
+          <tr><th scope="row">Standard digital goods</th><td>Apple's 2020 announcement of the Small Business Program describes the standard commission as 30% for developers over that threshold.</td></tr>
+          <tr><th scope="row">Auto-renewable subscriptions</th><td>You receive 70% of the price, minus applicable taxes, during the subscriber's first year of paid service, and 85% after one year of paid service. Members of the Small Business Program receive 85% from the start. Free trials do not count as paid service. A renewal within 60 days of a lapse continues the count.</td></tr>
+          <tr><th scope="row">European Union terms announced August 2026</th><td>Apple's newsroom post says a single set of EU terms takes effect 1 October 2026. On those terms, App Store sales that use in-app purchase are 26%, or 15% for the Small Business Program and listed partner programs, and for auto-renewing subscriptions after the first year. Alternative payment processing is 20%, or 10% for those programs. Linking out to purchase is 15%, or 10%. Apps distributed outside the App Store pay a 5% Core Technology Commission. The older Small Business FAQ still describes a 10% rate for developers on alternative EU terms. If both pages are live when you enroll, read the agreement you are asked to sign.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Guideline 3.1.1 says digital features unlocked inside the app, including subscriptions and premium content, use in-app purchase. Credits bought that way must not expire, and restorable purchases need a restore path. Guideline 3.1.3 lists cases that use a different payment method. Read the one that matches you:</p>
+    <ul>
+      <li><strong>Physical goods and services used outside the app</strong> must use a payment method other than in-app purchase, such as Apple Pay or a card form.</li>
+      <li><strong>Reader apps</strong> for previously purchased magazines, newspapers, books, audio, music, or video have their own external-link entitlement. Apple says that entitlement is not required for link-outs on the United States storefront.</li>
+      <li><strong>Person-to-person services</strong> between two people, such as a single tutoring session, may use another payment method. One-to-many real-time services use in-app purchase.</li>
+      <li>Guideline 3.1.1 (a) also says United States storefront apps may include buttons and links to other purchase methods without the entitlement that other storefronts require. Implementing that link is a later project. A wrong link is a review problem. Version 1 has no purchase link, which is the safe shape.</li>
+    </ul>
+    <p>None of these rates is income. A free app can have zero downloads. A paid app can have zero sales. This course will not estimate either.</p>
+  </section>
+
+  <section id="guidelines" aria-labelledby="guidelines-title">
+    <h2 id="guidelines-title"><span class="num">28</span>Copies, scams, templates, and AI</h2>
+    <p>Apple's design rules are the usual reason a first wrapper is rejected. The sentences below are the parts that apply to a beginner project. The guideline page is the full text.</p>
+    <ul>
+      <li><strong>4.1 Copycats.</strong> Come up with your own idea. A small change to a popular app's name or screens is a copy. Using another developer's icon, brand, or product name in your icon or name, without their approval, is called out separately.</li>
+      <li><strong>4.2 Minimum functionality.</strong> The app should include features, content, and UI that elevate it beyond a repackaged website. If it is not useful, unique, or app-like, it does not belong on the store. A single checklist with real on-device behavior is a stronger submission than a website inside a frame. It can still be rejected if the reviewer finds it not useful enough. There is no checklist that forces an approval.</li>
+      <li><strong>4.2.2.</strong> Other than catalogs, apps should not be mainly marketing, ads, web clippings, or a collection of links.</li>
+      <li><strong>4.2.6.</strong> Apps from a commercialized template or app-generation service are rejected unless the provider of the content submits them, and the tool must let each client make a distinct app. A vendor submitting many clients' clones is the case this rule describes.</li>
+      <li><strong>5.2.1.</strong> You need rights to trademarks, copyrighted material, and the other intellectual property in the app. Submit under the person or legal entity that holds those rights.</li>
+      <li><strong>2.3.1.</strong> Metadata has to describe the app you uploaded. Claiming a feature you do not have is grounds for removal.</li>
+    </ul>
+    <p>An AI assistant can help you write a screen. It does not review the app, and it does not own the content it imitated. If the generated UI is a copy of a known product, change it before you submit. If the generated app is a web view plus a splash screen, expect guideline 4.2 to be the conversation. If the model offers to "wrap your website so it gets approved", that offer is the risk, not a plan. You click the submit button. The rejection, if it comes, is on the binary you sent.</p>
+  </section>
+
+  <section id="after" aria-labelledby="after-title">
+    <h2 id="after-title"><span class="num">29</span>After it is on the store</h2>
+    <p>A released app needs a person who reads mail. The support URL is that promise. Plan a simple habit: check the inbox you published, and check App Store Connect, on a schedule you can keep. Silence is an acceptable product result. Ignoring a crash you already know about is not.</p>
+    <p>TestFlight crash feedback is described above and kept for 120 days. For the public build, use the crash information Apple shows for that app in App Store Connect and in Xcode, and read Apple's current crash-log document when you open one. A crash report is a stack trace. Match the version and build in the report to a commit in Git before you change code. Fix one crash, raise the version or at least the build string, write What's New in plain language (required for versions after the first, up to 4000 characters), and submit the update through the same review path.</p>
+    <p>App Store Connect includes sales and analytics for the store listing. That is Apple's data about downloads and sales. A third-party analytics SDK is a different decision: it can be personal data, it belongs in the privacy questionnaire and the privacy policy, and tracking across other companies' apps needs App Tracking Transparency. Version 1 of this course's sample does not add one. Add it only when you can name the question the numbers will answer.</p>
+    <p>Keep the privacy inventory from the template next to the project. When you add a library, add a row the same day. The row says what it collects, whether it leaves the device, and which App Store privacy category you will tick. That inventory is how the nutrition label stays true.</p>
+  </section>
+
+  <section id="costs" aria-labelledby="costs-title">
+    <h2 id="costs-title"><span class="num">30</span>What is free, optional, and required</h2>
+    <div class="table-scroll">
+      <table>
+        <caption>Money, as published on 8 November 2026. Hardware prices are not listed because this page did not find a single official price that applies to every reader.</caption>
+        <thead><tr><th scope="col">Item</th><th scope="col">When</th><th scope="col">Published figure</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">This course, Node.js LTS, Git, Expo SDK</th><td>Free to start</td><td>No fee stated on their download or license pages. The Expo SDK is MIT-licensed open source.</td></tr>
+          <tr><th scope="row">Apple Account with two-factor authentication</th><td>Free account, required before enrollment</td><td>No program fee yet. The paid program is separate.</td></tr>
+          <tr><th scope="row">Apple Developer Program</th><td>Required for TestFlight and the App Store</td><td>99 USD per year, or the local price shown at enrollment. Fee waivers exist only for qualifying organizations that do not sell digital goods.</td></tr>
+          <tr><th scope="row">Apple Developer Enterprise Program</th><td>Not used for this public app</td><td>299 USD per year. Skip it for One Small Win.</td></tr>
+          <tr><th scope="row">Expo cloud builds</th><td>Optional if you have a Mac and build locally. The practical Windows path to an iOS binary.</td><td>Free plan: 0 USD per month, up to 15 iOS and 15 Android builds, low-priority queue. Starter listed at 19 USD per month plus usage. Production listed at 199 USD per month plus usage. Confirm on the pricing page.</td></tr>
+          <tr><th scope="row">A Mac and Xcode</th><td>Required for the native route and for the iOS Simulator. Not required for the Expo cloud route.</td><td>Xcode is downloaded from Apple. This page does not price Macs.</td></tr>
+          <tr><th scope="row">An iPhone</th><td>Needed for a real device test and for TestFlight. You can learn the screens without one.</td><td>No official single price. Any phone that runs the system your build targets.</td></tr>
+          <tr><th scope="row">Google Play</th><td>Only if you later ship the Android app. Out of scope here.</td><td>Expo's build setup page calls the Play membership a one-time 25 USD fee.</td></tr>
+          <tr><th scope="row">Domain name</th><td>Optional. The support and privacy URLs must be public. They do not have to be a domain you bought if you already have a trustworthy public page.</td><td>Not priced here. The URL must include contact information you are willing to publish.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="checklist" aria-labelledby="checklist-title">
+    <h2 id="checklist-title"><span class="num">31</span>Release checklist</h2>
+    <p id="check-progress" class="progress" role="status">Checklist progress loads in the browser.</p>
+    <p>Checked items stay in this browser under a local storage key. Nothing is uploaded. Print the page if you want a paper copy. The boxes print with the labels.</p>
+    <ul class="check-list">
+      <li><label><input type="checkbox" data-check="spec"> One-page spec is written, with a single success test.</label></li>
+      <li><label><input type="checkbox" data-check="screens"> Today, All wins, and About exist, including empty and error sentences.</label></li>
+      <li><label><input type="checkbox" data-check="persist"> A force-quit or a reload still shows the last win.</label></li>
+      <li><label><input type="checkbox" data-check="a11y"> Largest text size and a screen reader were tried on a phone or the web preview.</label></li>
+      <li><label><input type="checkbox" data-check="git"> The project has a commit, and no certificates or passwords are in it.</label></li>
+      <li><label><input type="checkbox" data-check="bundle"> The bundle ID is the final string, not <code>app.example.onesmallwin</code>.</label></li>
+      <li><label><input type="checkbox" data-check="icon"> A 1024×1024 icon you have rights to use is in the project.</label></li>
+      <li><label><input type="checkbox" data-check="shots"> At least one medium Dynamic Island screenshot shows the app in use, with no transparency.</label></li>
+      <li><label><input type="checkbox" data-check="policy"> A public privacy policy matches the app, and About links to it.</label></li>
+      <li><label><input type="checkbox" data-check="support"> The support URL opens and shows a contact method you accept as public.</label></li>
+      <li><label><input type="checkbox" data-check="age"> The age questionnaire is answered from the app you are submitting.</label></li>
+      <li><label><input type="checkbox" data-check="privacy-label"> App privacy answers include every SDK in the binary.</label></li>
+      <li><label><input type="checkbox" data-check="encryption"> The encryption questions match the code, and the Info.plist key is set only if that answer is honest.</label></li>
+      <li><label><input type="checkbox" data-check="account"> There is no login, or there is in-app account deletion plus a non-expiring demo account.</label></li>
+      <li><label><input type="checkbox" data-check="testflight"> A TestFlight build was installed on a phone and the success test passed.</label></li>
+      <li><label><input type="checkbox" data-check="notes"> Review notes explain how to try the app without guessing.</label></li>
+    </ul>
+    <div class="actions noprint">
+      <button type="button" id="reset-checks">Clear checklist on this browser</button>
+      <button type="button" class="primary" onclick="window.print()">Print</button>
+    </div>
+  </section>
+
+  <section id="schedule" aria-labelledby="schedule-title">
+    <h2 id="schedule-title"><span class="num">32</span>A study calendar you can change</h2>
+    <p>This is a suggestion for someone with a few evenings. It is not a completion promise. Skip a week. The app does not expire.</p>
+    <ol>
+      <li>Session 1: section 1. The browser checklist and a one-page spec.</li>
+      <li>Session 2: install Node and Git. Create the Expo project. See it in a browser.</li>
+      <li>Session 3: persistence, empty and error sentences, one Git commit.</li>
+      <li>Session 4: accessibility pass and the device matrix on whatever phone you have.</li>
+      <li>Session 5: icon, privacy paragraph, support page. Still no Apple fee unless you are ready.</li>
+      <li>When you choose to spend the 99 USD: enroll, set the real bundle ID, make one cloud build, and stop at TestFlight.</li>
+      <li>After you have used the TestFlight build yourself: screenshots, questionnaire, review notes, submit.</li>
+    </ol>
+    <p>A finished TestFlight install of your own binary is a real milestone. The public store is a later decision. You can stop at TestFlight and still have made an iPhone app.</p>
+  </section>
+
+  <section id="templates" aria-labelledby="templates-title">
+    <h2 id="templates-title"><span class="num">33</span>Templates you can copy</h2>
+    <p>These are blank on purpose. Replace the brackets. Do not put a real person's contact details in a screenshot or in this page's notes if you are sharing the screen.</p>
+    <h3>One-page spec</h3>
+    <div class="template" tabindex="0">Name:
+Who it is for:
+Job it finishes in one minute:
+Success test:
+Screen 1:
+Screen 2:
+Screen 3:
+Explicitly out of version 1:
+Data stored, and where:
+Account: no
+Payments: no
+Location: no</div>
+    <h3>AI prompt</h3>
+    <div class="template" tabindex="0">Project: One Small Win, Expo Router, files in src/app and src/lib/wins.ts.
+Change: [one sentence].
+Done when: [what I will see on the screen].
+Do not add libraries, accounts, payments, or network calls.
+Here is the exact error, unchanged:
+[paste]
+Edit only: [file names].</div>
+    <h3>Bug report</h3>
+    <div class="template" tabindex="0">Build or commit:
+Phone or browser:
+Steps:
+Expected:
+Actual:
+Exact error:</div>
+    <h3>Tester feedback</h3>
+    <div class="template" tabindex="0">Build number:
+Device and system version:
+Text size used:
+What I tried:
+What confused me:
+Did the win survive a force-quit: yes or no</div>
+    <h3>Privacy inventory</h3>
+    <div class="template" tabindex="0">Data: checklist text
+Where it lives: on the device only
+Who can read it: the person holding the phone
+Leaves the device: no
+SDK added: none yet
+App Store category I will declare:
+Tracking: no
+Reason API to declare: none until an upload warning names one</div>
+    <h3>Review notes</h3>
+    <div class="template" tabindex="0">No login. No in-app purchase. No location permission.
+The list is stored on the device.
+To test: open the app, type a short task, tap Add win, force-quit, open the app, confirm the task remains.
+Privacy policy: [public URL]
+Support: [public URL]</div>
+  </section>
+
+  <section id="trouble" aria-labelledby="trouble-title">
+    <h2 id="trouble-title"><span class="num">34</span>When something breaks</h2>
+    <dl>
+      <dt><code>node</code> is not recognized</dt>
+      <dd>Open a new terminal. If it still fails, reinstall Node LTS and allow it to change PATH. Then run <code>node -v</code> again.</dd>
+      <dt>The phone says the project is incompatible with Expo Go</dt>
+      <dd>The SDK in <code>package.json</code> and the SDK inside Expo Go are different. Read Expo's mismatch page before you edit versions. Use the web preview, Android, a Mac simulator, a development build, or the <code>eas go</code> path that page documents.</dd>
+      <dt>The QR code does nothing</dt>
+      <dd>Same Wi-Fi first. On an iPhone, the same Expo account on the computer and in Expo Go. Then try <code>npx expo start --tunnel</code>.</dd>
+      <dt>Unable to resolve module</dt>
+      <dd>The import path and the file name disagree, or the package is missing. From the project folder, run <code>npx expo install</code> for that package. Check that <code>wins.ts</code> is at <code>src/lib/wins.ts</code>.</dd>
+      <dt>The screen ignores my edit</dt>
+      <dd>Confirm you saved the file you think you saved. Restart with <kbd>Ctrl</kbd>+<kbd>C</kbd> and <code>npx expo start --web</code>. Fast Refresh's toggle is in the developer menu.</dd>
+      <dt>Apple or Expo will not create a certificate</dt>
+      <dd>Confirm the membership is paid and that your role may create certificates. Read the error. Do not delete an existing distribution certificate until you know which apps were signed with it.</dd>
+      <dt>The upload sits in processing</dt>
+      <dd>Wait, and read the status. Expo describes a usual 10 to 15 minutes. Apple does not guarantee that interval on the page this course cites. A second upload of the same build string will not speed the first one up.</dd>
+      <dt>Screenshot rejected for size or alpha</dt>
+      <dd>Export a PNG or JPEG at 1179×2556 or 1206×2622 with no transparency. The specification page lists the other accepted sizes if you are uploading a different device class.</dd>
+      <dt>Review cites 4.2</dt>
+      <dd>The reviewer saw a thin wrapper or too little utility. Add the on-device behavior your spec promised, or narrow the app until that behavior is obvious. Update the screenshots so they show it. Resubmit with notes that say where to tap.</dd>
+      <dt>TestFlight build expired</dt>
+      <dd>90 days from upload. Make a new build, with a new build string, and add it to the group.</dd>
+    </dl>
+  </section>
+
+  <section id="tens" aria-labelledby="tens-title">
+    <h2 id="tens-title"><span class="num">35</span>Ten-minute tasks</h2>
+    <p>Use these when you do not have an hour. Each one ends with something you can see.</p>
+    <ol>
+      <li>Add one win in the practice panel. Refresh. Confirm it is still there.</li>
+      <li>Write the success test for your own idea in a single sentence.</li>
+      <li>Sketch Today empty and Today with one item.</li>
+      <li>Run <code>node -v</code> and write down the number.</li>
+      <li>Change the empty-state sentence, save, and find it on the screen.</li>
+      <li>Make one Git commit and run <code>git log --oneline</code>.</li>
+      <li>Read guideline 4.2 out loud once. Decide whether your current build is more than a website frame.</li>
+      <li>Fill the privacy inventory with "none" everywhere that is true.</li>
+      <li>Measure your icon file. It should be 1024 by 1024 before you depend on it.</li>
+      <li>Install your TestFlight build, if you have one, and force-quit it. That single check is the release test.</li>
+    </ol>
+    <p>When a ten-minute task is done, you are further along than you were. The store listing can wait until several of them are true on a phone.</p>
+  </section>
+
+  <section id="glossary" aria-labelledby="glossary-title">
+    <h2 id="glossary-title"><span class="num">36</span>Glossary</h2>
+    <label for="glossary-search">Filter the glossary</label>
+    <input id="glossary-search" type="search" placeholder="Try bundle, TestFlight, or signing">
+    <div class="table-scroll">
+      <table id="glossary-table">
+        <caption>Short definitions for this course.</caption>
+        <thead><tr><th scope="col">Word</th><th scope="col">Meaning here</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">App</th><td>A program installed on the phone, opened from an icon.</td></tr>
+          <tr><th scope="row">Source code</th><td>The files you edit.</td></tr>
+          <tr><th scope="row">Frontend</th><td>The screens and controls.</td></tr>
+          <tr><th scope="row">Backend</th><td>A server program. Version 1 does not have one.</td></tr>
+          <tr><th scope="row">API</th><td>A defined way for programs to request work from each other.</td></tr>
+          <tr><th scope="row">Database</th><td>A structured store of records. Local storage counts for a private list.</td></tr>
+          <tr><th scope="row">Native</th><td>Built with the platform tools. On iPhone, Swift and Xcode.</td></tr>
+          <tr><th scope="row">Cross-platform</th><td>One project that can build iOS and Android binaries. Expo is the example used here.</td></tr>
+          <tr><th scope="row">PWA</th><td>A website that a browser can save. Not an App Store submission.</td></tr>
+          <tr><th scope="row">Simulator</th><td>Xcode's virtual iPhone, on a Mac only.</td></tr>
+          <tr><th scope="row">Build</th><td>The packaged binary. The store file is an .ipa.</td></tr>
+          <tr><th scope="row">Signing</th><td>Apple's mark of who built the app and which bundle ID it uses.</td></tr>
+          <tr><th scope="row">Certificate</th><td>The developer credential used when signing.</td></tr>
+          <tr><th scope="row">Provisioning profile</th><td>Apple's file that ties the signer, the app, the devices or distribution method, and the entitlements.</td></tr>
+          <tr><th scope="row">Bundle ID</th><td>The app's permanent unique identifier.</td></tr>
+          <tr><th scope="row">Version</th><td>The customer-facing number, three integers, such as 1.0.0.</td></tr>
+          <tr><th scope="row">Build string</th><td>The upload's own number, one to three integers. It changes when you upload again.</td></tr>
+          <tr><th scope="row">Expo Go</th><td>A sandbox app for learning. It is not your production binary.</td></tr>
+          <tr><th scope="row">Development build</th><td>Your app, installed with developer tools, able to include native code Expo Go lacks.</td></tr>
+          <tr><th scope="row">Production build</th><td>The signed release binary that goes to App Store Connect.</td></tr>
+          <tr><th scope="row">TestFlight</th><td>Apple's beta installer. Builds last up to 90 days.</td></tr>
+          <tr><th scope="row">App Store Connect</th><td>The site where you manage the record, the beta, and the review.</td></tr>
+          <tr><th scope="row">SKU</th><td>Your private inventory ID for the app. Customers do not see it.</td></tr>
+          <tr><th scope="row">In-app purchase</th><td>Apple's payment system for digital goods inside the app.</td></tr>
+          <tr><th scope="row">Privacy manifest</th><td>A file describing data use and required-reason APIs.</td></tr>
+          <tr><th scope="row">Tracking</th><td>Apple's defined cross-app or data-broker use. It needs a permission prompt. Version 1 does not do it.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="sources" aria-labelledby="sources-title">
+    <h2 id="sources-title"><span class="num">37</span>Sources, checked 8 November 2026</h2>
+    <p>These are the pages this course relied on. If a page and this text disagree, follow the page. Regional prices and EU terms in particular can move.</p>
+    <ul class="refs">
+      <li>Membership price and benefits: <a href="https://developer.apple.com/programs/">Apple Developer Program</a></li>
+      <li>Individual versus organization, D‑U‑N‑S, 99 USD, local currency: <a href="https://developer.apple.com/help/account/membership/program-enrollment/">Program enrollment</a></li>
+      <li>Identity checks: <a href="https://developer.apple.com/help/account/membership/identity-verification/">Identity verification</a></li>
+      <li>Fee waiver limits: <a href="https://developer.apple.com/help/account/membership/fee-waivers/">Fee waivers</a></li>
+      <li>Enterprise program, 299 USD, not the public store path: <a href="https://developer.apple.com/programs/enterprise/">Enterprise program</a></li>
+      <li>Two-factor requirement: <a href="https://developer.apple.com/help/account/access/sign-in-to-your-developer-account/">Sign in to your developer account</a> and <a href="https://support.apple.com/en-us/102660">Two-factor authentication for Apple Account</a></li>
+      <li>Xcode 27.2 and macOS Tahoe 26.6: <a href="https://developer.apple.com/xcode/system-requirements/">Xcode system requirements</a></li>
+      <li>Review guidelines, including 2.1, 2.3, 3.1, 4.1, 4.2, 5.1, and 5.2: <a href="https://developer.apple.com/app-store/review/guidelines/">App Review Guidelines</a></li>
+      <li>Account deletion: <a href="https://developer.apple.com/help/app-review/guideline-reference/5-1-1-account-deletion/">Guideline 5.1.1 (v) reference</a></li>
+      <li>Screenshot sizes: <a href="https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/">Screenshot specifications</a></li>
+      <li>1024-pixel icon well: <a href="https://developer.apple.com/documentation/xcode/configuring-your-app-icon">Configuring your app icon</a></li>
+      <li>Product page advice: <a href="https://developer.apple.com/app-store/product-page/">Creating your product page</a></li>
+      <li>Name, SKU, privacy URL: <a href="https://developer.apple.com/help/app-store-connect/reference/app-information/app-information/">App information</a></li>
+      <li>Description, keywords, support URL, release settings: <a href="https://developer.apple.com/help/app-store-connect/reference/platform-version-information/">Platform version information</a></li>
+      <li>Version number: <a href="https://developer.apple.com/help/glossary/version-number/">Glossary, version number</a></li>
+      <li>Build string: <a href="https://developer.apple.com/help/glossary/build-string/">Glossary, build string</a></li>
+      <li>Bundle ID: <a href="https://developer.apple.com/documentation/bundleresources/information-property-list/cfbundleidentifier">CFBundleIdentifier</a></li>
+      <li>Provisioning profiles: <a href="https://developer.apple.com/documentation/technotes/tn3125-inside-code-signing-provisioning-profiles">TN3125</a></li>
+      <li>Age rating questionnaire: <a href="https://developer.apple.com/help/app-store-connect/manage-app-information/set-an-app-age-rating/">Set an app age rating</a> and <a href="https://developer.apple.com/help/app-store-connect/reference/app-information/age-ratings-values-and-definitions/">Age rating values</a></li>
+      <li>What a submission includes: <a href="https://developer.apple.com/app-store/submitting/">Submitting</a></li>
+      <li>Privacy manifests: <a href="https://developer.apple.com/documentation/bundleresources/privacy-manifest-files">Privacy manifest files</a></li>
+      <li>Required-reason APIs: <a href="https://developer.apple.com/documentation/technotes/tn3183-adding-required-reason-api-entries-to-your-privacy-manifest">TN3183</a></li>
+      <li>Tracking overview: <a href="https://developer.apple.com/app-store/user-privacy-and-data-use/">User privacy and data use</a> and <a href="https://developer.apple.com/documentation/apptrackingtransparency">App Tracking Transparency</a></li>
+      <li>Export questions: <a href="https://developer.apple.com/help/app-store-connect/manage-app-information/determine-and-upload-app-encryption-documentation/">Determine and upload encryption documentation</a> and <a href="https://developer.apple.com/help/app-store-connect/reference/app-information/export-compliance-documentation-for-encryption/">Export compliance documentation</a></li>
+      <li>TestFlight limits: <a href="https://developer.apple.com/help/app-store-connect/test-a-beta-version/testflight-overview/">TestFlight overview</a> and <a href="https://developer.apple.com/help/app-store-connect/test-a-beta-version/add-internal-testers/">Add internal testers</a></li>
+      <li>Tester crash feedback, 120 days: <a href="https://developer.apple.com/help/app-store-connect/test-a-beta-version/view-tester-feedback/">View tester feedback</a></li>
+      <li>Release options and the 24-hour note: <a href="https://developer.apple.com/help/app-store-connect/manage-your-apps-availability/select-an-app-store-version-release-option/">Select a version release option</a></li>
+      <li>Small Business Program, 15%: <a href="https://developer.apple.com/app-store/small-business-program/">Small Business Program</a></li>
+      <li>Subscription split: <a href="https://developer.apple.com/app-store/subscriptions/">Auto-renewable subscriptions</a></li>
+      <li>EU terms announced for 1 October 2026: <a href="https://www.apple.com/newsroom/2026/08/apple-announces-changes-for-apps-in-the-european-union/">Apple newsroom, August 2026</a></li>
+      <li>Accessibility reference: <a href="https://developer.apple.com/design/human-interface-guidelines/accessibility">Human Interface Guidelines, Accessibility</a></li>
+      <li>Categories: <a href="https://developer.apple.com/app-store/categories/">App Store categories</a></li>
+      <li>Expo project creation and the SDK 57 / 58 note: <a href="https://docs.expo.dev/get-started/create-a-project/">Create a project</a></li>
+      <li>Expo Go versus development builds: <a href="https://docs.expo.dev/get-started/set-up-your-environment/">Set up your environment</a></li>
+      <li>First file edit and <code>src/app</code>: <a href="https://docs.expo.dev/get-started/start-developing/">Start developing</a></li>
+      <li>Expo Go SDK mismatch: <a href="https://docs.expo.dev/troubleshooting/expo-go-version-mismatch/">Expo Go version mismatch</a></li>
+      <li>Browser preview: <a href="https://docs.expo.dev/workflow/web/">Develop websites with Expo</a> and <a href="https://docs.expo.dev/more/expo-cli/">Expo CLI</a></li>
+      <li>iOS submit from Windows: <a href="https://docs.expo.dev/submit/ios/">Submit to the Apple App Store</a> and <a href="https://docs.expo.dev/deploy/submit-to-app-stores/">Submit to app stores</a></li>
+      <li>Production build and the encryption prompt: <a href="https://docs.expo.dev/tutorial/eas/ios-production-build/">Create a production build for iOS</a></li>
+      <li>Signing credentials: <a href="https://docs.expo.dev/app-signing/app-credentials/">App credentials</a>, <a href="https://docs.expo.dev/app-signing/managed-credentials/">Automatically managed credentials</a>, and <a href="https://docs.expo.dev/app-signing/apple-developer-program-roles-and-permissions/">Apple roles for Expo Build</a></li>
+      <li>Build setup, including the stated Apple and Google membership fees: <a href="https://docs.expo.dev/build/setup/">Create your first build</a></li>
+      <li>Expo plan prices: <a href="https://expo.dev/pricing">Expo pricing</a> and <a href="https://docs.expo.dev/billing/faq/">Billing FAQ</a></li>
+      <li>Node.js downloads: <a href="https://nodejs.org/">nodejs.org</a></li>
+      <li>Git downloads: <a href="https://git-scm.com/downloads">git-scm.com/downloads</a></li>
+      <li>AsyncStorage install path used by the starter: <a href="https://docs.expo.dev/versions/latest/sdk/async-storage/">Expo AsyncStorage</a></li>
+    </ul>
+  </section>
+
+  <section id="limits" aria-labelledby="limits-title">
+    <h2 id="limits-title"><span class="num">38</span>What this page did not do</h2>
+    <p>No Apple Developer account was created. No membership was purchased. No app was signed, uploaded, or reviewed. Xcode was not run. The Swift file and the Expo TypeScript files were not compiled here. The browser checklist and its storage rules were run locally and covered by a test script in the site repository.</p>
+    <p>Figures that can change, including commissions, Expo plan prices, screenshot sizes, and which Expo SDK the App Store copy of Expo Go contains, are dated 8 November 2026 and linked to the page they came from. Where two official pages disagreed, both are described. This text is not legal, tax, or export advice.</p>
+    <div class="actions noprint">
+      <button type="button" id="wipe-notes">Erase notes on this browser</button>
+      <button type="button" id="confirm-wipe" hidden>Confirm erase</button>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p><a href="/">Dukktape Studios</a></p>
+    <p>© 2026 Dukktape Studios</p>
+  </div>
+</footer>
+<script src="wins.js"></script>
+<script src="course.js"></script>
+</body>
+</html>
