@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Veterans Day Freebie Route | Dukktape Studios</title>
-<meta name="description" content="Plan a Veterans Day route for Wednesday, November 11, 2026. Check free meals and deals near your ZIP. The route follows each offer's hours.">
+<meta name="description" content="Plan a Veterans Day route for Wednesday, November 11, 2026. Set a start with your location, a street address, or a ZIP, then check free meals and deals.">
 <style>
 :root {
   --paper: #f6efe3;
@@ -44,36 +44,70 @@ h1 { color: var(--green-deep); margin: 0 0 8px; font-size: 1.6rem; }
   border-radius: 12px;
   margin-bottom: 16px;
 }
-input, select, button {
+.controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.grow { flex: 1 1 220px; }
+input, select {
   font: inherit;
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
+  min-height: 48px;
+  background: white;
 }
-button {
+#start { width: 100%; }
+.controls button, .route-link {
+  font: inherit;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 0;
   background: var(--orange);
   color: white;
-  border: 0;
   font-weight: 700;
   cursor: pointer;
-  min-height: 44px;
+  min-height: 48px;
 }
-button:hover { background: var(--orange-deep); }
-#st { flex: 1; min-width: 180px; font-weight: 600; color: var(--green-deep); }
+.controls button:hover, .route-link:hover { background: var(--orange-deep); }
+#locate { background: var(--green); }
+#locate:hover { background: var(--green-deep); }
+.pair { display: flex; gap: 8px; flex: 1 1 100%; }
+.pair button { flex: 1; }
+#st { flex: 1 1 100%; font-weight: 600; color: var(--green-deep); margin: 0; }
 .deal {
   background: var(--card);
   border: 2px solid var(--line);
   border-radius: 12px;
   padding: 14px 16px;
   margin: 0 0 10px;
-  cursor: pointer;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
 }
 .deal.selected {
   background: #e8f5e9;
   border-color: var(--green);
   box-shadow: 0 0 0 2px var(--green);
+}
+.deal-hit {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-weight: 400;
+  cursor: pointer;
+  min-height: 48px;
+  border-radius: 8px;
+}
+.deal-hit:hover { background: transparent; color: inherit; }
+.deal-hit:focus-visible, .controls button:focus-visible, .route-link:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
 }
 .deal b { font-size: 1.05rem; }
 .tag {
@@ -92,19 +126,30 @@ button:hover { background: var(--orange-deep); }
   color: var(--green);
   margin: 8px 0;
 }
+.route-link {
+  display: inline-block;
+  border-radius: 999px;
+  text-decoration: none;
+  margin: 8px 0;
+}
+.route-list { margin: 8px 0; padding-left: 1.2rem; }
 footer { text-align: center; padding: 20px; font-size: 0.9rem; color: #666; }
 a { color: var(--green-deep); }
+.route-link { color: white; }
+@media (max-width: 640px) {
+  .controls > button, .controls > label, .pair { flex: 1 1 100%; }
+}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Veterans Day freebie route</h1>
-  <p>Wednesday, November 11, 2026. Tap the deals you want. Build a route from the ones that have a location.</p>
+  <p>Wednesday, November 11, 2026. Tap the deals you want. Set a start, then build a route from there.</p>
   <div class="notice">Deals change. Call ahead and bring proof of service. This is a planner, not the restaurant.</div>
 
   <div class="controls">
-    <label>ZIP (optional)
-      <input id="zip" placeholder="Your ZIP" inputmode="numeric" maxlength="10" size="8">
+    <label class="grow">Start
+      <input id="start" placeholder="Street address or ZIP" autocomplete="off" enterkeyhint="search" spellcheck="false">
     </label>
     <label>Radius
       <select id="rad">
@@ -113,12 +158,15 @@ a { color: var(--green-deep); }
         <option value="30">30 mi</option>
       </select>
     </label>
-    <button type="button" id="find">Find near me</button>
-    <button type="button" id="build">Build route</button>
-    <div id="st">Tap deals to select them.</div>
+    <button type="button" id="locate">Use my location</button>
+    <div class="pair">
+      <button type="button" id="find">Find near me</button>
+      <button type="button" id="build">Build route</button>
+    </div>
+    <p id="st" role="status" aria-live="polite">Tap a deal to select it. Add a start for distances and a route.</p>
   </div>
 
-  <div class="selected-count" id="count">0 selected</div>
+  <div class="selected-count" id="count" aria-live="polite">0 selected</div>
   <div id="list"></div>
   <div id="route"></div>
 </div>
@@ -129,8 +177,16 @@ a { color: var(--green-deep); }
 
 <script>
 const $ = id => document.getElementById(id);
+const MAX_MI = 30;
+const START_MS = 2500;
+const STORE_MS = 2500;
+
 let deals = [];
 let selected = new Set();
+let origin = null;
+let lookupGen = 0;
+const geoCache = new Map();
+const storeCache = new Map();
 
 const CHAINS = [
   { brand: "Applebee's", deal: "Free entree from Veterans Day menu, dine-in", proof: "Proof of service", source: "https://www.applebees.com/en/veterans-day-free-meals", year: "2026", win: [11, 20] },
@@ -151,115 +207,606 @@ const CHAINS = [
   { brand: "Walgreens", deal: "20% off eligible items in-store", proof: "ID", source: "https://news.va.gov/150505/2026-veterans-day-discounts-free-meals-offers/", year: "2026", win: [11, 20] }
 ];
 
+const OVERPASS = [
+  "https://overpass-api.de/api/interpreter",
+  "https://overpass.kumi.systems/api/interpreter"
+];
+
 function hm(mins) {
   const h = Math.floor(mins / 60) % 24;
   const m = mins % 60;
   return (h % 12 || 12) + ":" + String(m).padStart(2, "0") + (h < 12 ? " am" : " pm");
 }
 
+function miles(a, b) {
+  const R = 3958.8;
+  const p1 = a.lat * Math.PI / 180;
+  const p2 = b.lat * Math.PI / 180;
+  const dLat = (b.lat - a.lat) * Math.PI / 180;
+  const dLon = (b.lon - a.lon) * Math.PI / 180;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(p1) * Math.cos(p2) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
+}
+
+function normName(s) {
+  return String(s || "").toLowerCase().replace(/['’.]/g, "").replace(/\s+/g, " ").trim();
+}
+
+function nameOk(brand, name) {
+  const n = normName(name);
+  const b = normName(brand);
+  return n === b || n.startsWith(b + " ");
+}
+
+function radiusMi() {
+  return +$("rad").value || 20;
+}
+
+function searchUrl(brand, from) {
+  const q = from
+    ? brand + " near " + from.lat.toFixed(5) + "," + from.lon.toFixed(5)
+    : brand;
+  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+}
+
+function pinUrl(point) {
+  return "https://www.google.com/maps/search/?api=1&query=" + point.lat + "," + point.lon;
+}
+
+function setStatus(text) {
+  $("st").textContent = text;
+}
+
+function startSentence(from) {
+  if (!from) return "";
+  if (from.kind === "gps") return "Start is your location.";
+  return "Start is " + from.label + ".";
+}
+
+function extLink(label, href) {
+  const a = document.createElement("a");
+  a.href = href;
+  a.target = "_blank";
+  a.rel = "noopener";
+  a.textContent = label;
+  return a;
+}
+
+function applyVisible(d) {
+  const show = origin && d.near && d.near.dist <= radiusMi();
+  if (show) {
+    d.lat = d.near.lat;
+    d.lon = d.near.lon;
+    d.dist = d.near.dist;
+    d.maps = pinUrl(d.near);
+  } else {
+    delete d.lat;
+    delete d.lon;
+    delete d.dist;
+    d.maps = searchUrl(d.brand, origin);
+  }
+}
+
 function render() {
   const list = $("list");
-  list.innerHTML = "";
+  const focusI = document.activeElement && document.activeElement.dataset
+    ? document.activeElement.dataset.i
+    : null;
+  const y = window.scrollY;
+  list.replaceChildren();
   deals.forEach((d, i) => {
-    const card = document.createElement("div");
+    const card = document.createElement("article");
     card.className = "deal" + (selected.has(i) ? " selected" : "");
-    card.innerHTML = `
-      <b>${d.brand}</b> <span class="tag">${d.year}</span>
-      <div class="meta">${d.deal}</div>
-      <div class="meta">⏰ ${hm(d.win[0]*60)}–${hm(d.win[1]*60)} · 🪪 ${d.proof}
-        ${d.dist ? " · " + d.dist.toFixed(1) + " mi" : ""}
-        · <a href="${d.source}" target="_blank" rel="noopener">source</a>
-        ${d.maps ? ` · <a href="${d.maps}" target="_blank" rel="noopener">maps</a>` : ""}
-      </div>`;
-    card.addEventListener("click", (e) => {
-      if (e.target.tagName === "A") return;
-      if (selected.has(i)) selected.delete(i);
-      else selected.add(i);
-      updateCount();
-      render();
-    });
-    list.appendChild(card);
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "deal-hit";
+    btn.dataset.i = String(i);
+    btn.setAttribute("aria-pressed", selected.has(i) ? "true" : "false");
+
+    const title = document.createElement("div");
+    const name = document.createElement("b");
+    name.textContent = d.brand;
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = d.year;
+    title.append(name, tag);
+
+    const offer = document.createElement("div");
+    offer.className = "meta";
+    offer.textContent = d.deal;
+
+    const hours = document.createElement("div");
+    hours.className = "meta";
+    let when = "⏰ " + hm(d.win[0] * 60) + "–" + hm(d.win[1] * 60) + " · 🪪 " + d.proof;
+    if (typeof d.dist === "number") when += " · " + d.dist.toFixed(1) + " mi";
+    hours.textContent = when;
+    btn.append(title, offer, hours);
+    btn.addEventListener("click", () => toggle(i));
+
+    const links = document.createElement("div");
+    links.className = "meta";
+    links.append(extLink("source", d.source), document.createTextNode(" · "), extLink("maps", d.maps));
+    card.append(btn, links);
+    list.append(card);
   });
+  if (focusI != null) {
+    const next = list.querySelector('[data-i="' + focusI + '"]');
+    if (next) next.focus();
+  }
+  window.scrollTo(0, y);
+}
+
+function toggle(i) {
+  if (selected.has(i)) selected.delete(i);
+  else selected.add(i);
+  updateCount();
+  render();
 }
 
 function updateCount() {
   $("count").textContent = selected.size + " selected";
 }
 
-async function findNear() {
-  const z = $("zip").value.trim();
-  if (!z) {
-    $("st").textContent = "Enter a ZIP to find nearby locations.";
-    return;
-  }
-  $("st").textContent = "Looking up…";
-  try {
-    const gRes = await fetch("https://api.zippopotam.us/us/" + encodeURIComponent(z));
-    if (!gRes.ok) throw new Error("bad zip");
-    const g = await gRes.json();
-    const place = g.places?.[0];
-    if (!place) throw new Error("bad zip");
-    const lat = +place.latitude;
-    const lon = +place.longitude;
-    const R = +$("rad").value;
-
-    let elements = [];
-    try {
-      const names = CHAINS.map(c => c.brand.replace(/'/g, ".?")).join("|");
-      const q = `[out:json][timeout:25];(nwr(around:${R*1609},${lat},${lon})["brand"~"^(${names})$",i];);out center;`;
-      const r = await fetch("https://overpass-api.de/api/interpreter", {
-        method: "POST",
-        body: "data=" + encodeURIComponent(q),
-        signal: AbortSignal.timeout(20000)
-      });
-      if (r.ok) {
-        const j = await r.json();
-        elements = j.elements || [];
-      }
-    } catch (e) {}
-
-    deals = CHAINS.map(c => {
-      const match = elements.find(e => {
-        const t = e.tags || {};
-        return (t.brand || t.name || "").toLowerCase().includes(c.brand.toLowerCase().split(" ")[0]);
-      });
-      const d = { ...c };
-      if (match) {
-        d.lat = match.lat || match.center?.lat;
-        d.lon = match.lon || match.center?.lon;
-        d.dist = Math.hypot((d.lat - lat) * 69, (d.lon - lon) * 69 * Math.cos(lat * Math.PI / 180));
-        d.maps = `https://www.google.com/maps/search/?api=1&query=${d.lat},${d.lon}`;
-      } else {
-        d.maps = `https://www.google.com/maps/search/${encodeURIComponent(c.brand + " near " + z)}`;
-      }
-      return d;
-    });
-    $("st").textContent = "Showing deals near " + place["place name"] + ". Tap to select.";
-  } catch (err) {
-    $("st").textContent = "Could not look up that ZIP. Deals still shown — tap to select.";
-    deals = CHAINS.map(c => ({ ...c, maps: `https://www.google.com/maps/search/${encodeURIComponent(c.brand)}` }));
-  }
-  selected.clear();
-  updateCount();
+function rememberOrigin(next) {
+  origin = next;
+  deals.forEach((d) => {
+    d.near = null;
+    applyVisible(d);
+  });
+  $("route").replaceChildren();
   render();
 }
 
-function buildRoute() {
-  const chosen = [...selected].map(i => deals[i]).filter(d => d.lat);
-  if (!chosen.length) {
-    $("st").textContent = "Select at least one deal that has a nearby location (use Find near me first).";
+function withTimeout(fn, ms) {
+  return new Promise((resolve) => {
+    let done = false;
+    const ctrl = new AbortController();
+    const finish = (val) => {
+      if (done) return;
+      done = true;
+      clearTimeout(timer);
+      ctrl.abort();
+      resolve(val);
+    };
+    const timer = setTimeout(() => finish(null), ms);
+    Promise.resolve()
+      .then(() => fn(ctrl.signal))
+      .then((val) => finish(val))
+      .catch(() => finish(null));
+  });
+}
+
+async function geocodeZip(zip, signal) {
+  const res = await fetch("https://api.zippopotam.us/us/" + encodeURIComponent(zip.slice(0, 5)), { signal });
+  if (!res.ok) return null;
+  const data = await res.json();
+  const place = data.places && data.places[0];
+  if (!place) return null;
+  return {
+    lat: +place.latitude,
+    lon: +place.longitude,
+    kind: "zip",
+    label: place["place name"] + ", " + place["state abbreviation"] + " (center of ZIP " + data["post code"] + ")"
+  };
+}
+
+async function geocodeZipBackup(zip, signal) {
+  const url = "https://nominatim.openstreetmap.org/search?" + new URLSearchParams({
+    postalcode: zip.slice(0, 5),
+    country: "us",
+    format: "json",
+    limit: "1"
+  });
+  const res = await fetch(url, { signal, headers: { Accept: "application/json" } });
+  if (!res.ok) return null;
+  const hits = await res.json();
+  if (!hits[0]) return null;
+  return {
+    lat: +hits[0].lat,
+    lon: +hits[0].lon,
+    kind: "zip",
+    label: "center of ZIP " + zip.slice(0, 5)
+  };
+}
+
+async function geocodeAddress(query, signal) {
+  const url = "https://nominatim.openstreetmap.org/search?" + new URLSearchParams({
+    q: query,
+    format: "json",
+    limit: "1",
+    countrycodes: "us",
+    addressdetails: "1"
+  });
+  const res = await fetch(url, { signal, headers: { Accept: "application/json" } });
+  if (!res.ok) return null;
+  const hits = await res.json();
+  const hit = hits[0];
+  if (!hit) return null;
+  const a = hit.address || {};
+  const street = [a.house_number, a.road].filter(Boolean).join(" ");
+  const city = a.city || a.town || a.village || a.hamlet || "";
+  const label = [street, city, a.state].filter(Boolean).join(", ") || query;
+  return { lat: +hit.lat, lon: +hit.lon, kind: "address", label: label };
+}
+
+async function geocodeAddressBackup(query, signal) {
+  const url = "https://photon.komoot.io/api/?" + new URLSearchParams({ q: query, limit: "1", lang: "en" });
+  const res = await fetch(url, { signal });
+  if (!res.ok) return null;
+  const data = await res.json();
+  const feat = (data.features || [])[0];
+  if (!feat) return null;
+  const p = feat.properties || {};
+  const lon = feat.geometry.coordinates[0];
+  const lat = feat.geometry.coordinates[1];
+  const street = [p.housenumber, p.street].filter(Boolean).join(" ");
+  const label = [street, p.city, p.state].filter(Boolean).join(", ") || query;
+  return { lat: lat, lon: lon, kind: "address", label: label };
+}
+
+async function geocode(query) {
+  const key = query.trim().toLowerCase();
+  if (geoCache.has(key)) return geoCache.get(key);
+  const zip = /^\d{5}(?:-\d{4})?$/.test(query.trim());
+  const primary = zip ? (signal) => geocodeZip(query.trim(), signal) : (signal) => geocodeAddress(query.trim(), signal);
+  const backup = zip ? (signal) => geocodeZipBackup(query.trim(), signal) : (signal) => geocodeAddressBackup(query.trim(), signal);
+  const started = performance.now();
+  let found = await withTimeout(primary, 1800);
+  if (!found) {
+    const left = Math.max(400, START_MS - (performance.now() - started));
+    found = await withTimeout(backup, left);
+  }
+  if (found) geoCache.set(key, found);
+  return found;
+}
+
+function cacheKey(from, brand) {
+  return from.lat.toFixed(3) + "," + from.lon.toFixed(3) + "|" + brand;
+}
+
+function closestPoi(brand, features, from) {
+  let best = null;
+  (features || []).forEach((feat) => {
+    const p = feat.properties || {};
+    const key = p.osm_key;
+    if (key && key !== "amenity" && key !== "shop") return;
+    if (!nameOk(brand, p.name)) return;
+    const coords = feat.geometry && feat.geometry.coordinates;
+    if (!coords) return;
+    const point = { lat: coords[1], lon: coords[0] };
+    const dist = miles(from, point);
+    if (dist > MAX_MI) return;
+    if (!best || dist < best.dist) best = { lat: point.lat, lon: point.lon, dist: dist };
+  });
+  return best;
+}
+
+async function photonBrand(chain, from, signal) {
+  const url = "https://photon.komoot.io/api/?" + new URLSearchParams({
+    q: chain.brand,
+    lat: String(from.lat),
+    lon: String(from.lon),
+    limit: "8",
+    lang: "en"
+  });
+  const res = await fetch(url, { signal });
+  if (!res.ok) return { ok: false };
+  const data = await res.json();
+  return { ok: true, match: closestPoi(chain.brand, data.features, from) };
+}
+
+function overpassQuery(from) {
+  const names = "Applebee|Chili|Denny|Golden Corral|Bob Evans|Red Robin|Red Lobster|Starbucks|Chipotle|Freddy|Buffalo Wild|IHOP|Cracker Barrel|Dunkin|Great Clips|Walgreens";
+  const meters = Math.round(MAX_MI * 1609);
+  return "[out:json][timeout:3];(nwr(around:" + meters + "," + from.lat + "," + from.lon + ')["name"~"' + names + '",i];);out center 40;';
+}
+
+async function overpassMirror(url, query, signal) {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: "data=" + encodeURIComponent(query),
+    signal
+  });
+  if (!res.ok) return null;
+  const data = await res.json();
+  return data.elements || [];
+}
+
+function firstOk(starters, ms) {
+  return new Promise((resolve) => {
+    const ctrl = new AbortController();
+    let pending = starters.length;
+    let settled = false;
+    const finish = (val) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      ctrl.abort();
+      resolve(val);
+    };
+    const timer = setTimeout(() => finish(null), ms);
+    if (!pending) finish(null);
+    starters.forEach((start) => {
+      Promise.resolve()
+        .then(() => start(ctrl.signal))
+        .then((val) => {
+          if (settled) return;
+          if (val) finish(val);
+          else if (--pending === 0) finish(null);
+        })
+        .catch(() => {
+          if (!settled && --pending === 0) finish(null);
+        });
+    });
+  });
+}
+
+function takeElements(elements, from) {
+  const found = new Map();
+  (elements || []).forEach((el) => {
+    const tags = el.tags || {};
+    const lat = el.lat != null ? el.lat : el.center && el.center.lat;
+    const lon = el.lon != null ? el.lon : el.center && el.center.lon;
+    if (lat == null || lon == null) return;
+    const key = tags.shop ? "shop" : tags.amenity ? "amenity" : "";
+    if (key && key !== "amenity" && key !== "shop") return;
+    if (!tags.amenity && !tags.shop) return;
+    const name = tags.name || tags.brand || "";
+    deals.forEach((d, i) => {
+      if (!nameOk(d.brand, name)) return;
+      const dist = miles(from, { lat: lat, lon: lon });
+      if (dist > MAX_MI) return;
+      const prev = found.get(i);
+      if (!prev || dist < prev.dist) found.set(i, { lat: lat, lon: lon, dist: dist });
+    });
+  });
+  return found;
+}
+
+function storeSentence(from) {
+  const n = deals.filter((d) => typeof d.dist === "number").length;
+  const radius = radiusMi();
+  if (n) return startSentence(from) + " " + n + " stores within " + radius + " mi. Tap deals, then build the route.";
+  return startSentence(from) + " No exact stores within " + radius + " mi. Map links still search near your start.";
+}
+
+function paintedCount() {
+  return deals.filter((d) => d.near && d.near.dist <= radiusMi()).length;
+}
+
+async function fillStores(from, gen) {
+  try {
+    const missing = [];
+    deals.forEach((d, i) => {
+      const key = cacheKey(from, d.brand);
+      if (storeCache.has(key)) d.near = storeCache.get(key);
+      else missing.push(i);
+      applyVisible(d);
+    });
+    render();
+    if (!missing.length) {
+      if (gen === lookupGen) setStatus(storeSentence(from));
+      return;
+    }
+    if (gen !== lookupGen) return;
+    setStatus(startSentence(from) + " Checking nearby stores…");
+    const results = await Promise.allSettled(missing.map((i) => withTimeout(
+      (signal) => photonBrand(deals[i], from, signal),
+      STORE_MS
+    )));
+    if (gen !== lookupGen) return;
+    let anyOk = false;
+    results.forEach((result, n) => {
+      const i = missing[n];
+      const value = result.status === "fulfilled" ? result.value : null;
+      if (!value || !value.ok) return;
+      anyOk = true;
+      storeCache.set(cacheKey(from, deals[i].brand), value.match || null);
+      deals[i].near = value.match || null;
+      applyVisible(deals[i]);
+    });
+    render();
+    if (anyOk || paintedCount()) {
+      setStatus(storeSentence(from));
+      return;
+    }
+    // Overpass used to block the page for up to 20s. It only runs as a backup, and the start is already on screen.
+    setStatus(startSentence(from) + " Map links search near your start. Still checking a backup map…");
+    const elements = await firstOk(
+      OVERPASS.map((url) => (signal) => overpassMirror(url, overpassQuery(from), signal)),
+      STORE_MS
+    );
+    if (gen !== lookupGen) return;
+    if (elements) {
+      const found = takeElements(elements, from);
+      deals.forEach((d, i) => {
+        const match = found.get(i) || null;
+        storeCache.set(cacheKey(from, d.brand), match);
+        d.near = match;
+        applyVisible(d);
+      });
+      render();
+    }
+    setStatus(storeSentence(from));
+  } catch (e) {
+    if (gen === lookupGen) setStatus(storeSentence(from));
+  }
+}
+
+async function findNear() {
+  const gen = ++lookupGen;
+  const query = $("start").value.trim();
+  let next = origin;
+  if (query) {
+    setStatus("Finding that start…");
+    const found = await geocode(query);
+    if (gen !== lookupGen) return;
+    if (!found) {
+      setStatus("Couldn't find that place. Deals are still listed. Try a street address, a 5-digit ZIP, or your location.");
+      return;
+    }
+    next = found;
+  } else if (!next) {
+    setStatus("Enter a street address or ZIP, or use your location.");
     return;
   }
-  const pts = chosen.slice(0, 9).map(d => d.lat + "," + d.lon);
-  const url = "https://www.google.com/maps/dir/" + pts.join("/");
-  $("route").innerHTML = `<p><a href="${url}" target="_blank" rel="noopener" style="display:inline-block;background:var(--orange);color:white;padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:700;">Open route in Google Maps</a></p>`;
-  $("st").textContent = "Route ready for " + chosen.length + " stops.";
+  if (gen !== lookupGen) return;
+  rememberOrigin(next);
+  setStatus(startSentence(next) + " Checking nearby stores…");
+  fillStores(next, gen);
+}
+
+function useLocation() {
+  if (!navigator.geolocation) {
+    setStatus("This browser can't share location. Enter a street address or ZIP.");
+    return;
+  }
+  const gen = ++lookupGen;
+  setStatus("Getting your location…");
+  navigator.geolocation.getCurrentPosition((pos) => {
+    if (gen !== lookupGen) return;
+    const next = {
+      lat: pos.coords.latitude,
+      lon: pos.coords.longitude,
+      kind: "gps",
+      label: "your location"
+    };
+    rememberOrigin(next);
+    setStatus("Start is your location. Checking nearby stores…");
+    fillStores(next, gen);
+  }, (err) => {
+    if (gen !== lookupGen) return;
+    setStatus(err && err.code === 1
+      ? "Location is blocked. Enter a street address or ZIP instead."
+      : "Couldn't read your location in time. Enter a street address or ZIP instead.");
+  }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 30000 });
+}
+
+function orderStops(from, stops) {
+  const bands = [[], [], []];
+  stops.forEach((stop) => {
+    const band = stop.win[0] < 11 ? 0 : stop.win[0] < 16 ? 1 : 2;
+    bands[band].push(stop);
+  });
+  let cursor = from;
+  const ordered = [];
+  bands.forEach((pool) => {
+    const left = pool.slice();
+    while (left.length) {
+      left.sort((a, b) => miles(cursor, a) - miles(cursor, b));
+      const next = left.shift();
+      ordered.push(next);
+      cursor = next;
+    }
+  });
+  return ordered;
+}
+
+function buildRoute() {
+  const box = $("route");
+  box.replaceChildren();
+  if (!origin) {
+    setStatus("Set a start first. Use your location, or enter a street address or ZIP.");
+    return;
+  }
+  const chosen = [...selected].map((i) => deals[i]).filter(Boolean);
+  if (!chosen.length) {
+    setStatus("Tap at least one deal, then build the route.");
+    return;
+  }
+  const pinned = orderStops(origin, chosen.filter((d) => typeof d.lat === "number"));
+  const loose = chosen.filter((d) => typeof d.lat !== "number");
+  const capped = pinned.slice(0, 10);
+  const overflow = pinned.slice(10);
+
+  if (capped.length) {
+    const last = capped[capped.length - 1];
+    const params = new URLSearchParams({
+      api: "1",
+      origin: origin.lat + "," + origin.lon,
+      destination: last.lat + "," + last.lon,
+      travelmode: "driving"
+    });
+    const via = capped.slice(0, -1);
+    if (via.length) params.set("waypoints", via.map((d) => d.lat + "," + d.lon).join("|"));
+    const open = extLink("Open route in Google Maps", "https://www.google.com/maps/dir/?" + params.toString());
+    open.className = "route-link";
+    box.append(open);
+    const list = document.createElement("ol");
+    list.className = "route-list";
+    capped.forEach((d) => {
+      const item = document.createElement("li");
+      const dist = typeof d.dist === "number" ? ", " + d.dist.toFixed(1) + " mi" : "";
+      item.textContent = d.brand + " (" + hm(d.win[0] * 60) + dist + ")";
+      list.append(item);
+    });
+    box.append(list);
+  }
+
+  const note = document.createElement("p");
+  note.className = "meta";
+  if (origin.kind === "zip") {
+    note.textContent = "The route starts at the center of the ZIP. Use your location or a street address for a more exact start.";
+  } else if (origin.kind === "gps") {
+    note.textContent = "The route starts at your location.";
+  } else {
+    note.textContent = "The route starts at " + origin.label + ".";
+  }
+  box.append(note);
+
+  if (overflow.length) {
+    const more = document.createElement("p");
+    more.className = "meta";
+    more.textContent = "Google Maps opens the first 10 stops. The rest are linked here:";
+    box.append(more);
+    overflow.forEach((d) => {
+      const line = document.createElement("div");
+      line.className = "meta";
+      line.append(extLink(d.brand, d.maps));
+      box.append(line);
+    });
+  }
+
+  if (loose.length) {
+    const why = document.createElement("p");
+    why.className = "meta miss";
+    why.textContent = capped.length
+      ? "These selected deals have no exact store within " + radiusMi() + " mi, so they are map searches near your start instead of stops on the route:"
+      : "No selected deal has an exact store within " + radiusMi() + " mi, so these open as map searches near your start:";
+    box.append(why);
+    loose.forEach((d) => {
+      const line = document.createElement("div");
+      line.className = "meta miss";
+      line.append(extLink(d.brand + " near your start", d.maps));
+      box.append(line);
+    });
+  }
+
+  const bits = [];
+  if (capped.length) bits.push(capped.length + (capped.length === 1 ? " stop" : " stops") + " in driving order");
+  if (loose.length) bits.push(loose.length + " map search" + (loose.length === 1 ? "" : "es"));
+  setStatus("Route ready: " + bits.join(", ") + ".");
 }
 
 $("find").onclick = findNear;
+$("locate").onclick = useLocation;
 $("build").onclick = buildRoute;
+$("start").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    findNear();
+  }
+});
+$("rad").addEventListener("change", () => {
+  if (!origin) return;
+  deals.forEach(applyVisible);
+  render();
+  setStatus(storeSentence(origin));
+});
 
-deals = CHAINS.map(c => ({ ...c }));
+deals = CHAINS.map((c) => ({ ...c, maps: searchUrl(c.brand, null) }));
 render();
 updateCount();
 </script>
