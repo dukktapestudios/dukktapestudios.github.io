@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moldy Fruit — an opinion scale of public records</title>
+<meta name="description" content="A satire and opinion visualization that compares Illinois members of Congress using a published score of FEC receipts, official missed votes, and public ethics records.">
+<meta name="theme-color" content="#171b1e">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#compare-form">Skip to the comparison</a>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="../">Home</a>
+    <nav class="nav" aria-label="Moldy Fruit">
+      <a href="methodology.html" aria-current="false">Methodology</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap page" id="main">
+  <h1>Moldy Fruit</h1>
+  <p class="lede">Pick two Illinois members of Congress. Each one is drawn as a fruit. The spots follow a mold level from 0 to 100.</p>
+  <p class="banner" role="note">Satire and opinion visualization. The mold level is an editorial score of public records. It is not a government rating, not a legal finding, and not an accusation of a crime. Party is shown so you can see who is who. Party is not an input to the score.</p>
+  <p class="rule-line">Mold level = other-committee share of receipts (up to 50) + 3.5 times the missed-vote percentage (up to 35) + public ethics points (0, 8, or 15). Halves round up. The <a href="methodology.html">methodology</a> has the full rule, the retrieval date, and the limits. If a component has no source, the page says <strong>no data</strong> and does not guess.</p>
+  <form id="compare-form">
+    <fieldset>
+      <legend>Choose two people</legend>
+      <div class="controls">
+        <div>
+          <label for="person-a">First person</label>
+          <select id="person-a" name="a" disabled>
+            <option>Loading records</option>
+          </select>
+        </div>
+        <div>
+          <label for="person-b">Second person</label>
+          <select id="person-b" name="b" disabled>
+            <option>Loading records</option>
+          </select>
+        </div>
+        <button type="submit" disabled>Compare</button>
+      </div>
+    </fieldset>
+  </form>
+  <p id="comparison-summary" class="summary" aria-live="polite">Loading public records.</p>
+  <div id="cards" class="cards"></div>
+  <noscript><p>This page needs JavaScript to load the records and draw the comparison. The records are in <a href="data.json">data.json</a>, and the rule is on the <a href="methodology.html">methodology page</a>.</p></noscript>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Records retrieved November 11, 2026. This page states only what the linked records say. <a href="methodology.html">Read the methodology</a>. <a href="../">Back to the home page</a>.</p>
+  </div>
+</footer>
+<script src="score.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

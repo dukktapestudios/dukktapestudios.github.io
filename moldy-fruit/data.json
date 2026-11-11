@@ -1,0 +1,1446 @@
+{
+  "title": "Moldy Fruit",
+  "retrieved": "2026-11-11",
+  "scoring": {
+    "pac_max": 50,
+    "missed_max": 35,
+    "ethics_max": 15,
+    "missed_multiplier": 3.5,
+    "ethics_points": {
+      "none": 0,
+      "finding": 8,
+      "sanction": 15
+    }
+  },
+  "selection": {
+    "retrieved": "2026-11-11",
+    "fact": "The starter set is both sitting U.S. senators from Illinois plus the first two House Democrats and the first two House Republicans by surname.",
+    "sources": [
+      {
+        "label": "U.S. Senate Illinois page",
+        "url": "https://www.senate.gov/states/IL/intro.htm",
+        "retrieved": "2026-11-11",
+        "fact": "The page lists Richard J. Durbin (D) and Tammy Duckworth (D) as the United States senators from Illinois."
+      },
+      {
+        "label": "House Clerk member data",
+        "url": "https://clerk.house.gov/xml/lists/MemberData.xml",
+        "retrieved": "2026-11-11",
+        "fact": "MemberData.xml, publish-date November 3, 2026, lists Illinois House Democrats in surname order starting Budzinski, Casten, and Illinois House Republicans in surname order Bost, LaHood, Miller."
+      }
+    ]
+  },
+  "politicians": [
+    {
+      "id": "bost",
+      "name": "Mike Bost",
+      "sort": "Bost",
+      "office": "U.S. Representative",
+      "district": "Illinois 12th District",
+      "party": "Republican",
+      "fruit": "lemon",
+      "identity": {
+        "label": "House Clerk member profile",
+        "url": "https://clerk.house.gov/Members/B001295",
+        "retrieved": "2026-11-11",
+        "fact": "The Clerk of the House member profile for Mike Bost lists Illinois (IL) \u2013 12th, Republican, with an oath of office of January 3, 2025. Retrieved November 11, 2026."
+      },
+      "pac": {
+        "other_committee": "1581352.62",
+        "total_receipts": "3157655.80",
+        "individual": "1438593.17",
+        "unitemized_individual": "128100.44",
+        "party_committee": "250.00",
+        "transfers": "91921.38",
+        "candidate_id": "H4IL12060",
+        "committee": "Mike Bost for Congress committee (C00546499)",
+        "url": "https://www.fec.gov/data/candidate/H4IL12060/?cycle=2024&election_full=false",
+        "label": "FEC candidate overview, 2023\u20132024",
+        "retrieved": "2026-11-11",
+        "coverage": "January 1, 2023 through December 31, 2024",
+        "fact": "On the FEC candidate overview for H4IL12060, the 2023\u20132024 time period (coverage January 1, 2023 through December 31, 2024) shows Mike Bost's Mike Bost for Congress committee (C00546499) with $1,581,352.62 in other committee contributions and $3,157,655.80 in total receipts. The scored share is other committee contributions divided by total receipts. Shown for context and not scored: individual contributions $1,438,593.17, of which unitemized individual contributions were $128,100.44; party committee contributions $250.00; transfers from other authorized committees $91,921.38. Retrieved November 11, 2026."
+      },
+      "votes": {
+        "missed": 11,
+        "eligible": 683,
+        "chamber": "house",
+        "retrieved": "2026-11-11",
+        "fact": "House Clerk roll-call files for the 119th Congress record Mike Bost as Not Voting on 11 of 683 roll calls. The 683 are roll calls 1\u2013362 of 2025 and roll calls 1\u2013321 of 2026, matching the Clerk's result counts of 362 and 321. A recorded position other than Not Voting counts as participating. On roll call 2 of 2025, the election of the Speaker, Mike Bost is recorded as Johnson (LA), which counts as participating. Retrieved November 11, 2026.",
+        "denominator": [
+          {
+            "label": "House roll-call list, 119th Congress, 1st session",
+            "url": "https://clerk.house.gov/Votes/MemberVotes?CongressNum=119&Session=1st",
+            "retrieved": "2026-11-11",
+            "fact": "The House Clerk roll-call list for the 119th Congress, 1st session, shows 362 results. The latest listed roll call on that page is roll call 362 on December 18, 2025. Retrieved November 11, 2026."
+          },
+          {
+            "label": "House roll-call list, 119th Congress, 2nd session",
+            "url": "https://clerk.house.gov/Votes/MemberVotes?CongressNum=119&Session=2nd",
+            "retrieved": "2026-11-11",
+            "fact": "The House Clerk roll-call list for the 119th Congress, 2nd session, shows 321 results. The latest listed roll call on that page is roll call 321 on November 11, 2026, at 2:43 PM. Retrieved November 11, 2026."
+          }
+        ],
+        "speaker": {
+          "label": "House roll call 2 of 2025, election of the Speaker",
+          "url": "https://clerk.house.gov/Votes/20252",
+          "retrieved": "2026-11-11",
+          "fact": "On House roll call 2 of 2025 (January 3, 2025), election of the Speaker, Mike Bost is recorded as Johnson (LA)."
+        },
+        "missed_roll_calls": [
+          {
+            "label": "March 31, 2025, roll call 84, H R 517",
+            "question": "On Motion to Suspend the Rules and Pass, as Amended",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/202584",
+            "fact": "On House roll call 84 of 2025 (March 31, 2025) on H R 517, Mike Bost is recorded as Not Voting. Question: On Motion to Suspend the Rules and Pass, as Amended."
+          },
+          {
+            "label": "March 31, 2025, roll call 85, H R 997",
+            "question": "On Motion to Suspend the Rules and Pass, as Amended",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/202585",
+            "fact": "On House roll call 85 of 2025 (March 31, 2025) on H R 997, Mike Bost is recorded as Not Voting. Question: On Motion to Suspend the Rules and Pass, as Amended."
+          },
+          {
+            "label": "April 9, 2025, roll call 99, H R 1228",
+            "question": "On Motion to Suspend the Rules and Pass",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/202599",
+            "fact": "On House roll call 99 of 2025 (April 9, 2025) on H R 1228, Mike Bost is recorded as Not Voting. Question: On Motion to Suspend the Rules and Pass."
+          },
+          {
+            "label": "November 20, 2025, roll call 303, H R 3109",
+            "question": "On Passage",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025303",
+            "fact": "On House roll call 303 of 2025 (November 20, 2025) on H R 3109, Mike Bost is recorded as Not Voting. Question: On Passage."
+          },
+          {
+            "label": "November 20, 2025, roll call 304, H R 1949",
+            "question": "On Passage",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025304",
+            "fact": "On House roll call 304 of 2025 (November 20, 2025) on H R 1949, Mike Bost is recorded as Not Voting. Question: On Passage."
+          },
+          {
+            "label": "November 21, 2025, roll call 305, H CON RES 58",
+            "question": "On Agreeing to the Resolution",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025305",
+            "fact": "On House roll call 305 of 2025 (November 21, 2025) on H CON RES 58, Mike Bost is recorded as Not Voting. Question: On Agreeing to the Resolution."
+          },
+          {
+            "label": "April 20, 2026, roll call 126, H R 5200",
+            "question": "On Motion to Suspend the Rules and Pass",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2026126",
+            "fact": "On House roll call 126 of 2026 (April 20, 2026) on H R 5200, Mike Bost is recorded as Not Voting. Question: On Motion to Suspend the Rules and Pass."
+          },
+          {
+            "label": "April 27, 2026, roll call 138, H R 7959",
+            "question": "On Motion to Suspend the Rules and Pass, as Amended",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2026138",
+            "fact": "On House roll call 138 of 2026 (April 27, 2026) on H R 7959, Mike Bost is recorded as Not Voting. Question: On Motion to Suspend the Rules and Pass, as Amended."
+          },
+          {
+            "label": "April 27, 2026, roll call 139, H R 227",
+            "question": "On Motion to Suspend the Rules and Pass, as Amended",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2026139",
+            "fact": "On House roll call 139 of 2026 (April 27, 2026) on H R 227, Mike Bost is recorded as Not Voting. Question: On Motion to Suspend the Rules and Pass, as Amended."
+          },
+          {
+            "label": "June 4, 2026, roll call 201, H CON RES 84",
+            "question": "On Agreeing to the Resolution",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2026201",
+            "fact": "On House roll call 201 of 2026 (June 4, 2026) on H CON RES 84, Mike Bost is recorded as Not Voting. Question: On Agreeing to the Resolution."
+          },
+          {
+            "label": "June 25, 2026, roll call 227, H R 2478",
+            "question": "On Motion to Suspend the Rules and Pass, as Amended",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2026227",
+            "fact": "On House roll call 227 of 2026 (June 25, 2026) on H R 2478, Mike Bost is recorded as Not Voting. Question: On Motion to Suspend the Rules and Pass, as Amended."
+          }
+        ]
+      },
+      "ethics": {
+        "tier": "none",
+        "retrieved": "2026-11-11",
+        "fact": "On November 11, 2026, the House Committee on Ethics site search for the surname \"Bost\" returned a page stating that nothing matched the search terms. The Office of Congressional Conduct investigations index, pages 0 through 12, did not list Mike Bost. The published rule adds ethics points only when a public finding or sanction on these sources names the member, so this component is 0. It is not a statement that a private inquiry does not exist.",
+        "sources": [
+          {
+            "label": "House Committee on Ethics search for Bost",
+            "url": "https://ethics.house.gov/?s=Bost",
+            "retrieved": "2026-11-11",
+            "fact": "The House Committee on Ethics search results page for \"Bost\" states that nothing matched the search terms. Retrieved November 11, 2026."
+          },
+          {
+            "label": "Office of Congressional Conduct investigations index",
+            "url": "https://conduct.house.gov/reports/investigations",
+            "retrieved": "2026-11-11",
+            "fact": "The Office of Congressional Conduct investigations index, including pages 0 through 12 opened on November 11, 2026, does not list Mike Bost."
+          }
+        ]
+      }
+    },
+    {
+      "id": "budzinski",
+      "name": "Nikki Budzinski",
+      "sort": "Budzinski",
+      "office": "U.S. Representative",
+      "district": "Illinois 13th District",
+      "party": "Democrat",
+      "fruit": "peach",
+      "identity": {
+        "label": "House Clerk member profile",
+        "url": "https://clerk.house.gov/Members/B001315",
+        "retrieved": "2026-11-11",
+        "fact": "The Clerk of the House member profile for Nikki Budzinski lists Illinois (IL) \u2013 13th, Democrat, with an oath of office of January 3, 2025. Retrieved November 11, 2026."
+      },
+      "pac": {
+        "other_committee": "1611074.80",
+        "total_receipts": "4337253.92",
+        "individual": "2577542.24",
+        "unitemized_individual": "218682.94",
+        "party_committee": "13215.12",
+        "transfers": "119769.53",
+        "candidate_id": "H2IL13153",
+        "committee": "Nikki for Congress (C00787812)",
+        "url": "https://www.fec.gov/data/candidate/H2IL13153/?cycle=2024&election_full=false",
+        "label": "FEC candidate overview, 2023\u20132024",
+        "retrieved": "2026-11-11",
+        "coverage": "January 1, 2023 through December 31, 2024",
+        "fact": "On the FEC candidate overview for H2IL13153, the 2023\u20132024 time period (coverage January 1, 2023 through December 31, 2024) shows Nikki Budzinski's Nikki for Congress (C00787812) with $1,611,074.80 in other committee contributions and $4,337,253.92 in total receipts. The scored share is other committee contributions divided by total receipts. Shown for context and not scored: individual contributions $2,577,542.24, of which unitemized individual contributions were $218,682.94; party committee contributions $13,215.12; transfers from other authorized committees $119,769.53. Retrieved November 11, 2026."
+      },
+      "votes": {
+        "missed": 0,
+        "eligible": 683,
+        "chamber": "house",
+        "retrieved": "2026-11-11",
+        "fact": "House Clerk roll-call files for the 119th Congress record Nikki Budzinski as Not Voting on 0 of 683 roll calls. The 683 are roll calls 1\u2013362 of 2025 and roll calls 1\u2013321 of 2026, matching the Clerk's result counts of 362 and 321. A recorded position other than Not Voting counts as participating. On roll call 2 of 2025, the election of the Speaker, Nikki Budzinski is recorded as Jeffries, which counts as participating. Retrieved November 11, 2026.",
+        "denominator": [
+          {
+            "label": "House roll-call list, 119th Congress, 1st session",
+            "url": "https://clerk.house.gov/Votes/MemberVotes?CongressNum=119&Session=1st",
+            "retrieved": "2026-11-11",
+            "fact": "The House Clerk roll-call list for the 119th Congress, 1st session, shows 362 results. The latest listed roll call on that page is roll call 362 on December 18, 2025. Retrieved November 11, 2026."
+          },
+          {
+            "label": "House roll-call list, 119th Congress, 2nd session",
+            "url": "https://clerk.house.gov/Votes/MemberVotes?CongressNum=119&Session=2nd",
+            "retrieved": "2026-11-11",
+            "fact": "The House Clerk roll-call list for the 119th Congress, 2nd session, shows 321 results. The latest listed roll call on that page is roll call 321 on November 11, 2026, at 2:43 PM. Retrieved November 11, 2026."
+          }
+        ],
+        "speaker": {
+          "label": "House roll call 2 of 2025, election of the Speaker",
+          "url": "https://clerk.house.gov/Votes/20252",
+          "retrieved": "2026-11-11",
+          "fact": "On House roll call 2 of 2025 (January 3, 2025), election of the Speaker, Nikki Budzinski is recorded as Jeffries."
+        },
+        "missed_roll_calls": []
+      },
+      "ethics": {
+        "tier": "none",
+        "retrieved": "2026-11-11",
+        "fact": "On November 11, 2026, the House Committee on Ethics site search for the surname \"Budzinski\" returned a page stating that nothing matched the search terms. The Office of Congressional Conduct investigations index, pages 0 through 12, did not list Nikki Budzinski. The published rule adds ethics points only when a public finding or sanction on these sources names the member, so this component is 0. It is not a statement that a private inquiry does not exist.",
+        "sources": [
+          {
+            "label": "House Committee on Ethics search for Budzinski",
+            "url": "https://ethics.house.gov/?s=Budzinski",
+            "retrieved": "2026-11-11",
+            "fact": "The House Committee on Ethics search results page for \"Budzinski\" states that nothing matched the search terms. Retrieved November 11, 2026."
+          },
+          {
+            "label": "Office of Congressional Conduct investigations index",
+            "url": "https://conduct.house.gov/reports/investigations",
+            "retrieved": "2026-11-11",
+            "fact": "The Office of Congressional Conduct investigations index, including pages 0 through 12 opened on November 11, 2026, does not list Nikki Budzinski."
+          }
+        ]
+      }
+    },
+    {
+      "id": "casten",
+      "name": "Sean Casten",
+      "sort": "Casten",
+      "office": "U.S. Representative",
+      "district": "Illinois 6th District",
+      "party": "Democrat",
+      "fruit": "plum",
+      "identity": {
+        "label": "House Clerk member profile",
+        "url": "https://clerk.house.gov/Members/C001117",
+        "retrieved": "2026-11-11",
+        "fact": "The Clerk of the House member profile for Sean Casten lists Illinois (IL) \u2013 6th, Democrat, with an oath of office of January 3, 2025. Retrieved November 11, 2026."
+      },
+      "pac": {
+        "other_committee": "1002268.53",
+        "total_receipts": "3128625.05",
+        "individual": "1976036.77",
+        "unitemized_individual": "233392.45",
+        "party_committee": "2000.00",
+        "transfers": "7704.54",
+        "candidate_id": "H8IL06139",
+        "committee": "Casten for Congress (C00648493)",
+        "url": "https://www.fec.gov/data/candidate/H8IL06139/?cycle=2024&election_full=false",
+        "label": "FEC candidate overview, 2023\u20132024",
+        "retrieved": "2026-11-11",
+        "coverage": "January 1, 2023 through December 31, 2024",
+        "fact": "On the FEC candidate overview for H8IL06139, the 2023\u20132024 time period (coverage January 1, 2023 through December 31, 2024) shows Sean Casten's Casten for Congress (C00648493) with $1,002,268.53 in other committee contributions and $3,128,625.05 in total receipts. The scored share is other committee contributions divided by total receipts. Shown for context and not scored: individual contributions $1,976,036.77, of which unitemized individual contributions were $233,392.45; party committee contributions $2,000.00; transfers from other authorized committees $7,704.54. Retrieved November 11, 2026."
+      },
+      "votes": {
+        "missed": 4,
+        "eligible": 683,
+        "chamber": "house",
+        "retrieved": "2026-11-11",
+        "fact": "House Clerk roll-call files for the 119th Congress record Sean Casten as Not Voting on 4 of 683 roll calls. The 683 are roll calls 1\u2013362 of 2025 and roll calls 1\u2013321 of 2026, matching the Clerk's result counts of 362 and 321. A recorded position other than Not Voting counts as participating. On roll call 2 of 2025, the election of the Speaker, Sean Casten is recorded as Jeffries, which counts as participating. Retrieved November 11, 2026.",
+        "denominator": [
+          {
+            "label": "House roll-call list, 119th Congress, 1st session",
+            "url": "https://clerk.house.gov/Votes/MemberVotes?CongressNum=119&Session=1st",
+            "retrieved": "2026-11-11",
+            "fact": "The House Clerk roll-call list for the 119th Congress, 1st session, shows 362 results. The latest listed roll call on that page is roll call 362 on December 18, 2025. Retrieved November 11, 2026."
+          },
+          {
+            "label": "House roll-call list, 119th Congress, 2nd session",
+            "url": "https://clerk.house.gov/Votes/MemberVotes?CongressNum=119&Session=2nd",
+            "retrieved": "2026-11-11",
+            "fact": "The House Clerk roll-call list for the 119th Congress, 2nd session, shows 321 results. The latest listed roll call on that page is roll call 321 on November 11, 2026, at 2:43 PM. Retrieved November 11, 2026."
+          }
+        ],
+        "speaker": {
+          "label": "House roll call 2 of 2025, election of the Speaker",
+          "url": "https://clerk.house.gov/Votes/20252",
+          "retrieved": "2026-11-11",
+          "fact": "On House roll call 2 of 2025 (January 3, 2025), election of the Speaker, Sean Casten is recorded as Jeffries."
+        },
+        "missed_roll_calls": [
+          {
+            "label": "April 30, 2025, roll call 111, H J RES 87",
+            "question": "On Passage",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025111",
+            "fact": "On House roll call 111 of 2025 (April 30, 2025) on H J RES 87, Sean Casten is recorded as Not Voting. Question: On Passage."
+          },
+          {
+            "label": "April 30, 2025, roll call 112, H J RES 89",
+            "question": "On Passage",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025112",
+            "fact": "On House roll call 112 of 2025 (April 30, 2025) on H J RES 89, Sean Casten is recorded as Not Voting. Question: On Passage."
+          },
+          {
+            "label": "September 19, 2025, roll call 282, H RES 719",
+            "question": "On Agreeing to the Resolution",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025282",
+            "fact": "On House roll call 282 of 2025 (September 19, 2025) on H RES 719, Sean Casten is recorded as Not Voting. Question: On Agreeing to the Resolution."
+          },
+          {
+            "label": "May 13, 2026, roll call 167, H RES 1259",
+            "question": "On Motion to Suspend the Rules and Agree",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2026167",
+            "fact": "On House roll call 167 of 2026 (May 13, 2026) on H RES 1259, Sean Casten is recorded as Not Voting. Question: On Motion to Suspend the Rules and Agree."
+          }
+        ]
+      },
+      "ethics": {
+        "tier": "none",
+        "retrieved": "2026-11-11",
+        "fact": "On November 11, 2026, the House Committee on Ethics site search for the surname \"Casten\" returned a page stating that nothing matched the search terms. The Office of Congressional Conduct investigations index, pages 0 through 12, did not list Sean Casten. The published rule adds ethics points only when a public finding or sanction on these sources names the member, so this component is 0. It is not a statement that a private inquiry does not exist.",
+        "sources": [
+          {
+            "label": "House Committee on Ethics search for Casten",
+            "url": "https://ethics.house.gov/?s=Casten",
+            "retrieved": "2026-11-11",
+            "fact": "The House Committee on Ethics search results page for \"Casten\" states that nothing matched the search terms. Retrieved November 11, 2026."
+          },
+          {
+            "label": "Office of Congressional Conduct investigations index",
+            "url": "https://conduct.house.gov/reports/investigations",
+            "retrieved": "2026-11-11",
+            "fact": "The Office of Congressional Conduct investigations index, including pages 0 through 12 opened on November 11, 2026, does not list Sean Casten."
+          }
+        ]
+      }
+    },
+    {
+      "id": "duckworth",
+      "name": "Tammy Duckworth",
+      "sort": "Duckworth",
+      "office": "U.S. Senator",
+      "district": "Illinois",
+      "party": "Democrat",
+      "fruit": "pear",
+      "identity": {
+        "label": "U.S. Senate Illinois page",
+        "url": "https://www.senate.gov/states/IL/intro.htm",
+        "retrieved": "2026-11-11",
+        "fact": "The U.S. Senate page for Illinois lists Tammy Duckworth (D) as a United States senator from Illinois. Retrieved November 11, 2026."
+      },
+      "pac": {
+        "other_committee": "260703.03",
+        "total_receipts": "4571747.48",
+        "individual": "3684933.82",
+        "unitemized_individual": "2247869.60",
+        "party_committee": "0.00",
+        "transfers": "467942.94",
+        "candidate_id": "S6IL00292",
+        "committee": "Tammy for Illinois (C00574889)",
+        "url": "https://www.fec.gov/data/candidate/S6IL00292/?cycle=2024&election_full=false",
+        "label": "FEC candidate overview, 2023\u20132024",
+        "retrieved": "2026-11-11",
+        "coverage": "January 1, 2023 through December 31, 2024",
+        "fact": "On the FEC candidate overview for S6IL00292, the 2023\u20132024 time period (coverage January 1, 2023 through December 31, 2024) shows Tammy Duckworth's Tammy for Illinois (C00574889) with $260,703.03 in other committee contributions and $4,571,747.48 in total receipts. The scored share is other committee contributions divided by total receipts. Shown for context and not scored: individual contributions $3,684,933.82, of which unitemized individual contributions were $2,247,869.60; party committee contributions $0.00; transfers from other authorized committees $467,942.94. Retrieved November 11, 2026."
+      },
+      "votes": {
+        "missed": 60,
+        "eligible": 917,
+        "chamber": "senate",
+        "retrieved": "2026-11-11",
+        "fact": "Senate roll-call files for the 119th Congress record Tammy Duckworth as Not Voting on 60 of 917 votes. The 917 are the 659 votes in session 1 and the 258 votes in session 2. A recorded position other than Not Voting counts as participating. Retrieved November 11, 2026.",
+        "denominator": [
+          {
+            "label": "Senate vote menu, 119th Congress, 1st session",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_lists/vote_menu_119_1.xml",
+            "retrieved": "2026-11-11",
+            "fact": "The Senate vote menu for the 119th Congress, 1st session, lists vote numbers 00001 through 00659 (659 votes). Retrieved November 11, 2026."
+          },
+          {
+            "label": "Senate vote menu, 119th Congress, 2nd session",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_lists/vote_menu_119_2.xml",
+            "retrieved": "2026-11-11",
+            "fact": "The Senate vote menu for the 119th Congress, 2nd session, lists vote numbers 00001 through 00258 (258 votes). Retrieved November 11, 2026."
+          }
+        ],
+        "speaker": null,
+        "missed_roll_calls": [
+          {
+            "label": "February 13, 2025, session 1 vote 54",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00054.htm",
+            "fact": "On Senate vote 54 of the 119th Congress, session 1 (February 13, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "March 11, 2025, session 1 vote 112",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00112.htm",
+            "fact": "On Senate vote 112 of the 119th Congress, session 1 (March 11, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "March 11, 2025, session 1 vote 113",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00113.htm",
+            "fact": "On Senate vote 113 of the 119th Congress, session 1 (March 11, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "March 11, 2025, session 1 vote 114",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00114.htm",
+            "fact": "On Senate vote 114 of the 119th Congress, session 1 (March 11, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "March 11, 2025, session 1 vote 115",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00115.htm",
+            "fact": "On Senate vote 115 of the 119th Congress, session 1 (March 11, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "March 12, 2025, session 1 vote 116",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00116.htm",
+            "fact": "On Senate vote 116 of the 119th Congress, session 1 (March 12, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "March 12, 2025, session 1 vote 117",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00117.htm",
+            "fact": "On Senate vote 117 of the 119th Congress, session 1 (March 12, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "March 12, 2025, session 1 vote 118",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00118.htm",
+            "fact": "On Senate vote 118 of the 119th Congress, session 1 (March 12, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "March 12, 2025, session 1 vote 119",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00119.htm",
+            "fact": "On Senate vote 119 of the 119th Congress, session 1 (March 12, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "March 13, 2025, session 1 vote 120",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00120.htm",
+            "fact": "On Senate vote 120 of the 119th Congress, session 1 (March 13, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "March 13, 2025, session 1 vote 121",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00121.htm",
+            "fact": "On Senate vote 121 of the 119th Congress, session 1 (March 13, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "March 13, 2025, session 1 vote 122",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00122.htm",
+            "fact": "On Senate vote 122 of the 119th Congress, session 1 (March 13, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "March 13, 2025, session 1 vote 123",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00123.htm",
+            "fact": "On Senate vote 123 of the 119th Congress, session 1 (March 13, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "March 13, 2025, session 1 vote 124",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00124.htm",
+            "fact": "On Senate vote 124 of the 119th Congress, session 1 (March 13, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "March 14, 2025, session 1 vote 125",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00125.htm",
+            "fact": "On Senate vote 125 of the 119th Congress, session 1 (March 14, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "April 3, 2025, session 1 vote 167",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00167.htm",
+            "fact": "On Senate vote 167 of the 119th Congress, session 1 (April 3, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "April 3, 2025, session 1 vote 168",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00168.htm",
+            "fact": "On Senate vote 168 of the 119th Congress, session 1 (April 3, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "April 8, 2025, session 1 vote 195",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00195.htm",
+            "fact": "On Senate vote 195 of the 119th Congress, session 1 (April 8, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "April 8, 2025, session 1 vote 197",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00197.htm",
+            "fact": "On Senate vote 197 of the 119th Congress, session 1 (April 8, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "April 8, 2025, session 1 vote 198",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00198.htm",
+            "fact": "On Senate vote 198 of the 119th Congress, session 1 (April 8, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "April 8, 2025, session 1 vote 199",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00199.htm",
+            "fact": "On Senate vote 199 of the 119th Congress, session 1 (April 8, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "May 8, 2025, session 1 vote 238",
+            "question": "On the Joint Resolution",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00238.htm",
+            "fact": "On Senate vote 238 of the 119th Congress, session 1 (May 8, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Joint Resolution."
+          },
+          {
+            "label": "June 16, 2025, session 1 vote 313",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00313.htm",
+            "fact": "On Senate vote 313 of the 119th Congress, session 1 (June 16, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "July 10, 2025, session 1 vote 381",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00381.htm",
+            "fact": "On Senate vote 381 of the 119th Congress, session 1 (July 10, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "July 10, 2025, session 1 vote 382",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00382.htm",
+            "fact": "On Senate vote 382 of the 119th Congress, session 1 (July 10, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "July 15, 2025, session 1 vote 388",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00388.htm",
+            "fact": "On Senate vote 388 of the 119th Congress, session 1 (July 15, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "July 15, 2025, session 1 vote 389",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00389.htm",
+            "fact": "On Senate vote 389 of the 119th Congress, session 1 (July 15, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "July 21, 2025, session 1 vote 418",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00418.htm",
+            "fact": "On Senate vote 418 of the 119th Congress, session 1 (July 21, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "July 28, 2025, session 1 vote 439",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00439.htm",
+            "fact": "On Senate vote 439 of the 119th Congress, session 1 (July 28, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "July 31, 2025, session 1 vote 462",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00462.htm",
+            "fact": "On Senate vote 462 of the 119th Congress, session 1 (July 31, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "July 31, 2025, session 1 vote 463",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00463.htm",
+            "fact": "On Senate vote 463 of the 119th Congress, session 1 (July 31, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "August 1, 2025, session 1 vote 468",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00468.htm",
+            "fact": "On Senate vote 468 of the 119th Congress, session 1 (August 1, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "August 1, 2025, session 1 vote 469",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00469.htm",
+            "fact": "On Senate vote 469 of the 119th Congress, session 1 (August 1, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "August 1, 2025, session 1 vote 472",
+            "question": "On the Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00472.htm",
+            "fact": "On Senate vote 472 of the 119th Congress, session 1 (August 1, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Motion."
+          },
+          {
+            "label": "August 1, 2025, session 1 vote 473",
+            "question": "On the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00473.htm",
+            "fact": "On Senate vote 473 of the 119th Congress, session 1 (August 1, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Amendment."
+          },
+          {
+            "label": "August 1, 2025, session 1 vote 474",
+            "question": "On the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00474.htm",
+            "fact": "On Senate vote 474 of the 119th Congress, session 1 (August 1, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Amendment."
+          },
+          {
+            "label": "August 1, 2025, session 1 vote 475",
+            "question": "On the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00475.htm",
+            "fact": "On Senate vote 475 of the 119th Congress, session 1 (August 1, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Amendment."
+          },
+          {
+            "label": "August 1, 2025, session 1 vote 476",
+            "question": "On the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00476.htm",
+            "fact": "On Senate vote 476 of the 119th Congress, session 1 (August 1, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Amendment."
+          },
+          {
+            "label": "August 2, 2025, session 1 vote 485",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00485.htm",
+            "fact": "On Senate vote 485 of the 119th Congress, session 1 (August 2, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "September 9, 2025, session 1 vote 506",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00506.htm",
+            "fact": "On Senate vote 506 of the 119th Congress, session 1 (September 9, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "October 14, 2025, session 1 vote 571",
+            "question": "On Cloture on the Motion to Proceed",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00571.htm",
+            "fact": "On Senate vote 571 of the 119th Congress, session 1 (October 14, 2025), Tammy Duckworth is recorded as Not Voting. Question: On Cloture on the Motion to Proceed."
+          },
+          {
+            "label": "October 15, 2025, session 1 vote 572",
+            "question": "On Cloture on the Motion to Proceed",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00572.htm",
+            "fact": "On Senate vote 572 of the 119th Congress, session 1 (October 15, 2025), Tammy Duckworth is recorded as Not Voting. Question: On Cloture on the Motion to Proceed."
+          },
+          {
+            "label": "October 16, 2025, session 1 vote 573",
+            "question": "On Cloture on the Motion to Proceed",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00573.htm",
+            "fact": "On Senate vote 573 of the 119th Congress, session 1 (October 16, 2025), Tammy Duckworth is recorded as Not Voting. Question: On Cloture on the Motion to Proceed."
+          },
+          {
+            "label": "October 16, 2025, session 1 vote 574",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00574.htm",
+            "fact": "On Senate vote 574 of the 119th Congress, session 1 (October 16, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "October 16, 2025, session 1 vote 575",
+            "question": "On Cloture on the Motion to Proceed",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00575.htm",
+            "fact": "On Senate vote 575 of the 119th Congress, session 1 (October 16, 2025), Tammy Duckworth is recorded as Not Voting. Question: On Cloture on the Motion to Proceed."
+          },
+          {
+            "label": "October 20, 2025, session 1 vote 576",
+            "question": "On Cloture on the Motion to Proceed",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00576.htm",
+            "fact": "On Senate vote 576 of the 119th Congress, session 1 (October 20, 2025), Tammy Duckworth is recorded as Not Voting. Question: On Cloture on the Motion to Proceed."
+          },
+          {
+            "label": "October 21, 2025, session 1 vote 577",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00577.htm",
+            "fact": "On Senate vote 577 of the 119th Congress, session 1 (October 21, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "October 21, 2025, session 1 vote 578",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00578.htm",
+            "fact": "On Senate vote 578 of the 119th Congress, session 1 (October 21, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "October 21, 2025, session 1 vote 579",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00579.htm",
+            "fact": "On Senate vote 579 of the 119th Congress, session 1 (October 21, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "October 21, 2025, session 1 vote 580",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00580.htm",
+            "fact": "On Senate vote 580 of the 119th Congress, session 1 (October 21, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "December 2, 2025, session 1 vote 625",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00625.htm",
+            "fact": "On Senate vote 625 of the 119th Congress, session 1 (December 2, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "December 2, 2025, session 1 vote 626",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00626.htm",
+            "fact": "On Senate vote 626 of the 119th Congress, session 1 (December 2, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "December 9, 2025, session 1 vote 636",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00636.htm",
+            "fact": "On Senate vote 636 of the 119th Congress, session 1 (December 9, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "December 9, 2025, session 1 vote 637",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00637.htm",
+            "fact": "On Senate vote 637 of the 119th Congress, session 1 (December 9, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "December 9, 2025, session 1 vote 638",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00638.htm",
+            "fact": "On Senate vote 638 of the 119th Congress, session 1 (December 9, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "December 9, 2025, session 1 vote 639",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00639.htm",
+            "fact": "On Senate vote 639 of the 119th Congress, session 1 (December 9, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "December 9, 2025, session 1 vote 640",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00640.htm",
+            "fact": "On Senate vote 640 of the 119th Congress, session 1 (December 9, 2025), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "February 3, 2026, session 2 vote 23",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00023.htm",
+            "fact": "On Senate vote 23 of the 119th Congress, session 2 (February 3, 2026), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "June 18, 2026, session 2 vote 180",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00180.htm",
+            "fact": "On Senate vote 180 of the 119th Congress, session 2 (June 18, 2026), Tammy Duckworth is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "June 18, 2026, session 2 vote 181",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00181.htm",
+            "fact": "On Senate vote 181 of the 119th Congress, session 2 (June 18, 2026), Tammy Duckworth is recorded as Not Voting. Question: On the Nomination."
+          }
+        ]
+      },
+      "ethics": {
+        "tier": "none",
+        "retrieved": "2026-11-11",
+        "fact": "On November 11, 2026, the Senate Select Committee on Ethics list of public letters to members did not include Tammy Duckworth. That page lists 11 public letters, dated from July 30, 2002 through March 23, 2023. The published rule adds ethics points only when a public letter or other official sanction on this list names the member, so this component is 0. The list does not publish private inquiries.",
+        "sources": [
+          {
+            "label": "Senate Ethics public letters to members",
+            "url": "https://www.ethics.senate.gov/public/index.cfm/letterstomembers",
+            "retrieved": "2026-11-11",
+            "fact": "The Senate Select Committee on Ethics page Public Letters to Members lists 11 letters and does not name Tammy Duckworth. Retrieved November 11, 2026."
+          }
+        ]
+      }
+    },
+    {
+      "id": "durbin",
+      "name": "Richard J. Durbin",
+      "sort": "Durbin",
+      "office": "U.S. Senator",
+      "district": "Illinois",
+      "party": "Democrat",
+      "fruit": "apple",
+      "identity": {
+        "label": "U.S. Senate Illinois page",
+        "url": "https://www.senate.gov/states/IL/intro.htm",
+        "retrieved": "2026-11-11",
+        "fact": "The U.S. Senate page for Illinois lists Richard J. Durbin (D) as a United States senator from Illinois. Retrieved November 11, 2026."
+      },
+      "pac": {
+        "other_committee": "168775.00",
+        "total_receipts": "1106383.69",
+        "individual": "402296.26",
+        "unitemized_individual": "99266.14",
+        "party_committee": "0.00",
+        "transfers": "529630.09",
+        "candidate_id": "S6IL00151",
+        "committee": "Friends of Dick Durbin committee (C00148999)",
+        "url": "https://www.fec.gov/data/candidate/S6IL00151/?cycle=2024&election_full=false",
+        "label": "FEC candidate overview, 2023\u20132024",
+        "retrieved": "2026-11-11",
+        "coverage": "January 1, 2023 through December 31, 2024",
+        "fact": "On the FEC candidate overview for S6IL00151, the 2023\u20132024 time period (coverage January 1, 2023 through December 31, 2024) shows Richard J. Durbin's Friends of Dick Durbin committee (C00148999) with $168,775.00 in other committee contributions and $1,106,383.69 in total receipts. The scored share is other committee contributions divided by total receipts. Shown for context and not scored: individual contributions $402,296.26, of which unitemized individual contributions were $99,266.14; party committee contributions $0.00; transfers from other authorized committees $529,630.09. Retrieved November 11, 2026."
+      },
+      "votes": {
+        "missed": 25,
+        "eligible": 917,
+        "chamber": "senate",
+        "retrieved": "2026-11-11",
+        "fact": "Senate roll-call files for the 119th Congress record Richard J. Durbin as Not Voting on 25 of 917 votes. The 917 are the 659 votes in session 1 and the 258 votes in session 2. A recorded position other than Not Voting counts as participating. Retrieved November 11, 2026.",
+        "denominator": [
+          {
+            "label": "Senate vote menu, 119th Congress, 1st session",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_lists/vote_menu_119_1.xml",
+            "retrieved": "2026-11-11",
+            "fact": "The Senate vote menu for the 119th Congress, 1st session, lists vote numbers 00001 through 00659 (659 votes). Retrieved November 11, 2026."
+          },
+          {
+            "label": "Senate vote menu, 119th Congress, 2nd session",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_lists/vote_menu_119_2.xml",
+            "retrieved": "2026-11-11",
+            "fact": "The Senate vote menu for the 119th Congress, 2nd session, lists vote numbers 00001 through 00258 (258 votes). Retrieved November 11, 2026."
+          }
+        ],
+        "speaker": null,
+        "missed_roll_calls": [
+          {
+            "label": "January 25, 2025, session 1 vote 18",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00018.htm",
+            "fact": "On Senate vote 18 of the 119th Congress, session 1 (January 25, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "February 6, 2025, session 1 vote 48",
+            "question": "On the Motion to Proceed",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00048.htm",
+            "fact": "On Senate vote 48 of the 119th Congress, session 1 (February 6, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Motion to Proceed."
+          },
+          {
+            "label": "March 14, 2025, session 1 vote 134",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00134.htm",
+            "fact": "On Senate vote 134 of the 119th Congress, session 1 (March 14, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "March 14, 2025, session 1 vote 135",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00135.htm",
+            "fact": "On Senate vote 135 of the 119th Congress, session 1 (March 14, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "April 2, 2025, session 1 vote 159",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00159.htm",
+            "fact": "On Senate vote 159 of the 119th Congress, session 1 (April 2, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "April 9, 2025, session 1 vote 206",
+            "question": "On the Motion to Proceed",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00206.htm",
+            "fact": "On Senate vote 206 of the 119th Congress, session 1 (April 9, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Motion to Proceed."
+          },
+          {
+            "label": "May 14, 2025, session 1 vote 253",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00253.htm",
+            "fact": "On Senate vote 253 of the 119th Congress, session 1 (May 14, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "June 12, 2025, session 1 vote 312",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00312.htm",
+            "fact": "On Senate vote 312 of the 119th Congress, session 1 (June 12, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "July 17, 2025, session 1 vote 414",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00414.htm",
+            "fact": "On Senate vote 414 of the 119th Congress, session 1 (July 17, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "July 17, 2025, session 1 vote 415",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00415.htm",
+            "fact": "On Senate vote 415 of the 119th Congress, session 1 (July 17, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "July 17, 2025, session 1 vote 416",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00416.htm",
+            "fact": "On Senate vote 416 of the 119th Congress, session 1 (July 17, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "July 17, 2025, session 1 vote 417",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00417.htm",
+            "fact": "On Senate vote 417 of the 119th Congress, session 1 (July 17, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "September 19, 2025, session 1 vote 530",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00530.htm",
+            "fact": "On Senate vote 530 of the 119th Congress, session 1 (September 19, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "December 18, 2025, session 1 vote 655",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00655.htm",
+            "fact": "On Senate vote 655 of the 119th Congress, session 1 (December 18, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "December 18, 2025, session 1 vote 656",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00656.htm",
+            "fact": "On Senate vote 656 of the 119th Congress, session 1 (December 18, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "December 18, 2025, session 1 vote 657",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00657.htm",
+            "fact": "On Senate vote 657 of the 119th Congress, session 1 (December 18, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "December 18, 2025, session 1 vote 658",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00658.htm",
+            "fact": "On Senate vote 658 of the 119th Congress, session 1 (December 18, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "December 18, 2025, session 1 vote 659",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00659.htm",
+            "fact": "On Senate vote 659 of the 119th Congress, session 1 (December 18, 2025), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "March 21, 2026, session 2 vote 60",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00060.htm",
+            "fact": "On Senate vote 60 of the 119th Congress, session 2 (March 21, 2026), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "March 21, 2026, session 2 vote 61",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00061.htm",
+            "fact": "On Senate vote 61 of the 119th Congress, session 2 (March 21, 2026), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "March 22, 2026, session 2 vote 62",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00062.htm",
+            "fact": "On Senate vote 62 of the 119th Congress, session 2 (March 22, 2026), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "May 18, 2026, session 2 vote 125",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00125.htm",
+            "fact": "On Senate vote 125 of the 119th Congress, session 2 (May 18, 2026), Richard J. Durbin is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "June 18, 2026, session 2 vote 180",
+            "question": "On the Cloture Motion",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00180.htm",
+            "fact": "On Senate vote 180 of the 119th Congress, session 2 (June 18, 2026), Richard J. Durbin is recorded as Not Voting. Question: On the Cloture Motion."
+          },
+          {
+            "label": "June 18, 2026, session 2 vote 181",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00181.htm",
+            "fact": "On Senate vote 181 of the 119th Congress, session 2 (June 18, 2026), Richard J. Durbin is recorded as Not Voting. Question: On the Nomination."
+          },
+          {
+            "label": "September 30, 2026, session 2 vote 256",
+            "question": "On the Nomination",
+            "recorded": "Not Voting",
+            "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00256.htm",
+            "fact": "On Senate vote 256 of the 119th Congress, session 2 (September 30, 2026), Richard J. Durbin is recorded as Not Voting. Question: On the Nomination."
+          }
+        ]
+      },
+      "ethics": {
+        "tier": "none",
+        "retrieved": "2026-11-11",
+        "fact": "On November 11, 2026, the Senate Select Committee on Ethics list of public letters to members did not include Richard J. Durbin. That page lists 11 public letters, dated from July 30, 2002 through March 23, 2023. The published rule adds ethics points only when a public letter or other official sanction on this list names the member, so this component is 0. The list does not publish private inquiries.",
+        "sources": [
+          {
+            "label": "Senate Ethics public letters to members",
+            "url": "https://www.ethics.senate.gov/public/index.cfm/letterstomembers",
+            "retrieved": "2026-11-11",
+            "fact": "The Senate Select Committee on Ethics page Public Letters to Members lists 11 letters and does not name Richard J. Durbin. Retrieved November 11, 2026."
+          }
+        ]
+      }
+    },
+    {
+      "id": "lahood",
+      "name": "Darin LaHood",
+      "sort": "LaHood",
+      "office": "U.S. Representative",
+      "district": "Illinois 16th District",
+      "party": "Republican",
+      "fruit": "orange",
+      "identity": {
+        "label": "House Clerk member profile",
+        "url": "https://clerk.house.gov/Members/L000585",
+        "retrieved": "2026-11-11",
+        "fact": "The Clerk of the House member profile for Darin LaHood lists Illinois (IL) \u2013 16th, Republican, with an oath of office of January 3, 2025. Retrieved November 11, 2026."
+      },
+      "pac": {
+        "other_committee": "2139954.83",
+        "total_receipts": "3753031.58",
+        "individual": "984780.67",
+        "unitemized_individual": "144061.74",
+        "party_committee": "0.00",
+        "transfers": "511490.30",
+        "candidate_id": "H6IL18088",
+        "committee": "LaHood for Congress (C00575050)",
+        "url": "https://www.fec.gov/data/candidate/H6IL18088/?cycle=2024&election_full=false",
+        "label": "FEC candidate overview, 2023\u20132024",
+        "retrieved": "2026-11-11",
+        "coverage": "January 1, 2023 through December 31, 2024",
+        "fact": "On the FEC candidate overview for H6IL18088, the 2023\u20132024 time period (coverage January 1, 2023 through December 31, 2024) shows Darin LaHood's LaHood for Congress (C00575050) with $2,139,954.83 in other committee contributions and $3,753,031.58 in total receipts. The scored share is other committee contributions divided by total receipts. Shown for context and not scored: individual contributions $984,780.67, of which unitemized individual contributions were $144,061.74; party committee contributions $0.00; transfers from other authorized committees $511,490.30. Retrieved November 11, 2026."
+      },
+      "votes": {
+        "missed": 38,
+        "eligible": 683,
+        "chamber": "house",
+        "retrieved": "2026-11-11",
+        "fact": "House Clerk roll-call files for the 119th Congress record Darin LaHood as Not Voting on 38 of 683 roll calls. The 683 are roll calls 1\u2013362 of 2025 and roll calls 1\u2013321 of 2026, matching the Clerk's result counts of 362 and 321. A recorded position other than Not Voting counts as participating. On roll call 2 of 2025, the election of the Speaker, Darin LaHood is recorded as Johnson (LA), which counts as participating. Retrieved November 11, 2026.",
+        "denominator": [
+          {
+            "label": "House roll-call list, 119th Congress, 1st session",
+            "url": "https://clerk.house.gov/Votes/MemberVotes?CongressNum=119&Session=1st",
+            "retrieved": "2026-11-11",
+            "fact": "The House Clerk roll-call list for the 119th Congress, 1st session, shows 362 results. The latest listed roll call on that page is roll call 362 on December 18, 2025. Retrieved November 11, 2026."
+          },
+          {
+            "label": "House roll-call list, 119th Congress, 2nd session",
+            "url": "https://clerk.house.gov/Votes/MemberVotes?CongressNum=119&Session=2nd",
+            "retrieved": "2026-11-11",
+            "fact": "The House Clerk roll-call list for the 119th Congress, 2nd session, shows 321 results. The latest listed roll call on that page is roll call 321 on November 11, 2026, at 2:43 PM. Retrieved November 11, 2026."
+          }
+        ],
+        "speaker": {
+          "label": "House roll call 2 of 2025, election of the Speaker",
+          "url": "https://clerk.house.gov/Votes/20252",
+          "retrieved": "2026-11-11",
+          "fact": "On House roll call 2 of 2025 (January 3, 2025), election of the Speaker, Darin LaHood is recorded as Johnson (LA)."
+        },
+        "missed_roll_calls": [
+          {
+            "label": "March 4, 2025, roll call 56, H RES 177",
+            "question": "On Ordering the Previous Question",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/202556",
+            "fact": "On House roll call 56 of 2025 (March 4, 2025) on H RES 177, Darin LaHood is recorded as Not Voting. Question: On Ordering the Previous Question."
+          },
+          {
+            "label": "March 6, 2025, roll call 61, S J RES 11",
+            "question": "On Passage",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/202561",
+            "fact": "On House roll call 61 of 2025 (March 6, 2025) on S J RES 11, Darin LaHood is recorded as Not Voting. Question: On Passage."
+          },
+          {
+            "label": "March 6, 2025, roll call 62, H RES 189",
+            "question": "On Agreeing to the Resolution",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/202562",
+            "fact": "On House roll call 62 of 2025 (March 6, 2025) on H RES 189, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Resolution."
+          },
+          {
+            "label": "May 7, 2025, roll call 119, H R 1503",
+            "question": "On Motion to Suspend the Rules and Pass",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025119",
+            "fact": "On House roll call 119 of 2025 (May 7, 2025) on H R 1503, Darin LaHood is recorded as Not Voting. Question: On Motion to Suspend the Rules and Pass."
+          },
+          {
+            "label": "May 14, 2025, roll call 125, H R 2215",
+            "question": "On Motion to Suspend the Rules and Pass",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025125",
+            "fact": "On House roll call 125 of 2025 (May 14, 2025) on H R 2215, Darin LaHood is recorded as Not Voting. Question: On Motion to Suspend the Rules and Pass."
+          },
+          {
+            "label": "May 14, 2025, roll call 126, H RES 405",
+            "question": "On Ordering the Previous Question",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025126",
+            "fact": "On House roll call 126 of 2025 (May 14, 2025) on H RES 405, Darin LaHood is recorded as Not Voting. Question: On Ordering the Previous Question."
+          },
+          {
+            "label": "May 14, 2025, roll call 127, H RES 405",
+            "question": "On Agreeing to the Resolution",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025127",
+            "fact": "On House roll call 127 of 2025 (May 14, 2025) on H RES 405, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Resolution."
+          },
+          {
+            "label": "June 10, 2025, roll call 162, H R 2096",
+            "question": "On Passage",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025162",
+            "fact": "On House roll call 162 of 2025 (June 10, 2025) on H R 2096, Darin LaHood is recorded as Not Voting. Question: On Passage."
+          },
+          {
+            "label": "June 11, 2025, roll call 164, H RES 499",
+            "question": "On Ordering the Previous Question",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025164",
+            "fact": "On House roll call 164 of 2025 (June 11, 2025) on H RES 499, Darin LaHood is recorded as Not Voting. Question: On Ordering the Previous Question."
+          },
+          {
+            "label": "September 9, 2025, roll call 242, H RES 682",
+            "question": "On Ordering the Previous Question",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025242",
+            "fact": "On House roll call 242 of 2025 (September 9, 2025) on H RES 682, Darin LaHood is recorded as Not Voting. Question: On Ordering the Previous Question."
+          },
+          {
+            "label": "September 9, 2025, roll call 243, H RES 682",
+            "question": "On Agreeing to the Resolution",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025243",
+            "fact": "On House roll call 243 of 2025 (September 9, 2025) on H RES 682, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Resolution."
+          },
+          {
+            "label": "September 10, 2025, roll call 244, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025244",
+            "fact": "On House roll call 244 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 245, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025245",
+            "fact": "On House roll call 245 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 246, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025246",
+            "fact": "On House roll call 246 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 247, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025247",
+            "fact": "On House roll call 247 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 248, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025248",
+            "fact": "On House roll call 248 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 249, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025249",
+            "fact": "On House roll call 249 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 250, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025250",
+            "fact": "On House roll call 250 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 251, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025251",
+            "fact": "On House roll call 251 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 252, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025252",
+            "fact": "On House roll call 252 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 253, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025253",
+            "fact": "On House roll call 253 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 254, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025254",
+            "fact": "On House roll call 254 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 255, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025255",
+            "fact": "On House roll call 255 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 256, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025256",
+            "fact": "On House roll call 256 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 257, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025257",
+            "fact": "On House roll call 257 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 258, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025258",
+            "fact": "On House roll call 258 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 259, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025259",
+            "fact": "On House roll call 259 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 260, H R 3838",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025260",
+            "fact": "On House roll call 260 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "September 10, 2025, roll call 261, H R 3838",
+            "question": "On Motion to Recommit",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025261",
+            "fact": "On House roll call 261 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Motion to Recommit."
+          },
+          {
+            "label": "September 10, 2025, roll call 262, H R 3838",
+            "question": "On Passage",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2025262",
+            "fact": "On House roll call 262 of 2025 (September 10, 2025) on H R 3838, Darin LaHood is recorded as Not Voting. Question: On Passage."
+          },
+          {
+            "label": "February 24, 2026, roll call 73, H RES 1075",
+            "question": "On Ordering the Previous Question",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/202673",
+            "fact": "On House roll call 73 of 2026 (February 24, 2026) on H RES 1075, Darin LaHood is recorded as Not Voting. Question: On Ordering the Previous Question."
+          },
+          {
+            "label": "March 24, 2026, roll call 97, H R 6422",
+            "question": "On Motion to Suspend the Rules and Pass, as Amended",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/202697",
+            "fact": "On House roll call 97 of 2026 (March 24, 2026) on H R 6422, Darin LaHood is recorded as Not Voting. Question: On Motion to Suspend the Rules and Pass, as Amended."
+          },
+          {
+            "label": "March 25, 2026, roll call 98, H RES 1131",
+            "question": "On Ordering the Previous Question",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/202698",
+            "fact": "On House roll call 98 of 2026 (March 25, 2026) on H RES 1131, Darin LaHood is recorded as Not Voting. Question: On Ordering the Previous Question."
+          },
+          {
+            "label": "April 27, 2026, roll call 138, H R 7959",
+            "question": "On Motion to Suspend the Rules and Pass, as Amended",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2026138",
+            "fact": "On House roll call 138 of 2026 (April 27, 2026) on H R 7959, Darin LaHood is recorded as Not Voting. Question: On Motion to Suspend the Rules and Pass, as Amended."
+          },
+          {
+            "label": "April 27, 2026, roll call 139, H R 227",
+            "question": "On Motion to Suspend the Rules and Pass, as Amended",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2026139",
+            "fact": "On House roll call 139 of 2026 (April 27, 2026) on H R 227, Darin LaHood is recorded as Not Voting. Question: On Motion to Suspend the Rules and Pass, as Amended."
+          },
+          {
+            "label": "May 15, 2026, roll call 174, H R 8469",
+            "question": "On Agreeing to the Amendment",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2026174",
+            "fact": "On House roll call 174 of 2026 (May 15, 2026) on H R 8469, Darin LaHood is recorded as Not Voting. Question: On Agreeing to the Amendment."
+          },
+          {
+            "label": "May 15, 2026, roll call 175, H R 8469",
+            "question": "On Passage",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2026175",
+            "fact": "On House roll call 175 of 2026 (May 15, 2026) on H R 8469, Darin LaHood is recorded as Not Voting. Question: On Passage."
+          },
+          {
+            "label": "June 3, 2026, roll call 194, H RES 1333",
+            "question": "On Ordering the Previous Question",
+            "recorded": "Not Voting",
+            "url": "https://clerk.house.gov/Votes/2026194",
+            "fact": "On House roll call 194 of 2026 (June 3, 2026) on H RES 1333, Darin LaHood is recorded as Not Voting. Question: On Ordering the Previous Question."
+          }
+        ]
+      },
+      "ethics": {
+        "tier": "none",
+        "retrieved": "2026-11-11",
+        "fact": "On November 11, 2026, the House Committee on Ethics site search for the surname \"LaHood\" returned a page stating that nothing matched the search terms. The Office of Congressional Conduct investigations index, pages 0 through 12, did not list Darin LaHood. The published rule adds ethics points only when a public finding or sanction on these sources names the member, so this component is 0. It is not a statement that a private inquiry does not exist.",
+        "sources": [
+          {
+            "label": "House Committee on Ethics search for LaHood",
+            "url": "https://ethics.house.gov/?s=LaHood",
+            "retrieved": "2026-11-11",
+            "fact": "The House Committee on Ethics search results page for \"LaHood\" states that nothing matched the search terms. Retrieved November 11, 2026."
+          },
+          {
+            "label": "Office of Congressional Conduct investigations index",
+            "url": "https://conduct.house.gov/reports/investigations",
+            "retrieved": "2026-11-11",
+            "fact": "The Office of Congressional Conduct investigations index, including pages 0 through 12 opened on November 11, 2026, does not list Darin LaHood."
+          }
+        ]
+      }
+    }
+  ]
+}
