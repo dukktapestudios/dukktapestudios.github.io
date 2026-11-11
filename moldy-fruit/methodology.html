@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moldy Fruit methodology</title>
+<meta name="description" content="The published scoring rule, sources, retrieval date, and limits for the Moldy Fruit opinion visualization.">
+<meta name="theme-color" content="#171b1e">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the methodology</a>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="../">Home</a>
+    <nav class="nav" aria-label="Moldy Fruit">
+      <a href="index.html">Comparison</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap page" id="main">
+  <h1>How the mold level is calculated</h1>
+  <p class="banner" role="note">Satire and opinion visualization. The mold level is a published editorial scale. It is not a government rating, not a legal finding, and not a claim that anyone committed a crime. It does not say more than the cited records say.</p>
+  <p>Retrieved November 11, 2026. The live page reads <a href="data.json">data.json</a> and applies the rule in <a href="score.js">score.js</a>. It does not call a paid API, and it does not contain an API key.</p>
+
+  <h2>Who is included</h2>
+  <p>This is a starter set, not a ranking of the Illinois delegation. The set was chosen before the scores were used to add or drop anyone.</p>
+  <ul>
+    <li>Both sitting U.S. senators from Illinois, as listed on the <a href="https://www.senate.gov/states/IL/intro.htm">Senate Illinois page</a> on November 11, 2026: Richard J. Durbin (D) and Tammy Duckworth (D).</li>
+    <li>The first two House Democrats and the first two House Republicans by surname on the Clerk's <a href="https://clerk.house.gov/xml/lists/MemberData.xml">MemberData.xml</a> (publish-date November 3, 2026). Democrats begin Budzinski, Casten. Republicans are Bost, LaHood, then Miller. Mary E. Miller is not in this version because she is third.</li>
+  </ul>
+  <p>On November 11, 2026, the Clerk profiles still listed <a href="https://clerk.house.gov/Members/B001295">Mike Bost</a> (Illinois 12th, Republican), <a href="https://clerk.house.gov/Members/B001315">Nikki Budzinski</a> (Illinois 13th, Democrat), <a href="https://clerk.house.gov/Members/C001117">Sean Casten</a> (Illinois 6th, Democrat), and <a href="https://clerk.house.gov/Members/L000585">Darin LaHood</a> (Illinois 16th, Republican), each with an oath of office of January 3, 2025.</p>
+  <p>Both senators are Democrats because those are the two people in the seats. Party is displayed for identification. The formula does not take party, ideology, or a bill's subject as an input.</p>
+
+  <h2>The rule</h2>
+  <p>Every person is scored with the same three components. The maximums are 50, 35, and 15. They sum to 100.</p>
+  <ol>
+    <li><strong>Other-committee share of receipts, up to 50.</strong> Divide FEC "other committee contributions" by "total receipts," multiply by 100, and round to one decimal. Then cap the result at 50. A 50% share, or anything higher, scores 50. A 0% share scores 0.</li>
+    <li><strong>Missed-vote rate, up to 35.</strong> Divide roll calls recorded as Not Voting by eligible roll calls, multiply by 100, then multiply by 3.5, and round to one decimal. Then cap the result at 35. A 10% missed-vote rate scores 35. A 0% rate scores 0. The 3.5 multiplier is an editorial scale so that a large attendance gap can use the full component. It is not a legal threshold.</li>
+    <li><strong>Public ethics finding or sanction, up to 15.</strong> 0 if the checked official pages do not name the member in a public finding or sanction. 8 if an official public report states a violation, or states substantial reason to believe a violation occurred, and the sources do not also contain a sanction. 15 if an official public sanction names the member: a House reproval, reprimand, censure, fine, or expulsion, or a Senate public letter of admonition.</li>
+  </ol>
+  <p>Add the component points. Round that sum to the nearest integer. A sum that lands on .5 rounds up. Example: 69.5 becomes 70.</p>
+  <p>If a component is <strong>no data</strong>, leave it out. Divide the sum of the remaining points by the sum of their maximums, multiply by 100, and round to an integer. Do not fill a gap with a guess, a zero, or another person's number.</p>
+  <p>In this starter set every component has a source, so nothing is rescaled.</p>
+
+  <h2>Why these metrics</h2>
+  <p>The three inputs are documented, comparable, and available for members of both parties. They are not policy positions and they are not party-line vote scores. A vote for or against a bill does not add mold. Only a Not Voting position does, and only as attendance.</p>
+  <p>Receipts use one finished window for everyone: the FEC 2024 cycle, coverage January 1, 2023 through December 31, 2024, with the two-year view rather than a full six-year Senate total. "Other committee contributions" is the FEC line for contributions from other political committees, including PACs. Total receipts is the denominator because the metric is their share of receipts. Individual contributions, unitemized individual contributions, party committee contributions, and transfers from other authorized committees are shown on the card and are not scored.</p>
+  <p>Missed votes use the official roll calls, not a private tally. For the House, that is every Clerk roll call from 1 through 362 in 2025 and 1 through 321 in 2026. The Clerk's lists, read November 11, 2026, say <a href="https://clerk.house.gov/Votes/MemberVotes?CongressNum=119&Session=1st">362 results</a> and <a href="https://clerk.house.gov/Votes/MemberVotes?CongressNum=119&Session=2nd">321 results</a>. The latest 2nd-session roll call on that list was roll call 321 at 2:43 PM that day. For the Senate, the menus list <a href="https://www.senate.gov/legislative/LIS/roll_call_lists/vote_menu_119_1.xml">659 votes in session 1</a> and <a href="https://www.senate.gov/legislative/LIS/roll_call_lists/vote_menu_119_2.xml">258 votes in session 2</a>. Each person in this set appears in every roll call in their chamber. Not Voting is a miss. Yea, Nay, Present, and a candidate name on the election of the Speaker all count as participating.</p>
+  <p>Ethics points are added only from official public records. News articles, campaign ads, and complaints that those offices have not published as a finding or sanction do not add points.</p>
+
+  <h2>What was checked for ethics</h2>
+  <p>House members: the <a href="https://ethics.house.gov/?s=Bost">House Committee on Ethics site search</a> for each surname (Bost, Budzinski, Casten, LaHood) returned a page that says nothing matched. The <a href="https://conduct.house.gov/reports/investigations">Office of Congressional Conduct investigations index</a>, pages 0 through 12, did not list these four names. That page range was the full set of investigation pages on the site that day.</p>
+  <p>Senators: the <a href="https://www.ethics.senate.gov/public/index.cfm/letterstomembers">Senate Select Committee on Ethics list of public letters</a> has 11 letters, dated July 30, 2002 through March 23, 2023. Durbin and Duckworth are not on it.</p>
+  <p>All six therefore score 0 on this component. A zero here means "not named on those pages." It does not mean a private inquiry does not exist. The House historical chart of conduct cases was not used, because that chart stops in 2004.</p>
+
+  <h2>Fact-checks are not in the score</h2>
+  <p>A share of PolitiFact rulings marked False or Pants on Fire was considered and left out. PolitiFact does not rate members on a common schedule. A percentage would be unstable where only a few statements are rated, and it would partly measure how often a person is checked. This version does not score fact-checks and does not invent a count.</p>
+
+  <h2>Worked examples</h2>
+  <p>Nikki Budzinski. Other committee contributions $1,611,074.80 divided by total receipts $4,337,253.92 is about 37.15%, which rounds to 37.1. Missed votes 0 of 683 score 0. Ethics sources score 0. The sum 37.1 rounds to mold level 37. <a href="https://www.fec.gov/data/candidate/H2IL13153/?cycle=2024&amp;election_full=false">FEC page</a>.</p>
+  <p>Darin LaHood. Other committee contributions $2,139,954.83 divided by total receipts $3,753,031.58 is about 57.02%, which rounds to 57.0 and is then capped at 50. Missed votes 38 of 683, times 3.5, round to 19.5. Ethics sources score 0. The sum 50 + 19.5 + 0 = 69.5, which rounds to mold level 70. <a href="https://www.fec.gov/data/candidate/H6IL18088/?cycle=2024&amp;election_full=false">FEC page</a>.</p>
+  <p>The same function produces mold level 25 for Richard J. Durbin, 29 for Tammy Duckworth, 56 for Mike Bost, and 34 for Sean Casten.</p>
+
+  <h2>Limits</h2>
+  <ul>
+    <li>The picture is a satire. More spots mean a higher score on this scale. The kind of fruit is decoration.</li>
+    <li>The set is six people. It cannot support a claim about Democrats, Republicans, or Illinois as a whole.</li>
+    <li>The two senators were not on the 2024 ballot. The four representatives were. The same 2023–2024 window is used anyway. Transfers from a member's own other committees sit inside total receipts and are not "other committee contributions," so a large transfer lowers the scored share. Durbin's page shows $529,630.09 of those transfers. Read the dollar lines before treating a senator and a representative as the same kind of campaign.</li>
+    <li>A missed vote has no reason in this score. Illness, family leave, travel, and a paired absence are all Not Voting if that is what the roll call says.</li>
+    <li>Two House quorum calls are inside the 683 because the Clerk numbered them. None of these four is recorded Not Voting on those two.</li>
+    <li>Later roll calls, amended FEC reports, and ethics releases after November 11, 2026 are not in this file.</li>
+    <li>Private ethics matters are outside the sources. A score of 0 is not a clearance.</li>
+  </ul>
+  <p><a href="index.html">Back to the comparison</a>. <a href="../">Home</a>.</p>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Opinion visualization of public records. No claim of wrongdoing beyond the words of the linked records.</p>
+  </div>
+</footer>
+</body>
+</html>
