@@ -5,539 +5,263 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Veterans Day Freebie Route | Dukktape Studios</title>
 <meta name="description" content="Plan a Veterans Day route for Wednesday, November 11, 2026. Check free meals and deals near your ZIP. The route follows each offer's hours.">
-<link rel="preload" href="../assets/fonts/nunito-latin-800.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-@font-face {
-  font-family: Nunito;
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("../assets/fonts/nunito-latin-600.woff2") format("woff2");
-}
-@font-face {
-  font-family: Nunito;
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("../assets/fonts/nunito-latin-700.woff2") format("woff2");
-}
-@font-face {
-  font-family: Nunito;
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url("../assets/fonts/nunito-latin-800.woff2") format("woff2");
-}
 :root {
   --paper: #f6efe3;
   --card: #fffaf3;
   --ink: #2c241c;
-  --ink-soft: #5c4636;
   --green: #1d6840;
   --green-deep: #143f28;
   --orange: #e07a2f;
   --orange-deep: #8d3f10;
-  --brown: #6b442c;
-  --silver: #c5ced6;
-  --silver-dark: #8e99a4;
   --line: #eadcc8;
 }
 * { box-sizing: border-box; }
 body {
   margin: 0;
-  font-family: Nunito, ui-rounded, "Segoe UI", sans-serif;
-  font-weight: 600;
-  font-size: 1.05rem;
-  line-height: 1.55;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: var(--paper);
   color: var(--ink);
-  background:
-    radial-gradient(1100px 480px at 50% -120px, #ffe3c4 0%, transparent 70%),
-    radial-gradient(700px 380px at 100% 0%, #e5f3e4 0%, transparent 55%),
-    radial-gradient(640px 360px at -10% 12%, #f8e4d0 0%, transparent 50%),
-    var(--paper);
+  line-height: 1.5;
 }
-.skip {
-  position: absolute;
-  left: 12px;
-  top: -48px;
-  background: #fff;
-  color: var(--green-deep);
-  padding: 8px 12px;
-  border-radius: 10px;
-  z-index: 5;
-  font-weight: 800;
-}
-.skip:focus { top: 12px; }
-a { color: var(--green-deep); text-underline-offset: .16em; text-decoration-thickness: 2px; }
-a:hover, a:focus-visible { color: var(--orange-deep); }
-.wrap { max-width: 1100px; margin: 0 auto; padding: 22px 22px 8px; }
-.back { margin: 0 0 .8rem; font-weight: 800; }
-.back a { text-decoration: none; }
-h1 {
-  margin: 0 0 .45rem;
-  font-size: clamp(1.9rem, 5vw, 2.7rem);
-  font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-  color: var(--green-deep);
-}
-.deck { margin: 0 0 .9rem; max-width: 42rem; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 16px; }
+h1 { color: var(--green-deep); margin: 0 0 8px; font-size: 1.6rem; }
 .notice {
-  margin: 0 0 1rem;
-  padding: .75rem .95rem;
   background: #fff7e8;
-  border: 1px solid #f0d7b4;
   border-left: 4px solid var(--orange);
-  border-radius: 14px;
-  font-weight: 700;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 12px 0;
+  font-size: 0.95rem;
 }
 .controls {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 14px;
+  gap: 8px;
   align-items: end;
-  margin: 0 0 14px;
-  padding: 12px 14px;
   background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-}
-label { font-weight: 800; color: var(--green-deep); }
-.inline {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 4px;
-  font-weight: 700;
-  color: var(--ink);
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 16px;
 }
 input, select, button {
   font: inherit;
-  font-weight: 700;
-  color: var(--ink);
-}
-input, select {
-  display: block;
-  margin-top: 4px;
-  padding: 8px 10px;
-  border: 1px solid var(--silver-dark);
-  border-radius: 10px;
-  background: #fff;
-}
-.inline select, .inline input { margin-top: 0; }
-button, .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  padding: .4rem 1rem;
-  border: 0;
-  border-radius: 999px;
-  background: var(--orange);
-  color: #fff;
-  font-weight: 800;
-  text-decoration: none;
-  box-shadow: 0 4px 0 var(--orange-deep);
-  cursor: pointer;
-}
-button:hover, button:focus-visible, .btn:hover, .btn:focus-visible {
-  background: var(--orange-deep);
-  color: #fff;
-}
-#st { flex: 1 1 16rem; margin: 0; font-weight: 800; color: var(--brown); }
-.layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(280px, .95fr);
-  gap: 14px;
-  align-items: start;
-}
-#map {
-  height: 420px;
-  border-radius: 18px;
-  border: 1px solid var(--line);
-  background: #e7efe8;
-}
-h2 {
-  margin: 0 0 .7rem;
-  color: var(--green);
-  font-size: 1.35rem;
-  font-weight: 800;
-  border-bottom: 3px solid var(--silver);
-  padding-bottom: .3rem;
-}
-.spot, .miss, .leg-card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 16px;
   padding: 10px 12px;
-  margin: 0 0 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
-.spot { display: block; cursor: pointer; }
-.spot:hover, .spot:focus-within { background: #fff; border-color: var(--silver-dark); }
+button {
+  background: var(--orange);
+  color: white;
+  border: 0;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 44px;
+}
+button:hover { background: var(--orange-deep); }
+#st { flex: 1; min-width: 180px; font-weight: 600; color: var(--green-deep); }
+.deal {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 0 0 10px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.deal.selected {
+  background: #e8f5e9;
+  border-color: var(--green);
+  box-shadow: 0 0 0 2px var(--green);
+}
+.deal b { font-size: 1.05rem; }
 .tag {
   display: inline-block;
-  font-size: .78rem;
-  font-weight: 800;
   background: #ffe3b0;
   color: var(--orange-deep);
-  border-radius: 999px;
-  padding: 1px 8px;
-}
-.tag.old { background: #f6d0c6; }
-.clock { font-weight: 800; color: var(--orange-deep); }
-.leg { margin: 2px 0 4px 8px; color: var(--ink-soft); font-size: .95rem; }
-.maps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-footer {
-  text-align: center;
-  padding: 8px 20px 32px;
-  color: var(--ink-soft);
-  font-size: .95rem;
+  font-size: 0.75rem;
   font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: 6px;
 }
-footer::before {
-  content: "";
-  display: block;
-  width: min(168px, 42vw);
-  height: 10px;
-  margin: 18px auto 16px;
-  border-radius: 2px;
-  background: linear-gradient(#f5f7f8, #c5ced6 55%, #eef1f4);
-  box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(80, 55, 30, .12);
+.meta { font-size: 0.9rem; color: #5c4636; margin-top: 4px; }
+.selected-count {
+  font-weight: 700;
+  color: var(--green);
+  margin: 8px 0;
 }
-footer p { margin: .25rem 0; }
-footer a { font-weight: 800; text-decoration: none; }
-button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible {
-  outline: 3px solid var(--orange);
-  outline-offset: 3px;
-}
-@media (max-width: 800px) {
-  .layout { grid-template-columns: 1fr; }
-  #map { height: 300px; }
-  .wrap { padding: 16px 14px 4px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
-}
+footer { text-align: center; padding: 20px; font-size: 0.9rem; color: #666; }
+a { color: var(--green-deep); }
 </style>
-<link rel="stylesheet" href="../assets/donate-bar.css">
 </head>
 <body>
-<aside class="dts-donate" aria-label="Donations">
-<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=dukktapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
-<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
-</aside>
-
-<a class="skip" href="#content">Skip to content</a>
 <div class="wrap">
-  <header>
-    <p class="back"><a href="../">← Home</a></p>
-    <h1>Veterans Day freebie route</h1>
-    <p class="deck">Wednesday, November 11, 2026. Check the spots you want. The route visits each one only while that offer is open.</p>
-    <p class="notice">Deals change. Call the store before you go, and bring the ID that offer asks for. This page is a planner, not the restaurant.</p>
-  </header>
+  <h1>Veterans Day freebie route</h1>
+  <p>Wednesday, November 11, 2026. Tap the deals you want. Build a route from the ones that have a location.</p>
+  <div class="notice">Deals change. Call ahead and bring proof of service. This is a planner, not the restaurant.</div>
+
   <div class="controls">
-    <label>ZIP
-      <input id="zip" value="" placeholder="ZIP" size="6" maxlength="10" inputmode="numeric" autocomplete="postal-code" spellcheck="false">
+    <label>ZIP (optional)
+      <input id="zip" placeholder="Your ZIP" inputmode="numeric" maxlength="10" size="8">
     </label>
     <label>Radius
-      <span class="inline">
-        <select id="rad">
-          <option value="10">10</option>
-          <option value="20" selected>20</option>
-          <option value="30">30</option>
-        </select>
-        miles
-      </span>
+      <select id="rad">
+        <option value="10">10 mi</option>
+        <option value="20" selected>20 mi</option>
+        <option value="30">30 mi</option>
+      </select>
     </label>
-    <button type="button" id="find">Find spots</button>
-    <label>Start
-      <input id="start" type="time" value="07:30">
-    </label>
-    <button type="button" id="build">Build my route</button>
-    <p id="st" role="status"></p>
+    <button type="button" id="find">Find near me</button>
+    <button type="button" id="build">Build route</button>
+    <div id="st">Tap deals to select them.</div>
   </div>
-  <main id="content" class="layout">
-    <div>
-      <div id="map" role="region" aria-label="Map of stops"></div>
-      <div id="route"></div>
-    </div>
-    <div>
-      <h2>Check the spots you want</h2>
-      <div id="list"></div>
-      <h2>Not on the 11th, but worth it</h2>
-      <div id="before"></div>
-    </div>
-  </main>
+
+  <div class="selected-count" id="count">0 selected</div>
+  <div id="list"></div>
+  <div id="route"></div>
 </div>
 <footer>
   <p><a href="../">Dukktape Studios</a></p>
-  <p>© 2026 Dukktape Studios</p>
+  <p>Free to use. Donations welcome.</p>
 </footer>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <script>
-(function () {
-  const $ = id => document.getElementById(id);
-  const BRING = "Bring: VA ID (VHIC/Veteran ID Card), DD-214 copy, photo ID";
-  let D, S = [], home, map, layer, line;
+const $ = id => document.getElementById(id);
+let deals = [];
+let selected = new Set();
 
-  if (window.L) {
-    delete L.Icon.Default.prototype._getIconUrl;
-    L.Icon.Default.mergeOptions({
-      iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-      iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-      shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png"
-    });
-    map = L.map("map");
-    layer = L.layerGroup().addTo(map);
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "&copy; OpenStreetMap"
-    }).addTo(map);
-    map.setView([42.27, -89.0], 9);
-  }
+const CHAINS = [
+  { brand: "Applebee's", deal: "Free entree from Veterans Day menu, dine-in", proof: "Proof of service", source: "https://www.applebees.com/en/veterans-day-free-meals", year: "2026", win: [11, 20] },
+  { brand: "Chili's", deal: "Free entree from select menu, dine-in", proof: "ID", source: "https://news.va.gov/150505/2026-veterans-day-discounts-free-meals-offers/", year: "2026", win: [11, 20] },
+  { brand: "Denny's", deal: "Free Original Grand Slam 5am-noon, dine-in", proof: "ID", source: "https://news.va.gov/150505/2026-veterans-day-discounts-free-meals-offers/", year: "2026", win: [5, 12] },
+  { brand: "Golden Corral", deal: "Free buffet, Military Appreciation Night 4pm-close", proof: "Proof of service", source: "https://mva.lacounty.gov/vet-day-2026-deals/", year: "2026", win: [16, 21] },
+  { brand: "Bob Evans", deal: "Free meal from special menu", proof: "Service ID", source: "https://news.va.gov/150505/2026-veterans-day-discounts-free-meals-offers/", year: "2026", win: [7, 14] },
+  { brand: "Red Robin", deal: "Free Red's Big Tavern Burger + bottomless fries", proof: "ID", source: "https://news.va.gov/150505/2026-veterans-day-discounts-free-meals-offers/", year: "2026", win: [11, 20] },
+  { brand: "Red Lobster", deal: "Free Shrimp & Chips, dine-in", proof: "ID", source: "https://news.va.gov/150505/2026-veterans-day-discounts-free-meals-offers/", year: "2026", win: [11, 20] },
+  { brand: "Starbucks", deal: "Free 12oz brewed coffee", proof: "Proof of service", source: "https://news.va.gov/150505/2026-veterans-day-discounts-free-meals-offers/", year: "2026", win: [6, 11] },
+  { brand: "Chipotle", deal: "Free chips + guac/queso/salsa w/ $5 purchase", proof: "ID", source: "https://news.va.gov/150505/2026-veterans-day-discounts-free-meals-offers/", year: "2026", win: [11, 20] },
+  { brand: "Freddy's", deal: "Free combo card (use by Nov 25)", proof: "Proof of service", source: "https://news.va.gov/150505/2026-veterans-day-discounts-free-meals-offers/", year: "2026", win: [11, 20] },
+  { brand: "Buffalo Wild Wings", deal: "Free 10pc boneless wings + fries", proof: "ID", source: "https://mva.lacounty.gov/vet-day-2026-deals/", year: "2026", win: [11, 20] },
+  { brand: "IHOP", deal: "Free Red, White & Blueberry pancake combo", proof: "ID", source: "https://mva.lacounty.gov/vet-day-2026-deals/", year: "2026 (call)", win: [7, 12] },
+  { brand: "Cracker Barrel", deal: "Free Sunrise Pancake Special", proof: "Military ID", source: "https://mva.lacounty.gov/vet-day-2026-deals/", year: "2026 (call)", win: [11, 20] },
+  { brand: "Dunkin'", deal: "Free doughnut, in-store", proof: "ID", source: "https://mva.lacounty.gov/vet-day-2026-deals/", year: "2026 (call)", win: [6, 11] },
+  { brand: "Great Clips", deal: "Free haircut", proof: "Proof of service", source: "https://news.va.gov/150505/2026-veterans-day-discounts-free-meals-offers/", year: "2026", win: [11, 20] },
+  { brand: "Walgreens", deal: "20% off eligible items in-store", proof: "ID", source: "https://news.va.gov/150505/2026-veterans-day-discounts-free-meals-offers/", year: "2026", win: [11, 20] }
+];
 
-  const rx = b => b.replace(/'/g, ".?").replace(/ /g, ".?");
-  const mi = (a, b) => Math.hypot((a.lat - b.lat) * 69, (a.lon - b.lon) * 69 * Math.cos(a.lat * Math.PI / 180));
-  const hm = m => {
-    m = Math.round(m);
-    const h = Math.floor(m / 60) % 24;
-    const x = ((m % 60) + 60) % 60;
-    return (h % 12 || 12) + ":" + String(x).padStart(2, "0") + (h < 12 ? " am" : " pm");
-  };
-  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-  }[c]));
-  function stay(s) {
-    if (s.kind) return s.kind;
-    return /Starbucks|Dunkin|Chipotle|Freddy/.test(s.name) ? 20 : /Kohl|Walgreens|Tractor|Clips/.test(s.name) ? 30 : 60;
-  }
-  function savedSpots(data) {
-    const fb = data.fallback;
-    if (!fb) return [];
-    if (Array.isArray(fb)) return fb.slice();
-    return Object.keys(fb).reduce((all, key) => all.concat(fb[key] || []), []);
-  }
-  function nearest(list, origin, radius) {
-    const near = list.filter(s => mi(s, origin) <= radius).sort((a, b) => mi(a, origin) - mi(b, origin));
-    return near[0] || null;
-  }
-  function fromLive(chain, elements) {
-    const re = new RegExp("^" + rx(chain.brand) + "$", "i");
-    return elements.filter(e => {
-      const tags = e.tags || {};
-      return re.test(tags.brand || "") || re.test(tags.name || "");
-    }).map(e => {
-      const t = e.tags || {};
-      const addr = [t["addr:housenumber"], t["addr:street"], t["addr:city"]].filter(Boolean).join(" ");
-      return Object.assign({}, chain, {
-        name: chain.brand,
-        lat: e.lat != null ? e.lat : e.center.lat,
-        lon: e.lon != null ? e.lon : e.center.lon,
-        addr: addr || "see map pin",
-        saved: false
-      });
-    });
-  }
-  function fromSaved(chain, saved) {
-    return saved.filter(s => String(s.brand).toLowerCase() === chain.brand.toLowerCase()).map(s => Object.assign({}, chain, {
-      name: chain.brand,
-      lat: +s.lat,
-      lon: +s.lon,
-      addr: s.addr,
-      saved: true
-    }));
-  }
-  async function liveElements(query) {
-    const urls = [
-      "https://overpass-api.de/api/interpreter",
-      "https://overpass.kumi.systems/api/interpreter",
-      "https://overpass.private.coffee/api/interpreter"
-    ];
-    let sawResponse = false;
-    const tasks = urls.map(async url => {
-      const res = await fetch(url, {
-        method: "POST",
-        body: "data=" + encodeURIComponent(query),
-        signal: AbortSignal.timeout(25000)
-      });
-      if (!res.ok) throw new Error(String(res.status));
-      const json = await res.json();
-      if (!Array.isArray(json.elements)) throw new Error("shape");
-      if (!json.elements.length) {
-        sawResponse = true;
-        throw new Error("empty");
-      }
-      return json.elements;
-    });
-    try {
-      return { elements: await Promise.any(tasks), down: false };
-    } catch (err) {
-      return { elements: [], down: !sawResponse };
-    }
-  }
+function hm(mins) {
+  const h = Math.floor(mins / 60) % 24;
+  const m = mins % 60;
+  return (h % 12 || 12) + ":" + String(m).padStart(2, "0") + (h < 12 ? " am" : " pm");
+}
 
-  async function go() {
-    const z = $("zip").value.trim();
+function render() {
+  const list = $("list");
+  list.innerHTML = "";
+  deals.forEach((d, i) => {
+    const card = document.createElement("div");
+    card.className = "deal" + (selected.has(i) ? " selected" : "");
+    card.innerHTML = `
+      <b>${d.brand}</b> <span class="tag">${d.year}</span>
+      <div class="meta">${d.deal}</div>
+      <div class="meta">⏰ ${hm(d.win[0]*60)}–${hm(d.win[1]*60)} · 🪪 ${d.proof}
+        ${d.dist ? " · " + d.dist.toFixed(1) + " mi" : ""}
+        · <a href="${d.source}" target="_blank" rel="noopener">source</a>
+        ${d.maps ? ` · <a href="${d.maps}" target="_blank" rel="noopener">maps</a>` : ""}
+      </div>`;
+    card.addEventListener("click", (e) => {
+      if (e.target.tagName === "A") return;
+      if (selected.has(i)) selected.delete(i);
+      else selected.add(i);
+      updateCount();
+      render();
+    });
+    list.appendChild(card);
+  });
+}
+
+function updateCount() {
+  $("count").textContent = selected.size + " selected";
+}
+
+async function findNear() {
+  const z = $("zip").value.trim();
+  if (!z) {
+    $("st").textContent = "Enter a ZIP to find nearby locations.";
+    return;
+  }
+  $("st").textContent = "Looking up…";
+  try {
+    const gRes = await fetch("https://api.zippopotam.us/us/" + encodeURIComponent(z));
+    if (!gRes.ok) throw new Error("bad zip");
+    const g = await gRes.json();
+    const place = g.places?.[0];
+    if (!place) throw new Error("bad zip");
+    const lat = +place.latitude;
+    const lon = +place.longitude;
     const R = +$("rad").value;
-    $("st").textContent = "Looking up…";
-    $("route").innerHTML = "";
-    if (layer) layer.clearLayers();
-    if (line && map) { map.removeLayer(line); line = null; }
-    try {
-      D = D || await (await fetch("data.json")).json();
-      const gRes = await fetch("https://api.zippopotam.us/us/" + encodeURIComponent(z));
-      if (!gRes.ok) throw new Error("zip");
-      const g = await gRes.json();
-      const place = g.places && g.places[0];
-      if (!place) throw new Error("zip");
-      home = { lat: +place.latitude, lon: +place.longitude, name: "Start (" + z + ")" };
-      if (map) {
-        map.setView([home.lat, home.lon], 10);
-        L.circleMarker([home.lat, home.lon], { color: "#b22234", radius: 8 }).addTo(layer).bindPopup("Start");
-      }
-      const names = D.chains.map(c => rx(c.brand)).join("|");
-      const around = "around:" + (R * 1609) + "," + home.lat + "," + home.lon;
-      const q = '[out:json][timeout:60];(nwr(' + around + ')["brand"~"^(' + names + ')$",i];nwr(' + around + ')["name"~"^(' + names + ')$",i];);out center tags;';
-      const live = await liveElements(q);
-      const saved = savedSpots(D);
-      S = [];
-      const miss = [];
-      let savedCount = 0;
-      D.chains.forEach(c => {
-        let pick = nearest(fromLive(c, live.elements), home, R);
-        if (!pick) {
-          pick = nearest(fromSaved(c, saved), home, R);
-          if (pick) savedCount += 1;
-        }
-        if (pick) S.push(pick);
-        else miss.push(c);
-      });
-      (D.local[z] || []).forEach(l => S.push(Object.assign({}, l)));
-      S = S.filter(s => mi(s, home) <= R).sort((a, b) => a.win[0] - b.win[0]);
-      if (layer) {
-        S.forEach(s => {
-          L.marker([s.lat, s.lon]).addTo(layer).bindPopup("<b>" + esc(s.name) + "</b><br>" + esc(s.deal));
-        });
-      }
-      $("list").innerHTML = S.map((s, i) => {
-        const old = /unconfirmed/.test(s.year);
-        return '<label class="spot"><input type="checkbox" id="c' + i + '"> <b>' + esc(s.name) + '</b> <span class="tag' + (old ? " old" : "") + '">' + esc(s.year) + "</span><br>"
-          + "📍 " + esc(s.addr) + " (" + mi(s, home).toFixed(1) + " mi) · ⏰ " + hm(s.win[0] * 60) + "–" + hm(s.win[1] * 60) + "<br>"
-          + "🎁 " + esc(s.deal) + "<br>🪪 " + esc(s.proof) + ' · <a target="_blank" rel="noopener" href="' + esc(s.source) + '">source</a></label>';
-      }).join("")
-        + "<h2>National deals — no nearby location found" + (live.down ? " (map server busy)" : "") + "</h2>"
-        + miss.map(c => {
-          const old = /unconfirmed/.test(c.year);
-          return '<div class="miss"><b>' + esc(c.brand) + '</b> <span class="tag' + (old ? " old" : "") + '">' + esc(c.year) + "</span> · " + esc(c.deal)
-            + ' · <a target="_blank" rel="noopener" href="' + esc(c.source) + '">source</a>'
-            + ' · <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/' + encodeURIComponent(c.brand + " near " + z) + '">find nearest</a></div>';
-        }).join("");
-      const before = D.before[z] || [];
-      $("before").innerHTML = before.length
-        ? before.map(b => '<div class="miss"><b>' + esc(b.name) + "</b><br>" + esc(b.where) + " · " + esc(b.cost) + ' · <a target="_blank" rel="noopener" href="' + esc(b.source) + '">source</a></div>').join("")
-        : '<div class="miss">Search "' + esc(place["place name"]) + ' Veterans Day 2026".</div>';
-      let note = S.length + " spots near " + place["place name"] + ".";
-      if (live.down && savedCount) note += " Live map lookup was busy, so chain stops use the saved list.";
-      else if (savedCount) note += " " + savedCount + (savedCount === 1 ? " chain uses a saved pin the live map missed." : " chains use saved pins the live map missed.");
-      $("st").textContent = note;
-    } catch (err) {
-      $("st").textContent = "Could not look up that ZIP. Check it and try again.";
-      $("list").innerHTML = "";
-      $("before").innerHTML = "";
-      S = [];
-    }
-  }
 
-  async function matrix(P) {
+    let elements = [];
     try {
-      const r = await (await fetch("https://router.project-osrm.org/table/v1/driving/" + P.map(p => p.lon + "," + p.lat).join(";") + "?annotations=duration", { signal: AbortSignal.timeout(15000) })).json();
-      if (r.code === "Ok") return [r.durations.map(row => row.map(v => v / 60)), "OSRM drive times"];
-    } catch (err) {}
-    return [P.map(a => P.map(b => mi(a, b) * 1.3 / 40 * 60 + 3)), "estimated from distance (40 mph)"];
-  }
-
-  async function plan() {
-    if (!home) return;
-    const sel = S.filter((s, i) => $("c" + i) && $("c" + i).checked);
-    if (!sel.length) {
-      $("st").textContent = "Check at least one spot, then build the route.";
-      return;
-    }
-    const P = [home].concat(sel);
-    const packed = await matrix(P);
-    const M = packed[0];
-    const src = packed[1];
-    const parts = $("start").value.split(":").map(Number);
-    const h = parts[0];
-    const m = parts[1];
-    let t = h * 60 + m;
-    let cur = 0;
-    let left = sel.map((_, i) => i + 1);
-    const out = [];
-    let skip = [];
-    while (left.length) {
-      let best = null;
-      left.forEach(j => {
-        const s = P[j];
-        const arr = t + M[cur][j];
-        const beg = Math.max(arr, s.win[0] * 60);
-        const st = stay(s);
-        if (beg + Math.min(st, 15) > s.win[1] * 60) return;
-        const sc = beg + M[cur][j] * 0.5;
-        if (!best || sc < best.sc) best = { j: j, arr: arr, beg: beg, sc: sc, st: st };
+      const names = CHAINS.map(c => c.brand.replace(/'/g, ".?")).join("|");
+      const q = `[out:json][timeout:25];(nwr(around:${R*1609},${lat},${lon})["brand"~"^(${names})$",i];);out center;`;
+      const r = await fetch("https://overpass-api.de/api/interpreter", {
+        method: "POST",
+        body: "data=" + encodeURIComponent(q),
+        signal: AbortSignal.timeout(20000)
       });
-      if (!best) {
-        skip = left.map(j => P[j]);
-        break;
+      if (r.ok) {
+        const j = await r.json();
+        elements = j.elements || [];
       }
-      const s = P[best.j];
-      out.push({ s: s, drive: M[cur][best.j], arr: best.arr, beg: best.beg, st: best.st });
-      t = best.beg + best.st;
-      cur = best.j;
-      left = left.filter(x => x !== best.j);
-    }
-    let html = "<h2>Your route (start " + hm(h * 60 + m) + ")</h2><div class=\"leg\">Drive times: " + esc(src) + "</div>";
-    out.forEach((o, i) => {
-      const wait = o.beg > o.arr + 1 ? " · wait " + Math.round(o.beg - o.arr) + " min" : "";
-      const stayLabel = o.st >= 60 ? Math.round(o.st / 60) + " hr" : o.st + " min";
-      html += '<div class="leg">🚗 about ' + Math.round(o.drive) + " min drive" + wait + "</div>"
-        + '<div class="leg-card"><span class="clock">' + hm(o.beg) + "</span> <b>" + (i + 1) + ". " + esc(o.s.name) + "</b> — stay about " + stayLabel
-        + "<br>⏰ offer " + hm(o.s.win[0] * 60) + "–" + hm(o.s.win[1] * 60)
-        + "<br>📍 " + esc(o.s.addr)
-        + "<br>🎁 " + esc(o.s.deal)
-        + "<br>🪪 " + esc(o.s.proof) + ". " + esc(BRING) + ' · <a target="_blank" rel="noopener" href="' + esc(o.s.source) + '">source</a></div>';
+    } catch (e) {}
+
+    deals = CHAINS.map(c => {
+      const match = elements.find(e => {
+        const t = e.tags || {};
+        return (t.brand || t.name || "").toLowerCase().includes(c.brand.toLowerCase().split(" ")[0]);
+      });
+      const d = { ...c };
+      if (match) {
+        d.lat = match.lat || match.center?.lat;
+        d.lon = match.lon || match.center?.lon;
+        d.dist = Math.hypot((d.lat - lat) * 69, (d.lon - lon) * 69 * Math.cos(lat * Math.PI / 180));
+        d.maps = `https://www.google.com/maps/search/?api=1&query=${d.lat},${d.lon}`;
+      } else {
+        d.maps = `https://www.google.com/maps/search/${encodeURIComponent(c.brand + " near " + z)}`;
+      }
+      return d;
     });
-    html += '<div class="leg">🏁 Done about ' + hm(t) + "</div>";
-    if (skip.length) html += '<div class="miss">Couldn\'t fit (hours closed): ' + skip.map(s => esc(s.name)).join(", ") + "</div>";
-    const pts = [home].concat(out.map(o => o.s));
-    html += '<div class="maps">';
-    for (let i = 0; i < pts.length - 1; i += 9) {
-      const seg = pts.slice(i, i + 10);
-      const part = pts.length > 10 ? " (part " + (i / 9 + 1) + ")" : "";
-      html += '<a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/' + seg.map(p => p.lat.toFixed(5) + "," + p.lon.toFixed(5)).join("/") + '">Open in Google Maps' + part + "</a>";
-    }
-    html += "</div>";
-    $("route").innerHTML = html;
-    if (map) {
-      if (line) map.removeLayer(line);
-      if (pts.length > 1) {
-        line = L.polyline(pts.map(p => [p.lat, p.lon]), { color: "#8d3f10", weight: 5 }).addTo(map);
-        map.fitBounds(line.getBounds(), { padding: [30, 30] });
-      }
-    }
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    $("route").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    $("st").textContent = "Showing deals near " + place["place name"] + ". Tap to select.";
+  } catch (err) {
+    $("st").textContent = "Could not look up that ZIP. Deals still shown — tap to select.";
+    deals = CHAINS.map(c => ({ ...c, maps: `https://www.google.com/maps/search/${encodeURIComponent(c.brand)}` }));
   }
+  selected.clear();
+  updateCount();
+  render();
+}
 
-  $("find").addEventListener("click", go);
-  $("build").addEventListener("click", plan);
-  go();
-})();
+function buildRoute() {
+  const chosen = [...selected].map(i => deals[i]).filter(d => d.lat);
+  if (!chosen.length) {
+    $("st").textContent = "Select at least one deal that has a nearby location (use Find near me first).";
+    return;
+  }
+  const pts = chosen.slice(0, 9).map(d => d.lat + "," + d.lon);
+  const url = "https://www.google.com/maps/dir/" + pts.join("/");
+  $("route").innerHTML = `<p><a href="${url}" target="_blank" rel="noopener" style="display:inline-block;background:var(--orange);color:white;padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:700;">Open route in Google Maps</a></p>`;
+  $("st").textContent = "Route ready for " + chosen.length + " stops.";
+}
+
+$("find").onclick = findNear;
+$("build").onclick = buildRoute;
+
+deals = CHAINS.map(c => ({ ...c }));
+render();
+updateCount();
 </script>
-<script data-goatcounter="https://dukktape.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
