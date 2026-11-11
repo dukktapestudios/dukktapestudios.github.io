@@ -290,6 +290,44 @@ img, svg, iframe { max-width: 100%; }
   .split { grid-template-columns: 1fr; }
   .span-12, .span-23, .seq-line { grid-column: 1 / -1; }
   .seq-arrow { margin-left: 12px; margin-right: 12px; }
+  .table-scroll { overflow-x: visible; }
+  table { min-width: 0; border-collapse: separate; border-spacing: 0; }
+  thead { display: none; }
+  tr {
+    display: block;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    background: #1c2124;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  th, td { display: block; width: auto; border: 0; padding: 4px 0; }
+  th[scope="row"] {
+    color: var(--orange);
+    font-size: 1rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .t-meaning td::before, .t-chat td::before, .t-types td::before, .t-costs td::before, .t-prompts td::before {
+    display: block;
+    color: var(--orange);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .t-meaning td:nth-child(2)::before { content: "Plain meaning"; }
+  .t-meaning td:nth-child(3)::before { content: "Everyday analogy"; }
+  .t-chat td:nth-child(2)::before { content: "What it does"; }
+  .t-chat td:nth-child(3)::before { content: "Why it matters"; }
+  .t-types td:nth-child(2)::before { content: "What it does"; }
+  .t-types td:nth-child(3)::before { content: "Example to try"; }
+  .t-costs td:nth-child(2)::before { content: "How it works"; }
+  .t-costs td:nth-child(3)::before { content: "Good to know"; }
+  .t-prompts td:nth-child(1)::before { content: "Weaker prompt"; }
+  .t-prompts td:nth-child(2)::before { content: "Why it struggles"; }
+  .t-prompts td:nth-child(3)::before { content: "Stronger prompt"; }
 }
 @media (max-width: 420px) {
   .wrap { width: min(var(--column), calc(100% - 24px)); }
@@ -381,7 +419,7 @@ img, svg, iframe { max-width: 100%; }
     <p>A neural network is the most common design for that learning. Think of a huge stack of tiny decision-makers, each passing a slightly processed signal to the next. During training, the connections between them are tweaked so the final output gets closer to the right answer. The math is not required to use the tools.</p>
     <p>A large language model, or LLM, is a neural network trained to predict the next piece of text. Chat models are LLMs that have also been shaped to answer questions and follow instructions. They are very good at sounding fluent. Fluency is not the same thing as being right.</p>
     <div class="table-scroll">
-      <table>
+      <table class="t-meaning">
         <caption class="soft">Core ideas</caption>
         <thead>
           <tr><th scope="col">Idea</th><th scope="col">Plain meaning</th><th scope="col">Everyday analogy</th></tr>
@@ -443,7 +481,7 @@ img, svg, iframe { max-width: 100%; }
     <h2 id="chat-assistants-title"><span class="num">03</span>How chat assistants work</h2>
     <p>A chat assistant is an LLM plus some surrounding software that holds the conversation, may keep notes, and may let the model use tools. The pattern is the same whether the model runs on a local computer or in the cloud. What follows is the general idea, not the inner workings of any one product.</p>
     <div class="table-scroll">
-      <table>
+      <table class="t-chat">
         <caption class="soft">Pieces of a chat assistant</caption>
         <thead>
           <tr><th scope="col">Piece</th><th scope="col">What it does</th><th scope="col">Why it matters</th></tr>
@@ -489,7 +527,7 @@ img, svg, iframe { max-width: 100%; }
     <h2 id="types-title"><span class="num">04</span>Types of AI</h2>
     <p>"AI" is not one program. Different models do different jobs. They can be combined later, which is how a talking Cody would work.</p>
     <div class="table-scroll">
-      <table>
+      <table class="t-types">
         <caption class="soft">Kinds of model</caption>
         <thead>
           <tr><th scope="col">Type</th><th scope="col">What it does</th><th scope="col">Example to try</th></tr>
@@ -569,7 +607,7 @@ img, svg, iframe { max-width: 100%; }
     <h2 id="costs-title"><span class="num">07</span>Costs</h2>
     <p>There are three common ways to pay for AI. None of them is automatically best. It depends on how the tools are used.</p>
     <div class="table-scroll">
-      <table>
+      <table class="t-costs">
         <caption class="soft">Ways to pay</caption>
         <thead>
           <tr><th scope="col">Way to pay</th><th scope="col">How it works</th><th scope="col">Good to know</th></tr>
@@ -600,7 +638,7 @@ img, svg, iframe { max-width: 100%; }
     <h2 id="prompting-title"><span class="num">08</span>Prompting basics</h2>
     <p>A prompt is the request. Good prompts are specific about the goal, the audience, the length, and the constraints. An example of the style helps too. If the first reply is off, say what to change instead of starting from scratch every time.</p>
     <div class="table-scroll">
-      <table>
+      <table class="t-prompts">
         <caption class="soft">Weaker prompts and stronger ones</caption>
         <thead>
           <tr><th scope="col">Weaker prompt</th><th scope="col">Why it struggles</th><th scope="col">Stronger prompt</th></tr>
