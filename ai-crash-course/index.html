@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Crash Course | Dukktape Studios</title>
+<meta name="description" content="A plain-language beginner guide to how AI works, local and cloud tools, prompting, and how those pieces can connect into a talking desk robot. Example hardware only.">
+<meta name="theme-color" content="#171b1e">
+<link rel="icon" href="../assets/studio-duck.png" type="image/png">
+<link rel="preload" href="../assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-700.woff2") format("woff2");
+}
+:root {
+  --bg: #171b1e;
+  --raise: #22282c;
+  --line: #3a4143;
+  --text: #f0f0e8;
+  --muted: #b4b4b4;
+  --orange: #efb671;
+  --ink: #171b1e;
+  --column: 740px;
+}
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  overflow-wrap: break-word;
+}
+a { color: var(--orange); text-underline-offset: 0.16em; }
+a:hover { color: #f3c48a; }
+:focus { outline: none; }
+:focus-visible { outline: 3px solid #f7f4ee; outline-offset: 3px; }
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: var(--orange);
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: 8px;
+  z-index: 5;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip:focus { top: 12px; }
+.top {
+  position: sticky;
+  top: var(--dts-donate-offset, 0px);
+  z-index: 2;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.wrap { width: min(var(--column), calc(100% - 32px)); margin: 0 auto; }
+.top-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+}
+.brand { color: var(--text); font-weight: 700; text-decoration: none; letter-spacing: -0.02em; }
+.home-link { font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+.eyebrow {
+  margin: 28px 0 8px;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 6vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.lede { font-size: 1.12rem; margin: 14px 0 0; }
+.note, .callout {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-left: 3px solid var(--orange);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 16px 0;
+}
+h2 {
+  margin: 2.2rem 0 0.7rem;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+h2 .num { color: var(--orange); font-size: 0.85rem; letter-spacing: 0.08em; display: block; margin-bottom: 4px; }
+h3 { margin: 1.3rem 0 0.4rem; font-size: 1.12rem; letter-spacing: -0.02em; }
+section[id], h2, h3 { scroll-margin-top: calc(var(--dts-donate-offset, 4.5rem) + 76px); }
+p, li { color: var(--text); }
+.soft, .toc, figcaption, td, dd { color: var(--text); }
+.muted { color: var(--muted); }
+.toc {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  margin-top: 22px;
+}
+.toc h2 { margin: 0 0 8px; font-size: 1.05rem; }
+.toc ol { margin: 0; padding-left: 1.3rem; }
+.toc li { margin: 4px 0; }
+.toc a { color: var(--text); font-weight: 600; }
+.table-scroll { overflow-x: auto; margin: 12px 0 18px; max-width: 100%; }
+table { width: 100%; border-collapse: collapse; min-width: 34rem; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { color: var(--orange); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+code, pre { font-family: ui-monospace, "Cascadia Mono", "Segoe UI Mono", monospace; }
+code { font-size: 0.92em; }
+pre {
+  overflow-x: auto;
+  max-width: 100%;
+  background: #121518;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--text);
+}
+ul, ol { padding-left: 1.25rem; }
+li { margin: 0.35rem 0; }
+figure { margin: 16px 0; }
+.diagram {
+  background: #1c2124;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 12px 16px;
+  max-width: 100%;
+}
+figcaption { margin-top: 8px; }
+figcaption ol { margin: 6px 0 0; }
+.kicker { margin: 0; color: var(--orange); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.rows { display: grid; gap: 10px; margin: 16px 0; }
+.rows article {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.rows h3 { margin: 4px 0; }
+.rows p { margin: 0; }
+.meta {
+  margin: 0;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.panel {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+}
+.panel h3 { margin-top: 0; }
+.panel ul { margin-bottom: 0; }
+.pipeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; justify-items: center; }
+.pipeline li { width: min(100%, 420px); text-align: center; }
+.node {
+  background: #2a3034;
+  border: 1px solid var(--orange);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+.node strong, .seq-actor strong { display: block; }
+.node span, .seq-actor span {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+.flow-arrow {
+  display: flex;
+  justify-content: center;
+  color: var(--orange);
+  font-weight: 700;
+  line-height: 1;
+  padding: 4px 0 2px;
+}
+.exchange {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: 8px 0;
+  color: var(--orange);
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+.sequence {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 8px;
+  align-items: start;
+}
+.seq-actor {
+  background: #2a3034;
+  border: 1px solid var(--orange);
+  border-radius: 12px;
+  padding: 8px 6px;
+  text-align: center;
+  min-height: 4.6rem;
+}
+.seq-line { margin-top: 12px; min-width: 0; }
+.span-12 { grid-column: 1 / 3; }
+.span-23 { grid-column: 2 / 4; }
+.seq-label {
+  display: block;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+.seq-arrow {
+  display: block;
+  height: 2px;
+  margin: 8px 6px 0;
+  background: var(--orange);
+  position: relative;
+}
+.seq-arrow::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  border: 5px solid transparent;
+}
+.seq-arrow.go::after { right: -1px; border-left-color: var(--orange); }
+.seq-arrow.back::after { left: -1px; border-right-color: var(--orange); }
+.seq-note {
+  grid-column: 1 / -1;
+  margin-top: 12px;
+  background: #34383c;
+  border: 1px solid var(--orange);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.refs { list-style: none; margin: 12px 0 0; padding: 0; }
+.refs li { margin: 0; padding: 10px 0; border-top: 1px solid var(--line); }
+.refs a { font-weight: 600; overflow-wrap: anywhere; }
+.refs .host { display: block; color: var(--muted); font-size: 0.85rem; }
+ol.refs { list-style: decimal; padding-left: 1.3rem; }
+ol.refs li { border-top: 0; padding: 6px 0; }
+ol.refs li::marker { color: var(--orange); font-weight: 700; }
+.steps li { margin: 0.7rem 0; }
+#feedback-box { margin-top: 8px; max-width: 100%; }
+#feedback-box .giscus, #feedback-box .giscus-frame { max-width: 100%; }
+footer { border-top: 1px solid var(--line); margin-top: 28px; padding: 22px 0 36px; color: var(--muted); }
+footer p { margin: 0 0 8px; }
+img, svg, iframe { max-width: 100%; }
+@media (max-width: 640px) {
+  .split { grid-template-columns: 1fr; }
+  .span-12, .span-23, .seq-line { grid-column: 1 / -1; }
+  .seq-arrow { margin-left: 12px; margin-right: 12px; }
+  .table-scroll { overflow-x: visible; }
+  table { min-width: 0; border-collapse: separate; border-spacing: 0; }
+  thead { display: none; }
+  tr {
+    display: block;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    background: #1c2124;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  th, td { display: block; width: auto; border: 0; padding: 4px 0; }
+  th[scope="row"] {
+    color: var(--orange);
+    font-size: 1rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .t-meaning td::before, .t-chat td::before, .t-types td::before, .t-costs td::before, .t-prompts td::before {
+    display: block;
+    color: var(--orange);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .t-meaning td:nth-child(2)::before { content: "Plain meaning"; }
+  .t-meaning td:nth-child(3)::before { content: "Everyday analogy"; }
+  .t-chat td:nth-child(2)::before { content: "What it does"; }
+  .t-chat td:nth-child(3)::before { content: "Why it matters"; }
+  .t-types td:nth-child(2)::before { content: "What it does"; }
+  .t-types td:nth-child(3)::before { content: "Example to try"; }
+  .t-costs td:nth-child(2)::before { content: "How it works"; }
+  .t-costs td:nth-child(3)::before { content: "Good to know"; }
+  .t-prompts td:nth-child(1)::before { content: "Weaker prompt"; }
+  .t-prompts td:nth-child(2)::before { content: "Why it struggles"; }
+  .t-prompts td:nth-child(3)::before { content: "Stronger prompt"; }
+}
+@media (max-width: 420px) {
+  .wrap { width: min(var(--column), calc(100% - 24px)); }
+  .top-inner { align-items: flex-start; padding: 8px 0; }
+  .seq-label { font-size: 0.88rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+<link rel="stylesheet" href="../assets/donate-bar.css">
+</head>
+<body>
+<aside class="dts-donate" aria-label="Donations">
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=dukktapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+</aside>
+
+<a class="skip" href="#content">Skip to content</a>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/">Dukktape Studios</a>
+    <a class="home-link" href="/#guides">All guides</a>
+  </div>
+</header>
+<main id="content" class="wrap">
+  <p class="eyebrow">Guide · links checked 11 November 2026</p>
+  <h1>AI Crash Course</h1>
+  <p class="lede">A plain-language beginner's guide to how AI works, how local chat and image tools fit on a typical gaming PC, and how those pieces can later connect into a talking desk robot. The example character is named Cody. Go at your own pace. This is a starting map, not a test.</p>
+  <p class="note">A learning guide. Ollama, Forge, llama3.1:8b, and Juggernaut XL are common example tools. Hardware mentions, such as a typical gaming PC (for example, an 8 GB GPU), are examples too. This page does not describe one person's computer.</p>
+
+  <nav class="toc" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#welcome">Welcome</a></li>
+      <li><a href="#what-is-ai">What AI actually is</a></li>
+      <li><a href="#chat-assistants">How chat assistants work</a></li>
+      <li><a href="#types">Types of AI</a></li>
+      <li><a href="#local-vs-cloud">Local vs. cloud</a></li>
+      <li><a href="#hardware">Hardware basics</a></li>
+      <li><a href="#costs">Costs</a></li>
+      <li><a href="#prompting">Prompting basics</a></li>
+      <li><a href="#connect">How the pieces connect</a></li>
+      <li><a href="#safety">Safety and privacy</a></li>
+      <li><a href="#limits">Limits and checking facts</a></li>
+      <li><a href="#copyright">Copyright and licensing</a></li>
+      <li><a href="#ethics">Ethics and responsible use</a></li>
+      <li><a href="#earning">Ways to earn, without the hype</a></li>
+      <li><a href="#key-terms">Key terms you will see</a></li>
+      <li><a href="#mistakes">Common beginner mistakes</a></li>
+      <li><a href="#habits">Healthy habits</a></li>
+      <li><a href="#learning-path">A first-week learning path</a></li>
+      <li><a href="#glossary">Glossary</a></li>
+    </ol>
+  </nav>
+
+  <section id="welcome" aria-labelledby="welcome-title">
+    <h2 id="welcome-title"><span class="num">01</span>Welcome</h2>
+    <p>A computer-science background is not required to start working with AI. A practical starting setup is a chat tool and an image tool on the computer in front of you. Two common free local options are Ollama for chat (for example, the llama3.1:8b model) and Forge for images (for example, the Juggernaut XL model).</p>
+    <p>This page explains the ideas in everyday language, with simple analogies. It is meant to support two goals: learning enough to make side money over time, and seeing how an example character named Cody could become a desk robot, and later a drone. Read a section, try one small exercise, and come back later.</p>
+    <div class="rows">
+      <article>
+        <p class="meta">Local text AI</p>
+        <h3>Chat, on a computer</h3>
+        <p>Ollama with llama3.1:8b. You type, it replies. With a local install, the chat does not have to leave the computer.</p>
+      </article>
+      <article>
+        <p class="meta">Local image AI</p>
+        <h3>Images, on a computer</h3>
+        <p>Forge with Juggernaut XL. You describe a picture, it generates one.</p>
+      </article>
+      <article>
+        <p class="meta">Example hardware</p>
+        <h3>A typical machine</h3>
+        <p>A typical gaming PC (for example, an 8 GB GPU and 16 GB of system RAM) is enough for the 7B and 8B class models this guide starts with.</p>
+      </article>
+    </div>
+    <p class="callout"><strong>Small wins beat rushing.</strong> There is no need to learn everything in one sitting. One clear experiment, like a better prompt or a picture of Cody that actually looks right, is a complete success for a day.</p>
+  </section>
+
+  <section id="what-is-ai" aria-labelledby="what-is-ai-title">
+    <h2 id="what-is-ai-title"><span class="num">02</span>What AI actually is</h2>
+    <p>Artificial intelligence (AI) is a broad name for software that can do tasks that used to need human judgment, such as writing, recognizing speech, or making an image from a description. It is not a person, and it does not understand the world the way a person does. It is a tool that has learned patterns from large amounts of data.</p>
+    <p>Machine learning is how most modern AI is built. Instead of a person writing a rule for every situation, the system is shown many examples and adjusts itself until it gets better at a task. A useful analogy is learning to recognize a friend's handwriting: nobody hands you a complete rulebook. Enough samples, and the pattern starts to click.</p>
+    <p>A neural network is the most common design for that learning. Think of a huge stack of tiny decision-makers, each passing a slightly processed signal to the next. During training, the connections between them are tweaked so the final output gets closer to the right answer. The math is not required to use the tools.</p>
+    <p>A large language model, or LLM, is a neural network trained to predict the next piece of text. Chat models are LLMs that have also been shaped to answer questions and follow instructions. They are very good at sounding fluent. Fluency is not the same thing as being right.</p>
+    <div class="table-scroll">
+      <table class="t-meaning">
+        <caption class="soft">Core ideas</caption>
+        <thead>
+          <tr><th scope="col">Idea</th><th scope="col">Plain meaning</th><th scope="col">Everyday analogy</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Token</th>
+            <td>A small chunk of text the model reads and writes, often a word or part of a word.</td>
+            <td>Lego bricks. The model builds a reply one brick at a time.</td>
+          </tr>
+          <tr>
+            <th scope="row">Training</th>
+            <td>The slow, expensive process of teaching a model from huge amounts of data. This usually happens in a data center, not on a home computer.</td>
+            <td>Years of study, done once, before the tool reaches anyone.</td>
+          </tr>
+          <tr>
+            <th scope="row">Inference (use)</th>
+            <td>Running an already-trained model to get an answer, an image, or a voice clip. This is what Ollama and Forge do.</td>
+            <td>Using what was already learned to answer a new question.</td>
+          </tr>
+          <tr>
+            <th scope="row">Parameters / model size</th>
+            <td>The learned settings inside the model. Size is often written as 8B, meaning about 8 billion parameters.</td>
+            <td>The number of adjustable knobs. More knobs can mean more capability, and they also need more memory.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Why llama3.1:8b fits an 8 GB GPU: an 8 billion parameter model is a middleweight. Ollama typically runs a quantized (compressed) copy, which shrinks the memory needed. A typical gaming PC (for example, an 8 GB GPU) has enough dedicated graphics memory, called VRAM, for a common 4-bit 8B chat model. Much larger models often do not fit, or they run slowly by spilling into regular RAM. That is why staying around the 7B to 8B range is a practical starting point on that kind of machine.</p>
+    <figure>
+      <div class="diagram" data-diagram="training">
+        <ol class="pipeline">
+          <li><div class="node"><strong>Training data</strong></div></li>
+          <li class="flow-arrow" aria-hidden="true">↓</li>
+          <li><div class="node"><strong>Training</strong><span>Usually done once, in a data center</span></div></li>
+          <li class="flow-arrow" aria-hidden="true">↓</li>
+          <li><div class="node"><strong>Model file</strong><span>Example: llama3.1:8b</span></div></li>
+          <li class="flow-arrow" aria-hidden="true">↓</li>
+          <li><div class="node"><strong>Inference (use)</strong><span>On a computer or in the cloud</span></div></li>
+          <li>
+            <p class="exchange"><span>prompt ↓</span><span>↑ reply</span></p>
+            <div class="node"><strong>A person</strong><span>Prompt in, reply out</span></div>
+          </li>
+        </ol>
+      </div>
+      <figcaption>
+        <p class="kicker">In words</p>
+        <ol>
+          <li>Training data goes into training, which is usually done once, in a data center.</li>
+          <li>Training produces a model file, such as llama3.1:8b.</li>
+          <li>Inference is using that file, on a computer or in the cloud.</li>
+          <li>A person sends a prompt in and gets a reply out.</li>
+        </ol>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section id="chat-assistants" aria-labelledby="chat-assistants-title">
+    <h2 id="chat-assistants-title"><span class="num">03</span>How chat assistants work</h2>
+    <p>A chat assistant is an LLM plus some surrounding software that holds the conversation, may keep notes, and may let the model use tools. The pattern is the same whether the model runs on a local computer or in the cloud. What follows is the general idea, not the inner workings of any one product.</p>
+    <div class="table-scroll">
+      <table class="t-chat">
+        <caption class="soft">Pieces of a chat assistant</caption>
+        <thead>
+          <tr><th scope="col">Piece</th><th scope="col">What it does</th><th scope="col">Why it matters</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Prompt</th>
+            <td>The text someone types, plus any instructions or examples included with it.</td>
+            <td>Clearer requests usually get clearer results. Garbage in, garbage out still applies.</td>
+          </tr>
+          <tr>
+            <th scope="row">Context window</th>
+            <td>The model's short-term memory for this conversation: the messages, the replies, and other attached text, up to a size limit.</td>
+            <td>If the chat gets long, earlier details can fall off the edge. Important facts may need to be restated.</td>
+          </tr>
+          <tr>
+            <th scope="row">System instructions</th>
+            <td>Standing directions given to the model, such as "reply briefly" or "you are a helpful desk assistant named Cody."</td>
+            <td>This is a common way to shape tone and behavior without retraining the model.</td>
+          </tr>
+          <tr>
+            <th scope="row">Tools / function calling</th>
+            <td>The model can request an action, like looking something up or calling a program, instead of only writing text.</td>
+            <td>This is how a chat model can later control a robot, a document, or a search, rather than just talking about it.</td>
+          </tr>
+          <tr>
+            <th scope="row">Memory</th>
+            <td>Optional longer-term notes saved outside the current chat, then brought back later.</td>
+            <td>A model does not automatically remember a person between sessions unless the app saves something on purpose.</td>
+          </tr>
+          <tr>
+            <th scope="row">Agents</th>
+            <td>A setup where the model can plan steps and use tools to try to complete a task, not just answer one question.</td>
+            <td>Powerful, and also easier to get wrong. Start with simple, supervised steps.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="callout"><strong>They can be wrong.</strong> Models sometimes invent facts, sources, quotes, or details that sound confident. This is often called a hallucination. Always check anything important against a real source: a receipt, an official page, a person who would know. If it matters for money, health, legal issues, or hardware, do not take the model's word alone.</p>
+  </section>
+
+  <section id="types" aria-labelledby="types-title">
+    <h2 id="types-title"><span class="num">04</span>Types of AI</h2>
+    <p>"AI" is not one program. Different models do different jobs. They can be combined later, which is how a talking Cody would work.</p>
+    <div class="table-scroll">
+      <table class="t-types">
+        <caption class="soft">Kinds of model</caption>
+        <thead>
+          <tr><th scope="col">Type</th><th scope="col">What it does</th><th scope="col">Example to try</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Text (LLM)</th>
+            <td>Writes, explains, brainstorms, and helps with code or plans.</td>
+            <td>Ollama with llama3.1:8b, a common local starting model.</td>
+          </tr>
+          <tr>
+            <th scope="row">Image (diffusion)</th>
+            <td>Starts from noise and gradually shapes it into a picture that matches a description.</td>
+            <td>Forge with Juggernaut XL, a common local image setup.</td>
+          </tr>
+          <tr>
+            <th scope="row">Speech-to-text</th>
+            <td>Listens to audio and turns it into written words.</td>
+            <td>Whisper is a widely used open model for this.</td>
+          </tr>
+          <tr>
+            <th scope="row">Text-to-speech</th>
+            <td>Turns written words into a spoken voice.</td>
+            <td>Piper is a popular option that can run locally.</td>
+          </tr>
+          <tr>
+            <th scope="row">Vision</th>
+            <td>Looks at an image or camera frame and describes or interprets it.</td>
+            <td>Some chat models can accept a picture as well as text. A desk robot could later use a small camera.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Diffusion, in plain terms, is like a sculptor starting with static on a TV and slowly nudging it toward the picture described. That is different from a chat model, which predicts the next bit of text.</p>
+  </section>
+
+  <section id="local-vs-cloud" aria-labelledby="local-vs-cloud-title">
+    <h2 id="local-vs-cloud-title"><span class="num">05</span>Local vs. cloud</h2>
+    <p>Local AI runs on a computer you control. Cloud AI runs on a company's computers and is reached over the internet. Ollama and Forge are examples of the local path. Many people use both: local for private or unlimited practice, cloud when they want a larger model or a polished app.</p>
+    <div class="split">
+      <section class="panel" aria-labelledby="local-heading">
+        <h3 id="local-heading">Local (a computer you control)</h3>
+        <ul>
+          <li>Chats and images can stay on that computer.</li>
+          <li>No per-message fee once the software and model are installed.</li>
+          <li>No monthly usage cap from a vendor. The limit is the hardware.</li>
+          <li>Works without an account, and can work offline after the model is downloaded.</li>
+        </ul>
+      </section>
+      <section class="panel" aria-labelledby="cloud-heading">
+        <h3 id="cloud-heading">Cloud (a company's servers)</h3>
+        <ul>
+          <li>Often stronger at hard reasoning, writing, and coding, because the models are larger.</li>
+          <li>Easy to start: a website or app, no install required.</li>
+          <li>Prompts usually go to someone else's servers, so privacy depends on that company.</li>
+          <li>Paid plans, usage limits, or per-use bills are common.</li>
+        </ul>
+      </section>
+    </div>
+    <p>Speed depends on the task and the hardware. A local 8B chat model can feel snappy on an 8 GB GPU. A big cloud model may be smarter but is also only as fast as the internet connection and the provider's servers. Local image generation has the same tradeoff: it works, and each image takes some time.</p>
+    <p class="callout"><strong>They can work together.</strong> A practical split is: use local tools for private notes, practice, character work, and anything that should stay in the house. Use a cloud assistant when extra help thinking or coding would be useful, and still keep secrets off the internet.</p>
+  </section>
+
+  <section id="hardware" aria-labelledby="hardware-title">
+    <h2 id="hardware-title"><span class="num">06</span>Hardware basics</h2>
+    <p>The graphics card (GPU) is what makes local image and chat models practical. A GPU has many small cores and its own fast memory, called VRAM. The model generally needs to fit in VRAM, with some room left for the conversation or the image being built.</p>
+    <p>Think of VRAM as the workbench. If the project fits on the bench, work goes quickly. If it does not, pieces spill onto the floor (regular system RAM, or even the drive), and everything slows down. On a typical gaming PC (for example, an 8 GB GPU), that 8 GB is the workbench. 16 GB of system RAM is a common amount and is helpful, but it is not a substitute for VRAM when speed matters.</p>
+    <p>Quantization is a way to compress a model so it uses less memory. Labels look like Q4, Q5, or Q8. Lower numbers usually mean a smaller file and lower VRAM use, with some quality tradeoff. Higher numbers are closer to the full model and need more memory. Ollama often ships a quantized version by default, which is a big reason an 8B model can run on an 8 GB card.</p>
+    <ul>
+      <li>If a model is too large, it may fail to load, or it may run very slowly.</li>
+      <li>If a bigger model makes the computer crawl, go back to the 7B or 8B range. That is not a failure. It is matching the tool to the hardware.</li>
+      <li>A new computer is not required to start. A typical gaming PC (for example, an 8 GB GPU) is already enough for the path laid out here.</li>
+    </ul>
+  </section>
+
+  <section id="costs" aria-labelledby="costs-title">
+    <h2 id="costs-title"><span class="num">07</span>Costs</h2>
+    <p>There are three common ways to pay for AI. None of them is automatically best. It depends on how the tools are used.</p>
+    <div class="table-scroll">
+      <table class="t-costs">
+        <caption class="soft">Ways to pay</caption>
+        <thead>
+          <tr><th scope="col">Way to pay</th><th scope="col">How it works</th><th scope="col">Good to know</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Local (example setup)</th>
+            <td>The computer and electricity are the costs. Installed local models do not charge per prompt.</td>
+            <td>Best for practice, private work, and lots of trial and error. Time and the power bill are the ongoing costs.</td>
+          </tr>
+          <tr>
+            <th scope="row">Subscription</th>
+            <td>A flat monthly (or yearly) fee for a cloud assistant or app, often with a usage limit.</td>
+            <td>Predictable bill, but cap days still happen. Monthly billing is easier to cancel than a long prepaid year when the goal is only to try it.</td>
+          </tr>
+          <tr>
+            <th scope="row">API, pay per use</th>
+            <td>A person or a program sends requests to a company's model and is billed by usage, often by tokens.</td>
+            <td>Useful later if an app is built. A bug that loops can get expensive, so this is not the first step.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>More money is not required to learn the basics. Use local tools first. If a cloud plan is added later, start with a monthly tier and watch how much it is actually used.</p>
+  </section>
+
+  <section id="prompting" aria-labelledby="prompting-title">
+    <h2 id="prompting-title"><span class="num">08</span>Prompting basics</h2>
+    <p>A prompt is the request. Good prompts are specific about the goal, the audience, the length, and the constraints. An example of the style helps too. If the first reply is off, say what to change instead of starting from scratch every time.</p>
+    <div class="table-scroll">
+      <table class="t-prompts">
+        <caption class="soft">Weaker prompts and stronger ones</caption>
+        <thead>
+          <tr><th scope="col">Weaker prompt</th><th scope="col">Why it struggles</th><th scope="col">Stronger prompt</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Write something about a robot.</td>
+            <td>No audience, length, or purpose, so the model has to guess.</td>
+            <td>Write a 3-sentence product description for a friendly desk robot named Cody. Plain language, no jargon, for someone who wants a small talking companion on a desk.</td>
+          </tr>
+          <tr>
+            <td>Make me a fox.</td>
+            <td>Too vague for an image model. Pose, style, clothing, and background are all undefined.</td>
+            <td>Full-body illustration of a friendly anthropomorphic fox character, standing, simple blue dress, plain light background, consistent character design, no text in the image.</td>
+          </tr>
+          <tr>
+            <td>Is this a good idea?</td>
+            <td>The model does not know what "good" means here.</td>
+            <td>I want a weekend project: hook a microphone to a computer and have Ollama answer out loud. List the first three steps, the likely pitfalls, and what to test before buying parts.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li>Say what the result should be, who it is for, and how long it should be.</li>
+      <li>For images, mention subject, pose, clothing, background, and style. Change one thing at a time when iterating.</li>
+      <li>Ask the model to show its assumptions, or to list what it is unsure about, when the answer matters.</li>
+      <li>For facts, ask for sources, then check those sources. Made-up citations happen.</li>
+    </ul>
+  </section>
+
+  <section id="connect" aria-labelledby="connect-title">
+    <h2 id="connect-title"><span class="num">09</span>How the pieces connect</h2>
+    <p>An API is a standard way for programs to talk to each other, like a counter window at a shop: a clear request goes in, and a structured reply comes back. Ollama offers a local API, usually at <code>http://localhost:11434</code>, on the computer where Ollama is installed. Forge can be used from a browser, and it can also be set up to accept requests from other programs. Official details are in the <a href="https://docs.ollama.com/api/introduction">Ollama API introduction</a>.</p>
+    <p>Python is a popular programming language for gluing these pieces together. Being a programmer is not required to chat in Ollama or make images in Forge. When it is time to connect a microphone, a voice, or a small electronics board to the model, a short Python script is a common way to do it. The official Python tutorial is the right starting place, and it can be learned a page at a time.</p>
+    <p>A desk robot does not replace the computer as the brain at first. The robot is the body: a microphone, a speaker, a small screen, and maybe a couple of motors, often wired through an ESP32 or similar board. The computer does the heavy thinking.</p>
+    <figure>
+      <div class="diagram" data-diagram="cody-loop">
+        <div class="sequence">
+          <div class="seq-actor"><strong>A person</strong><span>Speaks</span></div>
+          <div class="seq-actor"><strong>Desk robot</strong><span>Mic, ESP32, speaker, screen</span></div>
+          <div class="seq-actor"><strong>The computer</strong><span>Whisper, Ollama, Piper</span></div>
+
+          <div class="seq-line span-12">
+            <span class="seq-label">A person → Desk robot: speak into the mic</span>
+            <span class="seq-arrow go" aria-hidden="true"></span>
+          </div>
+          <div class="seq-line span-23">
+            <span class="seq-label">Desk robot → computer: send the audio</span>
+            <span class="seq-arrow go" aria-hidden="true"></span>
+          </div>
+          <div class="seq-note">On the computer: Whisper turns speech into text, Ollama (llama3.1:8b) writes a reply, and Piper turns that reply into speech.</div>
+          <div class="seq-line span-23">
+            <span class="seq-label">Computer → desk robot: send the voice, and text for the face or screen</span>
+            <span class="seq-arrow back" aria-hidden="true"></span>
+          </div>
+          <div class="seq-line span-12">
+            <span class="seq-label">Desk robot → person: Cody speaks, and the screen updates</span>
+            <span class="seq-arrow back" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+      <figcaption>
+        <p class="kicker">In words</p>
+        <ol>
+          <li>A person speaks into the desk robot's microphone.</li>
+          <li>The robot sends that audio to the computer.</li>
+          <li>On the computer, Whisper turns speech into text, Ollama (llama3.1:8b) writes a reply, and Piper turns that reply into speech.</li>
+          <li>The computer sends the voice back, plus text for the face or screen.</li>
+          <li>Cody speaks, and the screen updates.</li>
+        </ol>
+      </figcaption>
+    </figure>
+    <p class="callout"><strong>Build this in layers.</strong> First, make the loop work on the computer alone (microphone to text, to Ollama, to speakers). Then add a face on the screen. The physical desk robot comes after that loop is reliable. That order saves money and frustration.</p>
+  </section>
+
+  <section id="safety" aria-labelledby="safety-title">
+    <h2 id="safety-title"><span class="num">10</span>Safety and privacy</h2>
+    <p>Treat a cloud AI chat like a postcard that a company may be able to see. Local tools like Ollama and Forge are much more private, because the work can stay on the computer, but it is still worth being careful about what gets saved and shared.</p>
+    <ul>
+      <li>Never paste passwords, Social Security numbers, PINs, seed phrases, or full account numbers into a cloud AI. Last four digits are enough if an account ever needs to be referred to.</li>
+      <li>Be wary of scams that use AI. Common patterns include cloned voices of relatives asking for money, fake job or "AI business opportunity" pitches that promise easy income, and phishing messages that look unusually polished.</li>
+      <li>Deepfakes are realistic fake images, video, or audio. Do not make or share non-consensual fakes of real people. Be skeptical of shocking clips, especially if they ask for money or personal data.</li>
+      <li>If a scam seems likely, it can be reported to the U.S. Federal Trade Commission at ReportFraud.ftc.gov.</li>
+    </ul>
+    <ul class="refs">
+      <li><a href="https://reportfraud.ftc.gov/">Report a scam or fraud to the FTC</a><span class="host">reportfraud.ftc.gov</span></li>
+    </ul>
+  </section>
+
+  <section id="limits" aria-labelledby="limits-title">
+    <h2 id="limits-title"><span class="num">11</span>Limits and checking facts</h2>
+    <p>AI is useful, and it is also uneven. Knowing the limits saves time and trouble.</p>
+    <ul>
+      <li><strong>Bias.</strong> Models learn patterns from data that can be incomplete or skewed. They may treat people or topics unfairly, or repeat stereotypes. Read answers with that in mind, especially on sensitive subjects.</li>
+      <li><strong>Outdated or missing knowledge.</strong> A model only knows what it was trained on, plus anything the app retrieves for it. It can miss recent changes, or invent a confident answer when it does not know.</li>
+      <li><strong>Verify important answers.</strong> For money, health, legal questions, school, hardware purchases, and anything that will be published, check a primary source: official docs, a statement, a real person, or records kept for that purpose.</li>
+    </ul>
+    <p>A healthy habit is to ask, "How would I check this if the model were a confident stranger?" If it cannot be checked, do not treat it as settled.</p>
+  </section>
+
+  <section id="copyright" aria-labelledby="copyright-title">
+    <h2 id="copyright-title"><span class="num">12</span>Copyright and licensing</h2>
+    <p>This is not legal advice, and the rules are still developing. Before selling something, read the official sources and the rules of the site that will be used. When a lot of money or someone else's work is involved, consider talking to a lawyer.</p>
+    <p>In the United States, the Copyright Office's January 2025 report on copyrightability (Part 2 of its Copyright and Artificial Intelligence report) includes these points, in plain language:</p>
+    <ul>
+      <li>Using AI as a helper, rather than as a stand-in for human creativity, does not automatically cancel copyright in what was made.</li>
+      <li>Copyright protects original expression created by a human, even if the work also includes AI-generated material.</li>
+      <li>Copyright does not extend to purely AI-generated material, or to material where a person did not have enough control over the expressive parts.</li>
+      <li>With the generally available tools in use at the time of that report, prompts alone were not considered enough control.</li>
+      <li>A person may have copyright in their own creative contributions that are perceptible in the output, and in a creative selection, arrangement, or modification of the output. Each case depends on the facts.</li>
+    </ul>
+    <p>Licensing is a separate issue from copyright in the output. Models and some platform tools come with licenses that can restrict commercial use, certain kinds of content, or how the model is shared. Open-weight does not automatically mean "do anything." Read the license for llama3.1 and for Juggernaut XL (and any other model that gets added) before selling work made with them.</p>
+    <p>Code help from a model can also include snippets that resemble existing projects. Do not paste generated code into a project that will be sold or published until it is understood and licensing has been considered. When selling art, check the current rules of each platform, including whether they require disclosure of AI use. Do not copy living artists' names as a style shortcut for commercial work, and do not use other people's copyrighted characters or logos in products for sale unless the right to do that exists.</p>
+    <p>Training-data copyright (whether a model was allowed to learn from certain works) is a separate, still-active legal topic. The Copyright Office has been writing about that too. Do not assume it is settled.</p>
+    <ul class="refs">
+      <li><a href="https://www.copyright.gov/ai/">U.S. Copyright Office: Copyright and Artificial Intelligence</a><span class="host">copyright.gov</span></li>
+      <li><a href="https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-2-Copyrightability-Report.pdf">Part 2 report: Copyrightability (January 2025)</a><span class="host">copyright.gov</span></li>
+    </ul>
+  </section>
+
+  <section id="ethics" aria-labelledby="ethics-title">
+    <h2 id="ethics-title"><span class="num">13</span>Ethics and responsible use</h2>
+    <p>The technical skill is only half of the work. How the tools are used matters.</p>
+    <ul>
+      <li>Do not use AI to scam, impersonate, harass, or trick people.</li>
+      <li>Do not create or spread non-consensual deepfakes of real people.</li>
+      <li>Be honest when it matters: with clients, on a selling platform, or in school work, say when AI helped if the rules or a reasonable person would expect that.</li>
+      <li>Do not present made-up facts, fake reviews, or fake credentials as real.</li>
+      <li>Respect other people's privacy, including in photos, voice recordings, and personal stories that might be fed into a tool.</li>
+      <li>Think before publishing. A picture or paragraph that felt like a joke can still hurt someone once it is online.</li>
+    </ul>
+  </section>
+
+  <section id="earning" aria-labelledby="earning-title">
+    <h2 id="earning-title"><span class="num">14</span>Ways to earn, without the hype</h2>
+    <p>AI can help work go faster. It does not replace the need for a good offer, decent quality, and patience. Be skeptical of anyone selling a course or system that promises easy income with AI. That pitch is a common scam pattern.</p>
+    <ul>
+      <li><strong>Make things that already matter, then use the tools to help.</strong>
+        <ul>
+          <li>Forge can help draft card art, stickers, or printables, which then get refined and checked for licenses, and sold only if the model license and the platform allow it.</li>
+          <li>A chat model can help write a clearer listing, a packing list, or a first draft of a description. A person still edits and fact-checks.</li>
+        </ul>
+      </li>
+      <li><strong>Learn in public by building small, real projects, such as a talking Cody on a computer.</strong>
+        <ul>
+          <li>Finished projects teach more than theory, and they can later become a portfolio if the goal is to offer help to others.</li>
+        </ul>
+      </li>
+      <li><strong>What usually does not work</strong>
+        <ul>
+          <li>Mass-uploading raw AI images and hoping they sell themselves.</li>
+          <li>Paying upfront for a "done-for-you AI business" that guarantees earnings.</li>
+          <li>Copying someone else's characters or brand and putting them in a shop.</li>
+        </ul>
+      </li>
+    </ul>
+    <p class="callout"><strong>A realistic bar.</strong> Treat early sales, if they happen, as a bonus while skill is built. The near-term win is being able to use the tools with confidence. Side income is more likely after work can be finished and polished, not after the first weekend.</p>
+  </section>
+
+  <section id="key-terms" aria-labelledby="key-terms-title">
+    <h2 id="key-terms-title"><span class="num">15</span>Key terms you will see</h2>
+    <div class="table-scroll">
+      <table>
+        <caption class="soft">Terms that show up next</caption>
+        <thead>
+          <tr><th scope="col">Term</th><th scope="col">Plain meaning</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">RAG (retrieval-augmented generation)</th>
+            <td>The system looks up relevant notes or documents first, then the model answers with that material in view. Like allowing an open-book test instead of forcing the model to recall everything.</td>
+          </tr>
+          <tr>
+            <th scope="row">Embeddings</th>
+            <td>A way of turning text (or images) into a list of numbers that captures meaning, so similar items land close together. This is often what powers search in a RAG setup.</td>
+          </tr>
+          <tr>
+            <th scope="row">Fine-tuning</th>
+            <td>Extra training on a set of examples so a model specializes. This is usually a later step. For Cody's personality, clear instructions and examples are often enough at the beginning.</td>
+          </tr>
+          <tr>
+            <th scope="row">Agents</th>
+            <td>A setup where the model can plan and use tools to pursue a goal, such as "draft a reply and look up a fact." Start simple, and keep a human in the loop for anything that sends a message, spends money, or moves hardware.</td>
+          </tr>
+          <tr>
+            <th scope="row">Tool use / MCP</th>
+            <td>Tool use means the model can request an action, not just write text. MCP (Model Context Protocol) is a common standard for connecting an assistant to tools and apps in a consistent way.</td>
+          </tr>
+          <tr>
+            <th scope="row">Open-weight vs. closed</th>
+            <td>Open-weight models let someone download the model files and run them, the way llama3.1:8b runs in Ollama. They still have licenses. Closed models stay on a company's servers. People use them through an app or API and do not get the files.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="mistakes" aria-labelledby="mistakes-title">
+    <h2 id="mistakes-title"><span class="num">16</span>Common beginner mistakes</h2>
+    <ol>
+      <li>Writing vague prompts and deciding the tool is useless after one try.</li>
+      <li>Trusting a fluent answer without checking the parts that matter.</li>
+      <li>Pasting passwords, ID numbers, or account details into a cloud chat.</li>
+      <li>Starting with a model that is too big for the GPU, then assuming local AI does not work.</li>
+      <li>Trying to learn every course, tool, and buzzword at once instead of finishing one small project.</li>
+      <li>Expecting the first image or first robot idea to be final. Iteration is the normal path.</li>
+      <li>Selling AI work before reading the model license and the platform's rules.</li>
+      <li>Paying for expensive "AI side hustle" programs before using free local tools such as Ollama and Forge.</li>
+      <li>Assuming a local 8B model is just as capable as the largest cloud models. It is useful and private. It is not the same thing.</li>
+      <li>Buying robot parts before the talking loop works on the computer by itself.</li>
+    </ol>
+  </section>
+
+  <section id="habits" aria-labelledby="habits-title">
+    <h2 id="habits-title"><span class="num">17</span>Healthy habits</h2>
+    <p>AI is a helper. It is not a replacement for friends, family, or professional advice. It should not be a doctor, lawyer, therapist, or financial advisor.</p>
+    <ul>
+      <li>Use it to draft, practice, and explore, then apply judgment.</li>
+      <li>Stop for a break after prompting in circles. A short walk often helps more than ten more retries.</li>
+      <li>One finished exercise is enough for a session. A project can stay half-done until tomorrow.</li>
+      <li>If a topic is heavy, it is okay to switch to something concrete and small, like a Forge test or a short Ollama question that can be checked.</li>
+      <li>Keep some work offline and some time offline. The tools will still be there.</li>
+    </ul>
+  </section>
+
+  <section id="learning-path" aria-labelledby="learning-path-title">
+    <h2 id="learning-path-title"><span class="num">18</span>A first-week learning path</h2>
+    <p>These are suggested hands-on exercises, not a live checklist. Do them in any order, and skip a day if needed. Each one is meant to be a complete win by itself.</p>
+    <ol class="steps">
+      <li><strong>Have a real chat in Ollama.</strong> Open a terminal and run <code>ollama run llama3.1:8b</code>, or use the app window that comes with the install. Ask it to explain something already known well, and notice what it gets right or wrong.</li>
+      <li><strong>Catch one mistake on purpose.</strong> Ask a factual question that can be verified (a date, a public official page, or a setting in a program that can be checked). Check the answer. The point is to feel, firsthand, that confident is not the same as correct.</li>
+      <li><strong>Rewrite one weak prompt.</strong> Take a vague request and turn it into a stronger one using the table above. Compare the two replies.</li>
+      <li><strong>Make three related images in Forge.</strong> Generate the same Cody-like character three times, changing only one detail each time (pose, clothing, or background). This teaches control better than starting over with a brand-new idea each time.</li>
+      <li><strong>Skim the Ollama quickstart.</strong> Read the official quickstart so the docs are easy to find later, including the local API address.</li>
+      <li><strong>Optional: start the Python tutorial.</strong> If the next goal is to hook tools together, do the first few pages of the official Python tutorial. Stop after one sitting. The book does not need to be finished this week.</li>
+      <li><strong>Sketch the Cody loop on paper.</strong> Draw the path: microphone, then speech-to-text, then Ollama, then text-to-speech, then speaker and screen. No parts required. This is the blueprint for the desk robot.</li>
+    </ol>
+    <p>After that week, go deeper with free, reputable courses. Start with Elements of AI for a gentle foundation with no programming. Save Google's Machine Learning Crash Course, fast.ai, and the Hugging Face course for after the basics feel comfortable and, for the later two, some Python.</p>
+    <ol class="refs">
+      <li><a href="https://www.elementsofai.com/">Elements of AI (free, no coding required)</a> <span class="host">elementsofai.com</span></li>
+      <li><a href="https://docs.ollama.com/">Ollama documentation</a> <span class="host">docs.ollama.com</span></li>
+      <li><a href="https://docs.ollama.com/quickstart">Ollama quickstart</a> <span class="host">docs.ollama.com</span></li>
+      <li><a href="https://docs.ollama.com/api/introduction">Ollama API introduction</a> <span class="host">docs.ollama.com</span></li>
+      <li><a href="https://docs.python.org/3/tutorial/">Python official tutorial</a> <span class="host">docs.python.org</span></li>
+      <li><a href="https://developers.google.com/machine-learning/crash-course">Google Machine Learning Crash Course</a> <span class="host">developers.google.com</span></li>
+      <li><a href="https://course.fast.ai/">fast.ai: Practical Deep Learning for Coders</a> <span class="host">course.fast.ai</span></li>
+      <li><a href="https://huggingface.co/learn/llm-course/chapter1/1">Hugging Face LLM Course</a> <span class="host">huggingface.co</span></li>
+      <li><a href="https://docs.arduino.cc/learn/">Arduino docs (learn section)</a> <span class="host">docs.arduino.cc</span></li>
+      <li><a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/getting_started.html">ESP32 with Arduino: getting started</a> <span class="host">docs.espressif.com</span></li>
+      <li><a href="https://github.com/openai/whisper">Whisper (speech-to-text)</a> <span class="host">github.com</span></li>
+      <li><a href="https://github.com/rhasspy/piper">Piper (text-to-speech)</a> <span class="host">github.com</span></li>
+    </ol>
+  </section>
+
+  <section id="glossary" aria-labelledby="glossary-title">
+    <h2 id="glossary-title"><span class="num">19</span>Glossary</h2>
+    <div class="table-scroll">
+      <table>
+        <caption class="soft">Short definitions</caption>
+        <thead>
+          <tr><th scope="col">Term</th><th scope="col">Short definition</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">AI</th><td>Software that performs tasks that used to need human judgment, such as writing or recognizing speech.</td></tr>
+          <tr><th scope="row">Machine learning</th><td>Teaching a system from examples, instead of writing a rule for every case.</td></tr>
+          <tr><th scope="row">Neural network</th><td>A common model design made of many simple connected units that learn patterns.</td></tr>
+          <tr><th scope="row">LLM</th><td>A large language model: a neural network trained to predict and generate text.</td></tr>
+          <tr><th scope="row">Token</th><td>A small chunk of text the model reads or writes.</td></tr>
+          <tr><th scope="row">Training</th><td>The one-time (or rare) process of teaching a model from data, usually on huge computers.</td></tr>
+          <tr><th scope="row">Inference</th><td>Using a trained model to produce an answer, image, or voice clip.</td></tr>
+          <tr><th scope="row">Parameters / 8B</th><td>The learned settings inside a model. 8B means about 8 billion of them.</td></tr>
+          <tr><th scope="row">GPU / VRAM</th><td>The graphics card, and the dedicated memory it uses to run models quickly.</td></tr>
+          <tr><th scope="row">Quantization (Q4, Q8)</th><td>Compressing a model so it uses less memory, with some quality tradeoff.</td></tr>
+          <tr><th scope="row">Prompt</th><td>The request sent to the model, including any instructions or examples.</td></tr>
+          <tr><th scope="row">Context window</th><td>How much of the current conversation and attached text the model can consider at once.</td></tr>
+          <tr><th scope="row">System instructions</th><td>Standing directions that shape the model's behavior for a chat or app.</td></tr>
+          <tr><th scope="row">Hallucination</th><td>A confident-sounding answer that is made up or wrong.</td></tr>
+          <tr><th scope="row">Diffusion</th><td>A method image models use to gradually shape noise into a picture.</td></tr>
+          <tr><th scope="row">Speech-to-text</th><td>Turning spoken audio into written words. Whisper is one example.</td></tr>
+          <tr><th scope="row">Text-to-speech</th><td>Turning written words into a spoken voice. Piper is one example.</td></tr>
+          <tr><th scope="row">API</th><td>A standard doorway that lets programs send requests to each other.</td></tr>
+          <tr><th scope="row">Localhost</th><td>An address that points at the same computer the program is running on, such as Ollama at port 11434.</td></tr>
+          <tr><th scope="row">ESP32</th><td>A small, affordable board that can connect sensors, speakers, and screens to a project.</td></tr>
+          <tr><th scope="row">RAG</th><td>Looking up relevant documents first, then answering with that material in view.</td></tr>
+          <tr><th scope="row">Embeddings</th><td>Number lists that capture meaning, used to find similar text or images.</td></tr>
+          <tr><th scope="row">Fine-tuning</th><td>Extra training that specializes a model on a set of examples.</td></tr>
+          <tr><th scope="row">Agent</th><td>A setup where a model can plan steps and use tools to pursue a goal.</td></tr>
+          <tr><th scope="row">MCP / tool use</th><td>Letting a model request actions through tools. MCP is a common connection standard.</td></tr>
+          <tr><th scope="row">Open-weight</th><td>The model files can be downloaded and run locally, still subject to a license.</td></tr>
+          <tr><th scope="row">Closed model</th><td>The model is used through a company's app or API. The files are not provided.</td></tr>
+          <tr><th scope="row">Deepfake</th><td>A realistic fake image, video, or voice, often of a real person.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="callout"><strong>There is a path.</strong> A chat model and an image model can both run on a typical gaming PC. Learn them a little at a time, check the answers that matter, and build the talking Cody loop on the computer before buying a robot body. That is real progress.</p>
+  </section>
+
+  <section id="feedback" aria-labelledby="feedback-title">
+    <h2 id="feedback-title">Feedback &amp; Suggestions</h2>
+    <p>What should this guide explain more clearly? Comments load from GitHub through giscus. They are public on that discussion.</p>
+    <div id="feedback-box"><script src="https://giscus.app/client.js" data-repo="dukktapestudios/dukktapestudios.github.io" data-repo-id="R_kgDOVcgvLw" data-category="General" data-category-id="DIC_kwDOVcgvL84DKFnn" data-mapping="pathname" data-strict="0" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="dark" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script></div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Dukktape Studios — AI Crash Course. A learning guide. Example tools and hardware are typical starting points.</p>
+    <p><a href="/">Dukktape Studios home</a> · <a href="#content">Back to top</a></p>
+    <p>© 2026 Dukktape Studios</p>
+  </div>
+</footer>
+</body>
+</html>
