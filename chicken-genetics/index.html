@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chicken Breeding Genetics Calculator</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%235a3a1e'/%3E%3C/svg%3E">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Georgia,serif;background:#2b1d12;color:#3a2614}
+header{background:linear-gradient(#5a3a1e,#3b2412);color:#f5e6c8;text-align:center;padding:18px 10px;border-bottom:4px solid #c89b5a}
+header h1{margin:0;font-size:1.6em;line-height:1.25}
+header p{margin:4px 0 0;font-size:.95em;opacity:.85}
+main{max-width:1000px;margin:auto;padding:12px}
+.card{background:#f5e6c8;border:2px solid #8b5e34;border-radius:10px;padding:12px;margin:12px 0;box-shadow:0 3px 8px #0006}
+h2{margin:0 0 8px;color:#5a3a1e;border-bottom:1px dashed #8b5e34;padding-bottom:4px}
+h3{margin:12px 0 4px;color:#6b4423;font-size:1em}
+.parents{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+fieldset{border:0;margin:0 0 8px;padding:0}
+legend{font-weight:bold;color:#6b4423;padding:0;margin:8px 0 4px}
+.row{display:flex;flex-direction:column;align-items:stretch;margin:6px 0;gap:2px}
+.row label{font-size:.9em}
+select{font-size:1em;padding:6px;border-radius:5px;border:1px solid #8b5e34;background:#fffaf0;width:100%;max-width:100%}
+button{background:#8b5e34;color:#fff;border:0;border-radius:6px;padding:10px 16px;font-size:1em;cursor:pointer;font-family:inherit;min-height:44px}
+button:hover{background:#6b4423}
+button:focus-visible,select:focus-visible{outline:2px solid #5a3a1e;outline-offset:2px}
+.go{text-align:center;margin:8px 0 0}
+.pheno{font-weight:bold;color:#6b4423;margin:6px 0}
+.hint{font-size:.85em;margin:0 0 8px}
+table{width:100%;border-collapse:collapse}
+td,th{padding:5px;border-bottom:1px solid #d9bf94;text-align:left;font-size:.92em;vertical-align:top}
+.num{white-space:nowrap}
+.bar{background:#c89b5a;height:10px;border-radius:5px}
+.warn{background:#ffe0d6;border:2px solid #b3261e;color:#7a120c;padding:8px;border-radius:8px;margin:8px 0}
+.note{font-size:.85em;opacity:.85}
+.scroll{overflow-x:auto}
+@media(max-width:700px){
+  .parents{grid-template-columns:1fr}
+  header h1{font-size:1.35em}
+  button{width:100%}
+  main{padding:8px}
+  td,th{font-size:.84em;padding:4px 3px}
+}
+@media (prefers-reduced-motion: reduce){
+  *{scroll-behavior:auto !important}
+}
+</style>
+<link rel="stylesheet" href="../assets/donate-bar.css">
+</head>
+<body>
+<aside class="dts-donate" aria-label="Donations">
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=dukktapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+</aside>
+<header>
+<h1>🐔 Chicken Breeding Genetics Calculator</h1>
+<p>Pick the sire and dam. See the odds for the chicks. Runs in this browser. Nothing is uploaded.</p>
+</header>
+<main>
+<div class="card">
+<div class="parents">
+<div id="sire"></div>
+<div id="dam"></div>
+</div>
+<p class="go"><button id="go" type="button">Calculate chick odds</button></p>
+</div>
+<div id="out" aria-live="polite"></div>
+<div class="card" id="how">
+<h2>How this works / assumptions</h2>
+<ol>
+<li>Each parent has two copies of an ordinary gene and passes one of them at random. That 50/50 split is a Punnett square. Several genes are combined by multiplying those chances. The model treats the genes as inherited independently.</li>
+<li>Roosters are ZZ. Hens are ZW. Silver (S), barring (B), and dwarf (dw) are on the Z chromosome. The W chromosome does not carry them. Every chick gets one Z from the rooster. Sons also get the hen's Z, so sons have two copies. Daughters get the hen's W, so they show only the allele from their father.</li>
+<li>That is a sex-link. A gold rooster (s+/s+) over a silver hen (S/W) gives silver sons and gold daughters. A silver rooster (S/S) over a gold hen (s+/W) gives silver chicks of both sexes, because every chick receives S from the rooster.</li>
+<li>Dominant genes show with one copy. Recessive genes show with two copies. A few genes in this list are incomplete: one copy and two copies look different. Blue versus splash, frizzle versus frazzle, a crest versus a full crest, and one dose of barring versus two doses in a male.</li>
+<li>Comb shape uses two genes. Rose comb is R. Pea comb is P. Rose plus pea is walnut. Neither is single. A pure rose (RRpp) crossed with a pure pea (rrPP) makes all walnut chicks. Two birds that each carry rose and pea (RrPp × RrPp) give walnut : rose : pea : single in the ratio 9 : 3 : 3 : 1.</li>
+<li>Base color uses a short slice of the E locus. Extended black (E) is dominant to duckwing, also called wild type (e+). Duckwing is dominant to wheaten (e^Wh). Birchen and brown (e^b) are left out on purpose. Columbian (Co) is a separate dominant gene. On duckwing or wheaten it restricts black to the neck, tail, and wing markings. On extended black, Co does not reliably make a columbian pattern, so those chicks stay black, blue, or splash and are marked “Co carried.”</li>
+<li>Silver (S) is dominant and sex-linked. It turns red and gold feather pigment silver-white. It does not remove black pigment. On a solid black, blue, or splash bird, silver versus gold is easy to miss.</li>
+<li>Barring (B) is dominant and sex-linked. Males can carry two copies. B/B males are lighter (double-barred) than B/b+ males or B/W females, who have one dose. Females have only one Z, so they cannot be double-barred.</li>
+<li>Blue (Bl) is incomplete dominance acting on black pigment. No copy leaves that pigment undiluted (black, if the bird is extended black). One copy is blue. Two copies is splash, a very pale bird. Blue × blue (Bl/bl+ × Bl/bl+) is 25% black, 50% blue, and 25% splash. On wheaten or columbian, blue mainly dilutes the dark markings.</li>
+<li>White is two different genes. Dominant white (I) hides color with one copy. I/i+ can show small colored flecks. I/I is a cleaner white. Recessive white (c/c) also hides color, but only with two copies of c. A colored bird can carry c and still look colored.</li>
+<li>Eggshell color is a trait of the hen who lays the egg. It is listed on daughters: the eggs those hens will lay when they grow up. Sons can carry the genes and pass them on, but they do not lay. Blue shell is one dominant gene, O (oocyan). Brown shell is polygenic. This page turns brown into a single on/off switch so four familiar shells appear: white (no blue, no brown), blue/cream (blue on a white base), brown (brown, no blue), and olive/green (blue plus brown). Real brown runs from a tint to dark brown, and real olive shades with it. Do not read the brown switch as a real single gene.</li>
+<li>Also included, each as one well-known gene: crest (Cr, fuller with two copies), muffs and beard (Mb), feathered legs (Pti), frizzle (F), and sex-linked dwarf (dw). Feathered legs and muffs can involve more genes in real breeds; one dominant gene is used here. F/F chicks are frazzle, sometimes called curly. Their feathers are brittle and over-curled. Breed frizzle (F/f+) to smooth (f+/f+) if you want frizzle chicks without frazzle. A dwarf daughter expresses the allele she got from the rooster. A dwarf son needs dw from both parents.</li>
+<li>Quick picks fill a typical genotype for that look. When one copy is enough to see the trait, the pick uses one dominant copy and one hidden allele, so the odds include the chance of passing the hidden copy. Splash (Bl/Bl), recessive white (c/c), and dwarf already mean a specific genotype. Extended black and the blue pick assume E/E so blue reads as black, blue, and splash. Change any row if you know a test result.</li>
+<li>Every chick is a new draw. These are probabilities, not a promise of the next hatch. Linked genes, extra modifiers, and breed background are not modeled.</li>
+</ol>
+<p class="note">Symbols follow common poultry notation: a capital or named allele is the variant, and + marks the wild-type copy (s+, b+, e+, bl+).</p>
+</div>
+<div class="card warn"><b>Disclaimer:</b> These are probabilities, not guarantees. The list is a simplification of well-documented poultry genes for learning and flock planning. It is not a DNA test and not a prediction of health, fertility, or hatch rate. The result warns when a mating can produce frazzle (F/F) chicks, because those feathers are brittle.</div>
+</main>
+<footer style="text-align:center;font-size:12px;opacity:.6;padding:10px">&copy; 2026 Dukktape Studios</footer>
+<script src="genetics.js"></script>
+<script>
+(function () {
+  var G = window.ChickenGenetics;
+  var SHOW = 40;
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function pct(p) { return esc(G.formatPct(p)); }
+
+  function bar(p) {
+    var w = Math.max(0, Math.min(100, p * 100));
+    return '<div class="bar" style="width:' + w + '%"></div>';
+  }
+
+  function read(prefix, sex) {
+    var gt = {};
+    G.lociFor(sex).forEach(function (locus) {
+      var parts = document.getElementById(prefix + "-" + locus.id).value.split("/");
+      gt[locus.id] = [parts[0], parts[1]];
+    });
+    return gt;
+  }
+
+  function showPreview(prefix, sex) {
+    var described = G.describeBird(read(prefix, sex), sex);
+    document.getElementById(prefix + "-ph").textContent = "Looks like: " + described.label;
+  }
+
+  function build(prefix, sex) {
+    var root = document.getElementById(prefix);
+    var h = document.createElement("h2");
+    h.textContent = sex === "male" ? "♂ Sire (rooster)" : "♀ Dam (hen)";
+    root.appendChild(h);
+
+    var preRow = document.createElement("div");
+    preRow.className = "row";
+    var preLabel = document.createElement("label");
+    preLabel.htmlFor = prefix + "-pre";
+    preLabel.textContent = "Quick pick by look";
+    var pre = document.createElement("select");
+    pre.id = prefix + "-pre";
+    var blank = document.createElement("option");
+    blank.value = "";
+    blank.textContent = "— choose —";
+    pre.appendChild(blank);
+    G.PRESETS.forEach(function (preset) {
+      var option = document.createElement("option");
+      option.value = preset.id;
+      option.textContent = preset.name;
+      pre.appendChild(option);
+    });
+    preRow.appendChild(preLabel);
+    preRow.appendChild(pre);
+    root.appendChild(preRow);
+
+    var hint = document.createElement("p");
+    hint.className = "hint";
+    hint.textContent = "Quick pick replaces the rows below with a typical genotype. Dominant looks start as carriers (one copy) unless the look itself means two copies.";
+    root.appendChild(hint);
+
+    var loci = G.lociFor(sex);
+    loci.forEach(function (locus) {
+      var groupId = prefix + "-group-" + locus.group;
+      var field = document.getElementById(groupId);
+      if (!field) {
+        field = document.createElement("fieldset");
+        field.id = groupId;
+        var legend = document.createElement("legend");
+        var group = G.GROUP_ORDER.filter(function (item) { return item.id === locus.group; })[0];
+        legend.textContent = group ? group.title : locus.group;
+        field.appendChild(legend);
+        root.appendChild(field);
+      }
+      var row = document.createElement("div");
+      row.className = "row";
+      var label = document.createElement("label");
+      label.htmlFor = prefix + "-" + locus.id;
+      label.textContent = locus.name;
+      var select = document.createElement("select");
+      select.id = prefix + "-" + locus.id;
+      locus.options.forEach(function (option) {
+        var node = document.createElement("option");
+        node.value = option.value;
+        node.textContent = option.label;
+        select.appendChild(node);
+      });
+      select.addEventListener("change", function () {
+        pre.value = "";
+        showPreview(prefix, sex);
+      });
+      row.appendChild(label);
+      row.appendChild(select);
+      field.appendChild(row);
+    });
+
+    var pheno = document.createElement("div");
+    pheno.className = "pheno";
+    pheno.id = prefix + "-ph";
+    root.appendChild(pheno);
+
+    pre.addEventListener("change", function () {
+      if (!pre.value) return;
+      var gt = G.applyPreset(pre.value, sex);
+      loci.forEach(function (locus) {
+        document.getElementById(prefix + "-" + locus.id).value = G.keyFromAlleles(gt[locus.id]);
+      });
+      showPreview(prefix, sex);
+    });
+  }
+
+  function outcomeCard(title, note, block) {
+    var rows = block.outcomes;
+    var shown = rows.slice(0, SHOW);
+    var rest = rows.slice(SHOW);
+    var restP = 0;
+    rest.forEach(function (row) { restP += row.p; });
+    var html = '<div class="card"><h2>' + esc(title) + '</h2><p class="note">' + note + '</p>';
+    html += '<div class="scroll"><table><tr><th>Chick</th><th class="num">This sex</th><th class="num">All chicks</th><th style="width:22%"></th></tr>';
+    shown.forEach(function (row) {
+      html += "<tr><td>" + esc(row.label) + "</td><td class=\"num\">" + pct(row.p) + "</td><td class=\"num\">" + pct(row.p / 2) + "</td><td>" + bar(row.p) + "</td></tr>";
+    });
+    if (rest.length) {
+      html += "<tr><td>Other mixes (" + rest.length + ")</td><td class=\"num\">" + pct(restP) + "</td><td class=\"num\">" + pct(restP / 2) + "</td><td>" + bar(restP) + "</td></tr>";
+    }
+    html += "</table></div>";
+    block.sidelined.forEach(function (group) {
+      html += "<h3>" + esc(group.title) + ", inherited separately</h3>";
+      html += '<p class="note">Multiply a percent here by a row above. It was kept out of the main list so the table stays readable.</p>';
+      html += '<div class="scroll"><table><tr><th>Trait</th><th>Of this sex</th><th style="width:22%"></th></tr>';
+      group.items.forEach(function (item) {
+        html += "<tr><td>" + esc(item.name || item.label) + "</td><td>" + pct(item.p) + "</td><td>" + bar(item.p) + "</td></tr>";
+      });
+      html += "</table></div>";
+    });
+    html += "</div>";
+    return html;
+  }
+
+  function keysOf(dist) {
+    return Object.keys(dist).filter(function (key) { return dist[key] > 1e-12; }).sort(function (a, b) {
+      return dist[b] - dist[a];
+    });
+  }
+
+  function geneTable(locus, dist, sex) {
+    var keys = keysOf(dist);
+    if (keys.length < 2) return "";
+    var html = "<h3>" + esc(locus.name) + "</h3>";
+    html += '<div class="scroll"><table><tr><th>Genotype</th><th>Means</th><th>Chance</th><th style="width:22%"></th></tr>';
+    keys.forEach(function (gt) {
+      html += "<tr><td>" + esc(gt) + "</td><td>" + esc(G.meaning(locus.id, gt, sex)) + "</td><td>" + pct(dist[gt]) + "</td><td>" + bar(dist[gt]) + "</td></tr>";
+    });
+    html += "</table></div>";
+    return html;
+  }
+
+  function kindTable(title, dist, labels) {
+    var keys = keysOf(dist);
+    if (keys.length < 2) return "";
+    var html = "<h3>" + esc(title) + "</h3>";
+    html += '<div class="scroll"><table><tr><th>Result</th><th>Chance</th><th style="width:22%"></th></tr>';
+    keys.forEach(function (key) {
+      html += "<tr><td>" + esc(labels[key] || key) + "</td><td>" + pct(dist[key]) + "</td><td>" + bar(dist[key]) + "</td></tr>";
+    });
+    html += "</table></div>";
+    return html;
+  }
+
+  function wildPunnett(id, pun) {
+    if (pun.rows.length !== 1 || Math.abs(pun.rows[0].p - 1) > 1e-9) return false;
+    var row = pun.rows[0];
+    if (id === "S") return row.sonLook === "gold" && row.daughterLook === "gold";
+    if (id === "B") return row.sonLook === "not barred" && row.daughterLook === "not barred";
+    if (id === "dw") return row.sonLook === "normal size" && row.daughterLook === "normal size";
+    return false;
+  }
+
+  function punnettTable(pun) {
+    var html = "<h3>" + esc(pun.name) + "</h3>";
+    html += '<p class="note">The hen passes ' + esc(pun.damAllele) + ' on her Z to every son, and W to every daughter.</p>';
+    html += '<div class="scroll"><table><tr><th>Rooster gives</th><th>Son</th><th>Daughter</th></tr>';
+    pun.rows.forEach(function (row) {
+      html += "<tr><td>" + esc(row.allele) + " (" + pct(row.p) + ")</td><td>" + esc(row.sonGt) + " — " + esc(row.sonLook) + "</td><td>" + esc(row.daughterGt) + " — " + esc(row.daughterLook) + "</td></tr>";
+    });
+    html += "</table></div>";
+    return html;
+  }
+
+  function breakdown(result) {
+    var html = '<div class="card"><h2>Per-gene breakdown</h2>';
+    html += '<p class="note">Genes with only one outcome are already included in every chick above. Tables show genes that still have a split. Sex-linked genes use a small Punnett square: sons get the hen\'s Z, daughters get W.</p>';
+    html += kindTable("Comb shape (R and P together)", result.marginals.comb, {
+      walnut: "walnut",
+      rose: "rose",
+      pea: "pea",
+      single: "single"
+    });
+    html += kindTable("Blue dilution (black pigment)", result.marginals.blue, {
+      black: "black (no blue gene)",
+      blue: "blue",
+      splash: "splash"
+    });
+    html += kindTable("Daughter eggshell", result.marginals.egg, {
+      white: "white",
+      blue: "blue/cream",
+      brown: "brown (simplified)",
+      olive: "olive/green"
+    });
+    G.LOCI.forEach(function (locus) {
+      var block = result.marginals.loci[locus.id];
+      if (locus.sexLinked) return;
+      if (locus.id === "Bl") return;
+      html += geneTable(locus, block.both);
+    });
+    ["S", "B", "dw"].forEach(function (id) {
+      var pun = result.punnett[id];
+      if (!wildPunnett(id, pun)) html += punnettTable(pun);
+    });
+    html += "</div>";
+    return html;
+  }
+
+  function run() {
+    var result = G.cross(read("sire", "male"), read("dam", "female"));
+    var html = '<div class="card"><p><b>Sire looks like:</b> ' + esc(result.sire.label) + "<br><b>Dam looks like:</b> " + esc(result.dam.label) + "</p></div>";
+    var warns = result.notes.filter(function (note) { return note.level === "warn"; });
+    var infos = result.notes.filter(function (note) { return note.level !== "warn"; });
+    warns.forEach(function (note) { html += '<div class="warn">' + esc(note.text) + "</div>"; });
+    if (infos.length) {
+      html += '<div class="card">' + infos.map(function (note) { return "<p>" + esc(note.text) + "</p>"; }).join("") + "</div>";
+    }
+    html += outcomeCard(
+      "Male chicks (roosters, ZZ)",
+      "About half of chicks are male. “This sex” is the share of sons. “All chicks” assumes half the hatch is male.",
+      result.male
+    );
+    html += outcomeCard(
+      "Female chicks (hens, ZW)",
+      "About half of chicks are female. “This sex” is the share of daughters. Egg color is the shell those hens will lay. Brown is simplified to on or off.",
+      result.female
+    );
+    html += breakdown(result);
+    var out = document.getElementById("out");
+    out.innerHTML = html;
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    out.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+  }
+
+  build("sire", "male");
+  build("dam", "female");
+  document.getElementById("sire-pre").value = "blue";
+  document.getElementById("sire-pre").dispatchEvent(new Event("change"));
+  document.getElementById("dam-pre").value = "blue";
+  document.getElementById("dam-pre").dispatchEvent(new Event("change"));
+  document.getElementById("go").addEventListener("click", run);
+
+  if (location.hash === "#test") {
+    var checks = G.selfCheck();
+    var bad = checks.filter(function (item) { return !item.ok; });
+    document.title = bad.length ? "TEST FAIL" : "TEST OK";
+    var box = document.createElement("div");
+    box.className = "card";
+    box.id = "self-check";
+    box.innerHTML = "<h2>Self-check</h2><ul>" + checks.map(function (item) {
+      return "<li>" + (item.ok ? "PASS" : "FAIL") + " " + esc(item.name) + (item.detail ? " — " + esc(item.detail) : "") + "</li>";
+    }).join("") + "</ul>";
+    document.querySelector("main").insertBefore(box, document.getElementById("out"));
+    run();
+  }
+})();
+</script>
+</body>
+</html>
