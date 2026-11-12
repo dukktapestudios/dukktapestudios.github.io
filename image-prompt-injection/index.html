@@ -338,7 +338,7 @@ footer p { margin: 0 0 8px; }
     <h3>A bit more on the less obvious types</h3>
     <p>Low-contrast text is the simplest stealth trick: words painted in a color almost identical to the background. Raise the contrast and they often pop out. Researchers and journalists documented this against early GPT-4 Vision systems in 2023.</p>
     <p>Scaling attacks are different. Trail of Bits explained the underlying idea in 2025: when a high-resolution image is resampled to a smaller size, groups of pixels are averaged together. A picture can be arranged so that a message is invisible at full size and becomes clear only after that shrink step. Their advice to defenders is practical: if a system must resize an image, show the user the same view the model will get, and never let text in an image start a sensitive tool call without a clear confirmation.</p>
-    <p>Adversarial perturbations are closer to optical illusions for models. Papers such as <a href="https://arxiv.org/abs/2307.10490">a 2023 paper</a> and <a href="https://arxiv.org/abs/2309.00236">Image Hijacks (2024)</a> showed that small pixel changes can push a model toward an attacker-chosen reply or behavior, including in later turns of a chat. These are hard to spot by eye. Your best defense is still behavioral: treat unexpected model actions as untrusted.</p>
+    <p>Adversarial perturbations are closer to optical illusions for models. Papers such as <a href="https://arxiv.org/abs/2307.10490">Bagdasaryan et al. (2023)</a> and <a href="https://arxiv.org/abs/2309.00236">Bailey et al. (Image Hijacks, 2024)</a> showed that small pixel changes can push a model toward an attacker-chosen reply or behavior, including in later turns of a chat. These are hard to spot by eye. Your best defense is still behavioral: treat unexpected model actions as untrusted.</p>
     <p>Metadata and QR codes are worth checking, but it helps to keep the research in perspective. In the MMPIBench study of agentic frameworks, native vision models usually did not read EXIF or decode QR codes from pixels (about 88% of those runs never even perceived the hidden instruction). A smaller number of runs did surface the payload, and one run of each carrier reached a tool call. The authors note that these carriers become much more relevant if the agent is given an explicit metadata or QR tool.</p>
     <p>Unicode tag characters (in the range U+E0000 to U+E007F) were designed for things like certain flag emojis. Some model tokenizers can still reconstruct hidden ASCII from them. This usually rides along in text that accompanies an image (a caption, alt text, or a pasted prompt), rather than in the pixels themselves. Cisco and AWS have both published defender guidance on this.</p>
     <p class="callout"><strong>What actually causes harm.</strong> A hidden instruction is only half of the problem. The harmful half is an AI system that is allowed to email, shop, delete, or change settings without a human clicking yes. Lock the actions down, and a successful injection is much less dangerous.</p>
@@ -351,13 +351,13 @@ footer p { margin: 0 0 8px; }
     <article class="lesson">
       <h3>Google Bard followed instructions in an uploaded image</h3>
       <p class="banner">July 2023</p>
-      <p>A published write-up showed that Bard would follow instructions written into a picture, including a demonstration that produced a Rickroll. The write-up also noted metadata as a place worth watching. Read it at <a href="https://embracethered.com/blog/posts/2023/google-bard-image-to-prompt-injection/">Embrace The Red</a>.</p>
+      <p>Johann Rehberger showed that Bard would follow instructions written into a picture, including a demonstration that produced a Rickroll. He also noted metadata as a place worth watching. Read the write-up at <a href="https://embracethered.com/blog/posts/2023/google-bard-image-to-prompt-injection/">Embrace The Red</a>.</p>
     </article>
 
     <article class="lesson">
       <h3>Hidden off-white text, and a chat-leak via an image</h3>
       <p class="banner">October 2023</p>
-      <p>A public write-up collected three early GPT-4V cases in <a href="https://simonwillison.net/2023/Oct/14/multi-modal-prompt-injection/">Multi-modal prompt injection image attacks against GPT-4V</a>. One was visible text in an image that overrode the user's request (shared by one researcher). Another looked like a blank square but used off-white text on a white background; the model followed the hidden request instead of describing the image. A third used text in a cartoon image to make the model place a short summary of the private chat into a link that the chat client then loaded automatically, sending that summary to a server the researcher controlled.</p>
+      <p>Simon Willison collected three early GPT-4V cases in <a href="https://simonwillison.net/2023/Oct/14/multi-modal-prompt-injection/">Multi-modal prompt injection image attacks against GPT-4V</a>. One was visible text in an image that overrode the user's request (shared by Meet Patel). Another, from Riley Goodside, looked like a blank square but used off-white text on a white background; the model followed the hidden request instead of describing the image. A third, demonstrated by Johann Rehberger, used text in a cartoon image to make the model place a short summary of the private chat into a link that the chat client then loaded automatically, sending that summary to a server the researcher controlled.</p>
     </article>
 
     <article class="lesson">
@@ -369,25 +369,25 @@ footer p { margin: 0 0 8px; }
     <article class="lesson">
       <h3>FigStep: typographic jailbreaks of vision-language models</h3>
       <p class="banner">2023 to 2025</p>
-      <p>The FigStep authors introduced FigStep, which turns a disallowed request into typographic text in an image, then pairs it with a mild text prompt. In the <a href="https://arxiv.org/abs/2311.05608">paper</a> (AAAI 2025), the authors report an average attack success rate of 82.50% on six open-source large vision-language models. They argue that visual embeddings were not as well safety-aligned as the text side. This is a research result on those models, not a claim about every product today.</p>
+      <p>Gong et al. introduced FigStep, which turns a disallowed request into typographic text in an image, then pairs it with a mild text prompt. In the <a href="https://arxiv.org/abs/2311.05608">paper</a> (AAAI 2025), the authors report an average attack success rate of 82.50% on six open-source large vision-language models. They argue that visual embeddings were not as well safety-aligned as the text side. This is a research result on those models, not a claim about every product today.</p>
     </article>
 
     <article class="lesson">
       <h3>Adversarial images that steer the model</h3>
       <p class="banner">2023 and 2024</p>
-      <p><a href="https://arxiv.org/abs/2307.10490">A 2023 paper</a> showed that adversarial perturbations can be blended into images or audio so that models such as LLaVA and PandaGPT output chosen text or follow an injected instruction in later turns. <a href="https://arxiv.org/abs/2309.00236">Image Hijacks</a> (ICML 2024) showed that small image perturbations can control a vision-language model at runtime. Against LLaVA, the authors report that all of their attack types exceeded 80% success. Project page: <a href="https://image-hijacks.github.io/">image-hijacks.github.io</a>.</p>
+      <p><a href="https://arxiv.org/abs/2307.10490">Bagdasaryan, Hsieh, Nassi, and Shmatikov (2023)</a> showed that adversarial perturbations can be blended into images or audio so that models such as LLaVA and PandaGPT output chosen text or follow an injected instruction in later turns. <a href="https://arxiv.org/abs/2309.00236">Bailey, Ong, Russell, and Emmons</a> (Image Hijacks, ICML 2024) showed that small image perturbations can control a vision-language model at runtime. Against LLaVA, they report that all of their attack types exceeded 80% success. Project page: <a href="https://image-hijacks.github.io/">image-hijacks.github.io</a>.</p>
     </article>
 
     <article class="lesson">
       <h3>Trail of Bits: weaponizing image scaling</h3>
       <p class="banner">August 2025</p>
-      <p>In <a href="https://blog.trailofbits.com/2025/08/21/weaponizing-image-scaling-against-production-ai-systems/">Weaponizing image scaling against production AI systems</a> (August 21, 2025), Trail of Bits showed images that look harmless at full resolution but reveal a prompt injection after the system downscales them. They demonstrated this against Gemini CLI, Vertex AI Studio, Gemini's web and API interfaces, Google Assistant on Android, and Genspark. In the Gemini CLI case, a default setup that auto-approved Zapier tool calls allowed calendar data to be emailed out without a confirmation prompt. Their public tool for studying this class of images is <a href="https://github.com/trailofbits/anamorpher">Anamorpher</a>. The older computer-vision background is <a href="https://www.usenix.org/conference/usenixsecurity20/presentation/quiring">Adversarial Preprocessing</a> (USENIX Security 2020).</p>
+      <p>In <a href="https://blog.trailofbits.com/2025/08/21/weaponizing-image-scaling-against-production-ai-systems/">Weaponizing image scaling against production AI systems</a> (Kikimora Morozova and Suha Sabi Hussain, August 21, 2025), Trail of Bits showed images that look harmless at full resolution but reveal a prompt injection after the system downscales them. They demonstrated this against Gemini CLI, Vertex AI Studio, Gemini's web and API interfaces, Google Assistant on Android, and Genspark. In the Gemini CLI case, a default setup that auto-approved Zapier tool calls allowed calendar data to be emailed out without a confirmation prompt. Their public tool for studying this class of images is <a href="https://github.com/trailofbits/anamorpher">Anamorpher</a>. The older computer-vision background is Quiring et al., <a href="https://www.usenix.org/conference/usenixsecurity20/presentation/quiring">Adversarial Preprocessing</a> (USENIX Security 2020).</p>
     </article>
 
     <article class="lesson">
       <h3>Invisible Unicode, plus metadata and QR in agent tests</h3>
       <p class="banner">2024 to 2026</p>
-      <p>Unicode tag-character smuggling was described in January 2024. <a href="https://blogs.cisco.com/ai/understanding-and-mitigating-unicode-tag-prompt-injection">Cisco</a> (March 12, 2024) and <a href="https://aws.amazon.com/blogs/security/defending-llm-applications-against-unicode-character-smuggling/">AWS</a> (September 30, 2025) explain how those invisible characters can hide instructions in text a person pastes or a bot summarizes. Separately, <a href="https://arxiv.org/abs/2609.09404">MMPIBench</a> tested six visual carriers, including EXIF metadata and QR codes, across 720 agent runs. Overall, attacks completed in about 1% of runs but were attempted in 12.8%. Rendered OCR text was the strongest carrier. Metadata and QR codes were usually not perceived by native vision models (about 88% of those runs never reached perception); 14 metadata runs and 15 QR runs did surface the payload, and one run of each reached a tool call.</p>
+      <p>Riley Goodside described Unicode tag-character smuggling in January 2024. <a href="https://blogs.cisco.com/ai/understanding-and-mitigating-unicode-tag-prompt-injection">Cisco</a> (Adam Swanda, March 12, 2024) and <a href="https://aws.amazon.com/blogs/security/defending-llm-applications-against-unicode-character-smuggling/">AWS</a> (September 30, 2025) explain how those invisible characters can hide instructions in text a person pastes or a bot summarizes. Separately, Nguyen and Husain's <a href="https://arxiv.org/abs/2609.09404">MMPIBench</a> tested six visual carriers, including EXIF metadata and QR codes, across 720 agent runs. Overall, attacks completed in about 1% of runs but were attempted in 12.8%. Rendered OCR text was the strongest carrier. Metadata and QR codes were usually not perceived by native vision models (about 88% of those runs never reached perception); 14 metadata runs and 15 QR runs did surface the payload, and one run of each reached a tool call.</p>
     </article>
 
     <p class="callout"><strong>A note on numbers.</strong> Success rates come from specific models, dates, and lab setups. Products change. Treat the examples as proof that the techniques are real, not as a live scoreboard for any one chatbot.</p>
@@ -603,27 +603,27 @@ footer p { margin: 0 0 8px; }
             <td>Updated text: no clean instruction/data split; images, memory, and agent tool use</td>
           </tr>
           <tr>
-            <th scope="row"><a href="https://embracethered.com/blog/posts/2023/google-bard-image-to-prompt-injection/">Embrace The Red (Jul 14, 2023)</a></th>
+            <th scope="row"><a href="https://embracethered.com/blog/posts/2023/google-bard-image-to-prompt-injection/">Rehberger, Embrace The Red (Jul 14, 2023)</a></th>
             <td>Image-to-prompt injection against Google Bard</td>
           </tr>
           <tr>
-            <th scope="row"><a href="https://simonwillison.net/2023/Oct/14/multi-modal-prompt-injection/">Multi-modal prompt injection image attacks against GPT-4V (Oct 14, 2023)</a></th>
-            <td>GPT-4V cases: visible image text, hidden off-white text, and an exfiltration demo</td>
+            <th scope="row"><a href="https://simonwillison.net/2023/Oct/14/multi-modal-prompt-injection/">Willison (Oct 14, 2023)</a></th>
+            <td>GPT-4V cases: visible image text, Goodside hidden text, Rehberger exfiltration demo</td>
           </tr>
           <tr>
             <th scope="row"><a href="https://openai.com/index/gpt-4v-system-card/">OpenAI GPT-4V system card</a></th>
             <td>Official discussion of text-screenshot jailbreaks (also the PDF on <a href="https://cdn.openai.com/papers/GPTV_System_Card.pdf">cdn.openai.com</a>)</td>
           </tr>
           <tr>
-            <th scope="row"><a href="https://arxiv.org/abs/2311.05608">FigStep (AAAI 2025)</a></th>
+            <th scope="row"><a href="https://arxiv.org/abs/2311.05608">Gong et al., FigStep (AAAI 2025)</a></th>
             <td>Typographic visual jailbreaks; reported 82.50% average ASR on six open-source LVLMs</td>
           </tr>
           <tr>
-            <th scope="row"><a href="https://arxiv.org/abs/2307.10490">2023 paper on adversarial perturbations</a></th>
+            <th scope="row"><a href="https://arxiv.org/abs/2307.10490">Bagdasaryan et al. (2023)</a></th>
             <td>Adversarial perturbations in images and audio against LLaVA and PandaGPT</td>
           </tr>
           <tr>
-            <th scope="row"><a href="https://arxiv.org/abs/2309.00236">Image Hijacks (ICML 2024)</a></th>
+            <th scope="row"><a href="https://arxiv.org/abs/2309.00236">Bailey et al., Image Hijacks (ICML 2024)</a></th>
             <td>Runtime control of VLMs with adversarial images; reported over 80% success on LLaVA</td>
           </tr>
           <tr>
@@ -631,19 +631,19 @@ footer p { margin: 0 0 8px; }
             <td>Image-scaling prompt injection on Gemini CLI, Vertex AI Studio, Gemini web/API, Assistant, Genspark</td>
           </tr>
           <tr>
-            <th scope="row"><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/quiring">Adversarial Preprocessing (USENIX Security 2020)</a></th>
+            <th scope="row"><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/quiring">Quiring et al., USENIX Security 2020</a></th>
             <td>Foundational research on image-scaling attacks in machine learning</td>
           </tr>
           <tr>
-            <th scope="row"><a href="https://blogs.cisco.com/ai/understanding-and-mitigating-unicode-tag-prompt-injection">Cisco (Mar 12, 2024)</a></th>
-            <td>Unicode tag-character prompt injection, following a January 2024 demonstration</td>
+            <th scope="row"><a href="https://blogs.cisco.com/ai/understanding-and-mitigating-unicode-tag-prompt-injection">Cisco / Swanda (Mar 12, 2024)</a></th>
+            <td>Unicode tag-character prompt injection, following Goodside's January 2024 demonstration</td>
           </tr>
           <tr>
             <th scope="row"><a href="https://aws.amazon.com/blogs/security/defending-llm-applications-against-unicode-character-smuggling/">AWS Security Blog (Sep 30, 2025)</a></th>
             <td>Unicode tag smuggling, including an email-summarizer scenario, plus defender guidance</td>
           </tr>
           <tr>
-            <th scope="row"><a href="https://arxiv.org/abs/2609.09404">MMPIBench</a></th>
+            <th scope="row"><a href="https://arxiv.org/abs/2609.09404">Nguyen and Husain, MMPIBench</a></th>
             <td>720-run agent benchmark of OCR, overlays, EXIF, QR codes, fake UI, and hybrids</td>
           </tr>
           <tr>

@@ -127,30 +127,31 @@ assert.ok(guides.indexOf("https://dukktapestudios.github.io/image-prompt-injecti
 assert.ok(guides.indexOf("Image Prompt Injection: How It Works and How to Stay Safe") !== -1);
 assert.ok(sitemap.indexOf("https://dukktapestudios.github.io/image-prompt-injection/") !== -1);
 
+[
+  "Johann Rehberger",
+  "Simon Willison",
+  "Meet Patel",
+  "Riley Goodside",
+  "Kikimora Morozova and Suha Sabi Hussain",
+  "Adam Swanda",
+  "Nguyen and Husain",
+  "Gong et al.",
+  "Bagdasaryan, Hsieh, Nassi, and Shmatikov",
+  "Bailey, Ong, Russell, and Emmons",
+  "Quiring et al.",
+  "Bagdasaryan et al. (2023)",
+  "Bailey et al. (Image Hijacks, 2024)",
+  "Rehberger, Embrace The Red (Jul 14, 2023)",
+  "Willison (Oct 14, 2023)",
+  "Goodside hidden text, Rehberger exfiltration demo",
+  "Cisco / Swanda (Mar 12, 2024)",
+  "Goodside's January 2024 demonstration",
+  "Nguyen and Husain, MMPIBench"
+].forEach(function (name) {
+  assert.ok(html.indexOf(name) !== -1, "missing attribution " + name);
+});
+
 var banned = [
-  /\bRehberger\b/,
-  /\bGoodside\b/,
-  /\bWillison\b/,
-  /\bSwanda\b/,
-  /\bBagdasaryan\b/,
-  /\bShmatikov\b/,
-  /\bMorozova\b/,
-  /\bHussain\b/,
-  /\bKikimora\b/,
-  /\bJohann\b/,
-  /\bRiley\b/,
-  /\bSimon\b/,
-  /\bNguyen\b/,
-  /\bHusain\b/,
-  /\bHsieh\b/,
-  /\bNassi\b/,
-  /\bEmmons\b/,
-  /\bBailey\b/,
-  /\bRussell\b/,
-  /\bGong et al\./,
-  /\bQuiring et al\./,
-  /\bMeet Patel\b/,
-  /\bSuha\b/,
   /\bDESKTOP-/,
   /C:\\Users/i,
   /\b\d{3}-\d{3}-\d{4}\b/,
