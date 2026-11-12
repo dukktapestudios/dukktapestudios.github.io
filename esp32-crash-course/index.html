@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESP32 Crash Course | Dukktape Studios</title>
+<meta name="description" content="A calm beginner path from Blink to farm-ready sensors, phone alerts, and a camera snapshot, using the current Arduino-ESP32 3.x tools.">
+<meta name="theme-color" content="#171b1e">
+<link rel="icon" href="../assets/studio-duck.png" type="image/png">
+<link rel="preload" href="../assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-700.woff2") format("woff2");
+}
+:root {
+  --bg: #171b1e;
+  --raise: #22282c;
+  --line: #3a4143;
+  --text: #f0f0e8;
+  --muted: #b4b4b4;
+  --orange: #efb671;
+  --ink: #171b1e;
+  --column: 740px;
+}
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+a { color: var(--orange); text-underline-offset: 0.16em; overflow-wrap: anywhere; }
+a:hover { color: #f3c48a; }
+:focus { outline: none; }
+:focus-visible { outline: 3px solid #f7f4ee; outline-offset: 3px; }
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: var(--orange);
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: 8px;
+  z-index: 5;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip:focus { top: 12px; }
+.top {
+  position: sticky;
+  top: var(--dts-donate-offset, 0px);
+  z-index: 2;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.wrap { width: min(var(--column), calc(100% - 32px)); margin: 0 auto; min-width: 0; }
+.top-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+}
+.brand { color: var(--text); font-weight: 700; text-decoration: none; letter-spacing: -0.02em; }
+.home-link { font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+.eyebrow {
+  margin: 28px 0 8px;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 6vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.lede { font-size: 1.12rem; margin: 14px 0 0; }
+.note, .callout {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-left: 3px solid var(--orange);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 16px 0;
+}
+h2 {
+  margin: 2.2rem 0 0.7rem;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  scroll-margin-top: calc(var(--dts-donate-offset, 4.5rem) + 76px);
+}
+h2 .num { color: var(--orange); font-size: 0.85rem; letter-spacing: 0.08em; display: block; margin-bottom: 4px; }
+h3 { margin: 1.3rem 0 0.4rem; font-size: 1.12rem; letter-spacing: -0.02em; scroll-margin-top: calc(var(--dts-donate-offset, 4.5rem) + 76px); }
+h4 { margin: 0 0 0.25rem; font-size: 1.02rem; letter-spacing: -0.02em; }
+p, li { color: var(--text); }
+.soft, .toc, td, dd { color: var(--text); }
+.muted { color: var(--muted); }
+.toc {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  margin-top: 22px;
+}
+.toc h2 { margin: 0 0 8px; font-size: 1.05rem; }
+.toc ol { margin: 0; padding-left: 1.3rem; }
+.toc li { margin: 4px 0; }
+.toc a { color: var(--text); font-weight: 600; }
+.table-scroll { overflow-x: auto; margin: 12px 0 18px; max-width: 100%; width: 100%; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; min-width: 36rem; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { color: var(--orange); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+caption { caption-side: bottom; text-align: left; padding-top: 8px; color: var(--muted); }
+code, pre { font-family: ui-monospace, "Cascadia Mono", "Segoe UI Mono", Consolas, monospace; }
+pre {
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 12px 0;
+  background: #121518;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--text);
+  white-space: pre;
+  -webkit-overflow-scrolling: touch;
+}
+pre code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  font-family: ui-monospace, "Cascadia Mono", "Segoe UI Mono", Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.45;
+  white-space: pre;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+ul, ol { padding-left: 1.25rem; }
+li { margin: 0.35rem 0; }
+.steps li { margin: 0.85rem 0; }
+.banner {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+.lesson, .rows article {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 16px;
+  margin: 0 0 14px;
+  min-width: 0;
+}
+.lesson h3 { margin-top: 0; }
+.rows { display: grid; gap: 10px; margin: 12px 0 18px; }
+.rows article { margin: 0; }
+.rows p, .lesson p { margin: 0.45rem 0; }
+.rows p:last-child, .lesson p:last-child { margin-bottom: 0; }
+.props { display: grid; gap: 10px; margin: 12px 0; }
+.props div { border-top: 1px solid var(--line); padding-top: 8px; }
+.props dt { margin: 0; color: var(--orange); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.props dd { margin: 4px 0 0; }
+.kicker { margin: 0 0 6px; color: var(--orange); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.split { display: grid; gap: 16px; margin: 8px 0 4px; }
+.refs { padding-left: 1.3rem; }
+.refs li { margin: 0.55rem 0; }
+.refs a { overflow-wrap: anywhere; font-weight: 600; }
+.refs .host { color: var(--muted); }
+footer { border-top: 1px solid var(--line); margin-top: 28px; padding: 22px 0 36px; color: var(--muted); }
+footer p { margin: 0 0 8px; }
+@media (min-width: 720px) {
+  .split { grid-template-columns: 1fr 1fr; align-items: start; }
+}
+@media (max-width: 420px) {
+  .wrap { width: min(var(--column), calc(100% - 24px)); }
+  .top-inner { align-items: flex-start; padding: 8px 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+<link rel="stylesheet" href="../assets/donate-bar.css">
+</head>
+<body>
+<aside class="dts-donate" aria-label="Donations">
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=dukktapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+</aside>
+
+<a class="skip" href="#content">Skip to content</a>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/">Dukktape Studios</a>
+    <a class="home-link" href="/#guides">All guides</a>
+  </div>
+</header>
+<main id="content" class="wrap">
+  <p class="eyebrow">Guide</p>
+  <h1>ESP32 Crash Course</h1>
+  <p class="lede">A calm beginner path from Blink to farm-ready sensors, phone alerts, and a camera snapshot, using the current Arduino-ESP32 3.x tools. Work one short lesson at a time.</p>
+
+  <nav class="toc" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#what">What an ESP32 is</a></li>
+      <li><a href="#variants">Chip variants</a></li>
+      <li><a href="#capabilities">What it can and cannot do</a></li>
+      <li><a href="#kits">Which kit to start with</a></li>
+      <li><a href="#setup">Set up Arduino IDE</a></li>
+      <li><a href="#lessons">Lessons</a></li>
+      <li><a href="#projects">Farm project ideas</a></li>
+      <li><a href="#safety">Safety</a></li>
+      <li><a href="#plan">A four-week plan</a></li>
+      <li><a href="#resources">Free resources</a></li>
+    </ol>
+  </nav>
+
+  <section id="what" aria-labelledby="what-title">
+    <h2 id="what-title"><span class="num">01</span>What an ESP32 is</h2>
+    <p>An ESP32 is a small, low-cost computer on a chip made by Espressif. You write a short program, upload it over USB, and the chip can read sensors, flip outputs, and talk over Wi-Fi or Bluetooth. That mix is why it became the usual starting point for makers.</p>
+    <p>You do not need years of school to begin. Build one thing that works, then the next. If a day is a hard day, stop after one lesson. The board will still be here tomorrow.</p>
+  </section>
+
+  <section id="variants" aria-labelledby="variants-title">
+    <h2 id="variants-title"><span class="num">02</span>Chip variants</h2>
+    <p>Specs below are from Espressif datasheets current as of November 2026. Starter kits almost always use the original ESP32. Pick a row, then read the details.</p>
+    <div class="table-scroll">
+      <table>
+        <caption class="soft">Chip comparison</caption>
+        <thead><tr><th scope="col">Chip</th><th scope="col">CPU</th><th scope="col">Wireless</th><th scope="col">Start here if</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">ESP32 (original)</th><td>Dual-core LX6, 240 MHz</td><td>Wi-Fi 4, BT Classic + BLE</td><td>You want a common kit board</td></tr>
+          <tr><th scope="row">ESP32-S3</th><td>Dual-core LX7, 240 MHz</td><td>Wi-Fi 4, BLE 5</td><td>You want camera or USB later</td></tr>
+          <tr><th scope="row">ESP32-C3</th><td>Single-core RISC-V, 160 MHz</td><td>Wi-Fi 4, BLE 5</td><td>You want a small, cheap sensor node</td></tr>
+          <tr><th scope="row">ESP32-C6</th><td>RISC-V 160 MHz + LP core</td><td>Wi-Fi 6, BLE 5.3, Thread/Zigbee</td><td>You want Wi-Fi 6 or Matter later</td></tr>
+          <tr><th scope="row">ESP32-CAM</th><td>Original ESP32 + camera</td><td>Same as original ESP32</td><td>You are ready for still photos</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Chip details</h3>
+    <article class="lesson" id="chip-esp32">
+      <h3>ESP32 original</h3>
+      <dl class="props">
+        <div><dt>CPU</dt><dd>Xtensa LX6, usually dual-core, up to 240 MHz</dd></div>
+        <div><dt>Wireless</dt><dd>Wi-Fi 4 (802.11 b/g/n, 2.4 GHz) plus Bluetooth 4.2 Classic and BLE</dd></div>
+        <div><dt>Memory</dt><dd>520 KB SRAM, plus 16 KB RTC SRAM</dd></div>
+        <div><dt>GPIOs</dt><dd>34 programmable GPIOs; 6 of those are input-only</dd></div>
+        <div><dt>Analog</dt><dd>12-bit ADC, up to 18 channels; two 8-bit DACs; 10 touch sensors</dd></div>
+        <div><dt>Deep sleep</dt><dd>10 uA with RTC timer and RTC memory on</dd></div>
+      </dl>
+      <p>This is the chip on most starter boards, including typical ELEGOO ESP32 kits. Classic Bluetooth is useful for many older ELM327 OBD2 dongles. Datasheet: <a href="https://documentation.espressif.com/esp32_datasheet_en.html">https://documentation.espressif.com/esp32_datasheet_en.html</a> (v5.3).</p>
+    </article>
+
+    <article class="lesson" id="chip-s3">
+      <h3>ESP32-S3</h3>
+      <dl class="props">
+        <div><dt>CPU</dt><dd>Xtensa LX7 dual-core, up to 240 MHz</dd></div>
+        <div><dt>Wireless</dt><dd>Wi-Fi 4 (802.11 b/g/n, 2.4 GHz) plus Bluetooth 5 LE, no Classic Bluetooth</dd></div>
+        <div><dt>Memory</dt><dd>512 KB SRAM, plus 16 KB RTC SRAM; many modules also add PSRAM</dd></div>
+        <div><dt>GPIOs</dt><dd>45 GPIOs</dd></div>
+        <div><dt>Analog and media</dt><dd>12-bit ADC, up to 20 channels; 14 touch IOs; no DAC; LCD plus 8-16 bit DVP camera</dd></div>
+        <div><dt>Deep sleep</dt><dd>7 uA</dd></div>
+      </dl>
+      <p>The best Espressif choice if you want a camera or USB later. Datasheet: <a href="https://documentation.espressif.com/esp32-s3_datasheet_en.html">https://documentation.espressif.com/esp32-s3_datasheet_en.html</a> (v2.2). Espressif's own camera kit is the ESP32-S3-EYE: <a href="https://www.espressif.com/en/products/devkits/esp32-s3-eye/overview">https://www.espressif.com/en/products/devkits/esp32-s3-eye/overview</a></p>
+    </article>
+
+    <article class="lesson" id="chip-c3">
+      <h3>ESP32-C3</h3>
+      <dl class="props">
+        <div><dt>CPU</dt><dd>RISC-V single-core, up to 160 MHz</dd></div>
+        <div><dt>Wireless</dt><dd>Wi-Fi 4 (802.11 b/g/n) plus Bluetooth 5 LE</dd></div>
+        <div><dt>Memory</dt><dd>400 KB SRAM (16 KB used as cache), plus 8 KB RTC SRAM</dd></div>
+        <div><dt>GPIOs</dt><dd>22 on most parts; 16 on some package variants</dd></div>
+        <div><dt>Analog</dt><dd>Two 12-bit ADCs, up to 6 channels; no DAC; no touch</dd></div>
+        <div><dt>Deep sleep</dt><dd>5 uA</dd></div>
+      </dl>
+      <p>A smaller, cheaper chip for simple sensors and Wi-Fi alerts. Datasheet: <a href="https://documentation.espressif.com/esp32-c3_datasheet_en.html">https://documentation.espressif.com/esp32-c3_datasheet_en.html</a> (v2.5).</p>
+    </article>
+
+    <article class="lesson" id="chip-c6">
+      <h3>ESP32-C6</h3>
+      <dl class="props">
+        <div><dt>CPU</dt><dd>High-performance RISC-V up to 160 MHz, plus a low-power RISC-V up to 20 MHz</dd></div>
+        <div><dt>Wireless</dt><dd>Wi-Fi 6 (802.11ax, 2.4 GHz), Bluetooth 5.3 LE, and 802.15.4 for Thread 1.3 and Zigbee 3.0</dd></div>
+        <div><dt>Memory</dt><dd>512 KB HP SRAM, plus 16 KB LP SRAM</dd></div>
+        <div><dt>GPIOs</dt><dd>30 on QFN40, or 22 on QFN32</dd></div>
+        <div><dt>Analog</dt><dd>12-bit ADC, up to 7 channels; no DAC; no touch</dd></div>
+        <div><dt>Deep sleep</dt><dd>7 uA</dd></div>
+      </dl>
+      <p>Pick this later if you want Wi-Fi 6 or a path toward Thread, Zigbee, or Matter. Datasheet: <a href="https://documentation.espressif.com/esp32-c6_datasheet_en.html">https://documentation.espressif.com/esp32-c6_datasheet_en.html</a> (v1.6).</p>
+    </article>
+
+    <article class="lesson" id="chip-cam">
+      <h3>ESP32-CAM board</h3>
+      <dl class="props">
+        <div><dt>What it is</dt><dd>A popular camera board, not an Espressif chip family</dd></div>
+        <div><dt>Typical build</dt><dd>Original ESP32 plus an OV2640 camera, most often the AI-Thinker ESP32-CAM</dd></div>
+        <div><dt>Wireless</dt><dd>Same as the original ESP32: Wi-Fi 4 and Bluetooth 4.2 Classic plus BLE</dd></div>
+        <div><dt>Pins left over</dt><dd>Few, because the camera occupies most of the useful GPIOs</dd></div>
+        <div><dt>Power</dt><dd>Use a solid 5 V supply. A weak 3.3 V UART adapter often causes brownouts</dd></div>
+        <div><dt>Official alternative</dt><dd>ESP32-S3 has a documented DVP camera interface; Espressif's kit is the ESP32-S3-EYE</dd></div>
+      </dl>
+      <p>Use this when you are ready for still photos or a simple stream. Pin map used in Lesson 8 comes from the Arduino-ESP32 3.3.12 CameraWebServer example.</p>
+    </article>
+  </section>
+
+  <section id="capabilities" aria-labelledby="capabilities-title">
+    <h2 id="capabilities-title"><span class="num">03</span>What it can and cannot do</h2>
+    <div class="split">
+      <div>
+        <h3 id="can-do">What it can do</h3>
+    <div class="rows">
+      <article>
+        <h4>GPIO digital pins</h4>
+        <p>Read buttons, break-wires, and reed switches, or drive LEDs and a proper relay module.</p>
+      </article>
+      <article>
+        <h4>ADC and DAC</h4>
+        <p>Read analog voltages such as a soil or tank sensor. Only the original ESP32 has two 8-bit DACs.</p>
+      </article>
+      <article>
+        <h4>PWM</h4>
+        <p>Dim an LED or send a servo signal. In Arduino-ESP32 3.x, use ledcAttach(pin, frequency, resolution), not the older ledcSetup and ledcAttachPin calls. Docs: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html</a></p>
+      </article>
+      <article>
+        <h4>Capacitive touch</h4>
+        <p>Built into the original ESP32 (10 sensors) and ESP32-S3 (14 touch IOs). The C3 and C6 do not have it.</p>
+      </article>
+      <article>
+        <h4>I2C, SPI, and UART</h4>
+        <p>Talk to many sensors, displays, GPS modules, and USB-UART chips.</p>
+      </article>
+      <article>
+        <h4>Wi-Fi web server</h4>
+        <p>Join home Wi-Fi and serve a page on your phone.</p>
+      </article>
+      <article>
+        <h4>Bluetooth</h4>
+        <p>BLE on all of these chips. Classic Bluetooth is only on the original ESP32, which matters for many OBD2 dongles.</p>
+      </article>
+      <article>
+        <h4>ESP-NOW</h4>
+        <p>Board-to-board messages with no router, handy between a gate or coop and the house if they are close enough.</p>
+      </article>
+      <article>
+        <h4>Deep sleep and batteries</h4>
+        <p>Sleep at a few microamps, wake, measure, maybe send, then sleep again.</p>
+      </article>
+      <article>
+        <h4>Camera</h4>
+        <p>Still images and simple streams on an ESP32-CAM board, or on ESP32-S3 boards with a DVP camera.</p>
+      </article>
+    </div>
+      </div>
+      <div>
+        <h3 id="cannot-do">What it cannot do well</h3>
+    <div class="rows">
+      <article>
+        <h4>3.3 V logic only</h4>
+        <p>Official datasheets list the maximum pin input as VDD + 0.3 V, or about 3.6 V on a 3.3 V board. 5 V on a GPIO can damage it. Use a level shifter or a divider, and never feed household AC into a pin.</p>
+      </article>
+      <article>
+        <h4>Not a heavy AI or video computer</h4>
+        <p>It can take a snapshot or a modest stream. It will not run serious video analytics, fly a drone, or replace a farm NVR.</p>
+      </article>
+      <article>
+        <h4>ADC quirks</h4>
+        <p>The original ESP32 ADC is 12-bit, but Espressif's datasheet shows real error: integral nonlinearity of plus or minus 12 LSB, worse accuracy above about 2450 mV at 11 dB attenuation, and about plus or minus 6% difference between uncalibrated chips. Use analogReadMilliVolts() for a calibrated reading, and treat it as good enough for rough levels, not lab work. Official Arduino continuous-mode docs also limit that mode to ADC1 pins. <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html</a></p>
+      </article>
+      <article>
+        <h4>Power peaks</h4>
+        <p>Wi-Fi transmit on the original ESP32 is typically 240 mA for 802.11b at +19.5 dBm (datasheet table, 50 percent duty cycle). Espressif recommends an external supply that can deliver at least 0.5 A. A weak USB port or tiny battery can make the board reset when it transmits.</p>
+      </article>
+      <article>
+        <h4>Not a drone flight controller</h4>
+        <p>You can use one as a ground sensor or camera node. Do not treat it as an autopilot.</p>
+      </article>
+    </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kits" aria-labelledby="kits-title">
+    <h2 id="kits-title"><span class="num">04</span>Which kit to start with</h2>
+    <p>Nothing here has been purchased. These lessons are written for a board you program as an ESP32 with the Arduino-ESP32 3.x package.</p>
+    <article class="lesson">
+      <p class="kicker">Best match</p>
+      <h3>ELEGOO ESP32 Super Starter Kit</h3>
+      <p class="banner">ESP32 board</p>
+      <p>Official pages describe an ESP32 development board with a CP2102 USB-UART chip and USB-C, plus a load of sensors and a tutorial. That is the board these sketches assume. <a href="https://us.elegoo.com/products/elegoo-esp-32-super-starter-kit">https://us.elegoo.com/products/elegoo-esp-32-super-starter-kit</a></p>
+    </article>
+    <article class="lesson">
+      <p class="kicker">Different tool</p>
+      <h3>SunFounder Elite Explorer Kit</h3>
+      <p class="banner">UNO R4 WiFi</p>
+      <p>This is an Arduino UNO R4 WiFi kit. The main chip is a Renesas RA4M1. An ESP32-S3 is included only as a wireless coprocessor. It is a solid electronics kit, but it is not the same as uploading these ESP32 sketches. Official kit docs: <a href="https://docs.sunfounder.com/projects/elite-explorer-kit/en/latest/">https://docs.sunfounder.com/projects/elite-explorer-kit/en/latest/</a>  Arduino UNO R4 WiFi: <a href="https://docs.arduino.cc/hardware/uno-r4-wifi">https://docs.arduino.cc/hardware/uno-r4-wifi</a></p>
+    </article>
+    <p>If you already want the SunFounder kit for general electronics, keep it for that. For this course, add or start with a plain ESP32 dev board. An ESP32-CAM is a later add-on, not a first board.</p>
+  </section>
+
+  <section id="setup" aria-labelledby="setup-title">
+    <h2 id="setup-title"><span class="num">05</span>Set up Arduino IDE</h2>
+    <ol class="steps">
+      <li><strong>Install Arduino IDE</strong> Download the current IDE from <a href="https://www.arduino.cc/en/software">https://www.arduino.cc/en/software</a> and install it. Version 2.x is fine.</li>
+      <li><strong>Add the official ESP32 board package</strong> Open Preferences (Settings on macOS). In Additional boards manager URLs, paste the official stable link from Espressif, then open Tools &gt; Board &gt; Boards Manager, search for esp32 by Espressif Systems, and install 3.x. The current stable release as of November 2026 is 3.3.12. Install guide: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html">https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html</a></li>
+      <li><strong>Install a USB driver only if the computer never sees a port</strong> The ELEGOO kit uses a CP2102. Silicon Labs' official VCP driver page is <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers">https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers</a> If your board uses a CH340 instead, use WCH's official Windows installer <a href="https://www.wch-ic.com/downloads/CH341SER_EXE.html">https://www.wch-ic.com/downloads/CH341SER_EXE.html</a> or the macOS package <a href="https://www.wch-ic.com/downloads/CH341SER_MAC_ZIP.html">https://www.wch-ic.com/downloads/CH341SER_MAC_ZIP.html</a> On Linux, add your user to the dialout group, then log out and back in.</li>
+      <li><strong>Choose the board and port</strong> Plug the board in. In Tools &gt; Board &gt; esp32, pick ESP32 Dev Module for a typical kit board. In Tools &gt; Port, pick the new COM port, /dev/cu.SLAB_USBtoUART, or /dev/ttyUSB0. Set the serial monitor to 115200 baud later.</li>
+      <li><strong>Upload Blink</strong> Open Lesson 1, paste the sketch, and click Upload. If it stalls on Connecting, hold the BOOT button, click Upload, and release BOOT when the dots start. After it says Done, the LED should blink.</li>
+    </ol>
+    <pre><code>https://espressif.github.io/arduino-esp32/package_esp32_index.json</code></pre>
+    <p>Two other paths are worth knowing, but they can wait. MicroPython is Python on the chip: <a href="https://docs.micropython.org/en/latest/esp32/quickref.html">https://docs.micropython.org/en/latest/esp32/quickref.html</a> and firmware at <a href="https://micropython.org/download/">https://micropython.org/download/</a>  ESPHome can later turn a finished sensor into a Home Assistant device with YAML: <a href="https://esphome.io/install/getting-started/">https://esphome.io/install/getting-started/</a> and <a href="https://www.home-assistant.io/">https://www.home-assistant.io/</a></p>
+  </section>
+
+  <section id="lessons" aria-labelledby="lessons-title">
+    <h2 id="lessons-title"><span class="num">06</span>Lessons</h2>
+    <p>Do these in order. Each one adds one idea. Copy the sketch into a new Arduino IDE file, change any pin or Wi-Fi line that needs it, then upload.</p>
+    <article class="lesson" id="lesson-blink">
+      <h3>1. Blink</h3>
+      <p>Goal: make an LED blink so you know the board, cable, and software all work.</p>
+      <p>Parts: ESP32 dev board, USB cable. Use the onboard LED if your board has one.</p>
+      <p>Wiring: plug the board into USB. Many kit boards put the onboard LED on GPIO 2. If it does not blink, check your board's silkscreen or documentation and change LED_PIN. On some boards the LED is on a different pin, or is wired so LOW turns it on.</p>
+  <pre><code>#define LED_PIN 2  // change this if your onboard LED is not on GPIO 2
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED_PIN, HIGH);
+  delay(500);
+  digitalWrite(LED_PIN, LOW);
+  delay(500);
+}</code></pre>
+      <p>What you learned: setup() runs once, loop() repeats, and pinMode / digitalWrite are how you turn a pin on and off. If this uploads, your toolchain is good.</p>
+    </article>
+
+    <article class="lesson" id="lesson-button">
+      <h3>2. Button</h3>
+      <p>Goal: read a button and light the LED only while the button is pressed.</p>
+      <p>Parts: ESP32, one momentary button, jumper wires. A breadboard helps.</p>
+      <p>Wiring: put the button between GPIO 27 and GND. No external resistor is needed because the sketch uses the built-in pull-up. The pin reads HIGH when the button is up, and LOW when you press it. Avoid using GPIO 0 for this lesson. That pin is also the BOOT button.</p>
+  <pre><code>#define LED_PIN 2
+#define BUTTON_PIN 27
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);  // HIGH when released, LOW when pressed
+}
+
+void loop() {
+  int pressed = digitalRead(BUTTON_PIN) == LOW;
+  digitalWrite(LED_PIN, pressed ? HIGH : LOW);
+  delay(20);  // simple debounce
+}</code></pre>
+      <p>What you learned: INPUT_PULLUP means the pin sits at 3.3 V until you connect it to ground. A break-wire gate alarm is the same idea: a loop of wire to GND holds the pin LOW, and the pin goes HIGH if the wire is cut.</p>
+    </article>
+
+    <article class="lesson" id="lesson-temp">
+      <h3>3. Temperature</h3>
+      <p>Goal: read a real temperature. A waterproof DS18B20 is a good fit for a coop or outdoor box. If your kit includes a DHT11 or DHT22 instead, use that module with the Adafruit DHT library and the same 3.3 V / GND / data idea.</p>
+      <p>Parts: ESP32, DS18B20 (the waterproof probe is ideal), 4.7 k ohm resistor, jumper wires.</p>
+      <p>Wiring: DS18B20 VDD to 3.3 V, GND to GND, data (yellow or white on many probes) to GPIO 4. Add the 4.7 k ohm resistor between data and 3.3 V. Power the sensor from 3.3 V, not from the data pin alone.</p>
+      <p>In Arduino IDE, install the OneWire library and the DallasTemperature library (Tools &gt; Manage Libraries).</p>
+  <pre><code>#include &lt;OneWire.h&gt;
+#include &lt;DallasTemperature.h&gt;
+
+#define ONE_WIRE_BUS 4
+
+OneWire oneWire(ONE_WIRE_BUS);
+DallasTemperature sensors(&amp;oneWire);
+
+void setup() {
+  Serial.begin(115200);
+  sensors.begin();
+}
+
+void loop() {
+  sensors.requestTemperatures();
+  float tempC = sensors.getTempCByIndex(0);
+
+  if (tempC &gt; -100) {  // -127 means the sensor was not found
+    Serial.print("Temp: ");
+    Serial.print(tempC);
+    Serial.print(" C / ");
+    Serial.print(tempC * 9.0 / 5.0 + 32.0);
+    Serial.println(" F");
+  } else {
+    Serial.println("Sensor not found. Check wiring and the 4.7k pull-up.");
+  }
+
+  delay(2000);
+}</code></pre>
+      <p>What you learned: some sensors use a one-wire bus and need a pull-up resistor. Open Tools &gt; Serial Monitor at 115200 baud to see the numbers. This is the heart of a coop temperature alarm.</p>
+    </article>
+
+    <article class="lesson" id="lesson-web">
+      <h3>4. Wi-Fi page</h3>
+      <p>Goal: join your home Wi-Fi and show the temperature on a page you can open on your phone.</p>
+      <p>Parts: the temperature wiring from Lesson 3, plus your Wi-Fi name and password.</p>
+      <p>Wiring: same as Lesson 3. After the board starts, read the IP address in Serial Monitor, then visit that address in your phone's browser while you are on the same network.</p>
+      <p>You still need the OneWire and DallasTemperature libraries from Lesson 3.</p>
+  <pre><code>#include &lt;WiFi.h&gt;
+#include &lt;WebServer.h&gt;
+#include &lt;OneWire.h&gt;
+#include &lt;DallasTemperature.h&gt;
+
+const char* ssid = "YOUR_WIFI_SSID";
+const char* password = "YOUR_WIFI_PASSWORD";
+
+#define ONE_WIRE_BUS 4
+OneWire oneWire(ONE_WIRE_BUS);
+DallasTemperature sensors(&amp;oneWire);
+WebServer server(80);
+
+void handleRoot() {
+  sensors.requestTemperatures();
+  float tempC = sensors.getTempCByIndex(0);
+  String html = "&lt;h1&gt;Coop sensor&lt;/h1&gt;&lt;p&gt;";
+  if (tempC &gt; -100) {
+    html += String(tempC, 1) + " C / " + String(tempC * 9.0 / 5.0 + 32.0, 1) + " F";
+  } else {
+    html += "Sensor not found";
+  }
+  html += "&lt;/p&gt;&lt;p&gt;Refresh to update.&lt;/p&gt;";
+  server.send(200, "text/html", html);
+}
+
+void setup() {
+  Serial.begin(115200);
+  sensors.begin();
+
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  Serial.print("Connecting");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println();
+  Serial.print("Open http://");
+  Serial.println(WiFi.localIP());
+
+  server.on("/", handleRoot);
+  server.begin();
+}
+
+void loop() {
+  server.handleClient();
+}</code></pre>
+      <p>What you learned: the ESP32 can be a tiny web server. Your phone only needs to be on the same Wi-Fi. This does not make the page visible from the open internet, which is what you want for a first sensor.</p>
+    </article>
+
+    <article class="lesson" id="lesson-notify">
+      <h3>5. Phone alert</h3>
+      <p>Goal: get a message on your phone when a button is pressed. Later you can fire the same message when a coop gets too cold or a break-wire opens.</p>
+      <p>Parts: ESP32, button on GPIO 27 to GND, Wi-Fi, and the ntfy app (or any ntfy subscriber) on your phone. ntfy docs: <a href="https://docs.ntfy.sh/publish/">https://docs.ntfy.sh/publish/</a></p>
+      <p>Wiring: same button as Lesson 2. On your phone, install ntfy and subscribe to a long, hard-to-guess topic name. Treat that name like a password. Replace YOUR_UNIQUE_TOPIC in the sketch with it.</p>
+  <pre><code>#include &lt;WiFi.h&gt;
+#include &lt;WiFiClientSecure.h&gt;
+#include &lt;HTTPClient.h&gt;
+
+const char* ssid = "YOUR_WIFI_SSID";
+const char* password = "YOUR_WIFI_PASSWORD";
+const char* ntfyUrl = "https://ntfy.sh/YOUR_UNIQUE_TOPIC";
+
+#define BUTTON_PIN 27
+bool lastPressed = false;
+
+void sendAlert(const char* message) {
+  WiFiClientSecure client;
+  client.setInsecure();  // fine for learning; use a real certificate later
+  HTTPClient http;
+  if (!http.begin(client, ntfyUrl)) {
+    Serial.println("HTTP begin failed");
+    return;
+  }
+  http.addHeader("Title", "ESP32 alert");
+  int code = http.POST(message);
+  Serial.print("ntfy reply: ");
+  Serial.println(code);
+  http.end();
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+  }
+  Serial.println("Wi-Fi ready. Press the button to notify.");
+  sendAlert("ESP32 is online");
+}
+
+void loop() {
+  bool pressed = digitalRead(BUTTON_PIN) == LOW;
+  if (pressed &amp;&amp; !lastPressed) {
+    sendAlert("Button pressed");
+    delay(300);
+  }
+  lastPressed = pressed;
+}</code></pre>
+      <p>What you learned: once the board is on Wi-Fi, an HTTPS POST can reach your phone. Telegram is another option, but it needs a bot token. setInsecure() skips certificate checking, so treat this as a learning sketch, not a hardened production setup.</p>
+    </article>
+
+    <article class="lesson" id="lesson-sleep">
+      <h3>6. Deep sleep</h3>
+      <p>Goal: wake, print a boot count, then sleep for 30 seconds so a battery sensor is not running full-power all day.</p>
+      <p>Parts: ESP32 on USB is enough to learn this. A battery pack comes later, with a regulator that can handle Wi-Fi current peaks.</p>
+      <p>Wiring: none for this version. After upload, watch Serial Monitor. The board resets after each sleep, so setup() runs again and loop() never stays running. That is normal.</p>
+  <pre><code>RTC_DATA_ATTR int bootCount = 0;  // survives deep sleep, not a power loss
+
+void setup() {
+  Serial.begin(115200);
+  delay(300);
+  bootCount++;
+  Serial.print("Boot ");
+  Serial.println(bootCount);
+
+  // Sleep 30 seconds. The argument is in microseconds.
+  esp_sleep_enable_timer_wakeup(30ULL * 1000000ULL);
+  Serial.println("Sleeping 30 seconds...");
+  Serial.flush();
+  esp_deep_sleep_start();
+}
+
+void loop() {
+  // not used; deep sleep restarts the chip in setup()
+}</code></pre>
+      <p>What you learned: deep sleep shuts down most of the chip. Official ESP32 datasheet current for deep sleep with the RTC timer and RTC memory on is 10 microamps (7 uA on ESP32-S3 and ESP32-C6, 5 uA on ESP32-C3). Wi-Fi transmit is a different story: about 240 mA typical on the original ESP32 for 802.11b at +19.5 dBm, so batteries and USB ports need headroom.</p>
+    </article>
+
+    <article class="lesson" id="lesson-now">
+      <h3>7. ESP-NOW</h3>
+      <p>Goal: send a short message from one ESP32 to another without a Wi-Fi router. This is useful from a barn or gate to the house if the signal is short-range and both boards are in reach of each other.</p>
+      <p>Parts: two ESP32 boards. This lesson can wait until you have a second board.</p>
+      <p>Wiring: power both boards from USB. They do not need to join Wi-Fi. First upload the receiver, open Serial Monitor, and copy its MAC address into the sender sketch. Then upload the sender to the other board. Put the boards reasonably close for the first test.</p>
+  <pre><code>// Receiver first. The sender is in the comment at the bottom.
+#include &lt;WiFi.h&gt;
+#include &lt;esp_now.h&gt;
+
+void onRecv(const esp_now_recv_info_t *info, const uint8_t *data, int len) {
+  char msg[64];
+  int n = len &lt; 63 ? len : 63;
+  memcpy(msg, data, n);
+  msg[n] = '\0';
+  Serial.print("Got: ");
+  Serial.println(msg);
+}
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.mode(WIFI_STA);
+  Serial.print("This board MAC: ");
+  Serial.println(WiFi.macAddress());
+
+  if (esp_now_init() != ESP_OK) {
+    Serial.println("ESP-NOW init failed");
+    return;
+  }
+  esp_now_register_recv_cb(onRecv);
+}
+
+void loop() {}
+
+/* Sender (upload this to the second board):
+#include &lt;WiFi.h&gt;
+#include &lt;esp_now.h&gt;
+
+// Put the receiver MAC here, from its Serial Monitor.
+uint8_t receiverMac[] = {0x24, 0x6F, 0x28, 0xAA, 0xBB, 0xCC};
+
+void onSent(const esp_now_send_info_t *info, esp_now_send_status_t status) {
+  Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Sent" : "Send failed");
+}
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.mode(WIFI_STA);
+  Serial.println(WiFi.macAddress());
+  if (esp_now_init() != ESP_OK) {
+    Serial.println("ESP-NOW init failed");
+    return;
+  }
+  esp_now_register_send_cb(onSent);
+
+  esp_now_peer_info_t peer = {};
+  memcpy(peer.peer_addr, receiverMac, 6);
+  peer.channel = 0;
+  peer.encrypt = false;
+  if (esp_now_add_peer(&amp;peer) != ESP_OK) {
+    Serial.println("add_peer failed");
+    return;
+  }
+}
+
+void loop() {
+  const char* msg = "gate closed";
+  esp_now_send(receiverMac, (const uint8_t*)msg, strlen(msg));
+  delay(2000);
+}
+*/</code></pre>
+      <p>What you learned: ESP-NOW is a direct board-to-board link. The callbacks above match Arduino-ESP32 3.3.x (based on ESP-IDF 5.5). Older 2.x tutorials use a different receive signature and will not compile on 3.x. Range is typically tens of meters, less through walls, so treat it as a short-range farm link, not a whole-ranch radio.</p>
+    </article>
+
+    <article class="lesson" id="lesson-cam">
+      <h3>8. Camera</h3>
+      <p>Goal: take a still JPEG and view it in a phone browser. This is a first step toward a coop camera, not a replacement for a dedicated security system.</p>
+      <p>Parts: an AI-Thinker ESP32-CAM (or a board with the same pinout), a USB-UART adapter, and a solid 5 V supply. Many starter kits do not include this board. The official Arduino example is CameraWebServer in Arduino-ESP32 3.3.12: <a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples/Camera/CameraWebServer">https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples/Camera/CameraWebServer</a></p>
+      <p>Wiring: power the CAM from 5 V and GND (a weak 3.3 V pin from a tiny adapter often browns out). Connect the adapter TX to the CAM RX, adapter RX to CAM TX, and common GND. To upload, hold IO0 to GND (BOOT), reset, then upload. Disconnect IO0 and reset again to run. In Tools, pick AI Thinker ESP32-CAM if that board option is listed, or ESP32 Dev Module and use the pin map in the sketch.</p>
+  <pre><code>#include &lt;WiFi.h&gt;
+#include "esp_camera.h"
+#include "esp_http_server.h"
+
+const char* ssid = "YOUR_WIFI_SSID";
+const char* password = "YOUR_WIFI_PASSWORD";
+
+// AI-Thinker pin map from Arduino-ESP32 3.3.12 CameraWebServer
+#define PWDN_GPIO_NUM  32
+#define RESET_GPIO_NUM -1
+#define XCLK_GPIO_NUM  0
+#define SIOD_GPIO_NUM  26
+#define SIOC_GPIO_NUM  27
+#define Y9_GPIO_NUM    35
+#define Y8_GPIO_NUM    34
+#define Y7_GPIO_NUM    39
+#define Y6_GPIO_NUM    36
+#define Y5_GPIO_NUM    21
+#define Y4_GPIO_NUM    19
+#define Y3_GPIO_NUM    18
+#define Y2_GPIO_NUM    5
+#define VSYNC_GPIO_NUM 25
+#define HREF_GPIO_NUM  23
+#define PCLK_GPIO_NUM  22
+
+esp_err_t jpgHandler(httpd_req_t *req) {
+  camera_fb_t *fb = esp_camera_fb_get();
+  if (!fb) {
+    httpd_resp_send_500(req);
+    return ESP_FAIL;
+  }
+  httpd_resp_set_type(req, "image/jpeg");
+  esp_err_t err = httpd_resp_send(req, (const char *)fb-&gt;buf, fb-&gt;len);
+  esp_camera_fb_return(fb);
+  return err;
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  camera_config_t config = {};
+  config.ledc_channel = LEDC_CHANNEL_0;
+  config.ledc_timer = LEDC_TIMER_0;
+  config.pin_d0 = Y2_GPIO_NUM;
+  config.pin_d1 = Y3_GPIO_NUM;
+  config.pin_d2 = Y4_GPIO_NUM;
+  config.pin_d3 = Y5_GPIO_NUM;
+  config.pin_d4 = Y6_GPIO_NUM;
+  config.pin_d5 = Y7_GPIO_NUM;
+  config.pin_d6 = Y8_GPIO_NUM;
+  config.pin_d7 = Y9_GPIO_NUM;
+  config.pin_xclk = XCLK_GPIO_NUM;
+  config.pin_pclk = PCLK_GPIO_NUM;
+  config.pin_vsync = VSYNC_GPIO_NUM;
+  config.pin_href = HREF_GPIO_NUM;
+  config.pin_sccb_sda = SIOD_GPIO_NUM;
+  config.pin_sccb_scl = SIOC_GPIO_NUM;
+  config.pin_pwdn = PWDN_GPIO_NUM;
+  config.pin_reset = RESET_GPIO_NUM;
+  config.xclk_freq_hz = 20000000;
+  config.frame_size = FRAMESIZE_SVGA;
+  config.pixel_format = PIXFORMAT_JPEG;
+  config.grab_mode = CAMERA_GRAB_WHEN_EMPTY;
+  config.jpeg_quality = 12;
+  config.fb_count = 1;
+  if (psramFound()) {
+    config.fb_location = CAMERA_FB_IN_PSRAM;
+    config.jpeg_quality = 10;
+    config.fb_count = 2;
+  } else {
+    config.fb_location = CAMERA_FB_IN_DRAM;
+  }
+
+  if (esp_camera_init(&amp;config) != ESP_OK) {
+    Serial.println("Camera init failed");
+    return;
+  }
+
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+  }
+  Serial.print("Open http://");
+  Serial.print(WiFi.localIP());
+  Serial.println("/jpg");
+
+  httpd_config_t http = HTTPD_DEFAULT_CONFIG();
+  httpd_handle_t server = NULL;
+  if (httpd_start(&amp;server, &amp;http) == ESP_OK) {
+    httpd_uri_t uri = {
+      .uri = "/jpg",
+      .method = HTTP_GET,
+      .handler = jpgHandler,
+      .user_ctx = NULL
+    };
+    httpd_register_uri_handler(server, &amp;uri);
+  }
+}
+
+void loop() {
+  delay(1000);
+}</code></pre>
+      <p>What you learned: the camera uses a lot of pins, so few GPIOs are left for other sensors. If init fails, check 5 V power and the BOOT/IO0 sequence. For a fuller streaming demo, use the official CameraWebServer example and set CAMERA_MODEL_AI_THINKER. The ESP32-CAM can take stills and simple streams. It is not a heavy AI or 4K video processor.</p>
+    </article>
+  </section>
+
+  <section id="projects" aria-labelledby="projects-title">
+    <h2 id="projects-title"><span class="num">07</span>Farm project ideas</h2>
+    <p>These map to real property work. Start with the easy ones after Lessons 3 to 5. Difficulty is about first-build effort, not your ability.</p>
+    <div class="table-scroll">
+      <table>
+        <caption class="soft">Farm project ideas</caption>
+        <thead><tr><th scope="col">Project</th><th scope="col">Difficulty</th><th scope="col">Rough parts</th><th scope="col">Notes</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Coop temperature alarm</th><td>Easy</td><td>ESP32, waterproof DS18B20, 4.7k resistor, weatherproof box, phone alerts</td><td>Lessons 3 to 5. Send ntfy when the coop is too cold or too hot. Add a second sensor later if you want humidity.</td></tr>
+          <tr><th scope="row">Break-wire perimeter or gate alarm</th><td>Easy</td><td>ESP32, sturdy insulated wire or a reed switch, ntfy or a second board for ESP-NOW</td><td>Same circuit as the button lesson: a loop to GND. Rain, animals, and long runs need careful wiring. This is a helper, not a certified security system.</td></tr>
+          <tr><th scope="row">Water-tank level</th><td>Medium</td><td>ESP32, waterproof ultrasonic (JSN-SR04T is a common outdoor choice) or a pressure sensor, plus alerts</td><td>Mount the sensor above the water, convert time or pressure to depth, and warn before the tank is empty. Keep electronics out of the tank.</td></tr>
+          <tr><th scope="row">Gate or stall door sensor</th><td>Easy</td><td>ESP32, magnetic reed switch or a protected limit switch, battery or a nearby outlet</td><td>Treat it like a button. Deep sleep between checks if it runs on a battery.</td></tr>
+          <tr><th scope="row">Coop or driveway camera</th><td>Medium</td><td>ESP32-CAM or ESP32-S3 camera board, 5 V supply, weather box, local Wi-Fi</td><td>Lesson 8. Still photos or a simple stream on the home network. Not a full security DVR, and not hidden-camera work on other people.</td></tr>
+          <tr><th scope="row">OBD2 monitor for a truck</th><td>Advanced</td><td>ESP32, ELM327 adapter, vehicle power taken only from a proper 12 V to 5 V or 3.3 V supply</td><td>The original ESP32 can use many Classic Bluetooth ELM327 dongles. S3, C3, and C6 need a BLE adapter. Speak AT commands over Bluetooth, then show speed or codes. Do this as a passenger project, not while driving.</td></tr>
+          <tr><th scope="row">Property sensors without a drone</th><td>Medium</td><td>A few ESP32 nodes, break-beams or reed switches, ESP-NOW or Wi-Fi, optional camera</td><td>An ESP32 is not a docked-drone launch computer. Sensor nodes and a camera at the driveway or coop are the practical path.</td></tr>
+          <tr><th scope="row">Arena scoring display or projector prototype</th><td>Advanced</td><td>A regular computer or tablet for the display, ESP32 only for buttons, timing, or a simple camera</td><td>Park this until the basics feel easy. The ESP32 can collect inputs. The projector and scoring screen belong on a computer.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="safety" aria-labelledby="safety-title">
+    <h2 id="safety-title"><span class="num">08</span>Safety</h2>
+    <p class="callout"><strong>Stay on low voltage until you really know the wiring.</strong> Never connect an ESP32 pin, USB ground, or breadboard rail to household AC. If you need to switch a pump, heater, lamp, or other mains load, use a relay or contactor module made for that job, keep the mains side in a proper enclosure, and do not improvise. ESP32 pins are 3.3 V and are not 5 V tolerant.</p>
+    <ul>
+      <li>Official datasheets set the maximum GPIO input at VDD + 0.3 V, about 3.6 V on a 3.3 V board. Use a level shifter or a well-calculated divider with 5 V modules.</li>
+      <li>For lithium packs, use a proper charger and a protection board. Do not leave a loose lithium cell in a hot coop or truck cab.</li>
+      <li>Wi-Fi transmit can draw a few hundred milliamps. Use a supply that can deliver at least 0.5 A, as Espressif recommends for the original ESP32.</li>
+      <li>A DIY coop alarm or gate sensor is a helpful extra, not the only safety system for animals or property.</li>
+      <li>Unplug USB before changing wiring. If a pin gets hot or the board smells like a fault, disconnect power and stop.</li>
+    </ul>
+  </section>
+
+  <section id="plan" aria-labelledby="plan-title">
+    <h2 id="plan-title"><span class="num">09</span>A four-week plan</h2>
+    <p>This is a pace, not a test. If a week is heavy, finish the lesson you are on and pick it up later.</p>
+    <ol class="steps">
+      <li><strong>Week 1: get a win</strong> Set up Arduino IDE, upload Blink, then do the button lesson. If that feels good, start the temperature sensor. Stop there if you are tired. You already proved the board works.</li>
+      <li><strong>Week 2: put a reading on your phone</strong> Finish the temperature sketch and the Wi-Fi web page. Walk to another room and refresh the page. That is a real coop-monitor prototype.</li>
+      <li><strong>Week 3: alerts and battery habits</strong> Add the ntfy phone alert, then try deep sleep. If you want, combine them: wake, read the sensor, notify only when needed, and sleep again.</li>
+      <li><strong>Week 4: one farm project</strong> Pick one easy project, usually the coop temperature alarm or a gate or break-wire sensor, and make a weather-resistant box. Leave ESP-NOW, the camera, and OBD2 until that first project has been dependable for a few days.</li>
+    </ol>
+  </section>
+
+  <section id="resources" aria-labelledby="resources-title">
+    <h2 id="resources-title"><span class="num">10</span>Free resources</h2>
+    <ol class="refs">
+      <li><a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html">Install Arduino-ESP32 (official)</a> <span class="host">docs.espressif.com</span></li>
+      <li><a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/">Arduino-ESP32 documentation</a> <span class="host">docs.espressif.com</span></li>
+      <li><a href="https://documentation.espressif.com/esp32_datasheet_en.html">ESP32 datasheet</a> <span class="host">documentation.espressif.com</span></li>
+      <li><a href="https://documentation.espressif.com/esp32-s3_datasheet_en.html">ESP32-S3 datasheet</a> <span class="host">documentation.espressif.com</span></li>
+      <li><a href="https://documentation.espressif.com/esp32-c3_datasheet_en.html">ESP32-C3 datasheet</a> <span class="host">documentation.espressif.com</span></li>
+      <li><a href="https://documentation.espressif.com/esp32-c6_datasheet_en.html">ESP32-C6 datasheet</a> <span class="host">documentation.espressif.com</span></li>
+      <li><a href="https://randomnerdtutorials.com/getting-started-with-esp32/">Getting started with ESP32</a> <span class="host">randomnerdtutorials.com</span></li>
+      <li><a href="https://randomnerdtutorials.com/projects-esp32/">ESP32 project collection</a> <span class="host">randomnerdtutorials.com</span></li>
+      <li><a href="https://docs.micropython.org/en/latest/esp32/quickref.html">MicroPython ESP32 quick reference</a> <span class="host">docs.micropython.org</span></li>
+      <li><a href="https://esphome.io/install/getting-started/">ESPHome getting started</a> <span class="host">esphome.io</span></li>
+      <li><a href="https://docs.ntfy.sh/publish/">ntfy publish docs</a> <span class="host">docs.ntfy.sh</span></li>
+      <li><a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples/Camera/CameraWebServer">Arduino-ESP32 3.3.12 CameraWebServer</a> <span class="host">github.com</span></li>
+    </ol>
+    <p>Older blog posts often show Arduino-ESP32 2.x APIs. If a copy-paste sketch fails on ledcSetup, ledcAttachPin, or an ESP-NOW receive callback that starts with const uint8_t *mac, it is from that older core. Use the 3.x versions in this page instead.</p>
+    <h3>Sources</h3>
+    <ol class="refs sources">
+      <li><a href="https://documentation.espressif.com/esp32_datasheet_en.html">https://documentation.espressif.com/esp32_datasheet_en.html</a> <span class="host">documentation.espressif.com</span></li>
+      <li><a href="https://documentation.espressif.com/esp32-s3_datasheet_en.html">https://documentation.espressif.com/esp32-s3_datasheet_en.html</a> <span class="host">documentation.espressif.com</span></li>
+      <li><a href="https://documentation.espressif.com/esp32-c3_datasheet_en.html">https://documentation.espressif.com/esp32-c3_datasheet_en.html</a> <span class="host">documentation.espressif.com</span></li>
+      <li><a href="https://documentation.espressif.com/esp32-c6_datasheet_en.html">https://documentation.espressif.com/esp32-c6_datasheet_en.html</a> <span class="host">documentation.espressif.com</span></li>
+      <li><a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html">https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html</a> <span class="host">docs.espressif.com</span></li>
+      <li><a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html</a> <span class="host">docs.espressif.com</span></li>
+      <li><a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html</a> <span class="host">docs.espressif.com</span></li>
+      <li><a href="https://docs.ntfy.sh/publish/">https://docs.ntfy.sh/publish/</a> <span class="host">docs.ntfy.sh</span></li>
+    </ol>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Dukktape Studios — ESP32 Crash Course. A learning guide. Example kits and sketches are starting points.</p>
+    <p><a href="/">Dukktape Studios home</a> · <a href="#content">Back to top</a></p>
+    <p>© 2026 Dukktape Studios</p>
+  </div>
+</footer>
+</body>
+</html>
