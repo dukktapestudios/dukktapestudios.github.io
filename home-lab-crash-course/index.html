@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home Lab Crash Course | Dukktape Studios</title>
+<meta name="description" content="What a home lab is, how to read a full-size network diagram in plain words, and a staged path that starts at $0. Example hardware only.">
+<meta name="theme-color" content="#171b1e">
+<link rel="icon" href="../assets/studio-duck.png" type="image/png">
+<link rel="preload" href="../assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-700.woff2") format("woff2");
+}
+:root {
+  --bg: #171b1e;
+  --raise: #22282c;
+  --line: #3a4143;
+  --text: #f0f0e8;
+  --muted: #b4b4b4;
+  --orange: #efb671;
+  --ink: #171b1e;
+  --column: 740px;
+}
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  overflow-wrap: break-word;
+}
+a { color: var(--orange); text-underline-offset: 0.16em; }
+a:hover { color: #f3c48a; }
+:focus { outline: none; }
+:focus-visible { outline: 3px solid #f7f4ee; outline-offset: 3px; }
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: var(--orange);
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: 8px;
+  z-index: 5;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip:focus { top: 12px; }
+.top {
+  position: sticky;
+  top: var(--dts-donate-offset, 0px);
+  z-index: 2;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.wrap { width: min(var(--column), calc(100% - 32px)); margin: 0 auto; }
+.top-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+}
+.brand { color: var(--text); font-weight: 700; text-decoration: none; letter-spacing: -0.02em; }
+.home-link { font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+.eyebrow {
+  margin: 28px 0 8px;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 6vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.lede { font-size: 1.12rem; margin: 14px 0 0; }
+.note, .callout {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-left: 3px solid var(--orange);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 16px 0;
+}
+h2 {
+  margin: 2.2rem 0 0.7rem;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+h2 .num { color: var(--orange); font-size: 0.85rem; letter-spacing: 0.08em; display: block; margin-bottom: 4px; }
+h3 { margin: 1.3rem 0 0.4rem; font-size: 1.12rem; letter-spacing: -0.02em; }
+section[id], h2, h3 { scroll-margin-top: calc(var(--dts-donate-offset, 4.5rem) + 76px); }
+p, li { color: var(--text); }
+.soft, .toc, figcaption, td, dd { color: var(--text); }
+.muted { color: var(--muted); }
+.toc {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  margin-top: 22px;
+}
+.toc h2 { margin: 0 0 8px; font-size: 1.05rem; }
+.toc ol { margin: 0; padding-left: 1.3rem; }
+.toc li { margin: 4px 0; }
+.toc a { color: var(--text); font-weight: 600; }
+.table-scroll { overflow-x: auto; margin: 12px 0 18px; max-width: 100%; }
+table { width: 100%; border-collapse: collapse; min-width: 34rem; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { color: var(--orange); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+th[scope="row"] {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+  color: var(--text);
+}
+caption { text-align: left; margin: 0 0 8px; }
+ul, ol { padding-left: 1.25rem; }
+li { margin: 0.35rem 0; }
+.reasons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+.reasons section {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+}
+.reasons h2 { margin: 0 0 0.45rem; font-size: 1.12rem; }
+.reasons p { margin: 0; }
+figure { margin: 16px 0; }
+.diagram {
+  background: #1c2124;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 14px 18px;
+  max-width: 100%;
+}
+figcaption { margin-top: 8px; }
+figcaption ol { margin: 6px 0 0; }
+.kicker { margin: 0; color: var(--orange); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.spine { display: grid; justify-items: center; }
+.node {
+  background: #2a3034;
+  border: 1px solid var(--orange);
+  border-radius: 12px;
+  padding: 10px 14px;
+  width: min(100%, 420px);
+  text-align: center;
+}
+.node strong { display: block; }
+.node span {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+.node.terminal { border-style: dashed; }
+.flow-arrow {
+  display: flex;
+  justify-content: center;
+  color: var(--orange);
+  font-weight: 700;
+  line-height: 1;
+  padding: 4px 0 2px;
+}
+.router-row {
+  display: grid;
+  gap: 8px;
+  width: min(100%, 420px);
+  justify-items: center;
+}
+.router-row .node { width: 100%; }
+.dash-link {
+  color: var(--orange);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.fan {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  width: min(100%, 420px);
+}
+.fan .node { width: 100%; text-align: left; }
+.rows { display: grid; gap: 10px; margin: 16px 0; }
+.rows article {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.rows h3 { margin: 4px 0; }
+.rows p { margin: 0; }
+.meta {
+  margin: 0;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.switcher { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.switcher button {
+  min-height: 44px;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(240, 240, 232, 0.55);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.switcher button[aria-selected="true"] {
+  background: var(--orange);
+  color: var(--ink);
+  border-color: var(--orange);
+}
+.example {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 16px;
+  margin: 0 0 14px;
+}
+.props { display: grid; gap: 10px; margin: 12px 0 0; }
+.props div { border-top: 1px solid var(--line); padding-top: 8px; }
+.props dt { margin: 0; color: var(--orange); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.props dd { margin: 4px 0 0; }
+.steps { list-style: none; margin: 14px 0; padding: 0; }
+.steps > li {
+  margin: 0 0 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.steps h3 { margin: 0 0 4px; }
+.steps p { margin: 0; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.panel {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+}
+.panel h3 { margin-top: 0; }
+.panel ul { margin-bottom: 0; }
+.refs { list-style: none; margin: 12px 0 0; padding: 0; }
+ol.refs { list-style: decimal; padding-left: 1.3rem; }
+ol.refs li { margin: 0; padding: 8px 0; border-top: 1px solid var(--line); }
+ol.refs li::marker { color: var(--orange); font-weight: 700; }
+.refs a { font-weight: 600; overflow-wrap: anywhere; }
+.refs .host { display: block; color: var(--muted); font-size: 0.85rem; font-weight: 500; }
+#feedback-box { margin-top: 8px; max-width: 100%; }
+#feedback-box .giscus, #feedback-box .giscus-frame { max-width: 100%; }
+footer { border-top: 1px solid var(--line); margin-top: 28px; padding: 22px 0 36px; color: var(--muted); }
+footer p { margin: 0 0 8px; }
+img, svg, iframe { max-width: 100%; }
+@media (min-width: 641px) {
+  .router-row {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+  }
+  .fan { width: 100%; grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .reasons, .split { grid-template-columns: 1fr; }
+  .table-scroll { overflow-x: visible; }
+  table { min-width: 0; border-collapse: separate; border-spacing: 0; }
+  thead { display: none; }
+  tr {
+    display: block;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    background: #1c2124;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  th, td { display: block; width: auto; border: 0; padding: 4px 0; }
+  .t-machines td::before, .t-stages td::before, .t-software td::before, .t-glossary td::before {
+    display: block;
+    color: var(--orange);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .t-machines td:nth-child(2)::before { content: "What it is good for"; }
+  .t-machines td:nth-child(3)::before { content: "What to watch"; }
+  .t-stages td:nth-child(2)::before { content: "Goal"; }
+  .t-stages td:nth-child(3)::before { content: "Time"; }
+  .t-stages td:nth-child(4)::before { content: "Approx. cost"; }
+  .t-software td:nth-child(2)::before { content: "Best at"; }
+  .t-software td:nth-child(3)::before { content: "Cost, November 2026"; }
+  .t-software td:nth-child(4)::before { content: "Beginner note"; }
+  .t-glossary td:nth-child(2)::before { content: "Plain meaning"; }
+}
+@media (max-width: 420px) {
+  .wrap { width: min(var(--column), calc(100% - 24px)); }
+  .top-inner { align-items: flex-start; padding: 8px 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+<link rel="stylesheet" href="../assets/donate-bar.css">
+</head>
+<body>
+<aside class="dts-donate" aria-label="Donations">
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=dukktapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+</aside>
+
+<a class="skip" href="#content">Skip to content</a>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/">Dukktape Studios</a>
+    <a class="home-link" href="/#guides">All guides</a>
+  </div>
+</header>
+<main id="content" class="wrap">
+  <p class="eyebrow">Guide</p>
+  <h1>Home Lab Crash Course</h1>
+  <p class="lede">What a home lab is, how to read a full-size network diagram in plain words, and a staged path that starts at $0 on computers you already have. Nothing here is a purchase, and no computer needs to be changed until a step is worth trying.</p>
+  <p class="note">A learning guide, not a shopping list. Example computers are typical starting points, such as a typical gaming desktop (for example, a 6-core CPU with 16 GB of RAM) and a gaming laptop with an 8 GB NVIDIA GPU. This page does not describe one person's computer. Cost figures are approximate official or street prices as of November 2026, in US dollars unless noted, before tax and shipping. Check your own internet connection for your home or homestead. This guide does not assume a speed, a public IP address, or a particular provider.</p>
+
+  <nav class="toc" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#what-it-is">What a home lab is</a></li>
+      <li><a href="#why-learning">Learning</a></li>
+      <li><a href="#why-self-hosting">Self-hosting</a></li>
+      <li><a href="#why-automation">Home automation</a></li>
+      <li><a href="#why-ai">Local AI</a></li>
+      <li><a href="#what-you-have">What you already have</a></li>
+      <li><a href="#decode">Decode this diagram</a></li>
+      <li><a href="#build-path">A step-by-step build path</a></li>
+      <li><a href="#choosing-software">Choosing server software</a></li>
+      <li><a href="#projects">First projects worth doing</a></li>
+      <li><a href="#safety">Safety basics</a></li>
+      <li><a href="#glossary">Glossary</a></li>
+      <li><a href="#learn-more">Learn more</a></li>
+    </ol>
+  </nav>
+
+  <section id="what-it-is" aria-labelledby="what-it-is-title">
+    <h2 id="what-it-is-title"><span class="num">01</span>What a home lab is</h2>
+    <p>A home lab is a small collection of computers and network gear at home that you use to learn, tinker, and run services for yourself. It can be a used mini PC on a shelf. It can also grow into a cabinet of switches, servers, and cameras. The difference is not the price. The difference is that you are building it on purpose, so you can see how the pieces fit.</p>
+    <p>People sometimes picture a corporate data center in a basement. You do not need that. If you install one useful app on a computer you already own and can explain what it does, you have started a home lab.</p>
+  </section>
+
+  <div class="reasons">
+    <section id="why-learning" aria-labelledby="why-learning-title">
+      <h2 id="why-learning-title">Learning</h2>
+      <p>A lab is a safe place to practice. You can try Linux, networking, automation, and servers without needing a job in IT first. Breaking a test box is a lesson. Breaking the only computer you use every day is a bad day, which is why later stages use spare or dedicated machines.</p>
+    </section>
+    <section id="why-self-hosting" aria-labelledby="why-self-hosting-title">
+      <h2 id="why-self-hosting-title">Self-hosting</h2>
+      <p>Self-hosting means running a tool on hardware you control instead of only using someone else's website. Photos, files, a password vault, or a small website can live at home. You gain control and a deeper understanding. You also take on updates, backups, and the risk of a disk failing, so those habits matter as much as the apps.</p>
+    </section>
+    <section id="why-automation" aria-labelledby="why-automation-title">
+      <h2 id="why-automation-title">Home automation</h2>
+      <p>A home or homestead has jobs that benefit from simple sensors: a propane tank that is getting low, a gate or shop door, temperature in a building, later maybe vehicle stats. Home Assistant is the usual free software that gathers those signals and shows them in one place, often with small ESP32 boards you can program yourself.</p>
+    </section>
+    <section id="why-ai" aria-labelledby="why-ai-title">
+      <h2 id="why-ai-title">Local AI</h2>
+      <p>Local AI means a model runs on a computer at home, so drafts and experiments do not have to leave the house. A gaming laptop with an 8 GB NVIDIA GPU is a practical starting point with Ollama. This is for learning and creative work, not a reason to buy a new server on day one.</p>
+    </section>
+  </div>
+
+  <section id="what-you-have" aria-labelledby="what-you-have-title">
+    <h2 id="what-you-have-title"><span class="num">02</span>What you already have</h2>
+    <p>The good news is that a lab can start with ordinary hardware already on a desk.</p>
+    <div class="table-scroll">
+      <table class="t-machines">
+        <caption class="soft">Example machines, not a specific person's computers</caption>
+        <thead>
+          <tr><th scope="col">Machine</th><th scope="col">What it is good for</th><th scope="col">What to watch</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">A typical gaming desktop (for example, a 6-core CPU with 16 GB of RAM)</th>
+            <td>A solid place to install Docker, try services, and learn the web interfaces.</td>
+            <td>16 GB is enough for a few containers alongside the operating system, and it will feel tight if you also run heavy virtual machines. Memory prices have been unusually unsettled in 2026, so treat extra RAM as optional and check current prices later.</td>
+          </tr>
+          <tr>
+            <th scope="row">A gaming laptop with an 8 GB NVIDIA GPU</th>
+            <td>A practical machine for trying local AI with Ollama, and a second computer for private-network tests.</td>
+            <td>It is still a laptop. Use it for experiments. Do not turn it into the only always-on server if you want it cool, portable, and long-lived.</td>
+          </tr>
+          <tr>
+            <th scope="row">ESP32 and ESP32-CAM boards</th>
+            <td>Perfect first sensors and a first practice camera, especially with ESPHome and Home Assistant.</td>
+            <td>Great for learning. For long-term outdoor views, a weatherproof PoE camera is sturdier than a small Wi-Fi camera board.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Existing home Wi-Fi and the provider's router are also part of the lab. Stages 0 and 1 do not require replacing them.</p>
+  </section>
+
+  <section id="decode" aria-labelledby="decode-title">
+    <h2 id="decode-title"><span class="num">03</span>Decode this diagram</h2>
+    <p>The inspiration picture is a real, mature home lab from November 2026. It is someone's finished map, not a starter kit. Read it from the top: the internet comes in, a router decides what is allowed, a switch fans the cables out, and then computers, Wi-Fi, and cameras hang off those cables. Remote access sits off to the side, so the owner of that example can reach home without leaving the front door open.</p>
+    <figure>
+      <div class="diagram" data-diagram="homelab" role="img" aria-label="Example home lab, from the internet down through a gateway, router, and PoE switch, then out to Wi-Fi, cameras, a hypervisor, a NAS, and home computers. Remote access reaches the router from away.">
+        <div class="spine">
+          <div class="node terminal"><strong>Internet</strong><span>The ISP connection</span></div>
+          <div class="flow-arrow" aria-hidden="true">↓</div>
+          <div class="node"><strong>ISP gateway</strong><span>The box from the internet provider</span></div>
+          <div class="flow-arrow" aria-hidden="true">↓</div>
+          <div class="router-row">
+            <div class="node"><strong>Router and firewall</strong><span>UniFi Cloud Gateway Ultra in the example</span></div>
+            <p class="dash-link">from away</p>
+            <div class="node terminal"><strong>Remote access</strong><span>Tailscale, WireGuard, Cloudflare Tunnel</span></div>
+          </div>
+          <div class="flow-arrow" aria-hidden="true">↓</div>
+          <div class="node"><strong>PoE switch</strong><span>Many ports, plus power for cameras and Wi-Fi</span></div>
+          <div class="flow-arrow" aria-hidden="true">↓</div>
+          <ul class="fan">
+            <li class="node"><strong>Wi-Fi access points</strong></li>
+            <li class="node"><strong>Cameras and NVR</strong><span>Blue Iris PC in the example</span></li>
+            <li class="node"><strong>Hypervisor</strong><span>Proxmox on an old Mac mini</span></li>
+            <li class="node"><strong>NAS and app server</strong><span>Unraid with Docker apps</span></li>
+            <li class="node"><strong>Home computers</strong></li>
+          </ul>
+        </div>
+      </div>
+      <figcaption>
+        <p class="kicker">In words</p>
+        <ol>
+          <li>Internet arrives at the provider's gateway, then at a router and firewall.</li>
+          <li>Remote access, drawn with a dashed link, reaches that router from away.</li>
+          <li>A PoE switch fans cables out to Wi-Fi, cameras, a hypervisor, a NAS, and home computers.</li>
+        </ol>
+      </figcaption>
+    </figure>
+    <p>Here is each layer in plain words, following the example lab from the internet down.</p>
+    <div class="rows">
+      <article>
+        <p class="meta">1</p>
+        <h3>Internet and the ISP gateway</h3>
+        <p>This is the handoff from the internet provider. In the example, an AT&amp;T fiber gateway (a BGW320) brings a 1 Gbit/s connection into the house and is set to IP passthrough, which means it mostly gets out of the way so the next box can be the real router. That speed and that provider belong to the example. Check your own internet connection. The gateway at a home or homestead might be a single combo box that does modem, router, and Wi-Fi all at once.</p>
+      </article>
+      <article>
+        <p class="meta">2</p>
+        <h3>Router and firewall</h3>
+        <p>The router is the traffic cop. It hands out addresses, decides what may leave or enter, and usually provides Wi-Fi if you have not split that job out. The example uses a UniFi Cloud Gateway Ultra: a compact box that is both router and firewall, with optional intrusion detection, DHCP, and VPN features. UPnP, a setting that lets devices open ports on their own, is turned off there, which is a good habit. Official US list price for this gateway is $129 as of November 2026.</p>
+      </article>
+      <article>
+        <p class="meta">3</p>
+        <h3>The switch</h3>
+        <p>A switch is a multiport Ethernet splitter with manners. One cable comes from the router, and many cables go out to computers, access points, and cameras. The example's core switch is a 48-port UniFi PoE model, with a smaller 8-port PoE switch in a closet for a nearby access point. A first lab almost never needs 48 ports. The official UniFi Switch 48 PoE lists at $589; that is a later, high-port-count choice.</p>
+      </article>
+      <article>
+        <p class="meta">4</p>
+        <h3>VLANs, the separate lanes</h3>
+        <p>The example splits traffic into named groups: a main LAN for everyday devices, VLAN 11 for cameras, VLAN 50 for guests, plus separate ranges for WireGuard and Tailscale. A VLAN (virtual LAN) is a way to keep those groups from freely mixing, even when they share the same switch. Cameras and other small internet-connected gadgets are safer on their own lane so a weak camera cannot easily reach everyday computers or a file server.</p>
+      </article>
+      <article>
+        <p class="meta">5</p>
+        <h3>Power over Ethernet, or PoE</h3>
+        <p>PoE sends power and data on the same Ethernet cable. That is why many access points and wired cameras do not need a nearby outlet. It is especially handy on a property where a camera or radio might sit in a shop, on a pole, or under an eave. The switch is what supplies that power, within a budget measured in watts.</p>
+      </article>
+      <article>
+        <p class="meta">6</p>
+        <h3>Wi-Fi access points</h3>
+        <p>An access point is a dedicated radio that provides Wi-Fi, often placed on a ceiling and powered by PoE. The example has several UniFi access points and on the order of 60 wireless clients. Existing router Wi-Fi is fine at the start. Extra access points become worth it when a house or outbuildings have dead zones, not because a diagram has them.</p>
+      </article>
+      <article>
+        <p class="meta">7</p>
+        <h3>A hypervisor versus a NAS</h3>
+        <p>The example splits brain and brawn. An older 2012 Mac mini runs Proxmox, a hypervisor, which is software that lets one computer host several virtual machines: Home Assistant, Pi-hole, a Linux VM, and Uptime Kuma. A newer Unraid machine is the NAS and app server: lots of disks, lots of Docker containers, and a graphics card for AI helpers. A hypervisor is about running whole computers inside a computer. A NAS is about reliable files, with apps as a bonus. You can start with neither, and just use Docker on Windows.</p>
+      </article>
+      <article>
+        <p class="meta">8</p>
+        <h3>Containers and Docker</h3>
+        <p>A container packages an app with what it needs to run, so you can start and stop it without a full install dance. The example Unraid box runs about 37 of them, including Plex for media, Immich for photos, Nginx Proxy Manager for tidy private web addresses, Grafana for graphs, n8n for automation, Ollama for local AI, and CodeProject.AI for camera intelligence. That list is a long-term collection. Add one app you will use, then another.</p>
+      </article>
+      <article>
+        <p class="meta">9</p>
+        <h3>VPN and remote access</h3>
+        <p>A VPN, or virtual private network, makes a safe tunnel to home so home services can be used as if you were on the couch. The example uses Tailscale (easy, works well even on awkward networks), UniFi Teleport / WireGuard (a more traditional VPN), and a Cloudflare Tunnel so a few sites can be reached by name without opening lots of ports. Two port forwards still exist in that lab. For a first lab, skip port forwarding and start with Tailscale.</p>
+      </article>
+      <article>
+        <p class="meta">10</p>
+        <h3>A reverse proxy</h3>
+        <p>A reverse proxy, such as Nginx Proxy Manager in the example, sits in front of several home apps and presents them as clean names, often with encryption. It is a convenience and an extra door to lock, not a first-week project. If you use one later, still keep those doors on a private network or behind a login, not wide open to the world.</p>
+      </article>
+      <article>
+        <p class="meta">11</p>
+        <h3>Monitoring</h3>
+        <p>Uptime Kuma answers a simple question: is this thing up? The example also uses Grafana and other tools for deeper graphs. Start with Kuma. A short list of checks you will actually look at is better than a wall of charts you ignore.</p>
+      </article>
+      <article>
+        <p class="meta">12</p>
+        <h3>Cameras and an NVR</h3>
+        <p>An NVR, or network video recorder, is the computer that records cameras and keeps the footage. The example uses a Windows PC running Blue Iris, with wired PoE cameras and CodeProject.AI on the Unraid server's RTX 3050 to decide whether a frame is interesting. Home Assistant shows some of that on dashboards. This is the most security-sensitive part of the diagram, which is why those cameras have their own VLAN.</p>
+      </article>
+    </div>
+    <p>One encouraging detail: the example runs important small services on a 2012 Mac mini. New hardware is not required to host Home Assistant, Pi-hole, or a status page. The newer, heavier machine is for disks, media, and AI.</p>
+  </section>
+
+  <section id="build-path" class="stages" aria-labelledby="build-path-title">
+    <h2 id="build-path-title"><span class="num">04</span>A step-by-step build path</h2>
+    <p>Build in stages. Each one should still be useful if you stop there. Do not start by copying the full diagram.</p>
+    <p class="soft">Costs are approximate official or street prices as of November 2026, in US dollars unless noted, before tax and shipping. They are not quotes, and they move. Pick a stage to see the goal, the work, and the done-when check.</p>
+    <div class="table-scroll">
+      <table class="t-stages">
+        <caption class="soft">Five stages, from free to a fuller lab</caption>
+        <thead>
+          <tr><th scope="col">Stage</th><th scope="col">Goal</th><th scope="col">Time</th><th scope="col">Approx. cost</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">0. Start with what you have</th>
+            <td>Learn Docker, Tailscale, and maybe Ollama on computers you already use.</td>
+            <td>2 to 4 hours</td>
+            <td>$0</td>
+          </tr>
+          <tr>
+            <th scope="row">1. Always-on box</th>
+            <td>Home Assistant, a first ESP32, Pi-hole, Uptime Kuma, and a backup drive.</td>
+            <td>A weekend, then a few evenings</td>
+            <td>$0 to about $250</td>
+          </tr>
+          <tr>
+            <th scope="row">2. Dedicated server</th>
+            <td>A spare machine for files and apps, using Proxmox, Unraid, TrueNAS, or plain Docker.</td>
+            <td>A weekend plus a week of one app at a time</td>
+            <td>$0 software, hardware often about $200 to $800+</td>
+          </tr>
+          <tr>
+            <th scope="row">3. Network upgrade</th>
+            <td>A router you control, a small PoE switch, better Wi-Fi if needed, and a first VLAN.</td>
+            <td>An evening to a weekend</td>
+            <td>Often about $250 to $400 for a modest UniFi start; skip the $589 48-port switch at first</td>
+          </tr>
+          <tr>
+            <th scope="row">4. Cameras and the fuller lab</th>
+            <td>One reliable camera, detection, and a homestead dashboard, still without opening router ports.</td>
+            <td>A weekend for a first camera, longer for a property-wide setup</td>
+            <td>From $0 software and an ESP32-CAM, up to much more for PoE cameras and a recorder</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="switcher" role="tablist" aria-label="Build stages">
+      <button type="button" role="tab" id="tab-stage-0" aria-controls="panel-stage-0" aria-selected="true" tabindex="0">Stage 0</button>
+      <button type="button" role="tab" id="tab-stage-1" aria-controls="panel-stage-1" aria-selected="false" tabindex="-1">Stage 1</button>
+      <button type="button" role="tab" id="tab-stage-2" aria-controls="panel-stage-2" aria-selected="false" tabindex="-1">Stage 2</button>
+      <button type="button" role="tab" id="tab-stage-3" aria-controls="panel-stage-3" aria-selected="false" tabindex="-1">Stage 3</button>
+      <button type="button" role="tab" id="tab-stage-4" aria-controls="panel-stage-4" aria-selected="false" tabindex="-1">Stage 4</button>
+    </div>
+
+    <article class="example" role="tabpanel" id="panel-stage-0" aria-labelledby="tab-stage-0">
+      <h3>Stage 0. Start with what you have</h3>
+      <dl class="props">
+        <div><dt>Goal</dt><dd>Learn the ideas by running a few small services on the computers you already have, without replacing Windows or buying hardware.</dd></div>
+        <div><dt>Time</dt><dd>About 2 to 4 hours, in short sittings if you prefer.</dd></div>
+        <div><dt>Estimated cost</dt><dd>$0. Docker Desktop is free for personal use. Tailscale, Uptime Kuma, Ollama, and Home Assistant have free starting options.</dd></div>
+      </dl>
+      <ol class="steps">
+        <li>
+          <h3>Install Tailscale on a typical gaming desktop, a gaming laptop, and a phone</h3>
+          <p>This is a private network among devices you own, so a home computer can be reached while you are out without opening ports on the router. The Personal plan is free for non-commercial use, with unlimited devices and up to six users.</p>
+        </li>
+        <li>
+          <h3>Install Docker Desktop on Windows and run one tiny service</h3>
+          <p>Docker is a way to run an app in a sealed box, called a container, so it does not take over the whole PC. A good first container is Uptime Kuma, a simple dashboard that watches whether a website or service is up. The habit to learn is: start a container, open it in a browser, stop it cleanly.</p>
+        </li>
+        <li>
+          <h3>Try local AI on a gaming laptop, not as a 24/7 server</h3>
+          <p>A gaming laptop with an 8 GB NVIDIA GPU is the better everyday machine for running Ollama, a tool that lets you chat with a language model on hardware at home. Start with a small model. This is for experiments and creative work. Do not leave a gaming laptop under heavy load all day; it gets hot, and it is still a portable computer.</p>
+        </li>
+        <li>
+          <h3>Optionally taste Home Assistant in a container or a virtual machine</h3>
+          <p>Home Assistant is the usual brain for home automation and sensors. Official Home Assistant OS is happiest on its own small always-on box, which comes in Stage 1. A container on Windows is enough to click around and see the idea. Do not point the whole house at it yet.</p>
+        </li>
+      </ol>
+      <p class="callout"><strong>You are done when.</strong> You can open a container in a web browser on the same computer, and you can reach that computer from a phone using Tailscale while the phone is on cellular, not home Wi-Fi. Keep Windows as it is. Do not change the home router's ports.</p>
+    </article>
+
+    <article class="example" role="tabpanel" id="panel-stage-1" aria-labelledby="tab-stage-1">
+      <h3>Stage 1. Always-on box</h3>
+      <dl class="props">
+        <div><dt>Goal</dt><dd>Give always-on jobs a machine that can stay plugged in when everyday computers are off or traveling.</dd></div>
+        <div><dt>Time</dt><dd>A weekend to get the box running, then a few evenings for a first sensor.</dd></div>
+        <div><dt>Estimated cost</dt><dd>About $0 if a spare small PC is already around, or about $150 to $250 for a used mini PC or a Raspberry Pi 5 kit. Home Assistant Green lists at $199. A first backup drive is often about $80 to $150. All figures are approximate, November 2026, before tax and shipping.</dd></div>
+      </dl>
+      <ol class="steps">
+        <li>
+          <h3>Pick an always-on box and do not wipe daily computers</h3>
+          <p>Best is a spare PC you already own. Next is a used office mini PC, often found in the $150 to $250 range. A Raspberry Pi 5 4 GB board has listed around $110, and a complete kit with power supply, case, cooler, and memory card was often about $165 in October 2026 listings. Home Assistant Green is a ready-made appliance at a $199 suggested price. Memory prices have moved a lot in 2026, so check current numbers before you commit.</p>
+        </li>
+        <li>
+          <h3>Install Home Assistant OS and connect one ESP32</h3>
+          <p>Use the official Home Assistant install guide for that hardware. Then flash one ESP32 board with ESPHome, which is the usual way to make a small microcontroller talk to Home Assistant. A first win is a temperature or door sensor. Propane tank level and vehicle stats can follow once this path works.</p>
+        </li>
+        <li>
+          <h3>Add Pi-hole and Uptime Kuma on the same always-on box</h3>
+          <p>Pi-hole is a DNS filter for the home: devices ask it for website addresses, and it can block many ads and trackers. Start by pointing one test device at it, not the whole network. Leave a fallback DNS server on the router so the house still has internet if Pi-hole is stopped. Uptime Kuma can watch Home Assistant, Pi-hole, and later the cameras.</p>
+        </li>
+        <li>
+          <h3>Make a first backup before the box holds anything you would miss</h3>
+          <p>Copy the Home Assistant backup file and any ESPHome configs to a separate drive. Stage 1 is also the right time to start a simple 3-2-1 habit, described in the safety section.</p>
+        </li>
+      </ol>
+      <p class="callout"><strong>You are done when.</strong> Home Assistant stays reachable after everyday computers are shut, one ESP32 sensor shows up as an entity, Uptime Kuma is watching that box, and the home still has internet if you stop Pi-hole.</p>
+    </article>
+
+    <article class="example" role="tabpanel" id="panel-stage-2" aria-labelledby="tab-stage-2">
+      <h3>Stage 2. Dedicated server</h3>
+      <dl class="props">
+        <div><dt>Goal</dt><dd>Add a dedicated server for files, photos, and more apps, so the always-on Home Assistant box can stay small and calm.</dd></div>
+        <div><dt>Time</dt><dd>A weekend to install and learn the interface, then a week of adding one app at a time.</dd></div>
+        <div><dt>Estimated cost</dt><dd>Highly variable. Software can be $0 (Proxmox or TrueNAS Community Edition) or start at $49 for an Unraid Starter license after a 30-day trial. Used hardware and disks often land somewhere between about $200 and $800 or more, depending on what is already on hand. Approximate, November 2026.</dd></div>
+      </dl>
+      <ol class="steps">
+        <li>
+          <h3>Choose a role for the machine before you choose a brand</h3>
+          <p>If you want virtual machines and a learning lab, Proxmox VE is a strong free choice. If you want a friendlier file server that also runs a lot of Docker apps, Unraid is the path the inspiration lab uses. If you care most about careful disk storage, look at TrueNAS Community Edition. You can also keep growing with Docker on a plain Linux install. There is no single right answer.</p>
+        </li>
+        <li>
+          <h3>Install on a spare or used machine, never as a surprise wipe of a daily PC</h3>
+          <p>These systems usually take over the whole disk. Use a machine you can afford to dedicate. Get unattended boot working: power comes back, the server comes back, and you can open its web page from another computer on the network.</p>
+        </li>
+        <li>
+          <h3>Add one or two apps, not a pile</h3>
+          <p>The inspiration lab runs about 37 containers. That is a collection built over a long time. Start with something you will actually use: a photo library such as Immich, a documents folder, or Nginx Proxy Manager later if you need tidy names for services on a private network. Confirm each app survives a reboot before you add the next.</p>
+        </li>
+        <li>
+          <h3>Plan storage and backups before the disks fill with irreplaceable photos</h3>
+          <p>A huge disk array is a later purchase, not a first one. The inspiration lab's roughly 92 TB Unraid array is a destination. One or two good disks plus a separate backup is enough to learn.</p>
+        </li>
+      </ol>
+      <p class="callout"><strong>You are done when.</strong> The server boots by itself after a power cycle, one share or container is still there after a reboot, you can reach it over Tailscale, and you have a backup of its configuration on a different drive.</p>
+    </article>
+
+    <article class="example" role="tabpanel" id="panel-stage-3" aria-labelledby="tab-stage-3">
+      <h3>Stage 3. Network upgrade</h3>
+      <dl class="props">
+        <div><dt>Goal</dt><dd>Upgrade the network only when you need VLANs, Power over Ethernet, or better Wi-Fi coverage. An impressive diagram is not a reason.</dd></div>
+        <div><dt>Time</dt><dd>An evening for a new router if the cutover is simple; a weekend if you also add a switch, an access point, and a first VLAN.</dd></div>
+        <div><dt>Estimated cost</dt><dd>A modest UniFi-style start is often about $250 to $400 before cables and tax: Cloud Gateway Ultra $129, Switch Lite 8 PoE typically around $100 to $110, and a U6 Plus access point about $129 on the official US store as of November 2026. The 48-port PoE switch in the inspiration lab lists at $589 and is not a first switch. Figures are approximate list or street prices, before tax and shipping.</dd></div>
+      </dl>
+      <ol class="steps">
+        <li>
+          <h3>Learn the current internet handoff first</h3>
+          <p>The inspiration lab uses an AT&amp;T gateway in IP passthrough, then a UniFi Cloud Gateway Ultra as the real router. That is the example provider. Check your own internet connection, and do not assume fiber, a particular speed, or a public IP address you can point at from the outside. Some rural connections make inbound port forwarding unreliable or unwise. Tailscale remains the remote-access default.</p>
+        </li>
+        <li>
+          <h3>Replace or sit in front of the provider's box only when you are ready</h3>
+          <p>A Cloud Gateway Ultra is a compact router and firewall ($129 official US price). Cheaper paths exist, including keeping the provider's router and adding a managed switch later. The important upgrade is control: you can create VLANs and turn UPnP off. Take a backup of the old router settings, and have a way to undo the change if the house loses internet.</p>
+        </li>
+        <li>
+          <h3>Start with a small PoE switch, not 48 ports</h3>
+          <p>PoE means the same Ethernet cable carries data and power, which is how many cameras and access points are fed. An 8-port PoE switch is enough for a first access point and a camera or two. Move to a large switch only when you are actually out of ports.</p>
+        </li>
+        <li>
+          <h3>Create a guest network and a cameras-or-IoT VLAN when the switch and router can do it</h3>
+          <p>A VLAN is a separate lane on the same physical network. Everyday computers stay on the main LAN. Cameras, and later other little internet-of-things devices, get their own lane so a compromised camera cannot easily wander onto those computers. Guests get a third lane. Test that phones and laptops still work before you tighten the rules.</p>
+        </li>
+      </ol>
+      <p class="callout"><strong>You are done when.</strong> Daily devices still get online after the change, you can see the new router or switch in its own app or web page, and you can place a camera or guest device on a separate VLAN or guest network.</p>
+    </article>
+
+    <article class="example" role="tabpanel" id="panel-stage-4" aria-labelledby="tab-stage-4">
+      <h3>Stage 4. Cameras and the fuller lab</h3>
+      <dl class="props">
+        <div><dt>Goal</dt><dd>Add cameras and detection only after the network and backups are steady. Treat the inspiration lab as a picture of where a long project can go, not a shopping list.</dd></div>
+        <div><dt>Time</dt><dd>A weekend for one experimental camera; longer for weatherproof PoE cameras, storage, and alerts you trust.</dd></div>
+        <div><dt>Estimated cost</dt><dd>Wide range. Frigate is free open-source software. A Blue Iris 6 full license is $99.95 from the publisher, with a 15-day evaluation. An ESP32-CAM board is enough to learn. Weatherproof PoE cameras and a dedicated recorder PC or GPU add hundreds to thousands of dollars. The inspiration lab's Unraid server (Core i5-14500, 64 GB of memory, RTX 3050, a very large disk array) is a later-year build. Approximate, November 2026.</dd></div>
+      </dl>
+      <ol class="steps">
+        <li>
+          <h3>Start with one camera, preferably on its own VLAN</h3>
+          <p>An ESP32-CAM is fine for learning: you can see a frame in Home Assistant or a lightweight viewer. It is Wi-Fi only, less reliable outdoors, and not a substitute for a weatherproof PoE camera on a barn, driveway, or gate. When a camera will live outside, PoE over a real Ethernet run is the sturdier homestead pattern, which is why the example lab uses a PoE switch.</p>
+        </li>
+        <li>
+          <h3>Pick a recorder that matches how you want to work</h3>
+          <p>Frigate is a self-hosted recorder with built-in detection, often run as a container. Blue Iris is paid Windows software, which is what the inspiration lab uses, with CodeProject.AI as a separate helper that looks at frames and sends alerts. You do not need both to begin.</p>
+        </li>
+        <li>
+          <h3>Keep remote viewing on Tailscale</h3>
+          <p>Do not open a camera or recorder to the public internet. The inspiration lab does use two router port forwards, plus Cloudflare Tunnel with an Access login in front of admin pages. That is a more advanced setup. This course treats those as later, optional techniques, not a starting requirement.</p>
+        </li>
+        <li>
+          <h3>Add detection and a homestead dashboard after a camera records reliably</h3>
+          <p>A useful dashboard might show propane level, whether the always-on box is up, a few camera snapshots, and simple vehicle or shop sensors. Build that in Home Assistant once the pieces exist. One trustworthy alert is worth more than a wall of unread ones.</p>
+        </li>
+      </ol>
+      <p class="callout"><strong>You are done when.</strong> One camera records, you can view it while you are away over Tailscale, a detection or motion alert has fired correctly at least once, and that camera's traffic is isolated from the main computer network.</p>
+    </article>
+  </section>
+
+  <section id="choosing-software" aria-labelledby="choosing-software-title">
+    <h2 id="choosing-software-title"><span class="num">05</span>Choosing server software, when you get there</h2>
+    <p>Stage 0 does not require any of these. When you do want a dedicated machine, this is a fair way to compare the usual options.</p>
+    <div class="table-scroll">
+      <table class="t-software">
+        <caption class="soft">Usual server options</caption>
+        <thead>
+          <tr><th scope="col">Option</th><th scope="col">Best at</th><th scope="col">Cost, November 2026</th><th scope="col">Beginner note</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Docker on Windows or Linux</th>
+            <td>Trying one app at a time with almost no commitment.</td>
+            <td>Docker Desktop is free for personal use.</td>
+            <td>The gentlest start. Not ideal as the only always-on home server if the PC needs to sleep or travel.</td>
+          </tr>
+          <tr>
+            <th scope="row">Proxmox VE</th>
+            <td>Running several virtual machines, and learning how servers are really built.</td>
+            <td>Free and open source. Paid subscriptions are optional support, not a license you must buy.</td>
+            <td>Excellent lab tool. The interface assumes you are willing to read a little. Do not install it on the only daily computer; it takes over the machine.</td>
+          </tr>
+          <tr>
+            <th scope="row">Unraid</th>
+            <td>A friendlier NAS that also runs many Docker apps, which is the inspiration lab's main server.</td>
+            <td>30-day trial, then Starter $49 (up to 6 storage devices), Unleashed $109, or Lifetime $249. Starter and Unleashed include one year of updates, then an optional $36 a year if you want newer versions.</td>
+            <td>Popular for mixed storage and apps. Try the trial on a dedicated box before you pay.</td>
+          </tr>
+          <tr>
+            <th scope="row">TrueNAS Community Edition</th>
+            <td>Careful, disk-focused storage, with apps if you want them.</td>
+            <td>Free and open source.</td>
+            <td>Strong when the main job is protecting files. Worth a look if storage reliability is the reason you want a server.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="split">
+      <section class="panel">
+        <h3>A good reason to grow slowly</h3>
+        <ul>
+          <li>Every stage still works if you stop. A single always-on Home Assistant box is already a real lab.</li>
+          <li>You learn by running one service you understand, which makes the next one easier.</li>
+          <li>Old or spare hardware is enough for the small jobs, as the 2012 Mac mini in the example shows.</li>
+        </ul>
+      </section>
+      <section class="panel">
+        <h3>A good reason not to copy the full diagram yet</h3>
+        <ul>
+          <li>A 48-port PoE switch, a large disk array, and dozens of containers are expensive, loud, and time-consuming to maintain.</li>
+          <li>Opening router ports or exposing admin pages too early creates risk before backups and isolation are in place.</li>
+          <li>Installing a server OS on the wrong machine can wipe the Windows setup you rely on every day.</li>
+        </ul>
+      </section>
+    </div>
+  </section>
+
+  <section id="projects" aria-labelledby="projects-title">
+    <h2 id="projects-title"><span class="num">06</span>First projects worth doing</h2>
+    <p>These projects match a homestead-style lab: sensors, cameras, a cleaner network, local AI for creative work, and a dashboard you will actually open. Do them in an order that matches the stage you are on. The first four are enough for a very good year.</p>
+    <div class="rows">
+      <article>
+        <p class="meta">Fits Stage 1</p>
+        <h3>A. Home Assistant plus ESP32 homestead sensors</h3>
+        <p>Stand up Home Assistant, then use ESPHome to connect an ESP32. First project: a simple temperature or door sensor so you learn the pattern. Next: a propane tank level sensor, often an ultrasonic or gauge-reading setup that reports to Home Assistant. Vehicle stats can come later, for example from a reader that talks to the vehicle or a small board in the shop. One reliable number on a dashboard is a better goal than ten unfinished ideas.</p>
+      </article>
+      <article>
+        <p class="meta">Fits Stage 1, grows in later stages</p>
+        <h3>B. A homestead dashboard</h3>
+        <p>In Home Assistant, build one view you would check in the morning: tank level, a few temperatures, whether the always-on box is up, and later a camera snapshot. Uptime Kuma can feed the "is it up" part. This is the project that makes the lab feel useful instead of like a pile of logins.</p>
+      </article>
+      <article>
+        <p class="meta">Fits Stage 1</p>
+        <h3>C. Pi-hole for the home</h3>
+        <p>Run Pi-hole on the always-on box and point a single test device at it. Browse for a day. If you like the result, you can widen it. Always keep a fallback DNS path so a lab experiment cannot take the whole house offline.</p>
+      </article>
+      <article>
+        <p class="meta">Fits Stage 0</p>
+        <h3>D. Local AI with Ollama</h3>
+        <p>Install Ollama on a gaming laptop with an 8 GB NVIDIA GPU and run a small model you can use for drafting, brainstorming, or other creative work that you would rather keep on the machine. Learn how big a model 16 GB of memory and an 8 GB NVIDIA GPU can handle comfortably. When a dedicated server exists, this job can move there if it should stay on. Leave the laptop free to travel.</p>
+      </article>
+      <article>
+        <p class="meta">Fits Stage 0 or 1</p>
+        <h3>E. Uptime Kuma</h3>
+        <p>Watch Home Assistant, Pi-hole, the router, and later a camera recorder. Set one notification you will notice, not twenty. This is a small project that pays off every time something quietly stops.</p>
+      </article>
+      <article>
+        <p class="meta">Fits Stage 4, with a Stage 1 experiment on ESP32-CAM</p>
+        <h3>F. Camera detection with Frigate or CodeProject.AI</h3>
+        <p>Begin with an ESP32-CAM so you can see a live frame without buying a camera. When you want real recording, try Frigate as a self-hosted recorder with detection, or Blue Iris on Windows with CodeProject.AI as the helper, which is the example lab's path. Put cameras on their own VLAN as soon as the network can do it. Do not expose the recorder to the public internet.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="safety" aria-labelledby="safety-title">
+    <h2 id="safety-title"><span class="num">07</span>Safety basics</h2>
+    <div class="callout"><strong>The one rule to keep.</strong> Do not open ports on the router to get at a lab from the outside. Use Tailscale (or another private VPN) instead. Take backups before a machine holds anything you would miss. Give cameras and other little internet devices their own VLAN when you can.</div>
+    <ol>
+      <li>
+        <strong>Do not start with port forwarding.</strong>
+        <ul>
+          <li>Port forwarding tells the router: if someone on the internet knocks on this door, send them to that computer. It is a common way cameras and home servers get scanned and attacked. The inspiration lab does have two port forwards, plus a Cloudflare Tunnel with an Access login in front of admin tools. That is a later, careful design, not a first step. Cloudflare's free Zero Trust plan can put a login in front of a tunnel for up to 50 users, but a beginner lab still should not need a public door.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Use Tailscale for remote access.</strong>
+        <ul>
+          <li>Install it on the devices you own and treat it as a private path home. It works even when a home internet connection is awkward. Check your own internet connection. Some rural connections do not play nicely with inbound ports. If you later want a public name for a service, learn about Cloudflare Tunnel and an Access login, and still avoid exposing admin pages.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Back up with a 3-2-1 habit.</strong>
+        <ul>
+          <li>Keep three copies of anything irreplaceable (the working copy and two backups), on two different kinds of storage (for example the server disk and an external drive), with one copy offsite (a drive stored somewhere else, or a small encrypted cloud copy of the files you cannot redo). Back up Home Assistant, ESPHome configs, and photo libraries before you experiment. Server software can be reinstalled. Photos of people you care about cannot.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Separate cameras and other IoT devices from computers.</strong>
+        <ul>
+          <li>A VLAN is the usual tool. Until you have one, at least use a guest network if the provider's router offers it, and do not give a camera the same privileges as an everyday computer. This is the isolation the inspiration lab is showing with its camera and guest networks.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Do not experiment on the only copy of Windows you depend on.</strong>
+        <ul>
+          <li>Docker and Tailscale are reversible. Installing Proxmox, Unraid, or TrueNAS usually is not, because those systems take over the disk. Use a spare machine, or do not do that step yet.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Give Pi-hole a fallback, and keep updates and passwords boring.</strong>
+        <ul>
+          <li>If Pi-hole is the only DNS and it stops, browsers cannot find websites. Leave a backup DNS on the router. Use unique passwords, turn on updates, and later consider a small UPS for the always-on box so a brief power blink is less likely to interrupt a disk write. Rural power quality varies; this is prudence, not a prediction.</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <section id="glossary" aria-labelledby="glossary-title">
+    <h2 id="glossary-title"><span class="num">08</span>Glossary</h2>
+    <div class="table-scroll">
+      <table class="t-glossary">
+        <caption class="soft">Plain meanings</caption>
+        <thead>
+          <tr><th scope="col">Term</th><th scope="col">Plain meaning</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Access point (AP)</th><td>A dedicated box that provides Wi-Fi, often on a ceiling and powered by an Ethernet cable.</td></tr>
+          <tr><th scope="row">Always-on box</th><td>A small computer that stays plugged in and running so home services keep working when laptops are shut.</td></tr>
+          <tr><th scope="row">Cloudflare Tunnel</th><td>A way to reach a home service through Cloudflare without opening a port on a router. Still something to set up carefully, usually with a login in front.</td></tr>
+          <tr><th scope="row">Container / Docker</th><td>A sealed package that runs one app and its dependencies, so you can start and stop it without a full traditional install.</td></tr>
+          <tr><th scope="row">DHCP</th><td>The service that automatically hands out addresses to devices when they join the network.</td></tr>
+          <tr><th scope="row">DNS</th><td>The internet's phone book: it turns a name like example.com into a number a computer can call. Pi-hole is a DNS filter.</td></tr>
+          <tr><th scope="row">ESP32 / ESP32-CAM</th><td>A small, inexpensive microcontroller with Wi-Fi. The CAM version includes a camera. Often programmed with ESPHome.</td></tr>
+          <tr><th scope="row">ESPHome</th><td>Software that makes ESP32 boards easy to connect to Home Assistant.</td></tr>
+          <tr><th scope="row">Firewall</th><td>Rules on the router (or a dedicated box) about what traffic is allowed in or out.</td></tr>
+          <tr><th scope="row">Frigate</th><td>A self-hosted camera recorder that can detect people or vehicles and keep footage at home.</td></tr>
+          <tr><th scope="row">Gateway</th><td>The first box between a house and the internet provider, sometimes also the router and Wi-Fi.</td></tr>
+          <tr><th scope="row">Home Assistant</th><td>Open-source software that ties together sensors, switches, cameras, and dashboards for a home or homestead.</td></tr>
+          <tr><th scope="row">Hypervisor</th><td>Software such as Proxmox that lets one computer run several virtual machines, each like a computer inside a computer.</td></tr>
+          <tr><th scope="row">IDS</th><td>Intrusion detection: a feature that watches network traffic for suspicious patterns. Useful later, not required at the start.</td></tr>
+          <tr><th scope="row">IoT</th><td>Internet of things: small connected devices such as sensors, plugs, and cameras.</td></tr>
+          <tr><th scope="row">IP passthrough</th><td>A gateway setting that hands the public connection through to a router you control, instead of doing the routing itself.</td></tr>
+          <tr><th scope="row">LAN</th><td>Local area network: the everyday network inside the house.</td></tr>
+          <tr><th scope="row">NAS</th><td>Network-attached storage: a computer whose main job is holding files and sharing them on the network.</td></tr>
+          <tr><th scope="row">Nginx Proxy Manager</th><td>A popular reverse-proxy app that gives home services cleaner private web addresses.</td></tr>
+          <tr><th scope="row">NVR</th><td>Network video recorder: the software or PC that records cameras.</td></tr>
+          <tr><th scope="row">Ollama</th><td>A tool for running language models on a computer you control.</td></tr>
+          <tr><th scope="row">Pi-hole</th><td>A home DNS filter that can block many ads and trackers for devices that use it.</td></tr>
+          <tr><th scope="row">PoE</th><td>Power over Ethernet: power and data on one Ethernet cable.</td></tr>
+          <tr><th scope="row">Port forwarding</th><td>A router rule that invites inbound internet traffic to a specific computer. Avoid this at the start.</td></tr>
+          <tr><th scope="row">Proxmox VE</th><td>A free virtualization platform for running virtual machines and containers on a dedicated computer.</td></tr>
+          <tr><th scope="row">Reverse proxy</th><td>A front door in front of several web apps, often used to present them as tidy names and handle encryption.</td></tr>
+          <tr><th scope="row">Router</th><td>The device that connects a house network to the internet and decides how traffic is directed.</td></tr>
+          <tr><th scope="row">Self-hosting</th><td>Running software on hardware you control instead of only using a company's servers.</td></tr>
+          <tr><th scope="row">Switch</th><td>A box that takes one Ethernet connection and provides many ports for wired devices.</td></tr>
+          <tr><th scope="row">Tailscale</th><td>A user-friendly private network (a mesh VPN) for devices you own, including a free personal plan.</td></tr>
+          <tr><th scope="row">TrueNAS</th><td>Storage-focused server software. Community Edition is the free open-source offering.</td></tr>
+          <tr><th scope="row">Unraid</th><td>A paid NAS operating system, popular in home labs, that also runs Docker apps and virtual machines.</td></tr>
+          <tr><th scope="row">UPnP</th><td>A router feature that lets devices open ports by themselves. Safer to leave off unless you have a specific need.</td></tr>
+          <tr><th scope="row">Uptime Kuma</th><td>A simple status dashboard that checks whether services are responding.</td></tr>
+          <tr><th scope="row">Virtual machine (VM)</th><td>A full computer running inside another computer, with its own operating system.</td></tr>
+          <tr><th scope="row">VLAN</th><td>A separate lane on the same physical network, used to isolate guests, cameras, or other devices.</td></tr>
+          <tr><th scope="row">VPN</th><td>A private tunnel over the internet, used here so you can reach home systems securely while you are away.</td></tr>
+          <tr><th scope="row">WAN</th><td>Wide area network: in a home, this usually means the side of the router that faces the internet.</td></tr>
+          <tr><th scope="row">WireGuard</th><td>A modern VPN protocol. UniFi Teleport in the example is built on it. Tailscale also uses it under the hood.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="learn-more" aria-labelledby="learn-more-title">
+    <h2 id="learn-more-title"><span class="num">09</span>Learn more</h2>
+    <p>When you are ready to install something, use the official guide for that tool. The steps change, and the project sites stay current. A community forum is useful for ideas, but treat other people's shopping lists as stories, not requirements.</p>
+    <ol class="refs">
+      <li><a href="https://www.proxmox.com/en/products/proxmox-virtual-environment/overview">Proxmox Virtual Environment</a> <span class="host">proxmox.com</span></li>
+      <li><a href="https://unraid.net/">Unraid</a> <span class="host">unraid.net</span></li>
+      <li><a href="https://www.truenas.com/truenas-community-edition/">TrueNAS Community Edition</a> <span class="host">truenas.com</span></li>
+      <li><a href="https://docs.docker.com/get-started/">Docker getting started</a> <span class="host">docs.docker.com</span></li>
+      <li><a href="https://www.home-assistant.io/installation/">Home Assistant installation</a> <span class="host">home-assistant.io</span></li>
+      <li><a href="https://esphome.io/">ESPHome</a> <span class="host">esphome.io</span></li>
+      <li><a href="https://tailscale.com/">Tailscale</a> <span class="host">tailscale.com</span></li>
+      <li><a href="https://pi-hole.net/">Pi-hole</a> <span class="host">pi-hole.net</span></li>
+      <li><a href="https://docs.frigate.video/">Frigate NVR</a> <span class="host">frigate.video</span></li>
+      <li><a href="https://ollama.com/">Ollama</a> <span class="host">ollama.com</span></li>
+      <li><a href="https://github.com/louislam/uptime-kuma">Uptime Kuma</a> <span class="host">GitHub</span></li>
+      <li><a href="https://www.reddit.com/r/homelab/">r/homelab</a> <span class="host">reddit.com</span></li>
+    </ol>
+    <h3>Price sources, November 2026</h3>
+    <p>These are the public pages behind the approximate prices above. Raspberry Pi 5 and kit figures are ballpark numbers from official list-price changes in 2026 and October 2026 kit arithmetic; confirm current listings before buying. Prices are not quotes.</p>
+    <ol class="refs">
+      <li><a href="https://store.ui.com/us/en/category/cloud-gateways-compact/products/ucg-ultra">Ubiquiti US Store, Cloud Gateway Ultra, $129</a> <span class="host">store.ui.com</span></li>
+      <li><a href="https://store.ui.com/us/en/products/usw-48-poe">Ubiquiti US Store, Switch 48 PoE, $589</a> <span class="host">store.ui.com</span></li>
+      <li><a href="https://store.ui.com/us/en/products/u6-plus">Ubiquiti US Store, Access Point U6 Plus, about $129</a> <span class="host">store.ui.com</span></li>
+      <li><a href="https://account.unraid.net/buy">Unraid license pricing</a> <span class="host">account.unraid.net</span></li>
+      <li><a href="https://docs.unraid.net/unraid-os/faq/licensing-faq/">Unraid licensing FAQ</a> <span class="host">docs.unraid.net</span></li>
+      <li><a href="https://www.home-assistant.io/green/">Home Assistant Green</a> <span class="host">home-assistant.io</span></li>
+      <li><a href="https://www.nabucasa.com/news/2026-01-08-green-pricing-change/">Home Assistant Green pricing note</a> <span class="host">nabucasa.com</span></li>
+      <li><a href="https://www.docker.com/pricing/">Docker pricing</a> <span class="host">docker.com</span></li>
+      <li><a href="https://docs.docker.com/desktop/setup/install/windows-install/">Docker Desktop for Windows</a> <span class="host">docs.docker.com</span></li>
+      <li><a href="https://tailscale.com/pricing">Tailscale pricing</a> <span class="host">tailscale.com</span></li>
+      <li><a href="https://blueirissoftware.com/">Blue Iris</a> <span class="host">blueirissoftware.com</span></li>
+      <li><a href="https://www.cloudflare.com/plans/zero-trust-services/">Cloudflare Zero Trust plans</a> <span class="host">cloudflare.com</span></li>
+    </ol>
+  </section>
+
+  <section id="feedback" aria-labelledby="feedback-title">
+    <h2 id="feedback-title">Feedback &amp; Suggestions</h2>
+    <p>What should this guide explain more clearly? Comments load from GitHub through giscus. They are public on that discussion.</p>
+    <div id="feedback-box"><script src="https://giscus.app/client.js" data-repo="dukktapestudios/dukktapestudios.github.io" data-repo-id="R_kgDOVcgvLw" data-category="General" data-category-id="DIC_kwDOVcgvL84DKFnn" data-mapping="pathname" data-strict="0" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="dark" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script></div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Dukktape Studios — Home Lab Crash Course. A learning guide. Example hardware is typical, not one person's computers.</p>
+    <p><a href="/">Dukktape Studios home</a> · <a href="#content">Back to top</a></p>
+    <p>© 2026 Dukktape Studios</p>
+  </div>
+</footer>
+<script>
+(function () {
+  var root = document.querySelector(".stages");
+  if (!root) return;
+  var tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
+  function panelFor(tab) {
+    return document.getElementById(tab.getAttribute("aria-controls"));
+  }
+  function select(tab) {
+    tabs.forEach(function (item) {
+      var on = item === tab;
+      item.setAttribute("aria-selected", on ? "true" : "false");
+      item.tabIndex = on ? 0 : -1;
+      var panel = panelFor(item);
+      if (panel) panel.hidden = !on;
+    });
+  }
+  tabs.forEach(function (tab, index) {
+    tab.addEventListener("click", function () { select(tab); });
+    tab.addEventListener("keydown", function (event) {
+      var key = event.key;
+      var next = -1;
+      if (key === "ArrowRight" || key === "ArrowDown") next = (index + 1) % tabs.length;
+      else if (key === "ArrowLeft" || key === "ArrowUp") next = (index - 1 + tabs.length) % tabs.length;
+      else if (key === "Home") next = 0;
+      else if (key === "End") next = tabs.length - 1;
+      if (next < 0) return;
+      event.preventDefault();
+      select(tabs[next]);
+      tabs[next].focus();
+    });
+  });
+  var current = root.querySelector('[role="tab"][aria-selected="true"]') || tabs[0];
+  select(current);
+  root.classList.add("is-ready");
+})();
+</script>
+</body>
+</html>
