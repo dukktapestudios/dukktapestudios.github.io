@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raspberry Pi Home Server Crash Course | Dukktape Studios</title>
+<meta name="description" content="A beginner-friendly, five-stage path to a Raspberry Pi 5 home server: flash and connect, lock it down, set a fixed address, host a website with Caddy, and add storage for pictures and movies. Example names and addresses only.">
+<meta name="theme-color" content="#171b1e">
+<link rel="icon" href="../assets/studio-duck.png" type="image/png">
+<link rel="preload" href="../assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-700.woff2") format("woff2");
+}
+:root {
+  --bg: #171b1e;
+  --raise: #22282c;
+  --line: #3a4143;
+  --text: #f0f0e8;
+  --muted: #b4b4b4;
+  --orange: #efb671;
+  --ink: #171b1e;
+  --column: 740px;
+}
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  overflow-wrap: break-word;
+}
+a { color: var(--orange); text-underline-offset: 0.16em; }
+a:hover { color: #f3c48a; }
+:focus { outline: none; }
+:focus-visible { outline: 3px solid #f7f4ee; outline-offset: 3px; }
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: var(--orange);
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: 8px;
+  z-index: 5;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip:focus { top: 12px; }
+.top {
+  position: sticky;
+  top: var(--dts-donate-offset, 0px);
+  z-index: 2;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.wrap { width: min(var(--column), calc(100% - 32px)); margin: 0 auto; }
+.top-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+}
+.brand { color: var(--text); font-weight: 700; text-decoration: none; letter-spacing: -0.02em; }
+.home-link { font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+.eyebrow {
+  margin: 28px 0 8px;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 6vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.lede { font-size: 1.12rem; margin: 14px 0 0; }
+.note, .callout {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-left: 3px solid var(--orange);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 16px 0;
+}
+h2 {
+  margin: 2.2rem 0 0.7rem;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+h2 .num { color: var(--orange); font-size: 0.85rem; letter-spacing: 0.08em; display: block; margin-bottom: 4px; }
+h3 { margin: 1.3rem 0 0.4rem; font-size: 1.12rem; letter-spacing: -0.02em; }
+section[id], h2, h3 { scroll-margin-top: calc(var(--dts-donate-offset, 4.5rem) + 76px); }
+p, li { color: var(--text); }
+.soft, .toc, figcaption, td, dd { color: var(--text); }
+.muted { color: var(--muted); }
+.toc {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  margin-top: 22px;
+}
+.toc h2 { margin: 0 0 8px; font-size: 1.05rem; }
+.toc ol { margin: 0; padding-left: 1.3rem; }
+.toc li { margin: 4px 0; }
+.toc a { color: var(--text); font-weight: 600; }
+.table-scroll { overflow-x: auto; margin: 12px 0 18px; max-width: 100%; }
+table { width: 100%; border-collapse: collapse; min-width: 34rem; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { color: var(--orange); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+th[scope="row"] {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+  color: var(--text);
+}
+caption { text-align: left; margin: 0 0 8px; }
+ul, ol { padding-left: 1.25rem; }
+li { margin: 0.35rem 0; }
+.reasons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+.reasons section {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+}
+.reasons h2 { margin: 0 0 0.45rem; font-size: 1.12rem; }
+.reasons p { margin: 0; }
+figure { margin: 16px 0; }
+.diagram {
+  background: #1c2124;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 14px 18px;
+  max-width: 100%;
+}
+figcaption { margin-top: 8px; }
+figcaption ol { margin: 6px 0 0; }
+.kicker { margin: 0; color: var(--orange); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.spine { display: grid; justify-items: center; }
+.node {
+  background: #2a3034;
+  border: 1px solid var(--orange);
+  border-radius: 12px;
+  padding: 10px 14px;
+  width: min(100%, 420px);
+  text-align: center;
+}
+.node strong { display: block; }
+.node span {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+.node.terminal { border-style: dashed; }
+.flow-arrow {
+  display: flex;
+  justify-content: center;
+  color: var(--orange);
+  font-weight: 700;
+  line-height: 1;
+  padding: 4px 0 2px;
+}
+.router-row {
+  display: grid;
+  gap: 8px;
+  width: min(100%, 420px);
+  justify-items: center;
+}
+.router-row .node { width: 100%; }
+.dash-link {
+  color: var(--orange);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.fan {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  width: min(100%, 420px);
+}
+.fan .node { width: 100%; text-align: left; }
+.rows { display: grid; gap: 10px; margin: 16px 0; }
+.rows article {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.rows h3 { margin: 4px 0; }
+.rows p { margin: 0; }
+.meta {
+  margin: 0;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.switcher { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.switcher button {
+  min-height: 44px;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(240, 240, 232, 0.55);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.switcher button[aria-selected="true"] {
+  background: var(--orange);
+  color: var(--ink);
+  border-color: var(--orange);
+}
+.example {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 16px;
+  margin: 0 0 14px;
+}
+.props { display: grid; gap: 10px; margin: 12px 0 0; }
+.props div { border-top: 1px solid var(--line); padding-top: 8px; }
+.props dt { margin: 0; color: var(--orange); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.props dd { margin: 4px 0 0; }
+.steps { list-style: none; margin: 14px 0; padding: 0; }
+.steps > li {
+  margin: 0 0 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.steps h3 { margin: 0 0 4px; }
+.steps p { margin: 0; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.panel {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+}
+.panel h3 { margin-top: 0; }
+.panel ul { margin-bottom: 0; }
+.refs { list-style: none; margin: 12px 0 0; padding: 0; }
+ol.refs { list-style: decimal; padding-left: 1.3rem; }
+ol.refs li { margin: 0; padding: 8px 0; border-top: 1px solid var(--line); }
+ol.refs li::marker { color: var(--orange); font-weight: 700; }
+.refs a { font-weight: 600; overflow-wrap: anywhere; }
+.refs .host { display: block; color: var(--muted); font-size: 0.85rem; font-weight: 500; }
+#feedback-box { margin-top: 8px; max-width: 100%; }
+#feedback-box .giscus, #feedback-box .giscus-frame { max-width: 100%; }
+footer { border-top: 1px solid var(--line); margin-top: 28px; padding: 22px 0 36px; color: var(--muted); }
+footer p { margin: 0 0 8px; }
+img, svg, iframe { max-width: 100%; }
+@media (min-width: 641px) {
+  .router-row {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+  }
+  .fan { width: 100%; grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .reasons, .split { grid-template-columns: 1fr; }
+  .table-scroll { overflow-x: visible; }
+  table { min-width: 0; border-collapse: separate; border-spacing: 0; }
+  thead { display: none; }
+  tr {
+    display: block;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    background: #1c2124;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  th, td { display: block; width: auto; border: 0; padding: 4px 0; }
+  .t-machines td::before, .t-stages td::before, .t-software td::before, .t-glossary td::before, .t-kit td::before, .t-domain td::before {
+    display: block;
+    color: var(--orange);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .t-machines td:nth-child(2)::before { content: "What it is good for"; }
+  .t-machines td:nth-child(3)::before { content: "What to watch"; }
+  .t-stages td:nth-child(2)::before { content: "Goal"; }
+  .t-stages td:nth-child(3)::before { content: "Time"; }
+  .t-stages td:nth-child(4)::before { content: "Approx. cost"; }
+  .t-software td:nth-child(2)::before { content: "Best at"; }
+  .t-software td:nth-child(3)::before { content: "Cost, November 2026"; }
+  .t-software td:nth-child(4)::before { content: "Beginner note"; }
+  .t-glossary td:nth-child(2)::before { content: "Plain meaning"; }
+  .t-kit td:nth-child(2)::before { content: "Price"; }
+  .t-kit td:nth-child(3)::before { content: "Notes"; }
+  .t-domain td:nth-child(2)::before { content: "Cost"; }
+  .t-domain td:nth-child(3)::before { content: "Good for"; }
+  .t-domain td:nth-child(4)::before { content: "Watch out for"; }
+}
+@media (max-width: 420px) {
+  .wrap { width: min(var(--column), calc(100% - 24px)); }
+  .top-inner { align-items: flex-start; padding: 8px 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Additions for this guide: code blocks, warnings, sub-headings */
+code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+code { font-size: 0.92em; background: #22282c; border: 1px solid #31383b; border-radius: 6px; padding: 0.05em 0.35em; overflow-wrap: anywhere; }
+pre {
+  background: #1c2124;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 12px 0 16px;
+  overflow-x: auto;
+  max-width: 100%;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  tab-size: 4;
+}
+pre code { background: none; border: 0; padding: 0; font-size: inherit; overflow-wrap: normal; white-space: pre; }
+li pre { margin-top: 8px; }
+h4 { margin: 1.1rem 0 0.3rem; font-size: 1rem; color: var(--orange); letter-spacing: -0.01em; }
+.callout.warn { border-left-color: #e8765f; }
+.callout.warn strong:first-child { color: #ffb4a3; }
+.table-scroll th[scope="row"] { font-weight: 600; }
+.panel h3 { margin-top: 0; }
+</style>
+<link rel="stylesheet" href="../assets/donate-bar.css">
+</head>
+<body>
+<aside class="dts-donate" aria-label="Donations">
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=dukktapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+</aside>
+
+<a class="skip" href="#content">Skip to content</a>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/">Dukktape Studios</a>
+    <a class="home-link" href="/#guides">All guides</a>
+  </div>
+</header>
+<main id="content" class="wrap">
+  <p class="eyebrow">Guide</p>
+  <h1>Raspberry Pi Home Server Crash Course</h1>
+  <p class="lede">Turn a small, quiet Raspberry Pi 5 into a home server that saves your pictures, hosts a simple website, and stores your movies. Five stages, written for a first-timer. Each stage is useful on its own, so you can stop after any of them.</p>
+  <p class="note">A learning guide, not a shopping list. Every name, address, and password here is a placeholder: <code>youruser</code>, <code>homeserver</code>, <code>example.com</code>, <code>192.168.1.50</code>. Swap in your own, and never post your real tokens, keys, or home IP address anywhere public. Prices are as of November 13, 2026, in US dollars, before tax and shipping, and they change. Times are rough estimates for a first-timer.</p>
+
+  <nav class="toc" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#what-it-can-do">What a home server can do</a></li>
+      <li><a href="#the-kit">The kit and what it costs</a></li>
+      <li><a href="#stage-1">Stage 1. Unbox, flash, and connect</a></li>
+      <li><a href="#stage-2">Stage 2. Lock it down</a></li>
+      <li><a href="#stage-3">Stage 3. A fixed address and a name</a></li>
+      <li><a href="#stage-4">Stage 4. Your first service: a website</a></li>
+      <li><a href="#stage-5">Stage 5. Add storage</a></li>
+      <li><a href="#rights">Host only what you have the right to host</a></li>
+      <li><a href="#troubleshooting">Troubleshooting and FAQ</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+
+  <section id="what-it-can-do" aria-labelledby="what-it-can-do-title">
+    <h2 id="what-it-can-do-title"><span class="num">01</span>What a home server can do</h2>
+    <p>A server is just a computer that stays on and answers requests from other devices. A Raspberry Pi 5 is a credit-card-sized computer that sips power, makes almost no noise, and is more than strong enough for the jobs below.</p>
+  </section>
+
+  <div class="reasons">
+    <section aria-labelledby="job-pictures-title">
+      <h2 id="job-pictures-title">Save pictures</h2>
+      <p>Keep your photos on a drive you own, in your home, instead of only on a phone or a company's cloud. Stage 5 sets up the storage.</p>
+    </section>
+    <section aria-labelledby="job-website-title">
+      <h2 id="job-website-title">Host a website</h2>
+      <p>Serve a simple site to the whole internet from your living room, with a real <code>https://</code> padlock. Stage 4 does this with a program called Caddy.</p>
+    </section>
+    <section aria-labelledby="job-movies-title">
+      <h2 id="job-movies-title">Store movies</h2>
+      <p>Keep home videos and movies you own in one place and watch them around the house. Stage 5 sets up the folder. See the <a href="#rights">rights note</a> below.</p>
+    </section>
+    <section aria-labelledby="job-learn-title">
+      <h2 id="job-learn-title">Learn real skills</h2>
+      <p>SSH, firewalls, DNS, and certificates are the same ideas big servers use. A Pi is a cheap, low-risk place to learn them.</p>
+    </section>
+  </div>
+
+  <p class="callout"><strong>Honest tip: you may not need a server for a website.</strong> If all you want is a static website (pages and pictures that do not change by themselves), <a href="https://docs.github.com/en/pages">GitHub Pages</a> is simpler and free. There is no hardware, no router settings, and no security patching on your side. A Pi website is worth it when you want to learn, to run things GitHub Pages cannot, or to keep everything under your own roof.</p>
+
+  <section id="the-kit" aria-labelledby="the-kit-title">
+    <h2 id="the-kit-title"><span class="num">02</span>The kit and what it costs</h2>
+    <p>One complete starter kit at CanaKit came to <strong>$158.85</strong> before tax and shipping when checked on November 13, 2026. You also need a computer to prepare the memory card, and a card reader if that computer has no slot.</p>
+    <div class="table-scroll">
+      <table class="t-kit">
+        <caption class="soft">The starter kit</caption>
+        <thead>
+          <tr><th scope="col">Part</th><th scope="col">Price</th><th scope="col">What it does</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Raspberry Pi 5, 4 GB</th><td>$110.00</td><td>The computer itself. 4 GB of memory is plenty for these five stages.</td></tr>
+          <tr><th scope="row">Official case with fan</th><td>$10.95</td><td>Protects the board. The fan is temperature-controlled and plugs into the Pi 5's fan connector.</td></tr>
+          <tr><th scope="row">Official 27W power supply</th><td>$12.95</td><td>Raspberry Pi recommends 5 V at 5 A (27 W) for the Pi 5. A weak charger causes odd crashes.</td></tr>
+          <tr><th scope="row">Official 32 GB microSD card</th><td>$24.95</td><td>Holds the operating system.</td></tr>
+          <tr><th scope="row">Total</th><td><strong>$158.85</strong></td><td>Before tax and shipping.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Optional extras</h3>
+    <div class="table-scroll">
+      <table class="t-kit">
+        <caption class="soft">Nice to have</caption>
+        <thead>
+          <tr><th scope="col">Extra</th><th scope="col">Price</th><th scope="col">When it helps</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">64 GB microSD instead of 32 GB</th><td>about +$5</td><td>More room for apps and logs. Not needed if movies and pictures live on a separate drive.</td></tr>
+          <tr><th scope="row">Ethernet cable</th><td>varies</td><td>Recommended. A server on a cable is faster and more reliable than Wi-Fi.</td></tr>
+          <tr><th scope="row">Active Cooler</th><td>$11.95</td><td>Only for a Pi <em>without</em> the case. The official case already has a fan and heatsink, so skip this if you use the case.</td></tr>
+          <tr><th scope="row">M.2 HAT+ (for an NVMe SSD)</th><td>$12.00, plus the drive</td><td>A fast drive that attaches under the board. The drive costs extra and its price varies. The HAT+ takes a 2230 or 2242 NVMe SSD.</td></tr>
+          <tr><th scope="row">USB 3 SSD</th><td>varies</td><td>The easier storage option. It plugs in like a flash drive and needs no extra parts.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><strong>Prices change.</strong> Check the live listing at <a href="https://www.canakit.com/">CanaKit</a> or another reseller before buying. Raspberry Pi's case page says HATs can be mounted to the case with stand-offs and GPIO header extenders that are not included, so if you want the M.2 HAT+, check the fit first or start with a USB SSD.</p>
+  </section>
+
+  <section id="stage-1" aria-labelledby="stage-1-title">
+    <h2 id="stage-1-title"><span class="num">Stage 1</span>Unbox, flash, and connect</h2>
+    <p><strong>Goal:</strong> a Pi running <em>Raspberry Pi OS Lite (64-bit)</em> that you can reach from your computer with SSH. Lite has no desktop. That is on purpose: a server runs from the command line, and Lite uses less memory. <strong>Time:</strong> about an hour.</p>
+
+    <h3>1.1 Put it together</h3>
+    <ol>
+      <li>Unbox the Pi 5 and the case. Clip the board into the case following the sheet in the box, and plug the case fan's cable into the Pi's fan connector.</li>
+      <li>Leave the microSD card out for now. You will fill it on your computer first.</li>
+      <li>Put the Pi near your router. Plan to connect it with an Ethernet cable.</li>
+    </ol>
+
+    <h3>1.2 Make an SSH key on your computer</h3>
+    <p>An SSH key is a pair of files that work like a lock and a key. The <strong>public</strong> file (ends in <code>.pub</code>) goes on the Pi. The <strong>private</strong> file never leaves your computer and should never be shared. This is far safer than a password. Open a terminal on your own computer (not the Pi) and run:</p>
+    <h4>Windows 10 or 11 (PowerShell)</h4>
+<pre><code>ssh-keygen -t ed25519 -C "pi-home-server"
+Get-Content $env:USERPROFILE\.ssh\id_ed25519.pub</code></pre>
+    <h4>macOS (Terminal)</h4>
+<pre><code>ssh-keygen -t ed25519 -C "pi-home-server"
+cat ~/.ssh/id_ed25519.pub</code></pre>
+    <h4>Linux (any terminal)</h4>
+<pre><code>ssh-keygen -t ed25519 -C "pi-home-server"
+cat ~/.ssh/id_ed25519.pub</code></pre>
+    <ul>
+      <li>When asked where to save, press Enter to keep the default.</li>
+      <li>When asked for a passphrase, choose one. It protects the key if your computer is ever stolen.</li>
+      <li>The <code>-C</code> text is only a label. Do not put your real name or email in it.</li>
+      <li>The last command prints one line starting with <code>ssh-ed25519</code>. That line is your public key. Copy it.</li>
+    </ul>
+    <p class="muted">Raspberry Pi's SSH page suggests Ed25519 keys as a more secure option than the older RSA default.</p>
+
+    <h3>1.3 Flash the memory card with Raspberry Pi Imager</h3>
+    <ol>
+      <li>Download and install <strong>Raspberry Pi Imager</strong> from <a href="https://www.raspberrypi.com/software/">raspberrypi.com/software</a>. Put the microSD card in your computer.</li>
+      <li><strong>Device:</strong> choose Raspberry Pi 5.</li>
+      <li><strong>OS:</strong> choose <em>Raspberry Pi OS (other)</em>, then <em>Raspberry Pi OS Lite (64-bit)</em>.</li>
+      <li><strong>Storage:</strong> choose your microSD card. Check the size so you do not pick the wrong drive, and leave &ldquo;Exclude system drives&rdquo; on.</li>
+      <li><strong>Customisation:</strong> fill in each tab. Imager's menu names change a little between versions, but these are the settings to look for:
+        <ul>
+          <li><strong>Hostname:</strong> <code>homeserver</code>. Letters, numbers, and hyphens only. The Pi will answer to <code>homeserver.local</code> on your network.</li>
+          <li><strong>Localisation:</strong> pick your capital city so the time zone, keyboard, and Wi-Fi region are right.</li>
+          <li><strong>User:</strong> a username such as <code>youruser</code> and a long, unique password. You still need this password for <code>sudo</code> commands, even after SSH uses keys.</li>
+          <li><strong>Wi-Fi:</strong> skip it if you will use Ethernet. If you must use Wi-Fi, enter it now, because a headless Pi needs it the moment it boots.</li>
+          <li><strong>Remote Access:</strong> turn on <em>Enable SSH</em>, choose <em>Use public key authentication</em>, and paste the public key line you copied.</li>
+        </ul>
+      </li>
+      <li>Write the card. Wait for Imager to finish and say it is safe to remove the card.</li>
+    </ol>
+
+    <h3>1.4 Boot and connect</h3>
+    <ol>
+      <li>Put the card in the Pi, plug in the Ethernet cable, then plug in the power. It starts on its own. The first boot takes a minute or two (my estimate).</li>
+      <li>On your computer, connect with:
+<pre><code>ssh youruser@homeserver.local</code></pre>
+      </li>
+      <li>The first time, SSH asks whether to trust the new machine. Type <code>yes</code>. If you set a passphrase on your key, you will enter it here.</li>
+      <li>You are in when the prompt changes to <code>youruser@homeserver:~ $</code>. Check that it is 64-bit:
+<pre><code>uname -m</code></pre>
+        It should print <code>aarch64</code>.
+      </li>
+    </ol>
+    <p class="callout"><strong>Name not found?</strong> Wait another minute, then check that the Ethernet light is on. Open your router's &ldquo;connected devices&rdquo; page, find the new device named <code>homeserver</code>, and connect with its address instead, for example <code>ssh youruser@192.168.1.50</code>. See the <a href="#troubleshooting">troubleshooting</a> section for more.</p>
+    <p><strong>Done when:</strong> you can type <code>ssh youruser@homeserver.local</code> and get a prompt without typing the account password.</p>
+  </section>
+
+  <section id="stage-2" aria-labelledby="stage-2-title">
+    <h2 id="stage-2-title"><span class="num">Stage 2</span>Lock it down</h2>
+    <p><strong>Goal:</strong> before anything touches the internet, close the easy doors. You will update the system, switch off password and root logins, add a firewall, ban guessers, and turn on automatic security updates. <strong>Time:</strong> 30 to 45 minutes. Run these on the Pi, over SSH.</p>
+
+    <h3>2.1 Update everything</h3>
+<pre><code>sudo apt update
+sudo apt full-upgrade
+sudo reboot</code></pre>
+    <p>Say yes when asked. The reboot disconnects you. Wait a minute and SSH back in.</p>
+
+    <h3>2.2 Confirm key login works</h3>
+    <p>Before you turn passwords off, prove the key works. On <strong>your computer</strong>, run this. It refuses to fall back to a password, so success means the key is good:</p>
+<pre><code>ssh -o PasswordAuthentication=no youruser@homeserver.local</code></pre>
+    <p>If it logs in (it may ask for your key passphrase, which is fine), carry on. If it says <code>Permission denied (publickey)</code>, stop and fix that first. See the troubleshooting section.</p>
+
+    <h3>2.3 Turn off password login and root login</h3>
+    <p class="callout warn"><strong>Keep your current SSH window open while you test.</strong> If you make a mistake and close it, you could lock yourself out. Do the change in this window, then open a <em>second</em> window to test. Only close the first window after the second one works.</p>
+    <p>Modern Debian reads small files from <code>/etc/ssh/sshd_config.d/</code> before the main file, and the first value it sees for a setting wins. A small file with a name that sorts early is the tidy way to override the defaults. Create one:</p>
+<pre><code>sudo nano /etc/ssh/sshd_config.d/01-hardening.conf</code></pre>
+    <p>Put these lines in it, then save (Ctrl+O, Enter) and exit (Ctrl+X):</p>
+<pre><code>PasswordAuthentication no
+KbdInteractiveAuthentication no
+PermitRootLogin no</code></pre>
+    <p>Check the settings for mistakes, then see what SSH will actually use, then restart it:</p>
+<pre><code>sudo sshd -t
+sudo sshd -T | grep -Ei 'passwordauthentication|kbdinteractiveauthentication|permitrootlogin'
+sudo systemctl restart ssh</code></pre>
+    <ul>
+      <li><code>sudo sshd -t</code> prints nothing if the file is fine.</li>
+      <li>The second command should show <code>passwordauthentication no</code>, <code>kbdinteractiveauthentication no</code>, and <code>permitrootlogin no</code>. If it shows <code>yes</code>, another file is winning. Run <code>ls /etc/ssh/sshd_config.d/</code> and look for a file that sets the same option.</li>
+    </ul>
+    <p>Now, in a <strong>new</strong> window on your computer, run <code>ssh youruser@homeserver.local</code>. It should still log you in. To prove passwords are off, try <code>ssh -o PubkeyAuthentication=no youruser@homeserver.local</code>. It should be refused. To undo everything, delete the file and restart SSH.</p>
+
+    <h3>2.4 Turn on the firewall (ufw)</h3>
+    <p>A firewall blocks every connection you did not invite. Allow SSH <em>first</em>, or you will cut your own connection when you enable it.</p>
+<pre><code>sudo apt install ufw
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw enable
+sudo ufw status verbose</code></pre>
+    <p>Port 22 is SSH, 80 is plain web traffic, and 443 is secure web traffic. Some systems also offer <code>sudo ufw allow OpenSSH</code> as a shortcut for the first rule. Optionally add <code>sudo ufw allow 443/udp</code> so browsers can use the newer HTTP/3 with Caddy. If you plan to use a Cloudflare Tunnel in Stage 4, ports 80 and 443 do not need to be open to the internet. The tunnel dials out from the Pi.</p>
+
+    <h3>2.5 Ban password guessers (fail2ban)</h3>
+    <p>Fail2ban watches the logs and blocks addresses that keep failing to log in. Raspberry Pi OS keeps its logs in the systemd journal instead of a log file, so tell fail2ban to read the journal with <code>backend = systemd</code>.</p>
+<pre><code>sudo apt install fail2ban
+sudo nano /etc/fail2ban/jail.local</code></pre>
+    <p>Put this in <code>jail.local</code>. The <code>ignoreip</code> line keeps your own home network from ever being banned. Use your own network range:</p>
+<pre><code>[DEFAULT]
+ignoreip = 127.0.0.1/8 ::1 192.168.1.0/24
+bantime  = 1h
+findtime = 10m
+maxretry = 5
+
+[sshd]
+enabled = true
+backend = systemd</code></pre>
+<pre><code>sudo systemctl enable --now fail2ban
+sudo systemctl restart fail2ban
+sudo fail2ban-client status sshd</code></pre>
+    <p>The last command should list the <code>sshd</code> jail with a count of banned addresses (probably 0 for now).</p>
+
+    <h3>2.6 Automatic security updates</h3>
+<pre><code>sudo apt install unattended-upgrades
+sudo dpkg-reconfigure -plow unattended-upgrades</code></pre>
+    <p>Choose <strong>Yes</strong> when it asks whether to automatically download and install stable updates. To rehearse without changing anything, run <code>sudo unattended-upgrade --dry-run -d</code>. By default it installs security fixes, not new features, so it is a safety net and not a replacement for running <code>sudo apt update &amp;&amp; sudo apt full-upgrade</code> yourself every month or so.</p>
+    <p><strong>Done when:</strong> you can log in with your key, a password login is refused, <code>sudo ufw status</code> shows the firewall active, and <code>fail2ban-client status sshd</code> works.</p>
+  </section>
+
+  <section id="stage-3" aria-labelledby="stage-3-title">
+    <h2 id="stage-3-title"><span class="num">Stage 3</span>A fixed address and a name</h2>
+    <p><strong>Goal:</strong> the Pi always has the same address on your home network, so your router can send visitors to the right machine. <strong>Time:</strong> 15 minutes.</p>
+
+    <h3>3.1 Reserve an address on the router (DHCP reservation)</h3>
+    <p>Your router hands out addresses automatically (that is DHCP) and may give the Pi a different one after a restart. A <em>DHCP reservation</em> tells the router to always give this Pi the same address. It is safer than setting a fixed address on the Pi itself, because the router stays in charge and cannot hand the same address to two devices. Menu names vary by brand, so these steps are general:</p>
+    <ol>
+      <li>On the Pi, note its current address and its hardware (MAC) address:
+<pre><code>hostname -I
+ip -br link</code></pre>
+        The MAC address looks like <code>aa:bb:cc:xx:xx:xx</code> and is listed next to <code>eth0</code> for a cabled connection. Wi-Fi has a different MAC address, so reserve the one you actually use.
+      </li>
+      <li>Open your router's admin page in a browser. The address and the login are usually on a sticker on the router. Common addresses are <code>192.168.1.1</code> and <code>192.168.0.1</code>.</li>
+      <li>Find a section named something like <em>DHCP reservation</em>, <em>Address reservation</em>, <em>Static lease</em>, or <em>Fixed IP</em>.</li>
+      <li>Add a new entry. Pick <code>homeserver</code> from the list of connected devices, or type its MAC address. Choose an address, for example <code>192.168.1.50</code>. Pick one that the router's automatic range does not use, which is shown on the same DHCP settings page.</li>
+      <li>Save. Restart the Pi with <code>sudo reboot</code>, then run <code>hostname -I</code> again to confirm it shows the reserved address.</li>
+    </ol>
+    <p>Raspberry Pi OS uses NetworkManager, so the Pi itself needs no settings change. The router does all the work.</p>
+
+    <h3>3.2 Check or change the hostname</h3>
+    <p>You set the hostname in Imager. To check it, or to change it later:</p>
+<pre><code>hostnamectl
+sudo raspi-config</code></pre>
+    <p>In <code>raspi-config</code>, go to <em>System Options</em>, then <em>Hostname</em>, and type the new name. A hostname can use only letters, numbers, and hyphens. This route also updates the Pi's <code>/etc/hosts</code> file for you. The one-line alternative is <code>sudo hostnamectl set-hostname newname</code>, but then you should also edit the <code>127.0.1.1</code> line in <code>/etc/hosts</code> to match. Reboot afterwards, and use the new name: <code>ssh youruser@newname.local</code>.</p>
+    <p><strong>Done when:</strong> after a reboot, <code>hostname -I</code> still shows your reserved address and <code>ssh youruser@homeserver.local</code> still works.</p>
+  </section>
+
+  <section id="stage-4" aria-labelledby="stage-4-title">
+    <h2 id="stage-4-title"><span class="num">Stage 4</span>Your first service: a website</h2>
+    <p><strong>Goal:</strong> serve a web page from the Pi at a real address, with HTTPS. We use <strong>Caddy</strong>, a web server that gets and renews its own free certificates. <strong>Time:</strong> 1 to 2 hours, mostly waiting on DNS and the router.</p>
+    <p class="callout warn"><strong>Read this first.</strong> Putting a server on the internet means strangers will knock on it all day. Serve only a simple static site, keep the Pi updated (Stage 2), never forward port 22 (SSH) on your router, and do not put admin pages or private files behind these ports. If that sounds like more than you want, GitHub Pages is the simpler choice.</p>
+
+    <h3>4.1 Install Caddy from its official repository</h3>
+    <p>These are the exact commands from the Debian, Ubuntu, Raspbian section of the <a href="https://caddyserver.com/docs/install">Caddy install page</a>. Caddy's page is the source of truth, so if the two ever differ, follow theirs.</p>
+<pre><code>sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+sudo chmod o+r /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+sudo chmod o+r /etc/apt/sources.list.d/caddy-stable.list
+sudo apt update
+sudo apt install caddy</code></pre>
+    <p>The package starts Caddy as a background service called <code>caddy</code>. Check it, then visit <code>http://homeserver.local</code> from a computer on your network. You should see Caddy's welcome page.</p>
+<pre><code>systemctl status caddy</code></pre>
+
+    <h3>4.2 Make a page to serve</h3>
+<pre><code>sudo mkdir -p /var/www/html
+echo '&lt;h1&gt;Hello from my Pi&lt;/h1&gt;' | sudo tee /var/www/html/index.html
+sudo chown -R youruser:youruser /var/www/html</code></pre>
+    <p>The <code>chown</code> lets you edit the site without <code>sudo</code>. Caddy only needs to read these files.</p>
+
+    <h3>4.3 Pick a name: free DuckDNS or a paid domain</h3>
+    <p>Visitors type a name, not a number. You need a name that points at your home's public internet address. There are two common routes:</p>
+    <div class="table-scroll">
+      <table class="t-domain">
+        <caption class="soft">Free name or your own domain</caption>
+        <thead>
+          <tr><th scope="col">Option</th><th scope="col">Cost</th><th scope="col">Good for</th><th scope="col">Watch out for</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">DuckDNS</th>
+            <td>Free</td>
+            <td>Learning. You get a name like <code>yourname.duckdns.org</code> and keep it updated when your home address changes.</td>
+            <td>You do not own the name, and it ends in <code>.duckdns.org</code>. It is a free service with no guarantees. It cannot be used with Cloudflare Tunnel, which needs a domain on Cloudflare.</td>
+          </tr>
+          <tr>
+            <th scope="row">A paid domain</th>
+            <td>Roughly $10 to $20 per year (an estimate; it varies by ending and registrar, and renewals can cost more)</td>
+            <td>A name that is yours, looks professional, and works with Cloudflare Tunnel.</td>
+            <td>A yearly bill. If your home address changes, you still need a way to keep the name pointed at it.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>If you choose DuckDNS</h4>
+    <ol>
+      <li>Go to <a href="https://www.duckdns.org/">duckdns.org</a>, sign in, and type a subdomain name (for example <code>yourname</code>) to add it. Copy your <strong>token</strong>, a long code shown at the top of the page. <strong>Treat it like a password.</strong> Anyone with it can change your name's address.</li>
+      <li>Make a small update script on the Pi. This follows the &ldquo;linux cron&rdquo; steps on <a href="https://www.duckdns.org/install.jsp">DuckDNS's install page</a>, with placeholders:
+<pre><code>mkdir -p ~/duckdns
+nano ~/duckdns/duck.sh</code></pre>
+        Put this single line in the file, replacing the two placeholders. Use only the subdomain part (<code>yourname</code>, not <code>yourname.duckdns.org</code>), and leave <code>ip=</code> empty so DuckDNS detects your address:
+<pre><code>echo url="https://www.duckdns.org/update?domains=YOURSUBDOMAIN&amp;token=YOUR-TOKEN&amp;ip=" | curl -s -o ~/duckdns/duck.log -K -</code></pre>
+        DuckDNS's own example uses <code>curl -k</code>, which skips certificate checks. This version leaves <code>-k</code> out so the connection is verified.
+      </li>
+      <li>Make it runnable, test it, and read the log. It should say <code>OK</code>:
+<pre><code>chmod 700 ~/duckdns/duck.sh
+~/duckdns/duck.sh
+cat ~/duckdns/duck.log</code></pre>
+      </li>
+      <li>Run it every 5 minutes with cron. Open the schedule with <code>crontab -e</code> (choose nano if asked) and add this line at the bottom:
+<pre><code>*/5 * * * * ~/duckdns/duck.sh &gt;/dev/null 2&gt;&amp;1</code></pre>
+        If <code>crontab</code> is &ldquo;not found&rdquo;, install it first with <code>sudo apt install cron</code>.
+      </li>
+    </ol>
+
+    <h4>If you choose a paid domain</h4>
+    <p>Buy the domain from a registrar you trust, then use its DNS settings to create an <strong>A record</strong> that points your name (for example <code>example.com</code>) at your home's public address. If that address changes, you need dynamic DNS. One simple trick is to point a subdomain such as <code>www</code> at your DuckDNS name with a CNAME record. If you plan to use a Cloudflare Tunnel, you do not need an A record. You add the domain to Cloudflare instead (see 4.6).</p>
+
+    <h3>4.4 Tell Caddy about your site</h3>
+    <p>Caddy's settings live in <code>/etc/caddy/Caddyfile</code>. Replace everything in it. The one site address line is all it takes to turn on automatic HTTPS:</p>
+<pre><code>sudo nano /etc/caddy/Caddyfile</code></pre>
+<pre><code>example.com {
+    encode zstd gzip
+    root * /var/www/html
+    file_server
+}</code></pre>
+    <p>Use your own name in place of <code>example.com</code> (for DuckDNS, <code>yourname.duckdns.org</code>). Check the file, then tell Caddy to reload it:</p>
+<pre><code>caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
+sudo systemctl reload caddy</code></pre>
+    <p>Caddy now tries to get a free certificate from a public certificate authority, which only works once the name points at your home and ports 80 and 443 reach the Pi (next steps). Until then you will see errors in <code>journalctl -u caddy --no-pager</code>. That is normal. Fix the DNS and router steps and Caddy retries on its own. Do not keep restarting it, because certificate authorities limit how many failed attempts you can make.</p>
+
+    <h3>4.5 Forward ports 80 and 443 on the router</h3>
+    <ol>
+      <li>Open your router's admin page again and find <em>Port forwarding</em> (also called <em>Virtual server</em> or <em>NAT</em>).</li>
+      <li>Add a rule: external TCP port <code>80</code> to the Pi's reserved address <code>192.168.1.50</code>, port <code>80</code>.</li>
+      <li>Add a second rule: external TCP port <code>443</code> to <code>192.168.1.50</code>, port <code>443</code>.</li>
+      <li><strong>Do not forward port 22.</strong> You can reach SSH from inside your home, which is all you need.</li>
+    </ol>
+
+    <h3>4.6 Check for CGNAT before you blame yourself</h3>
+    <p>Some internet providers put many homes behind one shared public address. This is called <strong>CGNAT</strong> (carrier-grade NAT), and port forwarding cannot work behind it, because the public address is not really yours.</p>
+    <ol>
+      <li>Open your router's status page and find the <em>Internet</em> or <em>WAN</em> address.</li>
+      <li>On any device, open a &ldquo;what's my IP&rdquo; website and note the address it shows.</li>
+      <li>If the two addresses <strong>match</strong>, you have a normal public address. Carry on to 4.8.</li>
+      <li>If they <strong>differ</strong>, or the router's address starts with <code>100.64</code> to <code>100.127</code> (a range reserved for CGNAT, see <a href="https://www.rfc-editor.org/rfc/rfc6598">RFC 6598</a>) or is a private address such as <code>10.x.x.x</code>, <code>172.16.x.x</code> to <code>172.31.x.x</code>, or <code>192.168.x.x</code>, you are probably behind CGNAT. Use the Cloudflare Tunnel in 4.7. You can also ask your provider about a public address, which may cost extra.</li>
+    </ol>
+
+    <h3>4.7 Only if you are behind CGNAT: a Cloudflare Tunnel</h3>
+    <p>A tunnel makes the Pi dial <em>out</em> to Cloudflare, and Cloudflare brings visitors in through that connection. No port forwarding is needed. You need a domain that has been <a href="https://developers.cloudflare.com/fundamentals/manage-domains/add-site/">added to Cloudflare</a> (a free account works, and DuckDNS names cannot be used). The steps below summarize Cloudflare's <a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/create-remote-tunnel/">Create a tunnel (dashboard)</a> guide. Use theirs if the menus have changed.</p>
+    <ol>
+      <li>Log in to the Cloudflare dashboard, go to <em>Networking &gt; Tunnels</em>, and select <em>Create a tunnel</em>. Name it, for example <code>homeserver</code>.</li>
+      <li>Choose the operating system <em>Debian</em> and the <em>arm64</em> architecture (the Pi 5 running 64-bit Raspberry Pi OS). The dashboard shows an install command for <code>cloudflared</code>. Copy it and run it on the Pi over SSH. <strong>That command contains a secret token, so do not share it or paste it anywhere public.</strong></li>
+      <li>Wait until the dashboard says the tunnel is connected, then add a <em>published application</em> route: enter a subdomain, pick your domain, and set the Service URL to <code>http://localhost:80</code>.</li>
+      <li>Cloudflare handles HTTPS for visitors, so tell Caddy to serve plain HTTP on the Pi. Replace the Caddyfile from 4.4 with:
+<pre><code>:80 {
+    root * /var/www/html
+    file_server
+}</code></pre>
+        Then run <code>sudo systemctl reload caddy</code>.
+      </li>
+    </ol>
+    <p class="callout warn"><strong>Keep movies and big photo albums off the tunnel.</strong> On Cloudflare's Free, Pro, and Business plans, public tunnel addresses may not be used to serve video or a disproportionate amount of large files unless you use a paid Cloudflare service, and Cloudflare can restrict your content if you do. A small website is fine. Watch movies and browse your photo library on your home network, or through a private connection such as the VPN approach in the <a href="/home-lab-crash-course/">Home Lab Crash Course</a>.</p>
+
+    <h3>4.8 Check it from outside your home network</h3>
+    <p>Testing from inside your house can fool you, because your router may not loop traffic back correctly. Test the way a stranger would:</p>
+    <ol>
+      <li>Take your phone, <strong>turn Wi-Fi off</strong> so it uses mobile data, and open <code>https://example.com</code> (your real name). You should see your page and a padlock.</li>
+      <li>Or, from a computer on a different network, run:
+<pre><code>curl -I https://example.com</code></pre>
+        A good answer starts with <code>HTTP/2 200</code> (or <code>HTTP/1.1 200</code>) and includes a line like <code>server: Caddy</code>. A certificate error, or no answer at all, means one of the earlier steps is not done. See the troubleshooting section.
+      </li>
+    </ol>
+    <p><strong>Done when:</strong> your page loads over <code>https://</code> from your phone on mobile data.</p>
+  </section>
+
+  <section id="stage-5" aria-labelledby="stage-5-title">
+    <h2 id="stage-5-title"><span class="num">Stage 5</span>Add storage</h2>
+    <p><strong>Goal:</strong> a big drive, mounted at <code>/mnt/storage</code>, that comes back by itself after every reboot, with folders for Pictures and Movies. <strong>Time:</strong> 30 to 45 minutes.</p>
+
+    <h3>5.1 Choose a drive</h3>
+    <div class="split">
+      <div class="panel">
+        <h3>USB SSD (easiest)</h3>
+        <ul>
+          <li>Plug it into a blue USB 3 port on the Pi.</li>
+          <li>No extra parts, and you can move it to another computer later.</li>
+          <li>Shows up as <code>/dev/sda</code> (the name may differ).</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>M.2 HAT+ with an NVMe SSD</h3>
+        <ul>
+          <li>Faster. It attaches under the Pi through its PCIe connector.</li>
+          <li>Power the Pi off first. Raspberry Pi says to always disconnect power before adding or removing a device in the M.2 slot.</li>
+          <li>Update the Pi's firmware first, as the official page directs: <code>sudo rpi-eeprom-update</code>, then <code>sudo rpi-eeprom-update -a</code> if an update is available, followed by a reboot.</li>
+          <li>After installing it, check that the Pi sees the drive with <code>ls -l /dev/nvme*</code>. You should see <code>/dev/nvme0</code> and <code>/dev/nvme0n1</code>.</li>
+          <li>The link is a single PCIe 2.0 lane, which Raspberry Pi lists at about 500 MB/s peak. A faster &ldquo;Gen 3&rdquo; mode exists but is not certified and may be unstable. Skip it for a first build.</li>
+        </ul>
+      </div>
+    </div>
+    <p>Raspberry Pi OS <em>Lite</em> does not automount drives, which is why the steps below mount it by hand. A brand-new drive also will not show a partition ID in <code>blkid</code> until it has been partitioned and formatted. Both are covered below.</p>
+
+    <h3>5.2 Find the drive</h3>
+<pre><code>lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,MODEL,MOUNTPOINTS</code></pre>
+    <p>Match the <strong>size and model</strong> to the drive you just plugged in. A USB SSD is usually <code>sda</code>, an NVMe drive is <code>nvme0n1</code>, and your boot card is <code>mmcblk0</code>. In the examples below the drive is <code>/dev/sda</code>. If yours is <code>nvme0n1</code>, its first partition is called <code>/dev/nvme0n1p1</code> (with a <code>p</code>).</p>
+
+    <h3>5.3 Format it (ext4)</h3>
+    <p class="callout warn"><strong>This erases the drive.</strong> Every file on the drive you name below is destroyed and cannot be recovered. Copy anything you want to keep somewhere else first. Triple-check the device name against <code>lsblk</code>. <strong>Never run these commands on <code>mmcblk0</code>. That is the Pi's own memory card with your operating system on it.</strong></p>
+<pre><code>sudo parted /dev/sda --script mklabel gpt mkpart storage ext4 0% 100%
+sudo mkfs.ext4 -L storage /dev/sda1</code></pre>
+    <p>The first command makes a fresh partition table with one partition that fills the drive. The second formats that partition as ext4, the standard Linux filesystem, and labels it <code>storage</code>. If <code>parted</code> is missing, run <code>sudo apt install parted</code>.</p>
+
+    <h3>5.4 Mount it by hand once</h3>
+<pre><code>sudo mkdir -p /mnt/storage
+sudo mount /dev/sda1 /mnt/storage
+df -h /mnt/storage</code></pre>
+    <p><code>df</code> should show the drive's size. If it does, the format and mount work.</p>
+
+    <h3>5.5 Make it mount at every boot (fstab)</h3>
+    <p>The file <code>/etc/fstab</code> lists the drives to mount at startup. Use the drive's <strong>UUID</strong>, which never changes, instead of <code>sda1</code>, which can change.</p>
+<pre><code>sudo blkid /dev/sda1</code></pre>
+    <p>Copy the long value after <code>UUID=</code> (it looks like <code>1b2c3d4e-0000-4aaa-bbbb-1234567890ab</code>; that one is made up). Back up fstab, then open it:</p>
+<pre><code>sudo cp /etc/fstab /etc/fstab.bak
+sudo nano /etc/fstab</code></pre>
+    <p>Add this line at the bottom, with your own UUID:</p>
+<pre><code>UUID=1b2c3d4e-0000-4aaa-bbbb-1234567890ab  /mnt/storage  ext4  defaults,nofail,x-systemd.device-timeout=30  0  2</code></pre>
+    <ul>
+      <li><code>nofail</code> lets the Pi boot normally even if the drive is unplugged or fails.</li>
+      <li><code>x-systemd.device-timeout=30</code> makes the Pi wait 30 seconds, not the default 90, for a missing drive.</li>
+    </ul>
+    <p>Now test it <strong>before</strong> you reboot. A typo in fstab can cause boot trouble, so find mistakes now:</p>
+<pre><code>sudo systemctl daemon-reload
+sudo umount /mnt/storage
+sudo mount -a
+df -h /mnt/storage</code></pre>
+    <p>If <code>mount -a</code> prints nothing and <code>df</code> shows your drive again, the line is right. If it prints an error, fix the line, or restore your backup with <code>sudo cp /etc/fstab.bak /etc/fstab</code>. Finally, run <code>sudo reboot</code>, log back in, and run <code>df -h /mnt/storage</code> once more to prove it came back by itself.</p>
+
+    <h3>5.6 Make folders for Pictures and Movies</h3>
+<pre><code>sudo chown youruser:youruser /mnt/storage
+mkdir -p /mnt/storage/Pictures /mnt/storage/Movies</code></pre>
+    <p>Now <code>/mnt/storage/Pictures</code> and <code>/mnt/storage/Movies</code> belong to you. Copy files in with <code>scp</code> or <code>rsync</code> from your computer, for example <code>scp -r ~/Pictures/2026 youruser@homeserver.local:/mnt/storage/Pictures/</code>.</p>
+    <p class="callout"><strong>One drive is not a backup.</strong> If the drive dies, or you erase it by mistake, the files are gone. Keep a second copy of anything you cannot replace, such as family photos, on another drive or a service you trust.</p>
+
+    <h3>5.7 Where to go next</h3>
+    <ul>
+      <li><strong>Share the drive on your home network</strong> with Samba, so Windows, Mac, and phones can open it like a folder. Raspberry Pi's <a href="https://www.raspberrypi.com/documentation/computers/remote-access.html#samba">Samba section</a> is a good start. Share only inside your home. Do not forward Samba to the internet.</li>
+      <li><strong>A photo app</strong> such as <a href="https://immich.app/">Immich</a> or <a href="https://photoprism.app/">PhotoPrism</a> gives you a phone-friendly gallery. Both are bigger projects. Check each one's requirements and setup guide before you commit.</li>
+    </ul>
+    <p><strong>Done when:</strong> after a reboot, <code>df -h /mnt/storage</code> shows the drive and you can copy a file into <code>Pictures</code>.</p>
+  </section>
+
+  <section id="rights" aria-labelledby="rights-title">
+    <h2 id="rights-title"><span class="num">Please read</span>Host only what you have the right to host</h2>
+    <p class="callout warn"><strong>Host only content you own or have the rights to share.</strong> That means your own photos, home videos, writing, and music, and files whose license lets you share them. <strong>Do not host pirated movies, shows, music, or software.</strong> It is illegal in most places, it can get your internet service cut off, and a public server is easy to trace back to you. Rules about copying discs you own for private use differ by country. This guide is not legal advice, so check the rules where you live. Keep your movie library private on your home network.</p>
+  </section>
+
+  <section id="troubleshooting" aria-labelledby="troubleshooting-title">
+    <h2 id="troubleshooting-title"><span class="num">Help</span>Troubleshooting and FAQ</h2>
+
+    <h3><code>ssh: Could not resolve hostname homeserver.local</code></h3>
+    <p>Give the Pi another minute to finish its first boot and check the Ethernet light. Look for the Pi in your router's connected-devices list and use its address instead (<code>ssh youruser@192.168.1.50</code>). Some Windows and corporate networks do not support <code>.local</code> names, so the address is the reliable fallback. Raspberry Pi's <a href="https://www.raspberrypi.com/documentation/computers/remote-access.html#ip-address">find your IP address</a> section lists more ways.</p>
+
+    <h3><code>Permission denied (publickey)</code></h3>
+    <p>The Pi does not have the public key your computer is offering. Check that you pasted the line from the <code>.pub</code> file (not the private one) into Imager. Run <code>ssh -v youruser@homeserver.local</code> to see which key it tries. If it will not work, the quickest fix before the Pi holds anything important is to re-flash the card with the right key.</p>
+
+    <h3><code>WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!</code></h3>
+    <p>This appears after you re-flash the card, because the Pi is a &ldquo;new&rdquo; machine with the old name. If you know you re-flashed it, clear the old entry with <code>ssh-keygen -R homeserver.local</code> and try again.</p>
+
+    <h3>I locked myself out after the hardening step.</h3>
+    <p>This is why Stage 2 says to keep one session open. If you still have it, delete <code>/etc/ssh/sshd_config.d/01-hardening.conf</code>, run <code>sudo systemctl restart ssh</code>, and try again. If you have no session left, plug a keyboard and monitor into the Pi and log in at the console, or re-flash the card.</p>
+
+    <h3>Caddy cannot get a certificate, or <code>https://</code> does not load.</h3>
+    <p>Run <code>journalctl -u caddy --no-pager -n 50</code> and read the last lines. Then check each link in the chain:</p>
+    <ul>
+      <li>Does the name point at your home address? Compare the address <code>nslookup example.com</code> shows with the address a &ldquo;what's my IP&rdquo; site shows. For DuckDNS, check that <code>~/duckdns/duck.log</code> says <code>OK</code>.</li>
+      <li>Are ports 80 and 443 forwarded to the Pi's reserved address, and does <code>sudo ufw status</code> allow them?</li>
+      <li>Are you behind CGNAT? See 4.6, then use the tunnel.</li>
+      <li>Some providers block incoming port 80 on home plans. Ask your provider, or use a Cloudflare Tunnel.</li>
+    </ul>
+
+    <h3>It works on my phone's mobile data but not from my home Wi-Fi.</h3>
+    <p>Some routers cannot loop a request for your own public address back inside the house (NAT loopback). The site is working. Test from outside, as in 4.8.</p>
+
+    <h3>My home address changed and the site went down.</h3>
+    <p>Home addresses are not permanent. For DuckDNS, check that the cron job is in place with <code>crontab -l</code> and that <code>duck.log</code> says <code>OK</code>. For a paid domain, set up dynamic DNS as in 4.3.</p>
+
+    <h3>The drive is missing after a reboot.</h3>
+    <p>Run <code>lsblk</code> to see if the Pi sees it. Try <code>sudo mount -a</code> and read any error. Check the UUID in <code>/etc/fstab</code> against <code>sudo blkid</code>, and reseat the cable. Because of <code>nofail</code>, the Pi boots even when the drive is absent.</p>
+
+    <h3>Files went onto the memory card instead of the drive.</h3>
+    <p>If the drive was not mounted, anything written to <code>/mnt/storage</code> landed on the card. Run <code>findmnt /mnt/storage</code> before copying big files. It prints a line only if the drive is mounted.</p>
+
+    <h3>How do I turn it off safely?</h3>
+    <p>Run <code>sudo shutdown -h now</code>, wait for the lights to settle, then unplug the power. Pulling the plug while it is running can corrupt the memory card.</p>
+
+    <h3>How do I keep it updated?</h3>
+    <p>Run <code>sudo apt update &amp;&amp; sudo apt full-upgrade</code> about once a month and reboot if it asks. Unattended upgrades covers security fixes in between.</p>
+
+    <h3>I got stuck on the firewall. How do I turn it off?</h3>
+    <p>Run <code>sudo ufw disable</code> to switch it off, and <code>sudo ufw status numbered</code> to see the rules. Re-enable it with <code>sudo ufw enable</code> once SSH (port 22) is allowed again.</p>
+  </section>
+
+  <section id="sources" aria-labelledby="sources-title">
+    <h2 id="sources-title"><span class="num">Sources</span>Sources</h2>
+    <p>Commands and settings come from the official documents below. Vendor pages change, so if a step does not match your screen, trust the current official page. Prices are as of November 13, 2026 and are not quotes.</p>
+    <ol class="refs">
+      <li><a href="https://www.raspberrypi.com/documentation/computers/getting-started.html#install">Raspberry Pi: Install an OS onto boot media (Raspberry Pi Imager and OS customisation)</a> <span class="host">raspberrypi.com</span></li>
+      <li><a href="https://www.raspberrypi.com/documentation/computers/getting-started.html#power-supply">Raspberry Pi: Power supply (27 W for Raspberry Pi 5)</a> <span class="host">raspberrypi.com</span></li>
+      <li><a href="https://www.raspberrypi.com/documentation/computers/remote-access.html#ssh">Raspberry Pi: Remote access, SSH and SSH keys</a> <span class="host">raspberrypi.com</span></li>
+      <li><a href="https://www.raspberrypi.com/documentation/computers/configuration.html">Raspberry Pi: Configuration (hostname, raspi-config, external storage and fstab)</a> <span class="host">raspberrypi.com</span></li>
+      <li><a href="https://www.raspberrypi.com/documentation/security/operational-security.html">Raspberry Pi: Operational security (SSH and Fail2Ban)</a> <span class="host">raspberrypi.com</span></li>
+      <li><a href="https://www.raspberrypi.com/documentation/security/ufw.html">Raspberry Pi: Firewalls using UFW</a> <span class="host">raspberrypi.com</span></li>
+      <li><a href="https://www.raspberrypi.com/documentation/accessories/m2-hat-plus.html">Raspberry Pi: M.2 HAT+ (firmware, install, drive detection, PCIe speed)</a> <span class="host">raspberrypi.com</span></li>
+      <li><a href="https://www.raspberrypi.com/products/raspberry-pi-5-case/">Raspberry Pi: Case for Raspberry Pi 5 (fan and HAT mounting)</a> <span class="host">raspberrypi.com</span></li>
+      <li><a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager download</a> <span class="host">raspberrypi.com</span></li>
+      <li><a href="https://www.canakit.com/">CanaKit (kit prices, checked November 13, 2026)</a> <span class="host">canakit.com</span></li>
+      <li><a href="https://caddyserver.com/docs/install">Caddy: Install (Debian, Ubuntu, Raspbian)</a> <span class="host">caddyserver.com</span></li>
+      <li><a href="https://caddyserver.com/docs/running">Caddy: Keep Caddy running (systemd service, Caddyfile location, reload)</a> <span class="host">caddyserver.com</span></li>
+      <li><a href="https://caddyserver.com/docs/automatic-https">Caddy: Automatic HTTPS</a> <span class="host">caddyserver.com</span></li>
+      <li><a href="https://caddyserver.com/docs/caddyfile/directives/file_server">Caddy: file_server directive</a> <span class="host">caddyserver.com</span></li>
+      <li><a href="https://www.duckdns.org/install.jsp">DuckDNS: Install (linux cron)</a> <span class="host">duckdns.org</span></li>
+      <li><a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/create-remote-tunnel/">Cloudflare: Create a tunnel (dashboard)</a> <span class="host">developers.cloudflare.com</span></li>
+      <li><a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/downloads/">Cloudflare: cloudflared downloads</a> <span class="host">developers.cloudflare.com</span></li>
+      <li><a href="https://developers.cloudflare.com/fundamentals/reference/policies-compliances/delivering-videos-with-cloudflare/">Cloudflare: Delivering videos with Cloudflare (tunnel and large-file limits)</a> <span class="host">developers.cloudflare.com</span></li>
+      <li><a href="https://developers.cloudflare.com/fundamentals/manage-domains/add-site/">Cloudflare: Add a site</a> <span class="host">developers.cloudflare.com</span></li>
+      <li><a href="https://www.rfc-editor.org/rfc/rfc6598">RFC 6598: IANA-Reserved IPv4 Prefix for Shared Address Space (CGNAT range)</a> <span class="host">rfc-editor.org</span></li>
+      <li><a href="https://manpages.debian.org/trixie/openssh-server/sshd_config.5.en.html">Debian manual: sshd_config(5)</a> <span class="host">manpages.debian.org</span></li>
+      <li><a href="https://wiki.debian.org/UnattendedUpgrades">Debian Wiki: Unattended Upgrades</a> <span class="host">wiki.debian.org</span></li>
+      <li><a href="https://manpages.debian.org/trixie/ufw/ufw.8.en.html">Debian manual: ufw(8)</a> <span class="host">manpages.debian.org</span></li>
+      <li><a href="https://docs.github.com/en/pages">GitHub Pages documentation</a> <span class="host">docs.github.com</span></li>
+    </ol>
+  </section>
+
+  <section id="feedback" aria-labelledby="feedback-title">
+    <h2 id="feedback-title">Feedback &amp; Suggestions</h2>
+    <p>What should this guide explain more clearly? Comments load from GitHub through giscus. They are public on that discussion.</p>
+    <div id="feedback-box"><script src="https://giscus.app/client.js" data-repo="dukktapestudios/dukktapestudios.github.io" data-repo-id="R_kgDOVcgvLw" data-category="General" data-category-id="DIC_kwDOVcgvL84DKFnn" data-mapping="pathname" data-strict="0" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="dark" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script></div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Dukktape Studios — Raspberry Pi Home Server Crash Course. A learning guide. All names, addresses, and tokens are placeholders.</p>
+    <p><a href="/">Dukktape Studios home</a> · <a href="#content">Back to top</a></p>
+    <p>© 2026 Dukktape Studios</p>
+  </div>
+</footer>
+</body>
+</html>
