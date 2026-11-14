@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Batching &amp; Batching Efficiency Crash Course | Dukktape Studios</title>
+<meta name="description" content="A beginner guide to batching when you generate images or do repeated AI work: what it is, why it saves time and usage, how to group similar jobs, and when to stay one at a time.">
+<meta name="theme-color" content="#171b1e">
+<link rel="icon" href="../assets/studio-duck.png" type="image/png">
+<link rel="preload" href="../assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-700.woff2") format("woff2");
+}
+:root {
+  --bg: #171b1e;
+  --raise: #22282c;
+  --line: #3a4143;
+  --text: #f0f0e8;
+  --muted: #b4b4b4;
+  --orange: #efb671;
+  --ink: #171b1e;
+  --column: 740px;
+}
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  overflow-wrap: break-word;
+}
+a { color: var(--orange); text-underline-offset: 0.16em; }
+a:hover { color: #f3c48a; }
+:focus { outline: none; }
+:focus-visible { outline: 3px solid #f7f4ee; outline-offset: 3px; }
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: var(--orange);
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: 8px;
+  z-index: 5;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip:focus { top: 12px; }
+.top {
+  position: sticky;
+  top: var(--dts-donate-offset, 0px);
+  z-index: 2;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.wrap { width: min(var(--column), calc(100% - 32px)); margin: 0 auto; }
+.top-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+}
+.brand { color: var(--text); font-weight: 700; text-decoration: none; letter-spacing: -0.02em; }
+.home-link { font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+.eyebrow {
+  margin: 28px 0 8px;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 6vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.lede { font-size: 1.12rem; margin: 14px 0 0; }
+.note, .callout {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-left: 3px solid var(--orange);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 16px 0;
+}
+h2 {
+  margin: 2.2rem 0 0.7rem;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+h2 .num { color: var(--orange); font-size: 0.85rem; letter-spacing: 0.08em; display: block; margin-bottom: 4px; }
+h3 { margin: 1.3rem 0 0.4rem; font-size: 1.12rem; letter-spacing: -0.02em; }
+section[id], h2, h3 { scroll-margin-top: calc(var(--dts-donate-offset, 4.5rem) + 76px); }
+p, li { color: var(--text); }
+.soft, .toc, figcaption, td, dd { color: var(--text); }
+.muted { color: var(--muted); }
+.toc {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  margin-top: 22px;
+}
+.toc h2 { margin: 0 0 8px; font-size: 1.05rem; }
+.toc ol { margin: 0; padding-left: 1.3rem; }
+.toc li { margin: 4px 0; }
+.toc a { color: var(--text); font-weight: 600; }
+.table-scroll { overflow-x: auto; margin: 12px 0 18px; max-width: 100%; }
+table { width: 100%; border-collapse: collapse; min-width: 34rem; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { color: var(--orange); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+th[scope="row"] {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+  color: var(--text);
+}
+caption { text-align: left; margin: 0 0 8px; }
+ul, ol { padding-left: 1.25rem; }
+li { margin: 0.35rem 0; }
+.reasons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+.reasons section {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+}
+.reasons h2 { margin: 0 0 0.45rem; font-size: 1.12rem; }
+.reasons p { margin: 0; }
+figure { margin: 16px 0; }
+.diagram {
+  background: #1c2124;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 14px 18px;
+  max-width: 100%;
+}
+figcaption { margin-top: 8px; }
+figcaption ol { margin: 6px 0 0; }
+.kicker { margin: 0; color: var(--orange); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.spine { display: grid; justify-items: center; }
+.node {
+  background: #2a3034;
+  border: 1px solid var(--orange);
+  border-radius: 12px;
+  padding: 10px 14px;
+  width: min(100%, 420px);
+  text-align: center;
+}
+.node strong { display: block; }
+.node span {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+.node.terminal { border-style: dashed; }
+.flow-arrow {
+  display: flex;
+  justify-content: center;
+  color: var(--orange);
+  font-weight: 700;
+  line-height: 1;
+  padding: 4px 0 2px;
+}
+.router-row {
+  display: grid;
+  gap: 8px;
+  width: min(100%, 420px);
+  justify-items: center;
+}
+.router-row .node { width: 100%; }
+.dash-link {
+  color: var(--orange);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.fan {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  width: min(100%, 420px);
+}
+.fan .node { width: 100%; text-align: left; }
+.rows { display: grid; gap: 10px; margin: 16px 0; }
+.rows article {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.rows h3 { margin: 4px 0; }
+.rows p { margin: 0; }
+.meta {
+  margin: 0;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.switcher { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.switcher button {
+  min-height: 44px;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(240, 240, 232, 0.55);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.switcher button[aria-selected="true"] {
+  background: var(--orange);
+  color: var(--ink);
+  border-color: var(--orange);
+}
+.example {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 16px;
+  margin: 0 0 14px;
+}
+.props { display: grid; gap: 10px; margin: 12px 0 0; }
+.props div { border-top: 1px solid var(--line); padding-top: 8px; }
+.props dt { margin: 0; color: var(--orange); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.props dd { margin: 4px 0 0; }
+.steps { list-style: none; margin: 14px 0; padding: 0; }
+.steps > li {
+  margin: 0 0 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.steps h3 { margin: 0 0 4px; }
+.steps p { margin: 0; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.panel {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+}
+.panel h3 { margin-top: 0; }
+.panel ul { margin-bottom: 0; }
+.refs { list-style: none; margin: 12px 0 0; padding: 0; }
+ol.refs { list-style: decimal; padding-left: 1.3rem; }
+ol.refs li { margin: 0; padding: 8px 0; border-top: 1px solid var(--line); }
+ol.refs li::marker { color: var(--orange); font-weight: 700; }
+.refs a { font-weight: 600; overflow-wrap: anywhere; }
+.refs .host { display: block; color: var(--muted); font-size: 0.85rem; font-weight: 500; }
+#feedback-box { margin-top: 8px; max-width: 100%; }
+#feedback-box .giscus, #feedback-box .giscus-frame { max-width: 100%; }
+footer { border-top: 1px solid var(--line); margin-top: 28px; padding: 22px 0 36px; color: var(--muted); }
+footer p { margin: 0 0 8px; }
+img, svg, iframe { max-width: 100%; }
+@media (min-width: 641px) {
+  .router-row {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+  }
+  .fan { width: 100%; grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .reasons, .split { grid-template-columns: 1fr; }
+  .table-scroll { overflow-x: visible; }
+  table { min-width: 0; border-collapse: separate; border-spacing: 0; }
+  thead { display: none; }
+  tr {
+    display: block;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    background: #1c2124;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  th, td { display: block; width: auto; border: 0; padding: 4px 0; }
+  .t-machines td::before, .t-stages td::before, .t-software td::before, .t-glossary td::before {
+    display: block;
+    color: var(--orange);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .t-machines td:nth-child(2)::before { content: "What it is good for"; }
+  .t-machines td:nth-child(3)::before { content: "What to watch"; }
+  .t-stages td:nth-child(2)::before { content: "Goal"; }
+  .t-stages td:nth-child(3)::before { content: "Time"; }
+  .t-stages td:nth-child(4)::before { content: "Approx. cost"; }
+  .t-software td:nth-child(2)::before { content: "Best at"; }
+  .t-software td:nth-child(3)::before { content: "Cost, November 2026"; }
+  .t-software td:nth-child(4)::before { content: "Beginner note"; }
+  .t-glossary td:nth-child(2)::before { content: "Plain meaning"; }
+
+  .t-kinds td::before, .t-check td::before, .t-terms td::before {
+    display: block;
+    color: var(--orange);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .t-kinds td:nth-child(2)::before { content: "What it is"; }
+  .t-kinds td:nth-child(3)::before { content: "What you gain"; }
+  .t-kinds td:nth-child(4)::before { content: "What you trade"; }
+  .t-check td:nth-child(2)::before { content: "If yes"; }
+  .t-check td:nth-child(3)::before { content: "If no"; }
+  .t-terms td:nth-child(2)::before { content: "Plain meaning"; }
+}
+@media (max-width: 420px) {
+  .wrap { width: min(var(--column), calc(100% - 24px)); }
+  .top-inner { align-items: flex-start; padding: 8px 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+code {
+  font-family: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+<link rel="stylesheet" href="../assets/donate-bar.css">
+</head>
+<body>
+<aside class="dts-donate" aria-label="Donations">
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=dukktapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+</aside>
+
+<a class="skip" href="#content">Skip to content</a>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/">Dukktape Studios</a>
+    <a class="home-link" href="/#guides">All guides</a>
+  </div>
+</header>
+<main id="content" class="wrap">
+  <p class="eyebrow">Guide · links checked 13 November 2026</p>
+  <h1>Batching &amp; Batching Efficiency Crash Course</h1>
+  <p class="lede">What batching is, why it can save time and usage when you generate images or do repeated AI work, and a simple way to get that gain without wasting a whole run on one bad prompt.</p>
+  <p class="note">A learning guide, not a command to buy anything or change a computer today. Examples are generic. This page does not describe one person’s accounts, projects, or hardware. Price and discount figures come from official docs as of 13 November 2026; check the source pages for current rates. The 3–5 item “sweet spot” later in this guide is a rule of thumb, not a measured fact.</p>
+
+  <nav class="toc" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#what-it-is">What batching is</a></li>
+      <li><a href="#why-it-saves">Why it saves usage and time</a></li>
+      <li><a href="#group-similar">Group similar work</a></li>
+      <li><a href="#handle-failures">Handle failures</a></li>
+      <li><a href="#when-to-batch">When to batch, and when not to</a></li>
+      <li><a href="#glossary">Glossary</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+
+  <section id="what-it-is" aria-labelledby="what-it-is-title">
+    <h2 id="what-it-is-title"><span class="num">01</span>What batching is</h2>
+    <p>Batching means grouping similar jobs and running them together, so shared setup happens once instead of once per item.</p>
+    <p>An everyday analogy is baking cookies. The oven still has to preheat, and the tray still has to be washed, whether you bake one cookie or a full sheet. If you bake them one at a time, you pay that setup over and over. If you fill the tray, you preheat once, bake a small group together, and get several cookies for almost the same kitchen time. A batch that is too big is its own problem: cookies do not bake evenly, or they do not fit in the oven at all.</p>
+    <p>The literal mechanism is the same idea, applied to computers. Many AI jobs share a setup cost: loading a model into memory, reading the same instructions, and applying the same size, style, and settings. A batch is a group of those jobs that can share that setup and, when the hardware allows it, be processed together.</p>
+    <figure>
+      <div class="diagram" aria-hidden="true">
+        <div class="split" style="margin:0">
+          <div>
+            <p class="kicker">One at a time</p>
+            <div class="spine">
+              <div class="node"><strong>Setup</strong><span>Load model, read instructions</span></div>
+              <div class="flow-arrow">↓</div>
+              <div class="node"><strong>Item 1</strong></div>
+              <div class="flow-arrow">↓</div>
+              <div class="node"><strong>Setup again</strong></div>
+              <div class="flow-arrow">↓</div>
+              <div class="node"><strong>Item 2</strong></div>
+              <div class="flow-arrow">↓</div>
+              <div class="node"><strong>Setup again</strong></div>
+              <div class="flow-arrow">↓</div>
+              <div class="node"><strong>Item 3</strong></div>
+            </div>
+          </div>
+          <div>
+            <p class="kicker">Batched</p>
+            <div class="spine">
+              <div class="node"><strong>Setup once</strong><span>Load model, read shared instructions</span></div>
+              <div class="flow-arrow">↓</div>
+              <div class="node"><strong>Items 1, 2, and 3</strong><span>Same style, size, settings, and model</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <figcaption>
+        <p class="kicker">In words</p>
+        <ol>
+          <li>One at a time, the shared setup is paid again for every item.</li>
+          <li>In a batch, that setup is paid once, then the similar items are run together.</li>
+        </ol>
+      </figcaption>
+    </figure>
+    <p>People use the word “batch” for two related, but different, things. Both can help. They do not work the same way.</p>
+    <div class="table-scroll">
+      <table class="t-kinds">
+        <caption class="soft">Two common meanings of “batch”</caption>
+        <thead>
+          <tr>
+            <th scope="col">Kind</th>
+            <th scope="col">What it is</th>
+            <th scope="col">What you gain</th>
+            <th scope="col">What you trade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Running several items together</th>
+            <td>The tool processes more than one prompt, image, or variation in the same run, often on a graphics card (GPU).</td>
+            <td>The model can stay loaded, and the GPU can stay busier, so throughput can go up.</td>
+            <td>You wait for the whole group to finish, and the run needs more memory. A batch that is too large can fail.</td>
+          </tr>
+          <tr>
+            <th scope="row">A provider Batch API</th>
+            <td>You send a file or list of requests to a cloud API and get the results later, often within 24 hours.</td>
+            <td>Official discounts are commonly 50% versus immediate (synchronous) API prices, with a separate rate-limit pool.</td>
+            <td>You do not get an instant reply. This is for work that can wait.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>A simple example of the first kind: you want four greeting-card illustrations in the same art style and size. Instead of starting four completely separate runs, you generate them as one group after a single test image looks right.</p>
+    <p>A simple example of the second kind: you have 80 product descriptions to write with the same instructions. You submit them to a Batch API, then collect the results later at the discounted rate.</p>
+  </section>
+
+  <section id="why-it-saves" aria-labelledby="why-it-saves-title">
+    <h2 id="why-it-saves-title"><span class="num">02</span>Why it saves usage and time</h2>
+    <p>The savings come from not repeating work that does not need to be repeated.</p>
+    <div class="rows">
+      <article>
+        <p class="meta">Setup, paid once</p>
+        <h3>Shared context is the expensive door fee</h3>
+        <p>Loading a model, rereading a long instruction block, and reapplying the same size and settings can cost time, memory, and (in the cloud) tokens. In a batch, that shared context is paid once, then each item only adds what is actually different.</p>
+      </article>
+      <article>
+        <p class="meta">Hardware</p>
+        <h3>A GPU likes a small crowd</h3>
+        <p>Hugging Face Diffusers, a common library for image generation, puts it plainly: batch inference processes multiple prompts at once to increase throughput. A batch keeps the GPU busy, while a single prompt leaves it underused. The tradeoff is higher latency, because you wait for the entire batch to finish, and large batches need more GPU memory.</p>
+      </article>
+      <article>
+        <p class="meta">Cloud cost</p>
+        <h3>Waiting can be cheaper</h3>
+        <p>If the work does not need an immediate answer, some providers sell a Batch API at a lower price, because they can schedule the jobs when capacity is available.</p>
+      </article>
+    </div>
+    <h3>What the official docs say about GPUs and memory</h3>
+    <p>NVIDIA’s TensorRT performance guide calls batching the most important optimization for this kind of work: compute as many similar results in parallel as possible. Each layer has some overhead. A larger batch can amortize that overhead and turn inefficient one-item work into more efficient parallel work. The same page is careful about the other side: increasing batch size often improves total throughput, but it also increases latency and memory use, and it is not universally faster. The batch that fits your memory and your patience is the useful one.</p>
+    <p>Memory is the hard ceiling. The model weights take a fairly fixed amount of graphics memory, often called VRAM. The temporary working values created while each item is processed are called activations, and those grow as the batch grows. Diffusers’ memory guide gives a concrete image-generation example: if you generate 4 images at once, decoding can increase peak activation memory by 4×. A PyTorch engineering post on activation checkpointing makes the same broader point: as models scale in depth, batch size, and sequence length, activation memory becomes a larger share of overall memory use.</p>
+    <p>If the batch is too big for the card, the run can stop with an out-of-memory error. In PyTorch this often looks like <code>torch.cuda.OutOfMemoryError: CUDA out of memory</code>. That is not a mysterious failure. It means the group did not fit. The usual fix is a smaller batch, not a more complicated setup.</p>
+    <h3>What the official docs say about cloud discounts</h3>
+    <p>These figures were checked on 13 November 2026. Providers can change prices, so confirm on the pages in <a href="#sources">Sources</a> before you budget around them.</p>
+    <ul>
+      <li><strong>OpenAI Batch API:</strong> official docs describe a 50% cost discount compared with synchronous APIs, a separate pool of higher rate limits, and a completion window of 24 hours (often faster). A batch input file is limited to 50,000 requests and 200 MB, and each file can target only one model.</li>
+      <li><strong>Anthropic Message Batches API:</strong> official docs say all usage is charged at 50% of standard API prices, including input, output, and special tokens. Most batches finish in less than one hour, with a 24-hour maximum. Results are available for 29 days.</li>
+      <li><strong>Prompt caching:</strong> when many requests share the same instructions at the start, the provider can reuse that prefix instead of charging full price to reread it every time. OpenAI says prompt caching is enabled by default on supported models and that reused cached-input tokens are discounted by up to 95%, with exact rates varying by model. Anthropic documents cache reads at 0.1× the base input price (a 90% discount) for most models, with a higher price to write the cache. Anthropic also notes that prompt-caching discounts can stack with the Message Batches discount, though cache hits in a batch are best-effort because requests may be processed in any order.</li>
+    </ul>
+    <p class="callout"><strong>Two savings, two clocks.</strong> Running a few similar images together mainly saves time and wasted setup on the machine in front of you. A provider Batch API mainly saves money when you can wait. Prompt caching helps when the shared instructions stay identical at the front of each request. Use the one that matches the job, or use them together when both apply.</p>
+  </section>
+
+  <section id="group-similar" aria-labelledby="group-similar-title">
+    <h2 id="group-similar-title"><span class="num">03</span>Group similar work</h2>
+    <p>Batching works best when the items already belong together. NVIDIA’s guide describes a batch as a collection of inputs that can all be processed uniformly: each instance has the same shape and flows through the network in a similar way, which is why they can be computed in parallel. Mixed sizes, mixed models, or a brand-new experimental prompt sitting next to a proven one, make that harder.</p>
+    <p>A practical grouping rule: keep the style, settings, size, and model the same inside one batch. Change only the part that should be different, such as the subject or the caption.</p>
+    <div class="split">
+      <div class="panel">
+        <h3>Good groups</h3>
+        <ul>
+          <li>Four card illustrations in the same art style, at the same size, with the same model.</li>
+          <li>A product photo in three color treatments, with every other setting held still.</li>
+          <li>A stack of short captions that share the same instructions and tone, with only the product name changing.</li>
+          <li>Small typo or crop edits on a set of images that already use the same dimensions.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Awkward groups</h3>
+        <ul>
+          <li>A square icon and a wide poster in the same GPU batch, if the tool expects one size.</li>
+          <li>Two different models in one on-device run.</li>
+          <li>A first draft of a new style mixed into a set of already-approved pictures.</li>
+          <li>Prompts whose shared instructions keep changing from item to item, which also weakens prompt caching.</li>
+        </ul>
+      </div>
+    </div>
+    <h3>How to line the work up</h3>
+    <ol class="steps">
+      <li>
+        <h3>Put the shared parts first</h3>
+        <p>Write the style, tone, size, and other standing instructions once. Keep them identical at the front of each prompt. Put the unique subject at the end. That is easier for you to scan, and it is also how prompt caching looks for a reusable prefix.</p>
+      </li>
+      <li>
+        <h3>Hold the knobs still</h3>
+        <p>Use the same model, image size, quality setting, and other options across the batch. If you need a different size or model, start a second batch.</p>
+      </li>
+      <li>
+        <h3>Keep the first step tiny</h3>
+        <p>Before you scale up, run one test item. If that result is wrong, fix the shared prompt or setting first. A bad shared instruction copied across twenty items is not efficiency. It is twenty mistakes.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section id="handle-failures" aria-labelledby="handle-failures-title">
+    <h2 id="handle-failures-title"><span class="num">04</span>Handle failures</h2>
+    <p>A batch is not all-or-nothing. One weak result does not have to send the whole group back through the oven.</p>
+    <ol class="steps">
+      <li>
+        <h3>Check every result</h3>
+        <p>Look at the outputs one by one. Keep the ones that are good enough. Set aside the ones that missed.</p>
+      </li>
+      <li>
+        <h3>Rerun only the failed items</h3>
+        <p>Do not regenerate the whole batch because two images were off. Send the misses back as a smaller group, or one at a time if you are still diagnosing the problem.</p>
+      </li>
+      <li>
+        <h3>Fix a bad prompt on a single test item</h3>
+        <p>If several items failed in the same way, the shared instruction is the likely cause. Change it, test that change on one item, and only then scale back up. This is the most important habit in the guide.</p>
+      </li>
+      <li>
+        <h3>If the run ran out of memory, shrink the group</h3>
+        <p>An out-of-memory stop usually means the batch was too large for the card, not that the idea is impossible. Cut the group in half and try again. If a batch of one already fails, the model, size, or quality setting may be too heavy, and batching will not fix that.</p>
+      </li>
+      <li>
+        <h3>For a provider Batch API, read the result and error files</h3>
+        <p>OpenAI’s Batch docs say that if a batch expires, unfinished requests are cancelled, completed responses are still returned, and you are charged for tokens used by completed requests. Use each request’s id to retry only what did not finish. Check the provider’s current docs for the details that apply to your job.</p>
+      </li>
+    </ol>
+    <p class="callout"><strong>Scale after it works once.</strong> A single clean test item is cheaper than a large batch that all inherited the same bad prompt.</p>
+  </section>
+
+  <section id="when-to-batch" aria-labelledby="when-to-batch-title">
+    <h2 id="when-to-batch-title"><span class="num">05</span>When to batch, and when not to</h2>
+    <p class="callout"><strong>Rule of thumb, not a measured fact.</strong> The sweet spot is 3–5 items per batch: enough to save on repeated setup, small enough that one failure doesn’t waste the whole run, and past about 7, a single bad prompt can burn everything. Your hardware, image size, and provider limits may support larger groups once a prompt is proven. Start small anyway.</p>
+    <p>Use one-at-a-time when you are still searching. Use a small batch when the path is already clear. Use a provider Batch API when the list is long and waiting a few hours is acceptable.</p>
+    <div class="table-scroll">
+      <table class="t-check">
+        <caption class="soft">A short decision checklist</caption>
+        <thead>
+          <tr>
+            <th scope="col">Question</th>
+            <th scope="col">If yes</th>
+            <th scope="col">If no</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Has this exact style, model, size, and setting already worked on one test item?</th>
+            <td>A small batch is reasonable.</td>
+            <td>Stay at one item until it looks right.</td>
+          </tr>
+          <tr>
+            <th scope="row">Do the items share the same model, size, style, and settings?</th>
+            <td>Group them.</td>
+            <td>Split them into separate batches, or do the odd ones solo.</td>
+          </tr>
+          <tr>
+            <th scope="row">Can you wait for the whole group to finish?</th>
+            <td>Batching can save setup time, or money with a Batch API.</td>
+            <td>Do the one item you need now, then batch the rest.</td>
+          </tr>
+          <tr>
+            <th scope="row">Did a recent run already feel tight on memory, or fail with an out-of-memory error?</th>
+            <td>Use a smaller batch, or one at a time.</td>
+            <td>A group of 3–5 is a cautious starting point.</td>
+          </tr>
+          <tr>
+            <th scope="row">Are you still changing the shared instructions?</th>
+            <td>One at a time, or a single test item, until the wording settles.</td>
+            <td>Keep the shared prefix identical and batch the similar work.</td>
+          </tr>
+          <tr>
+            <th scope="row">Is this a long list of jobs that do not need an instant reply?</th>
+            <td>A provider Batch API, with its official discount, may be the better fit.</td>
+            <td>Run a small on-device or interactive batch instead.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>A first practice you can do today</h3>
+    <p>Pick three similar jobs that already share a style and size. Run one as a test. If that result is good, run the other two as a batch. Check both, keep what works, and rerun only a miss. That is the whole habit.</p>
+  </section>
+
+  <section id="glossary" aria-labelledby="glossary-title">
+    <h2 id="glossary-title"><span class="num">06</span>Glossary</h2>
+    <div class="table-scroll">
+      <table class="t-terms">
+        <caption class="soft">Words this guide uses</caption>
+        <thead>
+          <tr><th scope="col">Term</th><th scope="col">Plain meaning</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Batch</th>
+            <td>A group of similar jobs run together so they can share setup, and sometimes be processed in parallel.</td>
+          </tr>
+          <tr>
+            <th scope="row">Batch size</th>
+            <td>How many items are in that group. Bigger can be more efficient, and it also uses more memory.</td>
+          </tr>
+          <tr>
+            <th scope="row">Throughput</th>
+            <td>How much finished work you get in a stretch of time, such as images per minute.</td>
+          </tr>
+          <tr>
+            <th scope="row">Latency</th>
+            <td>How long you wait for a result. A batch can raise latency because you wait for the whole group.</td>
+          </tr>
+          <tr>
+            <th scope="row">GPU / VRAM</th>
+            <td>The graphics card, and the dedicated memory on it. The model and the working data have to fit here, or the run can fail.</td>
+          </tr>
+          <tr>
+            <th scope="row">Activations</th>
+            <td>Temporary working values the model creates while it processes items. They tend to grow as batch size grows.</td>
+          </tr>
+          <tr>
+            <th scope="row">Out of memory (OOM)</th>
+            <td>The batch (or even a single item) needed more memory than the card had free. The usual first fix is a smaller batch.</td>
+          </tr>
+          <tr>
+            <th scope="row">Prompt caching</th>
+            <td>A cloud feature that reuses a repeated instruction prefix so you do not pay full price, or full time, to reread it on every request.</td>
+          </tr>
+          <tr>
+            <th scope="row">Batch API</th>
+            <td>A cloud option for submitting many requests at once and receiving results later, often at a lower official price.</td>
+          </tr>
+          <tr>
+            <th scope="row">Synchronous API</th>
+            <td>The ordinary “send one request, wait for the reply now” interface, usually priced higher than a Batch API.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title"><span class="num">07</span>FAQ</h2>
+    <h3>Is a provider Batch API the same as generating several images at once?</h3>
+    <p>No. Generating several images or variations in one run is about keeping the machine busy and paying setup once. A Batch API is about sending a list of cloud requests that can wait, usually at a discount. You can use the grouping habits in this guide for both.</p>
+    <h3>Will a bigger batch always be faster or cheaper?</h3>
+    <p>No. Official GPU docs say a larger batch often helps throughput, but it also uses more memory and can make you wait longer. Past the point where the card is already busy, or past the point where the job no longer fits in memory, bigger is not better. A shared bad prompt can also multiply waste.</p>
+    <h3>What if I get an out-of-memory error?</h3>
+    <p>Cut the batch size and try again. If even one item fails, the model or the image size may be too heavy for the card. Batching will not solve that.</p>
+    <h3>Can I mix different models in one batch?</h3>
+    <p>For on-device image work, keep the model and the size the same. For a cloud Batch API, follow that provider’s rules. OpenAI’s Batch docs say each input file can include requests to only a single model. Anthropic’s Message Batches docs allow mixed request types in one batch, such as vision or tool use, because each request is processed independently. When in doubt, make one batch per model.</p>
+    <h3>Does batching change the quality of each result?</h3>
+    <p>Not by itself. You are asking for the same work, just grouped. Quality problems usually come from the prompt, the settings, or a memory squeeze. OpenAI’s prompt-caching docs also note that caching does not change how output tokens are generated.</p>
+    <h3>Do I need a paid cloud account to benefit from batching?</h3>
+    <p>No. The same habit helps on a computer at home: test one item, then run a few similar items together so the model is not set up over and over. A Batch API is an extra option when you already use a paid provider and the work can wait.</p>
+    <h3>Is the 3–5 item sweet spot a tested number?</h3>
+    <p>No. It is a rule of thumb, included to keep early batches small and recoverable. It is not a benchmark, and it is not a hardware limit. Once a prompt is proven, a larger group may be fine if memory allows. For cloud Batch APIs, official limits are much higher (for example, tens of thousands of requests), because those jobs are queued and processed as separate requests, not as one giant GPU batch on your machine.</p>
+  </section>
+
+  <section id="sources" aria-labelledby="sources-title">
+    <h2 id="sources-title"><span class="num">08</span>Sources</h2>
+    <p>Technical claims in this guide are tied to the official pages below. Links were checked on 13 November 2026. Discounts and limits can change, so confirm the live docs before you rely on a figure.</p>
+    <ol class="refs">
+      <li><a href="https://huggingface.co/docs/diffusers/en/using-diffusers/batched_inference">Hugging Face Diffusers, Batch inference</a> <span class="host">huggingface.co — throughput, latency, GPU memory, and <code>num_images_per_prompt</code></span></li>
+      <li><a href="https://huggingface.co/docs/diffusers/en/optimization/memory">Hugging Face Diffusers, Reduce memory usage</a> <span class="host">huggingface.co — generating 4 images at once can increase peak activation memory by 4× during decode</span></li>
+      <li><a href="https://docs.nvidia.com/deeplearning/tensorrt/latest/performance/optimization.html">NVIDIA TensorRT, Optimizing TensorRT Performance: Batching</a> <span class="host">docs.nvidia.com — parallel batching amortizes overhead; larger batches can raise throughput, latency, and memory use</span></li>
+      <li><a href="https://pytorch.org/blog/understanding-gpu-memory-1/">PyTorch blog, Understanding GPU Memory 1</a> <span class="host">pytorch.org — documents the <code>torch.cuda.OutOfMemoryError: CUDA out of memory</code> failure</span></li>
+      <li><a href="https://pytorch.org/blog/activation-checkpointing-techniques/">PyTorch blog, Current and New Activation Checkpointing Techniques</a> <span class="host">pytorch.org — activation memory grows as batch size, depth, and sequence length scale</span></li>
+      <li><a href="https://developers.openai.com/api/docs/guides/batch">OpenAI, Batch API</a> <span class="host">developers.openai.com — 50% discount vs synchronous APIs, 24-hour window, 50,000-request and 200 MB limits, one model per file, charges for completed requests if a batch expires</span></li>
+      <li><a href="https://help.openai.com/en/articles/9197833-batch-api-faq">OpenAI Help Center, Batch API FAQ</a> <span class="host">help.openai.com — restates the 50% discount vs synchronous APIs</span></li>
+      <li><a href="https://platform.claude.com/docs/en/build-with-claude/batch-processing">Anthropic, Message Batches API</a> <span class="host">platform.claude.com — 50% of standard API prices; most batches finish in under an hour, 24-hour maximum; caching discounts can stack, with best-effort cache hits</span></li>
+      <li><a href="https://developers.openai.com/api/docs/guides/prompt-caching">OpenAI, Prompt caching</a> <span class="host">developers.openai.com — cached-input tokens discounted by up to 95%; caching does not change output generation</span></li>
+      <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Anthropic, Prompt caching</a> <span class="host">platform.claude.com — typical cache reads at 0.1× base input; 5-minute cache writes at 1.25×; can stack with Batch API pricing</span></li>
+    </ol>
+  </section>
+
+  <section id="feedback" aria-labelledby="feedback-title">
+    <h2 id="feedback-title">Feedback &amp; Suggestions</h2>
+    <p>What should this guide explain more clearly? Comments load from GitHub through giscus. They are public on that discussion.</p>
+    <div id="feedback-box"><script src="https://giscus.app/client.js" data-repo="dukktapestudios/dukktapestudios.github.io" data-repo-id="R_kgDOVcgvLw" data-category="General" data-category-id="DIC_kwDOVcgvL84DKFnn" data-mapping="pathname" data-strict="0" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="dark" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script></div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Dukktape Studios — Batching &amp; Batching Efficiency Crash Course. A learning guide. Examples are generic, not one person’s projects or hardware.</p>
+    <p><a href="/">Dukktape Studios home</a> · <a href="#content">Back to top</a></p>
+    <p>© 2026 Dukktape Studios</p>
+  </div>
+</footer>
+</body>
+</html>
