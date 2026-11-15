@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Custom PCB Crash Course | Dukktape Studios</title>
+<meta name="description" content="A beginner guide to custom circuit boards: what a PCB is, why design your own, the step-by-step workflow, free tools like KiCad and EasyEDA, honest notes on AI-assisted tools, real fab prices, and a learning path.">
+<meta name="theme-color" content="#171b1e">
+<link rel="icon" href="../assets/studio-duck.png" type="image/png">
+<link rel="preload" href="../assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-700.woff2") format("woff2");
+}
+:root {
+  --bg: #171b1e;
+  --raise: #22282c;
+  --line: #3a4143;
+  --text: #f0f0e8;
+  --muted: #b4b4b4;
+  --orange: #efb671;
+  --ink: #171b1e;
+  --column: 740px;
+}
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  overflow-wrap: break-word;
+}
+a { color: var(--orange); text-underline-offset: 0.16em; }
+a:hover { color: #f3c48a; }
+:focus { outline: none; }
+:focus-visible { outline: 3px solid #f7f4ee; outline-offset: 3px; }
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: var(--orange);
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: 8px;
+  z-index: 5;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip:focus { top: 12px; }
+.top {
+  position: sticky;
+  top: var(--dts-donate-offset, 0px);
+  z-index: 2;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.wrap { width: min(var(--column), calc(100% - 32px)); margin: 0 auto; }
+.top-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+}
+.brand { color: var(--text); font-weight: 700; text-decoration: none; letter-spacing: -0.02em; }
+.home-link { font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+.eyebrow {
+  margin: 28px 0 8px;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 6vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.lede { font-size: 1.12rem; margin: 14px 0 0; }
+.note, .callout {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-left: 3px solid var(--orange);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 16px 0;
+}
+h2 {
+  margin: 2.2rem 0 0.7rem;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+h2 .num { color: var(--orange); font-size: 0.85rem; letter-spacing: 0.08em; display: block; margin-bottom: 4px; }
+h3 { margin: 1.3rem 0 0.4rem; font-size: 1.12rem; letter-spacing: -0.02em; }
+section[id], h2, h3 { scroll-margin-top: calc(var(--dts-donate-offset, 4.5rem) + 76px); }
+p, li { color: var(--text); }
+.soft, .toc, figcaption, td, dd { color: var(--text); }
+.muted { color: var(--muted); }
+.toc {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  margin-top: 22px;
+}
+.toc h2 { margin: 0 0 8px; font-size: 1.05rem; }
+.toc ol { margin: 0; padding-left: 1.3rem; }
+.toc li { margin: 4px 0; }
+.toc a { color: var(--text); font-weight: 600; }
+.table-scroll { overflow-x: auto; margin: 12px 0 18px; max-width: 100%; }
+table { width: 100%; border-collapse: collapse; min-width: 34rem; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { color: var(--orange); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+th[scope="row"] {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+  color: var(--text);
+}
+caption { text-align: left; margin: 0 0 8px; }
+ul, ol { padding-left: 1.25rem; }
+li { margin: 0.35rem 0; }
+.reasons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+.reasons section {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+}
+.reasons h2 { margin: 0 0 0.45rem; font-size: 1.12rem; }
+.reasons p { margin: 0; }
+figure { margin: 16px 0; }
+.diagram {
+  background: #1c2124;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 14px 18px;
+  max-width: 100%;
+}
+figcaption { margin-top: 8px; }
+figcaption ol { margin: 6px 0 0; }
+.kicker { margin: 0; color: var(--orange); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.spine { display: grid; justify-items: center; }
+.node {
+  background: #2a3034;
+  border: 1px solid var(--orange);
+  border-radius: 12px;
+  padding: 10px 14px;
+  width: min(100%, 420px);
+  text-align: center;
+}
+.node strong { display: block; }
+.node span {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+.node.terminal { border-style: dashed; }
+.flow-arrow {
+  display: flex;
+  justify-content: center;
+  color: var(--orange);
+  font-weight: 700;
+  line-height: 1;
+  padding: 4px 0 2px;
+}
+.router-row {
+  display: grid;
+  gap: 8px;
+  width: min(100%, 420px);
+  justify-items: center;
+}
+.router-row .node { width: 100%; }
+.dash-link {
+  color: var(--orange);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.fan {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  width: min(100%, 420px);
+}
+.fan .node { width: 100%; text-align: left; }
+.rows { display: grid; gap: 10px; margin: 16px 0; }
+.rows article {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.rows h3 { margin: 4px 0; }
+.rows p { margin: 0; }
+.meta {
+  margin: 0;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.switcher { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.switcher button {
+  min-height: 44px;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(240, 240, 232, 0.55);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.switcher button[aria-selected="true"] {
+  background: var(--orange);
+  color: var(--ink);
+  border-color: var(--orange);
+}
+.example {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 16px;
+  margin: 0 0 14px;
+}
+.props { display: grid; gap: 10px; margin: 12px 0 0; }
+.props div { border-top: 1px solid var(--line); padding-top: 8px; }
+.props dt { margin: 0; color: var(--orange); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.props dd { margin: 4px 0 0; }
+.steps { list-style: none; margin: 14px 0; padding: 0; }
+.steps > li {
+  margin: 0 0 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.steps h3 { margin: 0 0 4px; }
+.steps p { margin: 0; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.panel {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+}
+.panel h3 { margin-top: 0; }
+.panel ul { margin-bottom: 0; }
+.refs { list-style: none; margin: 12px 0 0; padding: 0; }
+ol.refs { list-style: decimal; padding-left: 1.3rem; }
+ol.refs li { margin: 0; padding: 8px 0; border-top: 1px solid var(--line); }
+ol.refs li::marker { color: var(--orange); font-weight: 700; }
+.refs a { font-weight: 600; overflow-wrap: anywhere; }
+.refs .host { display: block; color: var(--muted); font-size: 0.85rem; font-weight: 500; }
+#feedback-box { margin-top: 8px; max-width: 100%; }
+#feedback-box .giscus, #feedback-box .giscus-frame { max-width: 100%; }
+footer { border-top: 1px solid var(--line); margin-top: 28px; padding: 22px 0 36px; color: var(--muted); }
+footer p { margin: 0 0 8px; }
+img, svg, iframe { max-width: 100%; }
+@media (min-width: 641px) {
+  .router-row {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+  }
+  .fan { width: 100%; grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .reasons, .split { grid-template-columns: 1fr; }
+}
+@media (max-width: 420px) {
+  .wrap { width: min(var(--column), calc(100% - 24px)); }
+  .top-inner { align-items: flex-start; padding: 8px 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+code {
+  font-family: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+.table-scroll { -webkit-overflow-scrolling: touch; }
+.table-scroll:focus-visible { outline: 3px solid #f7f4ee; outline-offset: 2px; }
+.stack-svg { display: block; width: 100%; height: auto; max-width: 420px; margin: 0 auto; }
+.stack-svg text { font-family: Inter, "Segoe UI", system-ui, sans-serif; }
+.pill { display: inline-block; padding: 1px 8px; border: 1px solid var(--orange); border-radius: 999px; color: var(--orange); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.src { color: var(--muted); font-size: 0.9rem; }
+</style>
+<link rel="stylesheet" href="../assets/donate-bar.css">
+</head>
+<body>
+<aside class="dts-donate" aria-label="Donations">
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=dukktapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+</aside>
+
+<a class="skip" href="#content">Skip to content</a>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/">Dukktape Studios</a>
+    <a class="home-link" href="/#guides">All guides</a>
+  </div>
+</header>
+<main id="content" class="wrap">
+  <p class="eyebrow">Guide · links checked 14 November 2026</p>
+  <h1>Custom PCB Crash Course</h1>
+  <p class="lede">From breadboard to your own circuit board. A calm, plain-English tour of what a PCB is, why you might design one, the steps from idea to a board in your hand, and the free tools that make it possible.</p>
+  <p class="note">A learning guide, not a command to buy anything. Examples are generic. This page does not describe one person’s accounts, projects, or hardware. Prices come from the fabs’ own pages as of November 2026 and change often, so treat them as ballpark and check the linked source. Nothing here is an affiliate link.</p>
+
+  <nav class="toc" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#what-is-pcb">What a PCB is</a></li>
+      <li><a href="#why-design">Why design your own</a></li>
+      <li><a href="#real-goals">Real goals</a></li>
+      <li><a href="#workflow">The workflow, step by step</a></li>
+      <li><a href="#tools">Free tools, and AI-assisted tools</a></li>
+      <li><a href="#first-project">A first project, with real costs</a></li>
+      <li><a href="#mistakes">Common beginner mistakes</a></li>
+      <li><a href="#learning-path">A learning path</a></li>
+      <li><a href="#glossary">Glossary</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+
+  <section id="what-is-pcb" aria-labelledby="what-is-pcb-title">
+    <h2 id="what-is-pcb-title"><span class="num">01</span>What a PCB is</h2>
+    <p>A printed circuit board (PCB) is a flat board that holds electronic parts and connects them with thin copper paths, so you do not need loose wires. Nearly every gadget you own has one. You can read a short overview in <a href="https://learn.sparkfun.com/tutorials/pcb-basics">SparkFun’s PCB Basics</a>.</p>
+    <p>Think of it like a tiny road map. The parts are the towns. The copper traces are the roads. Everything else on the board is there to protect the roads and label the towns.</p>
+
+    <h3>The parts of the board</h3>
+    <figure>
+      <div class="diagram">
+        <svg class="stack-svg" viewBox="0 0 320 274" role="img" aria-labelledby="stack-title stack-desc">
+          <title id="stack-title">Cross-section of a four-layer circuit board</title>
+          <desc id="stack-desc">From top to bottom: silkscreen ink, solder mask, top copper, insulating core, inner copper, insulating core, inner copper, insulating core, bottom copper, solder mask, silkscreen. A via is a plated hole joining copper layers.</desc>
+          <rect x="10" y="10" width="300" height="16" fill="#f0f0e8"/>
+          <rect x="10" y="26" width="300" height="16" fill="#3f8a5a"/>
+          <rect x="10" y="42" width="300" height="18" fill="#efb671"/>
+          <rect x="10" y="60" width="300" height="26" fill="#5a5f45"/>
+          <rect x="10" y="86" width="300" height="18" fill="#efb671"/>
+          <rect x="10" y="104" width="300" height="30" fill="#5a5f45"/>
+          <rect x="10" y="134" width="300" height="18" fill="#efb671"/>
+          <rect x="10" y="152" width="300" height="26" fill="#5a5f45"/>
+          <rect x="10" y="178" width="300" height="18" fill="#efb671"/>
+          <rect x="10" y="196" width="300" height="16" fill="#3f8a5a"/>
+          <rect x="10" y="212" width="300" height="16" fill="#f0f0e8"/>
+          <rect x="30" y="26" width="30" height="170" fill="#171b1e"/>
+          <rect x="30" y="26" width="5" height="170" fill="#efb671"/>
+          <rect x="55" y="26" width="5" height="170" fill="#efb671"/>
+          <text x="182.0" y="22.5" text-anchor="middle" font-size="12" font-weight="600" fill="#171b1e">Silkscreen (labels)</text>
+          <text x="182.0" y="38.5" text-anchor="middle" font-size="12" font-weight="600" fill="#f0f0e8">Solder mask</text>
+          <text x="182.0" y="55.5" text-anchor="middle" font-size="12" font-weight="600" fill="#171b1e">Layer 1 · top copper</text>
+          <text x="182.0" y="77.5" text-anchor="middle" font-size="12" font-weight="600" fill="#f0f0e8">Insulating core (FR-4)</text>
+          <text x="182.0" y="99.5" text-anchor="middle" font-size="12" font-weight="600" fill="#171b1e">Layer 2 · inner copper</text>
+          <text x="182.0" y="123.5" text-anchor="middle" font-size="12" font-weight="600" fill="#f0f0e8">Insulating core</text>
+          <text x="182.0" y="147.5" text-anchor="middle" font-size="12" font-weight="600" fill="#171b1e">Layer 3 · inner copper</text>
+          <text x="182.0" y="169.5" text-anchor="middle" font-size="12" font-weight="600" fill="#f0f0e8">Insulating core</text>
+          <text x="182.0" y="191.5" text-anchor="middle" font-size="12" font-weight="600" fill="#171b1e">Layer 4 · bottom copper</text>
+          <text x="182.0" y="208.5" text-anchor="middle" font-size="12" font-weight="600" fill="#f0f0e8">Solder mask</text>
+          <text x="182.0" y="224.5" text-anchor="middle" font-size="12" font-weight="600" fill="#171b1e">Silkscreen</text>
+          <text x="10" y="246" font-size="12" font-weight="600" fill="#efb671">Via: a plated hole joining the layers</text>
+        </svg>
+      </div>
+      <figcaption>Simplified cross-section of a four-layer board. Not to scale. Layer names vary by designer; ground and power on the inner layers is a common choice, not a rule.</figcaption>
+    </figure>
+    <dl class="props">
+      <div><dt>Copper traces</dt><dd>The thin copper lines that carry signals and power between parts. Wider traces carry more current.</dd></div>
+      <div><dt>Pads</dt><dd>Small exposed copper spots where you solder a part’s legs or contacts.</dd></div>
+      <div><dt>Vias</dt><dd>Tiny plated holes that connect copper on one layer to copper on another, like a stairwell between floors.</dd></div>
+      <div><dt>Solder mask</dt><dd>The coating, often green, that covers the copper so solder only sticks to the pads and stray touches do not short things out.</dd></div>
+      <div><dt>Silkscreen</dt><dd>The printed ink labels: part names, pin numbers, polarity marks, your logo.</dd></div>
+    </dl>
+
+    <h3>How many layers: 1, 2, or 4</h3>
+    <div class="table-scroll" role="region" aria-label="Layer count comparison" tabindex="0">
+      <table class="t-layers">
+        <caption class="muted">Layer counts at a glance</caption>
+        <thead><tr><th scope="col">Layers</th><th scope="col">What it is</th><th scope="col">Good for</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">1</th><td>Copper on one side only.</td><td>Very simple boards with a few through-hole parts. Cheap, but routing gets cramped fast.</td></tr>
+          <tr><th scope="row">2</th><td>Copper on top and bottom, joined by vias.</td><td>The usual starting point for hobby and learning boards, including most small microcontroller projects.</td></tr>
+          <tr><th scope="row">4</th><td>Two outer copper layers plus two inner layers, often one for ground and one for power.</td><td>Denser or faster designs and radio parts. <a href="https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32s3/pcb-layout-design.html">Espressif recommends a four-layer board for the ESP32-S3</a>, and says a two-layer design can also be used with care.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>SMD vs through-hole</h3>
+    <div class="split">
+      <div class="panel">
+        <h3>Through-hole (THT)</h3>
+        <p>Parts have wire legs that pass through holes and get soldered on the other side. They are bigger and sturdier, and much easier to solder by hand. Good for connectors, buttons, and your very first board.</p>
+      </div>
+      <div class="panel">
+        <h3>Surface-mount (SMD)</h3>
+        <p>Parts sit flat on pads on the surface. They are small, cheaper at volume, and what machines place. Hand soldering gets harder as parts shrink; larger sizes (such as 0805) are friendlier than tiny ones.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="why-design" aria-labelledby="why-design-title">
+    <h2 id="why-design-title"><span class="num">02</span>Why design your own</h2>
+    <p>You do not need a custom board to learn electronics. A breadboard is perfect for trying ideas. A custom board is what you reach for when the idea works and you want it to keep working in a smaller, tidier form.</p>
+    <div class="table-scroll" role="region" aria-label="Breadboard, perfboard, dev board and custom PCB compared" tabindex="0">
+      <table class="t-kinds2">
+        <caption class="muted">Four ways to build the same circuit</caption>
+        <thead><tr><th scope="col">Option</th><th scope="col">Strength</th><th scope="col">Trade-off</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Breadboard</th><td>No soldering, instant changes. Best for experiments.</td><td>Loose wires can wiggle out. Not meant to live in a finished project.</td></tr>
+          <tr><th scope="row">Perfboard</th><td>Soldered and permanent, cheap, good for one-offs.</td><td>Hand wiring is slow and easy to get wrong. Hard to make a second identical copy.</td></tr>
+          <tr><th scope="row">Off-the-shelf dev board</th><td>Fast, well tested, plenty of community help.</td><td>Fixed size and shape, with parts and pins you may not need.</td></tr>
+          <tr><th scope="row">Custom PCB</th><td>Exact size and shape, tidy and repeatable, and every copy is the same.</td><td>Takes time to design, costs a little to order, and mistakes mean waiting for a new batch.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="reasons">
+      <section>
+        <h3>Size and shape</h3>
+        <p>A custom board can be the exact size and outline your enclosure needs, with no unused parts.</p>
+      </section>
+      <section>
+        <h3>Reliability</h3>
+        <p>Soldered traces do not shake loose the way jumper wires can.</p>
+      </section>
+      <section>
+        <h3>Cost at volume</h3>
+        <p>One board costs a few dollars to a few tens of dollars to make. Making many copies spreads the setup work, but the exact math varies by fab and parts.</p>
+      </section>
+      <section>
+        <h3>Products you can sell</h3>
+        <p>If you ever want to sell or share a device, a repeatable board is the starting point. Selling hardware has its own rules, such as safety and radio certification, which are outside this guide.</p>
+      </section>
+    </div>
+    <p>And one more honest reason: learning. Designing a board teaches you how circuits really fit together, which makes you better at every other part of electronics.</p>
+  </section>
+
+  <section id="real-goals" aria-labelledby="real-goals-title">
+    <h2 id="real-goals-title"><span class="num">03</span>Real goals</h2>
+    <p>A good first reason to make a board is to turn something that already works on a breadboard into a clean, repeatable thing. Three generic examples:</p>
+    <div class="rows">
+      <article>
+        <p class="meta">Example 1</p>
+        <h3>A microcontroller alarm</h3>
+        <p>An ESP32-based door or motion alarm that works on a breadboard with a few jumper wires. On a custom board, the microcontroller, a buzzer, a sensor connector, and a power input all sit in a small enclosure with solid connections.</p>
+      </article>
+      <article>
+        <p class="meta">Example 2</p>
+        <h3>A sensor board</h3>
+        <p>A small board that carries a temperature or light sensor and breaks out four neat pins (power, ground, and two signals) so it can be reused on other projects.</p>
+      </article>
+      <article>
+        <p class="meta">Example 3</p>
+        <h3>A robot controller</h3>
+        <p>A board that combines a microcontroller, motor driver, power regulator, and labeled connectors for motors and sensors, replacing a tangle of separate modules and wires.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="workflow" aria-labelledby="workflow-title">
+    <h2 id="workflow-title"><span class="num">04</span>The workflow, step by step</h2>
+    <p>The tools differ, but the path is nearly the same everywhere. <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html">KiCad’s Getting Started guide</a> walks the same order in detail.</p>
+    <ol class="steps">
+      <li><h3>1. Idea</h3><p>Write down what the board must do, what power it uses, how big it can be, and how you will connect to it. A few plain sentences are enough.</p></li>
+      <li><h3>2. Schematic</h3><p>Draw the circuit as symbols and lines, like a wiring diagram. You are saying <em>what connects to what</em>, not where things sit yet. Run the <strong>ERC</strong> (electrical rules check) to catch things like unconnected pins.</p></li>
+      <li><h3>3. Parts, symbols, and footprints</h3><p>Each part needs a <strong>symbol</strong> (its picture in the schematic) and a <strong>footprint</strong> (the pad pattern on the board). A wrong footprint means a part that will not fit, so check it against the part’s datasheet. If you plan to have a fab place parts, pick ones the fab stocks (for example, from <a href="https://jlcpcb.com/parts">JLCPCB’s parts library</a>).</p></li>
+      <li><h3>4. Layout</h3><p>Set the board outline, place the parts, and route the copper traces. Place parts first, then route. Power and ground deserve extra care.</p></li>
+      <li><h3>5. Design rule check (DRC)</h3><p>The <strong>DRC</strong> compares your layout to the fab’s minimum rules, such as trace width, spacing, and drill size. Get the rules from your chosen fab first (see the learning path) and fix every error or understand why it is safe to keep.</p></li>
+      <li><h3>6. Output files</h3><p>Export <strong>Gerbers</strong> (the layer-by-layer manufacturing pictures) and drill files. For assembly, also export a <strong>BOM</strong> (bill of materials: the shopping list) and a <strong>pick-and-place</strong> (also called placement or CPL) file that says where each part goes. <a href="https://jlcpcb.com/help/article/how-to-generate-gerber-and-drill-files-in-kicad-7">JLCPCB’s KiCad export guide</a> and <a href="https://docs.oshpark.com/design-tools/kicad/">OSH Park’s KiCad guide</a> show the steps.</p></li>
+      <li><h3>7. Order from a fab</h3><p>Upload the files and read the instant quote and preview before you pay. Popular hobby fabs include <a href="https://jlcpcb.com/">JLCPCB</a>, <a href="https://www.pcbway.com/">PCBWay</a>, and <a href="https://oshpark.com/">OSH Park</a>. Ordering is your decision; this guide never asks you to buy.</p></li>
+      <li><h3>8. Assembly</h3><p><strong>Hand soldering:</strong> cheaper and a great skill, best with through-hole or larger SMD parts. <strong>Fab assembly:</strong> the fab places and solders the parts for you, which is neater for small SMD parts but adds setup and part costs (see the cost section).</p></li>
+      <li><h3>9. Bring-up and testing</h3><p>Do not plug everything in at once. Check for shorts between power and ground with a multimeter before applying power. Then power up gently, check voltages, and bring each part to life one at a time. Test points help here (see the mistakes section).</p></li>
+    </ol>
+    <p class="note">Expect a first board to need a second try. That is normal, and it is part of learning. Small first boards keep the second try cheap.</p>
+  </section>
+
+  <section id="tools" aria-labelledby="tools-title">
+    <h2 id="tools-title"><span class="num">05</span>Free tools, and AI-assisted tools</h2>
+    <h3>The two free classics</h3>
+    <div class="table-scroll" role="region" aria-label="KiCad and EasyEDA compared" tabindex="0">
+      <table class="t-tools">
+        <caption class="muted">Free PCB design tools</caption>
+        <thead><tr><th scope="col">Tool</th><th scope="col">What it is</th><th scope="col">Beginner note</th></tr></thead>
+        <tbody>
+          <tr>
+            <th scope="row"><a href="https://www.kicad.org/">KiCad</a></th>
+            <td>A cross-platform, open-source PCB design suite with a schematic editor, PCB editor, 3D viewer, and built-in rules checks. Its site lists version 10.0 as current in November 2026.</td>
+            <td>Runs on your own computer. Very widely used, with official docs and a huge community. A solid long-term choice.</td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="https://easyeda.com/">EasyEDA</a></th>
+            <td>A free PCB design tool that runs in the browser, with a downloadable desktop app also offered. Its site links straight to JLCPCB for ordering.</td>
+            <td>Quick to start, with no install needed. Handy if you plan to order from JLCPCB. Your projects live in an online account.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Newer AI-assisted tools, honestly framed</h3>
+    <p>A newer group of tools lets you describe a board in plain language and gives you a first draft. Two examples, described only as their own sites describe them:</p>
+    <ul>
+      <li><a href="https://www.flux.ai/">Flux</a> says it can turn an idea into a schematic, a routed PCB, and fab-ready files with AI, right in your browser.</li>
+      <li><a href="https://protoflow.ai/">ProtoFlow</a> says its AI picks real parts, draws the schematic and routes the PCB, and that you review it and export Gerbers. Its home page shows one prompt producing an ESP32 breakout board in a 30-minute run (sped up in the video), shown as ERC and DRC clean. It says it opens KiCad, Altium, and EAGLE projects and has a free plan with no card and no expiry. At the time of writing, its page shows a Mac download.</li>
+    </ul>
+    <div class="callout">
+      <p><strong>What this means for you.</strong> These tools can be a useful way to get a first draft, find parts, and see what a finished design might look like. But a human still has to review the schematic, check every footprint against datasheets, and make sure the DRC result is meaningful. Even ProtoFlow’s own page says you review the draft and you sign off on the board that ships. A “clean” DRC only means the board follows the rules that were checked. It does not prove the circuit does what you want.</p>
+      <p>They are also not a substitute for learning the basics. If you cannot read a schematic, you cannot tell when the draft is wrong. Learn the steps in this guide first, then use AI as a helper. Plans, limits, and features of these tools change often, so check their sites yourself.</p>
+    </div>
+  </section>
+
+  <section id="first-project" aria-labelledby="first-project-title">
+    <h2 id="first-project-title"><span class="num">06</span>A first project, with real costs</h2>
+    <h3>Suggested first board</h3>
+    <p>Make it boring on purpose. A good first board is a small two-layer breakout or LED board: a microcontroller header or small module, a power input, one LED with a resistor, a button, and a few labeled pins. Pick through-hole or larger SMD parts so you can solder it yourself. Keep it around the size of a postage stamp to a business card.</p>
+    <p>When that goes well, a natural next step is a board built around an ESP32-S3 <em>module</em> (the chip, flash, and antenna on a small pre-built board) rather than the bare chip, which keeps the hardest radio layout off your plate. Espressif’s guidelines use a module as their layout example and explain how to place it on a base board.</p>
+
+    <h3>What it costs, as of November 2026</h3>
+    <p>These figures come from the fabs’ own pages, read on 14 November 2026. They are starting points, not quotes.</p>
+    <div class="table-scroll" role="region" aria-label="Fab prices and lead times, November 2026" tabindex="0">
+      <table class="t-cost">
+        <caption class="muted">Published fab figures, as of Nov 2026</caption>
+        <thead><tr><th scope="col">Fab and service</th><th scope="col">Published price</th><th scope="col">Published time</th><th scope="col">Source</th></tr></thead>
+        <tbody>
+          <tr>
+            <th scope="row">JLCPCB, standard FR-4 boards</th>
+            <td>From $2.00 for 5 boards. Final price depends on size, layer count, surface finish, and quantity; shipping is separate.</td>
+            <td>Build time listed as 24 hours. Delivery usually 2–7 business days, by their own FAQ.</td>
+            <td><a href="https://jlcpcb.com/">jlcpcb.com</a></td>
+          </tr>
+          <tr>
+            <th scope="row">JLCPCB, assembly</th>
+            <td>Starts at $8 setup plus $0.0016 per solder joint. Parts cost extra, and the quote tool gives the real total.</td>
+            <td>Typically 2–5 days for assembly, depending on parts, by their FAQ.</td>
+            <td><a href="https://jlcpcb.com/pcb-assembly">PCB assembly page</a> and <a href="https://jlcpcb.com/">home page FAQ</a></td>
+          </tr>
+          <tr>
+            <th scope="row">OSH Park, 2-layer prototype</th>
+            <td>$5 per square inch, which includes three copies. Their example: a 2 square inch board is $10 for three. Shipping is free worldwide.</td>
+            <td>Ships within 9–12 calendar days.</td>
+            <td><a href="https://docs.oshpark.com/services/two-layer/">OSH Park 2-layer docs</a></td>
+          </tr>
+          <tr>
+            <th scope="row">OSH Park, 2-layer Super Swift</th>
+            <td>$10 per square inch, per set of three.</td>
+            <td>Ships in 4–5 business days.</td>
+            <td><a href="https://docs.oshpark.com/services/">OSH Park services</a></td>
+          </tr>
+          <tr>
+            <th scope="row">OSH Park, 4-layer prototype</th>
+            <td>$10 per square inch, per set of three.</td>
+            <td>Ships in 9–14 calendar days.</td>
+            <td><a href="https://docs.oshpark.com/services/">OSH Park services</a></td>
+          </tr>
+          <tr>
+            <th scope="row">PCBWay</th>
+            <td>Varies with size, layers, and options. Use their instant quote.</td>
+            <td>Varies.</td>
+            <td><a href="https://www.pcbway.com/">pcbway.com</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li><strong>Worked example from OSH Park’s published rate:</strong> a board about 1 inch by 1 inch (roughly 25 mm square) is about 1 square inch, so about $5 for three copies.</li>
+      <li><strong>Caveats:</strong> a “from” price is the cheapest case. Shipping speed changes the total, and depending on where you live, import taxes or duties may apply to orders from abroad. Parts for your board are a separate cost. JLCPCB’s assembly figure is only the setup and solder-joint charge, so it is not the full price of an assembled board.</li>
+      <li><strong>Time:</strong> fab and shipping times are in the table. How long design takes depends on you. For a first small board, plan on a few relaxed evenings for the schematic, layout, and checks. That is a gentle rule of thumb, not a measured number.</li>
+    </ul>
+  </section>
+
+  <section id="mistakes" aria-labelledby="mistakes-title">
+    <h2 id="mistakes-title"><span class="num">07</span>Common beginner mistakes</h2>
+    <div class="rows">
+      <article><p class="meta">Parts</p><h3>Wrong footprint</h3><p>The most common one. Check each footprint’s pads against the part’s datasheet, and print the layout at 100% size to hold the real part against it.</p></article>
+      <article><p class="meta">Parts</p><h3>Not checking the BOM and stock</h3><p>A part that is out of stock at your fab can hold up the whole order. Check availability and pick common parts before you finalize the design.</p></article>
+      <article><p class="meta">Power</p><h3>No decoupling capacitors</h3><p>Chips need small capacitors close to their power pins to keep their supply steady. <a href="https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32s3/pcb-layout-design.html">Espressif’s ESP32-S3 layout guidance</a> calls for capacitors near the chip’s power pins and ground vias close to the capacitor ground pads.</p></article>
+      <article><p class="meta">Power</p><h3>Trace width too small for the current</h3><p>Thin traces get warm when they carry real current. Use a trace-width calculator (KiCad includes a <a href="https://docs.kicad.org/10.0/en/pcb_calculator/pcb_calculator.html">PCB Calculator with a track width tool</a>) and give power traces more room than signal traces. Espressif’s guide, for example, asks for main ESP32-S3 power traces to be no less than 25 mil wide.</p></article>
+      <article><p class="meta">Radio</p><h3>No antenna keep-out</h3><p>Copper, parts, or a metal case near a Wi-Fi antenna can ruin its range. Espressif’s guidance is to put a module’s PCB antenna outside the base board, or if it cannot overhang, to cut the base board away around it, and to leave generous clearance inside the final housing.</p></article>
+      <article><p class="meta">Testing</p><h3>No test points</h3><p>Add small exposed pads or headers for power, ground, and key signals. When something does not work on bring-up, you will be glad to have somewhere to put the probe.</p></article>
+      <article><p class="meta">Mechanical</p><h3>Forgetting mounting holes</h3><p>Plan how the board will be held in its enclosure, and leave room for screws and connectors that reach the edge.</p></article>
+      <article><p class="meta">Fab rules</p><h3>Ignoring the fab’s rules</h3><p>Every fab has minimum widths, spacing, and drill sizes, and they differ. For two-layer boards, for example, OSH Park lists 6 mil trace width and spacing as its minimum, while JLCPCB lists 4 mil for 1 oz copper on one- and two-layer boards. Load your fab’s rules into your DRC before you lay out the board.</p></article>
+      <article><p class="meta">Process</p><h3>Skipping the review</h3><p>Re-read the schematic against every datasheet, check the DRC result, and look at the fab’s preview before paying. A fresh set of eyes, or a good night’s sleep, catches mistakes.</p></article>
+    </div>
+  </section>
+
+  <section id="learning-path" aria-labelledby="learning-path-title">
+    <h2 id="learning-path-title"><span class="num">08</span>A learning path</h2>
+    <ol class="steps">
+      <li>
+        <h3>1. Learn the vocabulary</h3>
+        <p>Read <a href="https://learn.sparkfun.com/tutorials/pcb-basics">SparkFun’s PCB Basics</a> to understand the parts of a board.</p>
+      </li>
+      <li>
+        <h3>2. Follow KiCad’s official tutorial</h3>
+        <p>Install <a href="https://www.kicad.org/download/">KiCad</a> and work through <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html">Getting Started in KiCad</a>. It takes you from a new project through the schematic, the board, design rule checking, and fabrication outputs. More options are on <a href="https://www.kicad.org/help/learning-resources/">KiCad’s learning resources page</a>.</p>
+      </li>
+      <li>
+        <h3>3. Watch a full free walk-through</h3>
+        <p>A free, long <a href="https://www.youtube.com/watch?v=aVUqaB0IMh4">KiCad PCB design tutorial</a> (it uses an older KiCad 6 and an STM32 chip, so menus may look different, but the process is the same). The channel’s <a href="https://www.phils-lab.net/videos">videos page</a> lists more.</p>
+      </li>
+      <li>
+        <h3>4. Read your fab’s design rules</h3>
+        <p>Before your first layout, read the rules: <a href="https://jlcpcb.com/capabilities/pcb-capabilities">JLCPCB’s capabilities</a>, <a href="https://www.pcbway.com/capabilities.html">PCBWay’s capabilities</a>, and <a href="https://docs.oshpark.com/services/two-layer/">OSH Park’s 2-layer specs</a>. Then follow a fab’s export guide, such as <a href="https://jlcpcb.com/help/article/how-to-generate-gerber-and-drill-files-in-kicad-7">JLCPCB’s KiCad Gerber guide</a> or <a href="https://docs.oshpark.com/design-tools/kicad/">OSH Park’s KiCad guide</a>.</p>
+      </li>
+      <li>
+        <h3>5. Learn the soldering side</h3>
+        <p>Adafruit’s <a href="https://learn.adafruit.com/adafruit-guide-excellent-soldering">Guide to Excellent Soldering</a> and SparkFun’s <a href="https://learn.sparkfun.com/tutorials/how-to-solder-through-hole-soldering">through-hole soldering guide</a> cover hand assembly.</p>
+      </li>
+      <li>
+        <h3>6. When you reach an ESP32-S3 board</h3>
+        <p>Use Espressif’s <a href="https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32s3/index.html">ESP32-S3 hardware design guidelines</a>, including the <a href="https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32s3/schematic-checklist.html">schematic checklist</a> and the <a href="https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32s3/pcb-layout-design.html">PCB layout design chapter</a>. For ESP32 basics, see the <a href="/esp32-crash-course/">ESP32 Crash Course</a> on this site.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section id="glossary" aria-labelledby="glossary-title">
+    <h2 id="glossary-title"><span class="num">09</span>Glossary</h2>
+    <div class="table-scroll" role="region" aria-label="Glossary" tabindex="0">
+      <table class="t-glossary2">
+        <thead><tr><th scope="col">Term</th><th scope="col">Plain meaning</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">BOM</th><td>Bill of materials: the list of every part on the board.</td></tr>
+          <tr><th scope="row">Bring-up</th><td>The careful first power-on and testing of a new board.</td></tr>
+          <tr><th scope="row">Decoupling capacitor</th><td>A small capacitor near a chip’s power pin that keeps its supply steady.</td></tr>
+          <tr><th scope="row">DRC</th><td>Design rule check: software that tests your layout against manufacturing rules.</td></tr>
+          <tr><th scope="row">ERC</th><td>Electrical rules check: software that tests your schematic for wiring mistakes.</td></tr>
+          <tr><th scope="row">Fab</th><td>The factory that makes your board.</td></tr>
+          <tr><th scope="row">Footprint</th><td>The pad pattern on the board where a part is soldered.</td></tr>
+          <tr><th scope="row">Gerber</th><td>The standard file format fabs use to make each layer of a board.</td></tr>
+          <tr><th scope="row">Keep-out</th><td>An area where copper or parts are not allowed, such as around an antenna.</td></tr>
+          <tr><th scope="row">Pick-and-place file</th><td>A file listing each part’s position and rotation, used by assembly machines. Also called CPL.</td></tr>
+          <tr><th scope="row">Pad</th><td>An exposed copper spot where a part is soldered.</td></tr>
+          <tr><th scope="row">Schematic</th><td>A diagram that shows how parts are connected, without showing where they sit.</td></tr>
+          <tr><th scope="row">Silkscreen</th><td>The printed labels on a board.</td></tr>
+          <tr><th scope="row">SMD</th><td>Surface-mount device: a part that sits on top of the board.</td></tr>
+          <tr><th scope="row">Solder mask</th><td>The coating over copper that keeps solder only where you want it.</td></tr>
+          <tr><th scope="row">Test point</th><td>A pad or pin added so you can probe a signal.</td></tr>
+          <tr><th scope="row">THT</th><td>Through-hole technology: parts with legs that go through holes.</td></tr>
+          <tr><th scope="row">Trace</th><td>A copper path that carries a signal or power.</td></tr>
+          <tr><th scope="row">Via</th><td>A plated hole that joins copper on different layers.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="sources" aria-labelledby="sources-title">
+    <h2 id="sources-title"><span class="num">10</span>Sources</h2>
+    <p>Figures and claims are tied to the pages below, which were read and checked on 14 November 2026. Prices, plans, and features change, so confirm on the live page before relying on a number.</p>
+    <ol class="refs">
+      <li><a href="https://jlcpcb.com/">JLCPCB home page</a> <span class="host">jlcpcb.com — “From $2.00 / 5 pcs”, build time 24 hours, costs depend on size, layers, finish, and quantity; shipping options and 2–7 business day delivery</span></li>
+      <li><a href="https://jlcpcb.com/pcb-assembly">JLCPCB PCB assembly</a> <span class="host">jlcpcb.com — “$8 setup + $0.0016 per solder joint”</span></li>
+      <li><a href="https://jlcpcb.com/capabilities/pcb-capabilities">JLCPCB PCB capabilities</a> <span class="host">jlcpcb.com — minimum trace width and spacing 4 mil / 4 mil on 1 oz copper for one- and two-layer boards</span></li>
+      <li><a href="https://docs.oshpark.com/services/two-layer/">OSH Park, 2 Layer Prototype Service</a> <span class="host">docs.oshpark.com — $5 per square inch for three copies, 9–12 calendar days</span></li>
+      <li><a href="https://docs.oshpark.com/services/">OSH Park, Fabrication Services</a> <span class="host">docs.oshpark.com — free shipping worldwide; Super Swift and 4-layer prices and times; minimum design rules</span></li>
+      <li><a href="https://www.pcbway.com/">PCBWay</a> <span class="host">pcbway.com — instant quote tool; no fixed price quoted here</span></li>
+      <li><a href="https://www.kicad.org/">KiCad</a> <span class="host">kicad.org — open-source PCB design suite, version 10.0 current as of Nov 2026</span></li>
+      <li><a href="https://easyeda.com/">EasyEDA</a> <span class="host">easyeda.com — free online PCB design software, online editor and desktop download</span></li>
+      <li><a href="https://www.flux.ai/">Flux</a> <span class="host">flux.ai — schematic, routed PCB, and fab-ready files with AI in the browser</span></li>
+      <li><a href="https://protoflow.ai/">ProtoFlow</a> <span class="host">protoflow.ai — AI drafts the schematic and layout; you review and export Gerbers; ESP32 breakout demo; free plan; Mac download</span></li>
+      <li><a href="https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32s3/pcb-layout-design.html">Espressif ESP32-S3 hardware design guidelines, PCB layout</a> <span class="host">docs.espressif.com — four-layer recommended, two-layer possible; decoupling capacitors; 25 mil main power traces; antenna placement and clearance</span></li>
+      <li><a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html">Getting Started in KiCad 10.0</a> <span class="host">docs.kicad.org — tutorial order: schematic, ERC, board, DRC, fabrication outputs</span></li>
+      <li><a href="https://docs.kicad.org/10.0/en/pcb_calculator/pcb_calculator.html">KiCad PCB Calculator</a> <span class="host">docs.kicad.org — includes a track width calculator</span></li>
+    </ol>
+  </section>
+
+  <section id="feedback" aria-labelledby="feedback-title">
+    <h2 id="feedback-title">Feedback &amp; Suggestions</h2>
+    <p>What should this guide explain more clearly? Comments load from GitHub through giscus. They are public on that discussion.</p>
+    <div id="feedback-box"><script src="https://giscus.app/client.js" data-repo="dukktapestudios/dukktapestudios.github.io" data-repo-id="R_kgDOVcgvLw" data-category="General" data-category-id="DIC_kwDOVcgvL84DKFnn" data-mapping="pathname" data-strict="0" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="dark" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script></div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Dukktape Studios — Custom PCB Crash Course. A learning guide. Examples are generic, not one person’s projects or hardware.</p>
+    <p><a href="/">Dukktape Studios home</a> · <a href="#content">Back to top</a></p>
+    <p>© 2026 Dukktape Studios</p>
+  </div>
+</footer>
+</body>
+</html>
