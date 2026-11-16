@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI in November 2026: a beginner's guide to what it can do | Dukktape Studios</title>
+<meta name="description" content="A plain-English look at what AI can and can't do, what people use it for, who makes the main tools, and how to start learning safely. Checked on November 15, 2026.">
+<meta name="theme-color" content="#171b1e">
+<link rel="icon" href="../assets/studio-duck.png" type="image/png">
+<link rel="preload" href="../assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-700.woff2") format("woff2");
+}
+:root {
+  --bg: #171b1e;
+  --raise: #22282c;
+  --line: #3a4143;
+  --text: #f0f0e8;
+  --muted: #b4b4b4;
+  --orange: #efb671;
+  --ink: #171b1e;
+  --column: 740px;
+}
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  overflow-wrap: break-word;
+}
+a { color: var(--orange); text-underline-offset: 0.16em; }
+a:hover { color: #f3c48a; }
+:focus { outline: none; }
+:focus-visible { outline: 3px solid #f7f4ee; outline-offset: 3px; }
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: var(--orange);
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: 8px;
+  z-index: 5;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip:focus { top: 12px; }
+.top {
+  position: sticky;
+  top: var(--dts-donate-offset, 0px);
+  z-index: 2;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.wrap { width: min(var(--column), calc(100% - 32px)); margin: 0 auto; }
+.top-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+}
+.brand { color: var(--text); font-weight: 700; text-decoration: none; letter-spacing: -0.02em; }
+.home-link { font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+.eyebrow {
+  margin: 28px 0 8px;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 6vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.lede { font-size: 1.12rem; margin: 14px 0 0; }
+.note, .callout {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-left: 3px solid var(--orange);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 16px 0;
+}
+.callout p:last-child, .note p:last-child { margin-bottom: 0; }
+.callout p:first-child, .note p:first-child { margin-top: 0; }
+h2 {
+  margin: 2.2rem 0 0.7rem;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+h2 .num { color: var(--orange); font-size: 0.85rem; letter-spacing: 0.08em; display: block; margin-bottom: 4px; }
+h3 { margin: 1.3rem 0 0.4rem; font-size: 1.12rem; letter-spacing: -0.02em; }
+section[id], h2, h3 { scroll-margin-top: calc(var(--dts-donate-offset, 4.5rem) + 76px); }
+p, li { color: var(--text); }
+.soft, .toc, figcaption, td, dd { color: var(--text); }
+.muted { color: var(--muted); }
+.toc {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  margin-top: 22px;
+}
+.toc h2 { margin: 0 0 8px; font-size: 1.05rem; }
+.toc ol { margin: 0; padding-left: 1.3rem; }
+.toc li { margin: 4px 0; }
+.toc a { color: var(--text); font-weight: 600; }
+.table-caption { margin: 12px 0 6px; }
+.table-hint {
+  display: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 8px;
+}
+.table-wrap {
+  position: relative;
+  margin: 0 0 18px;
+  max-width: 100%;
+}
+.table-scroll { overflow-x: auto; max-width: 100%; }
+table { width: 100%; border-collapse: collapse; min-width: 34rem; }
+table.wide { min-width: 46rem; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { color: var(--orange); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+th[scope="row"] {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+  color: var(--text);
+}
+ul, ol { padding-left: 1.25rem; }
+li { margin: 0.35rem 0; }
+.reasons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+.reasons section {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+}
+.reasons h2 { margin: 0 0 0.45rem; font-size: 1.12rem; }
+.reasons p { margin: 0; }
+.reasons ul { margin: 0; }
+.kicker { margin: 0; color: var(--orange); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.rows { display: grid; gap: 10px; margin: 16px 0; }
+.rows article {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.rows h3 { margin: 4px 0; }
+.rows p { margin: 0; }
+.meta {
+  margin: 0;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.props { display: grid; gap: 10px; margin: 12px 0 0; }
+.props div { border-top: 1px solid var(--line); padding-top: 8px; }
+.props dt { margin: 0; color: var(--orange); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.props dd { margin: 4px 0 0; }
+.steps { list-style: none; margin: 14px 0; padding: 0; }
+.steps > li {
+  margin: 0 0 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.steps h3 { margin: 0 0 4px; }
+.steps p { margin: 0; }
+.refs { list-style: none; margin: 12px 0 0; padding: 0; }
+ol.refs { list-style: decimal; padding-left: 1.3rem; }
+ol.refs li { margin: 0; padding: 8px 0; border-top: 1px solid var(--line); }
+ol.refs li::marker { color: var(--orange); font-weight: 700; }
+.refs a { font-weight: 600; overflow-wrap: anywhere; }
+.refs .host { display: block; color: var(--muted); font-size: 0.85rem; font-weight: 500; }
+#feedback-box { margin-top: 8px; max-width: 100%; }
+#feedback-box .giscus, #feedback-box .giscus-frame { max-width: 100%; }
+footer { border-top: 1px solid var(--line); margin-top: 28px; padding: 22px 0 36px; color: var(--muted); }
+footer p { margin: 0 0 8px; }
+img, svg, iframe { max-width: 100%; }
+pre {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-left: 3px solid var(--orange);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 12px 0 18px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: pre-wrap;
+  font-family: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  font-weight: 500;
+  color: var(--text);
+}
+pre code {
+  font: inherit;
+  font-weight: 500;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+code {
+  font-family: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 640px) {
+  .reasons { grid-template-columns: 1fr; }
+  .table-hint { display: block; }
+  .table-wrap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 1.6rem;
+    pointer-events: none;
+    background: linear-gradient(to left, var(--bg), transparent);
+  }
+}
+@media (max-width: 420px) {
+  .wrap { width: min(var(--column), calc(100% - 24px)); }
+  .top-inner { align-items: flex-start; padding: 8px 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+.table-scroll { -webkit-overflow-scrolling: touch; }
+.table-scroll:focus-visible { outline: 3px solid #f7f4ee; outline-offset: 2px; }
+</style>
+<link rel="stylesheet" href="../assets/donate-bar.css">
+</head>
+<body>
+<aside class="dts-donate" aria-label="Donations">
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=dukktapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+</aside>
+
+<a class="skip" href="#content">Skip to content</a>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/">Dukktape Studios</a>
+    <a class="home-link" href="/#guides">All guides</a>
+  </div>
+</header>
+<main id="content" class="wrap">
+  <p class="eyebrow">Guide · Checked on November 15, 2026</p>
+  <h1>AI in November 2026: a beginner's guide to what it can do</h1>
+  <p class="lede">A plain-English look at what AI can and can't do, what people use it for, who makes the main tools, and how to start learning safely. Checked on November 15, 2026.</p>
+
+  <nav class="toc" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#can-and-cant">What AI can and can't do</a></li>
+      <li><a href="#uses">What people use AI for</a></li>
+      <li><a href="#words">Words you'll hear</a></li>
+      <li><a href="#companies">The main companies</a></li>
+      <li><a href="#tools">Types of tools</a></li>
+      <li><a href="#fable">In the news: Fable 5.2</a></li>
+      <li><a href="#staying-safe">Staying safe</a></li>
+      <li><a href="#questions">20 questions to keep learning</a></li>
+      <li><a href="#hype">Is it hype or real?</a></li>
+      <li><a href="#learning-path">A simple 7-day learning path</a></li>
+      <li><a href="#could-not-confirm">What I could not confirm</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+
+  <section id="can-and-cant" aria-labelledby="can-and-cant-title">
+    <h2 id="can-and-cant-title"><span class="num">01</span>What AI can and can't do</h2>
+    <div class="callout">
+      <p class="kicker">The short version</p>
+      <p>Today's AI is software that learned from huge amounts of writing, images and sound. It is very good at working with language and patterns: writing, summarizing, explaining, translating, brainstorming, making pictures and music, and writing code. It is not a person, it does not always know when it is wrong, and it works best when you check its work.</p>
+    </div>
+    <div class="reasons">
+      <section>
+        <h2>What it does well</h2>
+        <ul>
+          <li>Writes and edits: Microsoft's Copilot works inside Word, Excel, PowerPoint and Outlook, and Google's Gemini works inside Gmail and Docs.</li>
+          <li>Answers questions with sources: Perplexity shows the web pages behind each answer so you can click and check.</li>
+          <li>Helps on your phone and at home: Apple's Siri AI (beta, iOS 27) can use your personal context, what is on screen and app actions. Amazon's Alexa+ is a home assistant.</li>
+          <li>Makes pictures, songs, voices and short video clips from a description, using tools like GPT Image, Suno, ElevenLabs and Veo.</li>
+          <li>Writes and fixes code: coding tools such as Claude Code and OpenAI Codex can work on a software project, and Anthropic says its Fable 5.2 can run engineering work for days (the company's own claim).</li>
+          <li>Does chores in real apps: xAI says teams inside its own company use Grok Bot agents to update a sales database with call notes and to process invoices that arrive in Gmail.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Where it falls short</h2>
+        <ul>
+          <li>It can be confidently wrong. This is a well-known limit of today's AI, so double-check anything that matters. OpenAI even updated GPT-6 in ChatGPT on October 29, 2026 to reduce “overly flattering” answers, a sign that AI can lean toward telling you what you want to hear.</li>
+          <li>It does not know recent events unless it searches the web. Claude Fable 5.2's knowledge ends around June 2026, and Grok 4.7's around May 2026.</li>
+          <li>Its memory is limited. Each conversation holds only so much, and the model does not automatically remember you in the way a friend does, unless the product has a memory feature turned on.</li>
+          <li>It is not all-in-one. Fable 5.2, for example, can read images but only answers in text. Video clips from the leading tools are short, and OpenAI shut down its Sora video tool in 2026.</li>
+          <li>It has usage limits and costs. The strongest models use up a paid plan's allowance faster, so companies recommend a smaller everyday model for most tasks.</li>
+          <li>Agents that act on your behalf can make bigger mistakes. Good ones ask for approval first, and you should keep a person in charge of anything that sends messages, spends money or deletes things.</li>
+        </ul>
+      </section>
+    </div>
+  </section>
+
+  <section id="uses" aria-labelledby="uses-title">
+    <h2 id="uses-title"><span class="num">02</span>What people use AI for</h2>
+    <p>Here are common uses, from everyday life to work. You don't need to try them all. Pick one area and start there.</p>
+    <p class="muted table-caption" id="uses-caption">Common uses, tools to try, and things to watch out for</p>
+    <p class="table-hint">Swipe or scroll sideways to see every column.</p>
+    <div class="table-wrap">
+    <div class="table-scroll" role="region" aria-labelledby="uses-caption" tabindex="0">
+      <table class="wide">
+        <thead>
+          <tr>
+            <th scope="col">Area</th>
+            <th scope="col">What it can help with</th>
+            <th scope="col">Tools to try</th>
+            <th scope="col">Watch out</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Everyday life</th>
+            <td>Ask questions and get answers with links to sources. Plan a trip, compare products, explain a letter or a medical term in plain words. On a phone, a voice assistant that can see what is on your screen and act in your apps (Apple's Siri AI is in beta on iOS 27).</td>
+            <td>Perplexity, ChatGPT, Gemini, Grok, Claude, Siri AI</td>
+            <td>Check anything important (health, money, legal) with a professional or an official source.</td>
+          </tr>
+          <tr>
+            <th scope="row">Work</th>
+            <td>Draft and polish emails, summarize long documents and meetings, build spreadsheets and slide decks. Microsoft puts Copilot inside Word, Excel, PowerPoint and Outlook; Google puts Gemini inside Gmail and Docs; Anthropic says Claude can carry analysis through to a finished document, spreadsheet or deck.</td>
+            <td>Microsoft Copilot, Gemini, Claude, ChatGPT</td>
+            <td>Read what it wrote before you send it. Don't paste confidential company information into a tool your employer hasn't approved.</td>
+          </tr>
+          <tr>
+            <th scope="row">School and learning</th>
+            <td>Explain a topic in simpler words, quiz you, make a study plan, give practice problems, check your writing and tell you what to improve.</td>
+            <td>Any major assistant; Mistral and Microsoft both advertise student discounts</td>
+            <td>It can be wrong. Use it as a tutor you double-check, not as the final answer, and follow your school's rules.</td>
+          </tr>
+          <tr>
+            <th scope="row">Creative</th>
+            <td>Make pictures, songs and voices, and short video clips, or help brainstorm stories, names and ideas.</td>
+            <td>Image: GPT Image, Nano Banana, Midjourney. Music: Suno. Voice and music: ElevenLabs. Video: Veo, Kling, Runway</td>
+            <td>Read each tool's rules on selling or posting its output. Copying a real person's voice or likeness raises consent and legal questions.</td>
+          </tr>
+          <tr>
+            <th scope="row">Small business</th>
+            <td>Draft product descriptions, answer customer questions, research competitors, and connect apps so routine chores run on their own. Some AI agents can work inside real tools; xAI's own examples for its Grok Bot include updating a sales database with call notes and processing invoices received in Gmail.</td>
+            <td>Zapier, n8n, Grok Bot, ChatGPT Work, Claude Cowork</td>
+            <td>Keep a person in charge of anything that sends, pays or deletes. Don't believe “make thousands a month with AI” promises.</td>
+          </tr>
+          <tr>
+            <th scope="row">Coding</th>
+            <td>Write, fix and explain code, including for people who have never programmed. Some tools can work on a project for a long time on their own.</td>
+            <td>Claude Code, OpenAI Codex, Cursor, GitHub Copilot, Google Antigravity</td>
+            <td>Have someone or something test what it builds. It can write code that looks right and isn't.</td>
+          </tr>
+          <tr>
+            <th scope="row">Home</th>
+            <td>Voice assistants that control smart-home devices and answer questions (Amazon's Alexa+). Some AI models can also be downloaded and run privately on your own computer, with no company seeing your questions.</td>
+            <td>Alexa+, Siri AI, Ollama, LM Studio</td>
+            <td>Local AI needs a fairly powerful computer, and the smaller models are less capable.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </section>
+
+  <section id="words" aria-labelledby="words-title">
+    <h2 id="words-title"><span class="num">03</span>Words you'll hear</h2>
+    <p>The jargon sounds harder than the ideas. These nine words cover most of what you will run into.</p>
+    <div class="rows">
+      <article>
+        <p class="meta">AI model</p>
+        <h3>The trained program at the center</h3>
+        <p>A model is software that learned patterns from huge amounts of text, images and sound, and uses them to produce answers. Grok, GPT, Claude and Gemini are all models. Apps like ChatGPT are built around them.</p>
+      </article>
+      <article>
+        <p class="meta">Chatbot</p>
+        <h3>You type, it answers</h3>
+        <p>A chatbot is a conversation. You ask, it replies, and you steer. The question you type is called a prompt.</p>
+      </article>
+      <article>
+        <p class="meta">Agent</p>
+        <h3>It does tasks, not just talk</h3>
+        <p>An agent is an AI that takes a goal and works through the steps using tools, such as browsing, running code or using apps. Good ones ask your approval before important steps.</p>
+      </article>
+      <article>
+        <p class="meta">Context window</p>
+        <h3>How much it can keep in mind at once</h3>
+        <p>This is the model's working memory for one conversation. Fable 5.2 can hold 1 million tokens and Grok 4.7 500 thousand. A token is a small chunk of text, a bit shorter than a typical word. Bigger lets you hand over longer documents.</p>
+      </article>
+      <article>
+        <p class="meta">Reasoning model</p>
+        <h3>It thinks before it answers</h3>
+        <p>These models work through a problem in steps before replying. Answers on hard tasks are often better, but they are slower and use more of your plan's allowance.</p>
+      </article>
+      <article>
+        <p class="meta">Multimodal</p>
+        <h3>Works with more than text</h3>
+        <p>A multimodal model can understand pictures or audio as well as words. Making pictures, songs and video is usually done by separate, specialized models.</p>
+      </article>
+      <article>
+        <p class="meta">Open vs closed</p>
+        <h3>Can you download it?</h3>
+        <p>Closed models (Claude, GPT, Gemini, Grok) run only on the company's computers. Open-weight models (DeepSeek V4.1 Flash, Qwen3.8, Meta's Muse Spark Open) can be downloaded and run yourself. Each comes with its own license.</p>
+      </article>
+      <article>
+        <p class="meta">Cloud vs local</p>
+        <h3>Whose computer does the work</h3>
+        <p>Cloud means the company's computers do it: strongest and easiest, and your questions go to the company. Local means your own computer does it: private, but limited by your hardware.</p>
+      </article>
+      <article>
+        <p class="meta">Hallucination</p>
+        <h3>A confident wrong answer</h3>
+        <p>AI can state something false in a calm, convincing way. This is a well-known limit of today's AI, not just of one product, which is why checking matters.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="companies" aria-labelledby="companies-title">
+    <h2 id="companies-title"><span class="num">04</span>The main companies</h2>
+    <p>Prices are what I found on official pages on November 15, 2026. A dagger (†) means I could only confirm it from a third-party report, not the company's own page. Plans and prices change often, so check before you pay for anything. Most of these have a free version, and that is the best place to start.</p>
+    <p class="muted table-caption" id="companies-caption">Company products, free tiers, and paid plans as of November 15, 2026</p>
+    <p class="table-hint">Swipe or scroll sideways to see every column.</p>
+    <div class="table-wrap">
+    <div class="table-scroll" role="region" aria-labelledby="companies-caption" tabindex="0">
+      <table class="wide">
+        <thead>
+          <tr>
+            <th scope="col">Company</th>
+            <th scope="col">Best-known product and newest top model</th>
+            <th scope="col">Free tier?</th>
+            <th scope="col">Paid plans (per month)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Anthropic</th>
+            <td>Claude. Newest: Fable 5.2 for the hardest work; Opus 5.5 is the everyday model</td>
+            <td>Yes, limited</td>
+            <td>Pro $20 ($17 if paid yearly), Max $100, Ultra $200</td>
+          </tr>
+          <tr>
+            <th scope="row">xAI</th>
+            <td>Grok and Grok Bot (a team of agents that each have their own computer). Newest: Grok 4.7</td>
+            <td>Yes, limited</td>
+            <td>X Subscription: Plus $8, Premium $30 (adds Grok Bot), Super $100, Ultra $200</td>
+          </tr>
+          <tr>
+            <th scope="row">OpenAI</th>
+            <td>ChatGPT. Newest: GPT-6.1 Sol in the app, GPT-6.1 Terra in Work and Codex</td>
+            <td>Yes (a smaller model; ads may appear on Free and Go)†</td>
+            <td>Go $8, Plus $20, Pro $100 / $200 / $500</td>
+          </tr>
+          <tr>
+            <th scope="row">Google</th>
+            <td>Gemini. Newest: Gemini 4 Carbon (hardest tasks, Ultra plan) and Gemini 4 Argon (Pro and Ultra)</td>
+            <td>Yes</td>
+            <td>AI Plus $4.99 (fast models only), Pro $19.99, Ultra $99.99 or $199.99</td>
+          </tr>
+          <tr>
+            <th scope="row">Meta</th>
+            <td>Muse models. Newest: Muse Ember (small, cheap, API only) and Muse Spark Open (downloadable)</td>
+            <td>Not checked</td>
+            <td>Not checked</td>
+          </tr>
+          <tr>
+            <th scope="row">Microsoft</th>
+            <td>Copilot, built into Word, Excel, Outlook and Teams</td>
+            <td>Yes, limited</td>
+            <td>Microsoft 365 Personal from $6.99 (limited-time offer; $9.99 list), Family $12.99; Copilot Business $18 per user, billed yearly</td>
+          </tr>
+          <tr>
+            <th scope="row">Mistral (France)</th>
+            <td>Vibe app (formerly Le Chat). Newest: Mistral Large 4</td>
+            <td>Yes</td>
+            <td>Pro $14.99, Team $24.99 per user, verified students $5.99</td>
+          </tr>
+          <tr>
+            <th scope="row">DeepSeek and Alibaba Qwen (China)</th>
+            <td>Open models you can download: DeepSeek V4.1 Flash, Qwen3.8. Alibaba's newest, Qwen4-Max, is not downloadable†</td>
+            <td>Downloads are free</td>
+            <td>None found</td>
+          </tr>
+          <tr>
+            <th scope="row">Apple</th>
+            <td>Siri AI (beta on iOS 27; not available in the EU)</td>
+            <td>No separate price found; needs a supported device</td>
+            <td>Not applicable</td>
+          </tr>
+          <tr>
+            <th scope="row">Amazon</th>
+            <td>Alexa+ (home assistant)</td>
+            <td>Limited free chat; free with Prime†</td>
+            <td>$19.99 without Prime†</td>
+          </tr>
+          <tr>
+            <th scope="row">Perplexity</th>
+            <td>AI search that shows its sources</td>
+            <td>Not confirmed in my check</td>
+            <td>Pro $20 ($200 a year), Max $200 ($2,000 a year)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+    <p>A note on names: xAI's documentation site now carries the name SpaceXSI. Developers who build apps pay these companies per use rather than a monthly fee, and you don't need that to get started.</p>
+  </section>
+
+  <section id="tools" aria-labelledby="tools-title">
+    <h2 id="tools-title"><span class="num">05</span>Types of tools</h2>
+    <p>Rankings and “best of” lists change monthly, and most of the comparisons I found are from third-party sites, so treat this as a shortlist to test, not a verdict.</p>
+    <p class="muted table-caption" id="tools-caption">A shortlist of leading tools by task, not a ranking</p>
+    <p class="table-hint">Swipe or scroll sideways to see every column.</p>
+    <div class="table-wrap">
+    <div class="table-scroll" role="region" aria-labelledby="tools-caption" tabindex="0">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">What you want to do</th>
+            <th scope="col">Leading tools now</th>
+            <th scope="col">Good for</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Chat and writing</th>
+            <td>ChatGPT, Claude, Gemini, Grok, Copilot</td>
+            <td>Questions, writing, explaining, planning</td>
+          </tr>
+          <tr>
+            <th scope="row">Research and search</th>
+            <td>Perplexity, Gemini Deep Research, ChatGPT deep research, Claude Research</td>
+            <td>Finding sources and summarizing them. Open the links.</td>
+          </tr>
+          <tr>
+            <th scope="row">Image making</th>
+            <td>GPT Image 2.5, Nano Banana 2.1, Midjourney V8.2, FLUX 3 (downloadable), Grok Imagine†</td>
+            <td>Art, concepts, editing photos</td>
+          </tr>
+          <tr>
+            <th scope="row">Video making</th>
+            <td>Veo 3.1 (clips of 4 to 8 seconds, with sound)†, Kling 4.0†, Runway†. OpenAI shut down Sora in 2026</td>
+            <td>Short clips and drafts</td>
+          </tr>
+          <tr>
+            <th scope="row">Voice and music</th>
+            <td>ElevenLabs (voices, dubbing, music), Suno (songs)</td>
+            <td>Narration, background music, songs</td>
+          </tr>
+          <tr>
+            <th scope="row">Coding</th>
+            <td>Claude Code, OpenAI Codex, Cursor, GitHub Copilot, Google Antigravity</td>
+            <td>Writing, fixing and explaining code</td>
+          </tr>
+          <tr>
+            <th scope="row">Agents and automation</th>
+            <td>Grok Bot, ChatGPT Work, Claude Cowork, Zapier, n8n</td>
+            <td>Handing off multi-step chores in real apps</td>
+          </tr>
+          <tr>
+            <th scope="row">Run it yourself (local)</th>
+            <td>Ollama and LM Studio, with models such as Gemma 4, gpt-oss and Qwen3.8</td>
+            <td>Private use on your own computer</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+    <div class="callout">
+      <p class="kicker">Running AI on your own computer</p>
+      <p>Local AI is free and private after setup. A rough guide from one third-party review†: a computer with a graphics card of 8 GB can run small models, 16 GB handles mid-sized ones like Gemma 4 12B or gpt-oss-20b, and 24 GB suits Qwen3.8 27B. Ollama and LM Studio are the usual starting points.</p>
+    </div>
+  </section>
+
+  <section id="fable" aria-labelledby="fable-title">
+    <h2 id="fable-title"><span class="num">06</span>In the news: Fable 5.2</h2>
+    <p>You may have heard about “Fable 5.2”. It is real: Claude Fable 5.2, a model from Anthropic, released November 9, 2026.</p>
+    <dl class="props">
+      <div>
+        <dt>What it is</dt>
+        <dd>Anthropic's most capable model, built for the hardest technical work: big coding projects, deep research, finance and agents that work on their own for hours</dd>
+      </div>
+      <div>
+        <dt>Price for developers</dt>
+        <dd>$8 per million input tokens and $40 per million output tokens (official docs)</dd>
+      </div>
+      <div>
+        <dt>Who can use it</dt>
+        <dd>Paid Claude plans (on the Pro plan it runs on usage credits; Max and Ultra include it up to half the weekly limit) and developers through the API</dd>
+      </div>
+      <div>
+        <dt>Is it the one to pick?</dt>
+        <dd>Not for most people. Anthropic itself says to start with Claude Opus 5.5 for everyday work</dd>
+      </div>
+      <div>
+        <dt>What people say</dt>
+        <dd>Third-party roundups of posts on X† describe big excitement about the demos, then a more mixed view that Opus 5.5 is the better daily tool because Fable costs more and uses limits faster</dd>
+      </div>
+    </dl>
+    <p>It is a good example of how this field works: the newest, biggest model gets the headlines, while a cheaper model often does the daily job. The benchmark numbers Anthropic published are its own tests.</p>
+  </section>
+
+  <section id="staying-safe" aria-labelledby="staying-safe-title">
+    <h2 id="staying-safe-title"><span class="num">07</span>Staying safe</h2>
+    <p>These are general good habits, not from any one source.</p>
+    <ul>
+      <li>Don't type passwords, account numbers, ID numbers or other private details into a chatbot.</li>
+      <li>Check the privacy and data settings of any tool before sharing anything sensitive.</li>
+      <li>Verify important facts, especially about health, money, law or safety, with an official source or a professional.</li>
+      <li>Be careful with anything that asks you to pay, sign up quickly or install something because “AI said so.”</li>
+      <li>Be skeptical of voices, photos and videos online. AI can make convincing fakes.</li>
+    </ul>
+  </section>
+
+  <section id="questions" aria-labelledby="questions-title">
+    <h2 id="questions-title"><span class="num">08</span>20 questions to keep learning</h2>
+    <p>If you don't know what to ask, start here. Copy a block into any assistant and swap the parts in [brackets] for your own details. The last question is the most useful one.</p>
+
+    <h3 id="ask-basics">Learn the basics</h3>
+    <pre><code>1. Explain what AI is as if I've never used a computer for anything but email. Use 5 short paragraphs, then quiz me with 3 questions.
+2. What is the difference between a chatbot and an AI agent? Give me one real example of each.
+3. What kinds of things are you good at, and what kinds of things are you bad at?
+4. How do you know things, and what don't you know about?
+5. What does it mean when AI is wrong with confidence, and how can I catch it?</code></pre>
+
+    <h3 id="ask-choose">Choose the right tool</h3>
+    <pre><code>6. I want to [your goal]. Which AI tools could help, and which is the easiest to start with? Free options first.
+7. What's the difference between the free and paid version of [tool], and is it worth paying for someone like me?
+8. Using only official pages, what does [tool] cost today? Give me the date you checked and the links.
+9. What can AI NOT do reliably for [your goal]? Where will I still need to do the work myself?
+10. Is it safe to share [type of information] with an AI tool? What should I never share?</code></pre>
+
+    <h3 id="ask-do">Get real work done</h3>
+    <pre><code>11. Turn this rough idea into a one-page plan with the next three small steps: [paste idea]
+12. Read my draft and tell me the three weakest parts first, then what works: [paste draft]
+13. I want to [learn, make or fix something]. Ask me what you need to know, then give me step-by-step instructions and tell me what to double-check.
+14. Rewrite this message in a friendlier, shorter tone, and give me two versions: [paste message]
+15. Teach me [topic] in 7 days at 20 minutes a day, with one tiny exercise each day.</code></pre>
+
+    <h3 id="ask-check">Check and stay current</h3>
+    <pre><code>16. What is the strongest argument that your last answer is wrong? What would I need to verify?
+17. List every claim in this article and mark each one as sourced, unsourced or hype: [paste article]
+18. What changed in AI in the last 30 days that matters for [my situation]? Cite sources with dates.
+19. Before you explain [topic], ask me three questions to find out what I already know.
+20. What should I be asking you that I haven't thought to ask?</code></pre>
+  </section>
+
+  <section id="hype" aria-labelledby="hype-title">
+    <h2 id="hype-title"><span class="num">09</span>Is it hype or real?</h2>
+    <p>This field moves monthly and many people are selling something. Run any big claim through these seven checks.</p>
+    <ol class="steps">
+      <li>
+        <h3>Who is saying it, and what do they gain?</h3>
+        <p>A company's launch post is real information about its product, but it is also an ad.</p>
+      </li>
+      <li>
+        <h3>Who ran the benchmark?</h3>
+        <p>Companies choose which tests and rivals to show. Even Anthropic's own table shows Google's Gemini 4 Carbon beating Fable 5.2 on one business-workflow test (53.9% vs 51.4%).</p>
+      </li>
+      <li>
+        <h3>What is the date?</h3>
+        <p>A ranking from two months ago may already be out of date. Look for dates on everything.</p>
+      </li>
+      <li>
+        <h3>Is it a demo or daily use?</h3>
+        <p>Reviewers said Fable 5.2 wins the demos while Opus 5.5 keeps the day job. Ask what it is like on ordinary tasks.</p>
+      </li>
+      <li>
+        <h3>What does a finished task cost?</h3>
+        <p>Compare the cost of finishing a job, not the headline price. A pricier model that gets it right the first time can beat a cheap one that needs five tries.</p>
+      </li>
+      <li>
+        <h3>Can you test it yourself in ten minutes?</h3>
+        <p>Give two tools the same real task from your own life. Your result beats any chart.</p>
+      </li>
+      <li>
+        <h3>Does it promise too much?</h3>
+        <p>“Replaces every job”, “guaranteed income” or “never wrong” are signs to slow down. Ask for sources and open them.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section id="learning-path" aria-labelledby="learning-path-title">
+    <h2 id="learning-path-title"><span class="num">10</span>A simple 7-day learning path</h2>
+    <p>Twenty to thirty minutes a day is plenty. If a day is too much, skip it and keep going.</p>
+    <ol class="steps">
+      <li>
+        <h3>Day 1: Learn the words</h3>
+        <p>Pick one free assistant (ChatGPT, Gemini, Claude or Grok). Ask questions 1 to 5 and write down three ideas that surprised you.</p>
+      </li>
+      <li>
+        <h3>Day 2: Try a second assistant</h3>
+        <p>Give the same simple task, such as explaining a topic or planning a week of meals, to two different free assistants. Compare them.</p>
+      </li>
+      <li>
+        <h3>Day 3: Use it on a real chore</h3>
+        <p>Have it rewrite an email, summarize an article or plan a small project. Use questions 11 to 14. Then check the result yourself.</p>
+      </li>
+      <li>
+        <h3>Day 4: Learn something new</h3>
+        <p>Use question 15 to start a 7-day mini-lesson on a topic you're curious about.</p>
+      </li>
+      <li>
+        <h3>Day 5: Try something creative</h3>
+        <p>Make a picture or a short song from a description with a free tool. Read the tool's rules on how you may use what it makes.</p>
+      </li>
+      <li>
+        <h3>Day 6: Try research with sources</h3>
+        <p>Ask a research tool such as Perplexity a real question. Open two of the links it cites and see whether they say what it claims.</p>
+      </li>
+      <li>
+        <h3>Day 7: Review and decide</h3>
+        <p>Ask questions 18 and 20. Note what saved time, what was wrong, and what you'd pay for. Choose one thing to go deeper on next week.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section id="could-not-confirm" aria-labelledby="could-not-confirm-title">
+    <h2 id="could-not-confirm-title"><span class="num">11</span>What I could not confirm</h2>
+    <ul>
+      <li>Items marked with a dagger (†) come from third-party sites, not the company's own page.</li>
+      <li>Free tiers for Meta, DeepSeek and Perplexity, and Meta's consumer plans, were not checked.</li>
+      <li>Qwen's status comes from news reports that were still developing. Alibaba has promised smaller open Qwen4 models but has not given a date.</li>
+      <li>Image and video tool rankings come from third-party leaderboards and reviews, not tests I ran.</li>
+      <li>The “confidently wrong” limit, the limited memory of conversations and the Staying safe tips are general knowledge, not tied to one source above.</li>
+      <li>Nothing here is legal, medical, tax or financial advice.</li>
+      <li>Prices and models change fast. Gemini 4 launch prices end November 30, 2026, and Microsoft's Personal price is a limited-time offer.</li>
+    </ul>
+  </section>
+
+  <section id="sources" aria-labelledby="sources-title">
+    <h2 id="sources-title"><span class="num">12</span>Sources</h2>
+    <p>Official sources first, then third-party reports.</p>
+    <ol class="refs">
+      <li><a href="https://www.anthropic.com/claude-fable-and-mythos-5-2">Introducing Claude Fable 5.2 and Mythos 5.2</a> <span class="host">Anthropic · Nov 9, 2026</span></li>
+      <li><a href="https://platform.claude.com/docs/en/models/fable-5-2/overview">Claude Fable 5.2 overview (knowledge cutoff, context, price)</a> <span class="host">Claude docs</span></li>
+      <li><a href="https://claude.com/pricing">Claude plans and pricing</a> <span class="host">Anthropic</span></li>
+      <li><a href="https://claude.com/resources/articles/using-claude-opus-5-5-as-your-daily-driver-for-knowledge-work">Which Claude model for knowledge work</a> <span class="host">Anthropic · Nov 12, 2026</span></li>
+      <li><a href="https://x.ai/pricing">xAI plans and pricing</a> <span class="host">x.ai</span></li>
+      <li><a href="https://docs.x.ai/developers/release-notes">Grok API release notes and models</a> <span class="host">xAI docs</span></li>
+      <li><a href="https://x.ai/news/introducing-grok-bot">Introducing Grok Bot</a> <span class="host">x.ai</span></li>
+      <li><a href="https://chatgpt.com/pricing/">ChatGPT plans and pricing</a> <span class="host">OpenAI</span></li>
+      <li><a href="https://help.openai.com/en/articles/9624314-model-release-notes">OpenAI model release notes</a> <span class="host">OpenAI Help Center</span></li>
+      <li><a href="https://help.openai.com/en/articles/20001152-what-to-know-about-the-sora-discontinuation">What to know about the Sora discontinuation</a> <span class="host">OpenAI Help Center</span></li>
+      <li><a href="https://gemini.google/subscriptions/">Google AI plans</a> <span class="host">Google</span></li>
+      <li><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/">Gemini 4 Carbon is now available</a> <span class="host">Google · Nov 10, 2026</span></li>
+      <li><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/">Gemini 4 Argon is now available</a> <span class="host">Google · Oct 13, 2026</span></li>
+      <li><a href="https://research.meta.ai/blog/muse-ember">Introducing Muse Ember</a> <span class="host">Meta AI Research · Nov 9, 2026</span></li>
+      <li><a href="https://research.meta.ai/blog/muse-spark-open">Muse Spark Open</a> <span class="host">Meta AI Research</span></li>
+      <li><a href="https://www.microsoft.com/en-us/copilot/pricing/individuals">Copilot plans for individuals</a> <span class="host">Microsoft</span></li>
+      <li><a href="https://www.microsoft.com/en-us/copilot/pricing/business">Copilot plans for business</a> <span class="host">Microsoft</span></li>
+      <li><a href="https://mistral.ai/pricing/">Mistral pricing</a> <span class="host">Mistral</span></li>
+      <li><a href="https://api-docs.deepseek.com/quick_start/pricing/">DeepSeek models and pricing</a> <span class="host">DeepSeek docs</span></li>
+      <li><a href="https://support.apple.com/en-us/127893">How to get Siri AI</a> <span class="host">Apple Support</span></li>
+      <li><a href="https://www.amazon.com/Meet-the-new-Alexa/dp/B0DCCNHWV5">Alexa+</a> <span class="host">Amazon</span></li>
+      <li><a href="https://www.perplexity.ai/help-center/en/articles/11680686-perplexity-max">Perplexity Max</a> <span class="host">Perplexity Help Center</span></li>
+      <li><a href="https://frontierlog.ai/x-vibe/claude-fable-5-2">Claude Fable 5.2 on X: launch reactions</a> <span class="host">Frontier Log (third party)</span></li>
+      <li><a href="https://www.ridgebench.com/news/halfweek-opinion-1112">Half-week opinion: Fable 5.2 wins the demos, Opus 5.5 keeps the day job</a> <span class="host">Ridge (third party)</span></li>
+      <li><a href="https://imagebattle.ai/leaderboard/">AI image generator leaderboard</a> <span class="host">ImageBattle (third party)</span></li>
+      <li><a href="https://www.creativebloq.com/features/so-what-are-the-best-ai-video-generators-and-how-do-they-compare-on-price">Best AI video generators and prices</a> <span class="host">Creative Bloq (third party)</span></li>
+      <li><a href="https://paradev.com/compare/best-coding-agents">Best AI coding agents in 2026</a> <span class="host">Paradev (third party)</span></li>
+      <li><a href="https://refusalrate.com/best-local-llm">Best local LLM in 2026</a> <span class="host">Refusal Rate (third party)</span></li>
+    </ol>
+  </section>
+
+  <section id="feedback" aria-labelledby="feedback-title">
+    <h2 id="feedback-title">Feedback &amp; Suggestions</h2>
+    <p>What should this guide explain more clearly? Comments load from GitHub through giscus. They are public on that discussion.</p>
+    <div id="feedback-box"><script src="https://giscus.app/client.js" data-repo="dukktapestudios/dukktapestudios.github.io" data-repo-id="R_kgDOVcgvLw" data-category="General" data-category-id="DIC_kwDOVcgvL84DKFnn" data-mapping="pathname" data-strict="0" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="dark" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script></div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Dukktape Studios — AI in November 2026: a beginner's guide to what it can do. A learning guide.</p>
+    <p><a href="/">Dukktape Studios home</a> · <a href="#content">Back to top</a></p>
+    <p>© 2026 Dukktape Studios</p>
+  </div>
+</footer>
+</body>
+</html>
