@@ -10,7 +10,9 @@ var allowStreet = {
   "veterans-day/data.json": true,
   "hypocrisy-tracker/data.json": true
 };
-var street = /\b\d{2,6}\s+[A-Za-z0-9.'’-]{2,}(?:\s+[A-Za-z0-9.'’-]{2,}){0,4}\s+(?:Rd|Road|St|Street|Ave|Avenue|Blvd|Boulevard|Dr|Drive|Ln|Lane|Ct|Court|Way|Trail)\b/i;
+/* A period ends a token. Otherwise "10 seconds. Doing it the wrong way"
+   reads as a street, because Way is one of the suffixes. */
+var street = /\b\d{2,6}\s+[A-Za-z0-9'’-]{2,}(?:\s+[A-Za-z0-9'’-]{2,}){0,4}\s+(?:Rd|Road|St|Street|Ave|Avenue|Blvd|Boulevard|Dr|Drive|Ln|Lane|Ct|Court|Way|Trail)\b/i;
 var hostname = /\bDESKTOP-[A-Z0-9]+\b/;
 var zipField = /<(?:input|textarea)\b[^>]*(?:name|id)=["'][^"']*zip[^"']*["'][^>]*>/gi;
 var zipValue = /\b(?:value|placeholder)=["']\d{5}["']/i;
