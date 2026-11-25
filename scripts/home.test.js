@@ -85,6 +85,7 @@ var required = [
   "https://dukktapestudios.github.io/pcb-crash-course/",
   "https://dukktapestudios.github.io/ai-november-2026/",
   "https://dukktapestudios.github.io/solar-battery-build-guide/",
+  "https://dukktapestudios.github.io/library-style-private-computer/",
   "https://twitch.tv/dukktapetv",
   "https://www.youtube.com/@dukktapestudios",
   "https://x.com/dukktapeStudios",
@@ -123,7 +124,8 @@ assert.deepStrictEqual(guideHrefs, [
   "https://dukktapestudios.github.io/raspberry-pi-home-server-crash-course/",
   "https://dukktapestudios.github.io/pcb-crash-course/",
   "https://dukktapestudios.github.io/ai-november-2026/",
-  "https://dukktapestudios.github.io/solar-battery-build-guide/"
+  "https://dukktapestudios.github.io/solar-battery-build-guide/",
+  "https://dukktapestudios.github.io/library-style-private-computer/"
 ], "guides keep their order and the new courses are last");
 
 assert.ok(html.indexOf('data-paths="/digialex/local-ai/ /local-ai/"') !== -1, "offline AI paths");
