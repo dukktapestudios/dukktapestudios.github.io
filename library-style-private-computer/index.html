@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Library-Style Private Home Computer | Dukktape Studios</title>
+<meta name="description" content="A gentle Windows 11 crash course: a separate local browsing user, reboot-to-restore, privacy browsers, Tor or a VPN, Windows settings, and an honest checklist of limits.">
+<meta name="theme-color" content="#171b1e">
+<link rel="icon" href="../assets/studio-duck.png" type="image/png">
+<link rel="preload" href="../assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-700.woff2") format("woff2");
+}
+:root {
+  --bg: #171b1e;
+  --raise: #22282c;
+  --line: #3a4143;
+  --text: #f0f0e8;
+  --muted: #b4b4b4;
+  --orange: #efb671;
+  --ink: #171b1e;
+  --column: 740px;
+}
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  overflow-wrap: break-word;
+}
+a { color: var(--orange); text-underline-offset: 0.16em; }
+a:hover { color: #f3c48a; }
+:focus { outline: none; }
+:focus-visible { outline: 3px solid #f7f4ee; outline-offset: 3px; }
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: var(--orange);
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: 8px;
+  z-index: 5;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip:focus { top: 12px; }
+.top {
+  position: sticky;
+  top: var(--dts-donate-offset, 0px);
+  z-index: 2;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.wrap { width: min(var(--column), calc(100% - 32px)); margin: 0 auto; }
+.top-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+}
+.brand { color: var(--text); font-weight: 700; text-decoration: none; letter-spacing: -0.02em; }
+.home-link { font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+.eyebrow {
+  margin: 28px 0 8px;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 6vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.lede { font-size: 1.12rem; margin: 14px 0 0; }
+.note, .callout {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-left: 3px solid var(--orange);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 16px 0;
+}
+.callout p:last-child, .note p:last-child { margin-bottom: 0; }
+.callout p:first-child, .note p:first-child { margin-top: 0; }
+h2 {
+  margin: 2.2rem 0 0.7rem;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+h2 .num { color: var(--orange); font-size: 0.85rem; letter-spacing: 0.08em; display: block; margin-bottom: 4px; }
+h3 { margin: 1.3rem 0 0.4rem; font-size: 1.12rem; letter-spacing: -0.02em; }
+section[id], h2, h3 { scroll-margin-top: calc(var(--dts-donate-offset, 4.5rem) + 76px); }
+p, li { color: var(--text); }
+.soft, .toc, figcaption, td, dd { color: var(--text); }
+.muted { color: var(--muted); }
+.toc {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  margin-top: 22px;
+}
+.toc h2 { margin: 0 0 8px; font-size: 1.05rem; }
+.toc ol { margin: 0; padding-left: 1.3rem; }
+.toc li { margin: 4px 0; }
+.toc a { color: var(--text); font-weight: 600; }
+.table-caption { margin: 12px 0 6px; }
+.table-hint {
+  display: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 8px;
+}
+.table-wrap {
+  position: relative;
+  margin: 0 0 18px;
+  max-width: 100%;
+}
+.table-scroll { overflow-x: auto; max-width: 100%; }
+table { width: 100%; border-collapse: collapse; min-width: 34rem; }
+table.wide { min-width: 46rem; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { color: var(--orange); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+th[scope="row"] {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+  color: var(--text);
+}
+ul, ol { padding-left: 1.25rem; }
+li { margin: 0.35rem 0; }
+.reasons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+.reasons section {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px 16px;
+  min-width: 0;
+}
+.reasons h2 { margin: 0 0 0.45rem; font-size: 1.12rem; }
+.reasons p { margin: 0; }
+.reasons ul { margin: 0; }
+.kicker { margin: 0; color: var(--orange); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.rows { display: grid; gap: 10px; margin: 16px 0; }
+.rows article {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.rows h3 { margin: 4px 0; }
+.rows p { margin: 0; }
+.meta {
+  margin: 0;
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.props { display: grid; gap: 10px; margin: 12px 0 0; }
+.props div { border-top: 1px solid var(--line); padding-top: 8px; }
+.props dt { margin: 0; color: var(--orange); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.props dd { margin: 4px 0 0; }
+.steps { list-style: none; margin: 14px 0; padding: 0; }
+.steps > li {
+  margin: 0 0 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.steps h3 { margin: 0 0 4px; }
+.steps p { margin: 0; }
+.refs { list-style: none; margin: 12px 0 0; padding: 0; }
+ol.refs { list-style: decimal; padding-left: 1.3rem; }
+ol.refs li { margin: 0; padding: 8px 0; border-top: 1px solid var(--line); }
+ol.refs li::marker { color: var(--orange); font-weight: 700; }
+.refs a { font-weight: 600; overflow-wrap: anywhere; }
+.refs .host { display: block; color: var(--muted); font-size: 0.85rem; font-weight: 500; }
+#feedback-box { margin-top: 8px; max-width: 100%; }
+#feedback-box .giscus, #feedback-box .giscus-frame { max-width: 100%; }
+footer { border-top: 1px solid var(--line); margin-top: 28px; padding: 22px 0 36px; color: var(--muted); }
+footer p { margin: 0 0 8px; }
+img, svg, iframe { max-width: 100%; }
+pre {
+  background: var(--raise);
+  border: 1px solid #31383b;
+  border-left: 3px solid var(--orange);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 12px 0 18px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: pre-wrap;
+  font-family: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  font-weight: 500;
+  color: var(--text);
+}
+pre code {
+  font: inherit;
+  font-weight: 500;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+code {
+  font-family: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 640px) {
+  .reasons { grid-template-columns: 1fr; }
+  .table-hint { display: block; }
+  .table-wrap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 1.6rem;
+    pointer-events: none;
+    background: linear-gradient(to left, var(--bg), transparent);
+  }
+}
+@media (max-width: 420px) {
+  .wrap { width: min(var(--column), calc(100% - 24px)); }
+  .top-inner { align-items: flex-start; padding: 8px 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+.table-scroll { -webkit-overflow-scrolling: touch; }
+.table-scroll:focus-visible { outline: 3px solid #f7f4ee; outline-offset: 2px; }
+
+/* guide additions */
+.meta-line { color: var(--muted); margin: 10px 0 0; font-weight: 500; }
+.callout.remember { border-left-color: var(--orange); }
+.callout.check { border-left-color: #6fcf97; }
+.callout.check .kicker { color: #8fe0ad; }
+.callout.danger { border-left-color: #f2756b; background: #2a2020; border-color: #4a3030; }
+.callout.danger .kicker { color: #ff9a90; }
+.callout p { margin: 0; }
+.callout .kicker { margin-bottom: 4px; }
+.step { margin: 22px 0 0; padding-top: 14px; border-top: 1px solid var(--line); }
+.step > p { margin: 0; }
+.stepnum { color: var(--orange); font-weight: 700; margin-right: 6px; }
+.step .callout { margin: 10px 0 0; }
+.diagram { margin: 16px 0; }
+.diagram img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid #31383b; background: #fff; }
+.diagram figcaption { margin-top: 6px; font-size: 0.9rem; }
+table { min-width: 28rem; }
+.bullets { padding-left: 1.25rem; }
+.price { text-transform: none; letter-spacing: 0; font-size: 0.9rem; }
+.rows h3 { font-size: 1.02rem; }
+.checklist { list-style: none; margin: 12px 0; padding: 0; }
+.checklist li { margin: 0; border-top: 1px solid var(--line); }
+.checklist label { display: flex; gap: 12px; align-items: flex-start; padding: 12px 2px; min-height: 44px; cursor: pointer; }
+.checklist input { flex: none; width: 24px; height: 24px; margin: 1px 0 0; accent-color: var(--orange); }
+.checklist input:checked + span { color: var(--muted); text-decoration: line-through; }
+.reset {
+  font: inherit; font-weight: 600; min-height: 44px; padding: 8px 16px; cursor: pointer;
+  color: var(--text); background: var(--raise); border: 1px solid var(--line); border-radius: 10px;
+}
+.reset:hover { border-color: var(--orange); }
+@media (max-width: 420px) { .step .callout { padding: 10px 12px; } }
+
+/* metrics */
+.metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0; }
+.metric { background: var(--raise); border: 1px solid #31383b; border-radius: 16px; padding: 14px 16px; min-width: 0; }
+.metric p { margin: 0; }
+.mval { color: var(--orange); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; overflow-wrap: anywhere; }
+.mlabel { font-weight: 600; margin-top: 4px; }
+.mdetail { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+table.compact { min-width: 0; }
+table.compact td, table.compact th { padding: 8px 8px; }
+table.compact td:not(:first-child) { white-space: nowrap; }
+tr.total th, tr.total td { font-weight: 700; border-top: 2px solid var(--orange); background: #1d2326; }
+.table-hint { display: none; }
+h3 + .refs { margin-top: 4px; }
+@media (max-width: 640px) { .metrics { grid-template-columns: 1fr; } .table-hint { display: block; } }
+.section-note { margin-top: 8px; }
+
+/* crash course additions */
+.checked { color: var(--muted); font-size: 0.88rem; margin: -0.3rem 0 0.8rem; }
+.checked a { color: var(--muted); }
+.reasons section .kicker { margin-bottom: 4px; }
+.rows .meta + h3 { margin-top: 4px; }
+pre code { white-space: pre-wrap; }
+@media (max-width: 420px) { pre { font-size: 0.84rem; padding: 12px; } }
+p, li, h1, h2, h3 { overflow-wrap: anywhere; }
+#print-note { display:none; }
+@media print { .dts-donate,.top,.toc,.reset { display:none!important; } body { background:white;color:#111;font-size:11pt; } p,li,h1,h2,h3,.muted { color:#111; } .callout,.rows article { background:white;border:1px solid #777; } a { color:#333; } #print-note {display:block;} }
+</style>
+<link rel="stylesheet" href="../assets/donate-bar.css">
+</head>
+<body>
+<aside class="dts-donate" aria-label="Donations">
+<a class="dts-donate-link" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=dukktapestudios%40gmail.com&amp;item_name=Dukktape%20Studios&amp;currency_code=USD">Donate</a>
+<p class="dts-donate-line">Free to use. Donations welcome — they keep this going.</p>
+</aside>
+
+<a class="skip" href="#content">Skip to content</a>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/">Dukktape Studios</a>
+    <a class="home-link" href="/#guides">All guides</a>
+  </div>
+</header>
+<main id="content" class="wrap"><p class="eyebrow">Crash course · Checked November 25, 2026</p><h1>Library-Style Private Home Computer</h1><p class="lede">Build a calmer Windows 11 browsing workspace: start clean, keep your personal life separate, and reduce the ways websites recognize you. A gentle, step-by-step guide to reboot-to-restore, privacy-focused browsers, and the limits that still matter.</p><p class="meta-line">Beginner · Windows 11 · Dedicated PC preferred · No perfect anonymity</p><p id="print-note">Printout: interactive checklist ticks are not a permanent record.</p><div class="callout danger"><p class="kicker">Read this before changing anything</p><p>Reboot-to-restore rolls back protected drives, not just one user. New files can disappear at the next restart. Back up first. Also, Reboot Restore Rx Freeware is now retired; the current official alternatives described here are paid products or limited trials. No purchase or installation is required just to learn from this page.</p></div><nav class="toc" aria-label="Contents"><h2>Contents</h2><ol><li><a href="#why">Why a clean start helps—and what tracking means</a></li><li><a href="#local-user">Create a separate local Windows user</a></li><li><a href="#restore">Install, test, and maintain reboot-to-restore</a></li><li><a href="#browsers">Mullvad Browser, Tor Browser, or Brave</a></li><li><a href="#network">Tor or a VPN: hiding your IP</a></li><li><a href="#windows-privacy">Windows 11 privacy settings</a></li><li><a href="#habits">Keep personal activity separate</a></li><li><a href="#limits">Limits and unverified details</a></li><li><a href="#checklist">Interactive setup checklist</a></li><li><a href="#sources">Sources and checking notes</a></li></ol></nav><section id="why" aria-labelledby="why-title"><h2 id="why-title"><span class="num">01</span>A fresh start is useful. It is not invisibility.</h2>
+<p>A library-style PC returns to a known, clean starting point after a restart. You can use it for ordinary reading and research without collecting months of old downloads, browser cookies, and settings. Here, “wipe on reboot” means <strong>discard changes on protected drives and restore the baseline</strong>—not erase the whole computer or securely destroy every recoverable trace.</p>
+<p>A <strong>baseline</strong> is the starting state you choose: Windows updated, a local browsing user ready, and a privacy-focused browser installed. Think of a reusable desk that is reset after every visitor. You must deliberately open maintenance time to improve that starting state.</p>
+<div class="rows">
+<article><p class="meta">Cookies</p><h3>A website's little memory</h3><p>A cookie is a small piece of information a site stores in your browser. Some keep you signed in or remember a shopping basket. Others help link visits. Removing cookies helps with this memory, but it does not delete a website's own records.</p></article>
+<article><p class="meta">Fingerprinting</p><h3>Recognition without a saved cookie</h3><p>A script can combine things such as your screen size, fonts, browser features, and graphics behavior. That combination can make your browser recognizable. Resetting Windows does not change all of those characteristics. A fingerprint-resistant browser tries to make you blend in, or makes those measurements less consistent.</p></article>
+<article><p class="meta">IP address</p><h3>Your connection's return address</h3><p>A site normally sees the public IP address your traffic comes from. It can suggest a network and approximate location; it is not necessarily your name or exact street address. Several people can share an address. A reboot does not reliably give you a different public IP.</p></article>
+<article><p class="meta">Logins</p><h3>The simplest way to identify yourself</h3><p>If you sign into a personal account, that service knows the account—even if cookies were cleared first and the connection uses Tor or a VPN.</p></article>
+</div>
+<p>Read <a href="https://coveryourtracks.eff.org/learn">EFF’s explanation of cookies and fingerprints</a>, <a href="https://mullvad.net/en/vpn/what-is-vpn">Mullvad’s explanation of IP addresses</a>, and <a href="https://support.torproject.org/tor-browser/security/using-tb-safely/">Tor’s limits on anonymity</a>.</p>
+<div class="callout remember"><p class="kicker">Three different jobs</p><p>A local user separates everyday activity. Reboot-to-restore resets local changes. A privacy browser and Tor or a VPN reduce different kinds of online tracking. None replaces the others.</p></div>
+</section>
+<section id="local-user" aria-labelledby="local-user-title"><h2 id="local-user-title"><span class="num">02</span>Make a separate local Windows user</h2>
+<p>A <strong>local account</strong> belongs to this Windows installation, rather than being a Microsoft online sign-in. For this guide, use a generic name such as <strong>Browse</strong>. Keep your normal account for personal email, banking, shopping, and cloud storage. Keep a working administrator account for maintenance, but do not browse day to day as an administrator.</p>
+<ol class="steps">
+<li><h3>1. Start from an administrator account</h3><p>Back up important files first. This is a change to an already working Windows 11 PC, not a workaround for Windows installation or Microsoft account requirements.</p></li>
+<li><h3>2. Add the user</h3><p>Open <strong>Start → Settings → Accounts → Other users</strong>. Under <strong>Add other user</strong>, choose <strong>Add account</strong>. Microsoft's support article sometimes writes the page name as “Other user.”</p></li>
+<li><h3>3. Choose local, not online</h3><p>Select <strong>I don't have this person's sign-in information</strong>, then <strong>Add a user without a Microsoft account</strong>. Enter <strong>Browse</strong> as the user name and follow the on-screen prompts. If Windows asks for a password, use one you keep privately; never put it in a note on the PC or a public page.</p></li>
+<li><h3>4. Check the account type</h3><p>On the same <strong>Other users</strong> page, expand <strong>Browse</strong>. Next to <strong>Account options</strong>, select <strong>Change account type</strong>. Choose <strong>Standard User</strong> rather than <strong>Administrator</strong>, then <strong>OK</strong>. The Microsoft article confirms the dropdown but does not spell out every localized label; select the non-administrator type.</p></li>
+<li><h3>5. Open the new workspace</h3><p>Sign out and sign in as Browse once. Do not connect it to Microsoft, OneDrive, a work/school account, or browser sync. If an app asks to add an account to Windows or all apps, stop rather than accepting. Install your chosen browser in this user's space before capturing the baseline.</p></li>
+</ol>
+<p>These account-creation and account-type steps come from <a href="https://support.microsoft.com/en-us/windows/security/identity-signin/manage-user-accounts-in-windows">Microsoft’s user-account guide</a>. Microsoft generally recommends a Microsoft account for convenience and sync; we deliberately choose local here for separation.</p>
+<div class="callout remember"><p class="kicker">Important: one user is not one protected drive</p><p>Reboot-to-restore protects drives or partitions, not just Browse. If your normal account is on the same protected Windows drive, its new files and changes can be rolled back too. A dedicated spare PC is simpler and safer than freezing your everyday family or work PC. A standard user also does not hide activity from the administrator.</p></div>
+</section>
+<section id="restore" aria-labelledby="restore-title"><h2 id="restore-title"><span class="num">03</span>Make reboot-to-restore work safely</h2>
+<div class="callout danger"><p class="kicker">A current-source correction</p><p>Reboot Restore Rx Freeware has been retired. Horizon DataSys now directs home/light-use customers to paid Reboot Restore Standard. Do not download an old “free Rx” copy from a mirror and assume it is current or supported. There is no verified current free Rx option in this guide. See the <a href="https://horizondatasys.com/reboot-restore-rx-freeware/">official retirement notice</a>.</p></div>
+<h3>Before installing either tool</h3>
+<ol>
+<li><strong>Back up the whole PC and important files elsewhere.</strong> A baseline on the same disk is not a backup against disk failure, loss, or a bad setup. Make sure you know how to restore your backup. Disconnect the backup drive before configuring protected drives.</li>
+<li><strong>Finish setup first.</strong> Create Browse, choose and update the browser, apply the privacy settings in section 6, and finish Windows updates. Restart until updates are complete. Do not sign into personal sites during setup.</li>
+<li><strong>Check compatibility before paying or installing.</strong> Check your Windows release, hardware, disk layout, encryption, and the vendor's latest requirements. Do not install both restore products together.</li>
+<li><strong>Know what is protected.</strong> Browser profiles, caches, downloads, and Desktop/Documents used by Browse must be on protected storage if you expect them to reset. Redirected folders, cloud copies, network drives, USB drives, and exclusions can survive a restart. Avoid them for this workspace.</li>
+<li><strong>Use the administrator account only for maintenance.</strong> Set a separate password on the restore tool. Do not share that password with the browsing user. Follow the product's recovery instructions before you need them.</li>
+</ol>
+<div class="callout danger"><p class="kicker">Encryption is a real stop sign</p><p>Horizon’s <a href="https://support.horizondatasys.com/knowledge-base/hard-disk-is-encrypted.-setup-cannot-continue-message">installation warning</a> says BitLocker/device encryption can block its setup and describes turning it off. Do not casually remove disk encryption just to follow this guide: it protects data on a lost or stolen disk. Keep recovery information privately, and ask the vendor to confirm a supported setup for your exact PC. This guide does not claim either product is compatible with every encryption or Windows configuration.</p></div>
+<div class="rows">
+<article><p class="meta">Option A · Horizon DataSys</p><h3>Reboot Restore Standard (the current successor)</h3><p>The vendor describes local baseline protection, reset on reboot/logoff, and manual baseline updates. Its current pricing page lists <strong>US $48.85 per license</strong>, including one year of updates; its product page advertises a <strong>14-day trial</strong>. This is not a free permanent license. Check current terms before choosing. <a href="https://horizondatasys.com/reboot-restore-standard/">Product details</a> · <a href="https://horizondatasys.com/create-a-quote/">Official pricing</a>.</p></article>
+<article><p class="meta">Option B · Faronics</p><h3>Deep Freeze Standard</h3><p>A paid product that calls protected mode <strong>Frozen</strong> and maintenance mode <strong>Thawed</strong>. The 2026 Standard manual describes a <strong>30-day evaluation</strong>; a trial is not a permanent free license. No current checkout price is quoted here. <a href="https://www.faronics.com/products/deep-freeze/standard">Product details</a> · <a href="https://www.faronics.com/assets/DFS_Manual.pdf">2026 manual (PDF)</a>.</p></article>
+</div>
+<h3>A. Reboot Restore: setup without pretending old freeware is current</h3>
+<ol>
+<li>Start at <a href="https://horizondatasys.com/reboot-restore-standard/">Horizon’s Standard product page</a> and use its official trial/download route. Read the current installer and requirements for that edition. Do not substitute RollBack Rx (a different product) or old Rx Pro/freeware instructions.</li>
+<li>After the preparation above, sign into your administrator account, close your work, and run the official installer. Read the drive/partition selection carefully: the intended Windows drive and Browse profile storage must be covered, while backup storage must not be included by mistake.</li>
+<li><strong>Installation detail not confirmed:</strong> the current public pages we checked do not provide a complete, Standard-specific Windows 11 installer-screen walkthrough. We therefore do not invent button names or tell you which partitions to tick blindly. If the installer is unclear, stop and use Horizon support. The Deep Freeze route below has a verified current step-by-step manual.</li>
+<li>Once installed, open the tray application and use its administrator password. In <strong>Restore Settings</strong>, use automatic restore <strong>every time the computer boots up</strong>, then apply. These setting names are confirmed in Horizon's current patch-management instructions. Test the reset before relying on it.</li>
+</ol>
+<h3>A. Reboot Restore: keep Windows and browsers updated</h3>
+<p>A frozen old browser is not safe simply because it is old in the same way every morning. Set a regular maintenance reminder outside the protected PC, and update promptly when security fixes arrive. Do not rely on an update that vanishes at the next restart.</p>
+<ol>
+<li><strong>Start clean.</strong> Restart while automatic restore is still active, before opening any personal sites. Horizon explicitly recommends restoring the last baseline first so guest data is not captured.</li>
+<li>Open the Reboot Restore tray icon, enter the tool's administrator password, open <strong>Restore Settings</strong>, choose <strong>Restore On Demand</strong>, then <strong>Apply</strong>. This pauses the automatic reset so updates can survive multiple reboots. It is the usual maintenance route—not a full shutdown of the protection engine.</li>
+<li>Install Windows updates and browser updates; restart as many times as required. Use only official installers/updaters. Do not do everyday browsing during this maintenance session.</li>
+<li>When updates are complete, return to <strong>Restore Settings</strong> and set automatic restore back to <strong>Every time the computer boots up</strong>. Before restarting, open <strong>Update Baseline → New Baseline</strong>. That commits the clean, updated state. This order follows Horizon’s October 27, 2026 patch-management article.</li>
+<li>Restart and verify that protection is active and the new browser version remains. Run the harmless reset test below again.</li>
+</ol>
+<p>Sources: <a href="https://support.horizondatasys.com/knowledge-base/how-to-install-new-software-perform-patch-management">current patch-management steps</a> and <a href="https://support.horizondatasys.com/knowledge-base/how-to-manually-set-a-new-baseline">baseline guidance</a>. The older baseline article gives a different order for the final two settings; this guide follows the newer patch-management article and avoids a reboot between them.</p>
+<div class="callout remember"><p class="kicker">Full disable is different</p><p>Horizon also documents a full protection-off route for major Windows feature upgrades or difficult changes. It removes saved backup baselines and is not the normal patching procedure. Do not copy commands with example passwords from the internet. Use <a href="https://support.horizondatasys.com/knowledge-base/how-to-manually-set-a-new-baseline">Scenario 3 in the official guide</a> with vendor help for your exact edition, then re-enable, re-baseline, and test. No unverified “unlock snapshot” menu path is supplied here.</p></div>
+<h3>B. Deep Freeze Standard: install and freeze</h3>
+<p>The following names are checked against the <a href="https://www.faronics.com/assets/DFS_Manual.pdf">2026 Deep Freeze Standard manual</a>, System Requirements, installation, logon, Boot Control and Password sections. That manual lists <strong>Windows 11 up to 25H2</strong> and requires <strong>10% free disk space</strong>. If your Windows release is newer, get current compatibility confirmation first; do not assume.</p>
+<ol>
+<li>Get the installer through <a href="https://www.faronics.com/products/deep-freeze/standard">Faronics’ official Standard product page</a>. After finishing Windows/browser setup and backups, close applications and sign into the administrator account. Open <strong>DFStd.exe</strong>.</li>
+<li>Select <strong>Next</strong>, read the license terms, choose <strong>I agree to the terms in the License Agreement</strong>, then <strong>Next</strong>.</li>
+<li>Enter a valid license key, or deliberately select <strong>Use Evaluation</strong> for the limited trial. Select <strong>Next</strong>. Buying a license is a separate decision; nothing is purchased by following this page.</li>
+<li>On the drive list, choose the drives you intend to <strong>Freeze</strong>, then <strong>Next</strong>. Include the storage that actually holds Browse's profile. Do not confuse a drive letter with a user account. External hard drives are <strong>Thawed by default</strong>; removable media and network drives are not protected by Deep Freeze.</li>
+<li>The next stage offers <strong>Create ThawSpace</strong>. A ThawSpace keeps files across reboots. For this minimal browsing setup, do not create one for browsing files or profiles. Existing ThawSpaces may be retained by default, so inspect the setup rather than assuming nothing survives.</li>
+<li>Save/close everything and select <strong>Install</strong>. The manual says the computer restarts immediately when installation completes.</li>
+<li>Open the Deep Freeze controls with <strong>Shift + double-click its system-tray icon</strong>, or <strong>Ctrl + Alt + Shift + F6</strong>. On first login, if no tool password has been set, the manual says to leave the field blank and choose <strong>OK</strong>. Immediately use the <strong>Password</strong> tab to set and confirm a strong tool password, then <strong>OK</strong>. This is the Deep Freeze password, not necessarily your Windows password.</li>
+<li>In <strong>Boot Control</strong>, choose <strong>Boot Frozen</strong>. Select <strong>OK</strong> and restart, or <strong>Apply and Reboot</strong>. Confirm the tray status is Frozen. The selection controls the <em>next boot</em>; changing it does not instantly change the running session.</li>
+</ol>
+<p class="muted">Installation caveat: the Faronics manual asks for background utilities and antivirus to be disabled for installation. This guide does not recommend turning off security tools casually or browsing unprotected. If that is necessary on your PC, get Faronics’ current guidance, keep the interruption brief, and restore protection immediately. Do not disable antivirus permanently.</p>
+<h3>B. Deep Freeze: thaw, update, refreeze</h3>
+<ol>
+<li>Restart into a clean Frozen baseline first. Do not carry an ordinary browsing session into maintenance.</li>
+<li>Open Deep Freeze with <strong>Shift + double-click</strong> or <strong>Ctrl + Alt + Shift + F6</strong>, enter its password, then go to <strong>Boot Control → Boot Thawed</strong>. Choose <strong>OK</strong> and restart (or <strong>Apply and Reboot</strong>).</li>
+<li>Verify it is now <strong>Thawed</strong>. New changes are permanent while Thawed. Complete Windows and browser updates, including any further restarts. Stay out of personal accounts.</li>
+<li>Check the new versions and settings. Reopen Deep Freeze, choose <strong>Boot Frozen</strong>, then <strong>Apply and Reboot</strong> (or OK and restart). Verify Frozen status again.</li>
+<li>Deep Freeze keeps the updated disk state when you freeze it again; there is no separate “New Baseline” button in this workflow. Do not mix up the two products' instructions. Repeat the reset test.</li>
+</ol>
+<p>Verified in <a href="https://support.faronics.com/help/en-ca/29-deep-freeze-windows/103-how-do-i-enable-or-disable-deep-freeze">Faronics’ Freeze/Thaw article</a> and the manual's Boot Control and permanent-software-change sections. To remove Deep Freeze later, first boot Thawed and follow the manual's uninstall instructions using the installer. Do not simply remove its files.</p>
+<h3>The update steps inside Windows and the browser</h3>
+<ul>
+<li><strong>Windows 11:</strong> while maintenance is active, open <strong>Start → Settings → Windows Update</strong>, then select <strong>Check for Windows updates</strong> (Microsoft’s wording; the button text can vary by build). Install available updates with <strong>Download &amp; install</strong> if shown, and restart when requested. Recheck until required updates have finished. <a href="https://support.microsoft.com/en-us/windows/install-windows-updates-3c5ae7fc-9fb6-9af1-1984-b5e0412c556a">Microsoft’s update instructions</a>.</li>
+<li><strong>Tor Browser:</strong> when it offers an update, open the main menu <strong>≡ → Update available – restart now</strong>, wait for installation, and let the browser restart. Finish this while the disk is Thawed or restore is On Demand. <a href="https://support.torproject.org/tor-browser/getting-started/updating/">Official Tor update steps</a>.</li>
+<li><strong>Mullvad Browser or Brave:</strong> finish their official update prompts during maintenance, or use the current official installer for your selected browser. The sources checked here do not confirm a current Windows menu-by-menu updater path for both, so no guessed “About” path is printed. Record the updated version before refreezing, then confirm it survives a restart.</li>
+</ul>
+<h3>Prove it with a harmless reset test</h3>
+<ol>
+<li>Confirm automatic restore/Frozen status. Sign into Browse.</li>
+<li>Create a harmless text file named <strong>reset-test.txt</strong> on Browse's Desktop. Do not use an important document as the test.</li>
+<li>Use <strong>Restart</strong>, not just close the browser, lock the screen, or sleep. Sign into Browse again.</li>
+<li>The test file should be gone. Your installed browser and clean settings should still exist. If not, stop and check protected drives and restore state before browsing.</li>
+<li>After every maintenance session, repeat the test and also check that updates remained. One test proves only that location reset—it does not prove forensic erasure, anonymous networking, or that every disk is protected.</li>
+</ol>
+<div class="callout danger"><p class="kicker">Files you want to keep need a deliberate exception</p><p>Assume new files on protected drives will disappear at the next reset—even files in another user account. Copying to an unprotected device can preserve them, but also preserves a trail. For this browsing workspace, the simplest habit is not to keep files at all. Never store the only copy of anything important here.</p></div>
+</section>
+<section id="browsers" aria-labelledby="browsers-title"><h2 id="browsers-title"><span class="num">04</span>Choose a browser—and resist the urge to decorate it</h2>
+<p>You do not need all three. Start with <strong>Tor Browser</strong> if you want its integrated network anonymity protections, or <strong>Mullvad Browser</strong> with a properly configured VPN if that matches your goals. <strong>Brave</strong> is a more conventional everyday-browser option with built-in tracking defenses; do not treat it as an identical anonymity substitute.</p>
+<h3>Mullvad Browser: reduce fingerprinting without the Tor network</h3>
+<ol>
+<li>Sign into Browse and download the Windows installer from the <a href="https://mullvad.net/en/browser">official Mullvad Browser page</a>. It is free whether or not you use Mullvad VPN. The browser itself is <strong>not a VPN</strong> and does not mask your IP on its own.</li>
+<li>Open the downloaded <strong>.exe</strong>. Choose <strong>Standard</strong> installation and keep the default location inside your user folder. Mullvad's November 17, 2026 instructions warn that changing the destination to <code>C:\Program Files</code> can break updating/uninstalling. Do not follow an old “always install it on the Desktop” guide. <a href="https://mullvad.net/en/help/install-mullvad-browser">Current Windows installation steps</a>.</li>
+<li>Launch it from its Desktop or Start-menu shortcut. Keep its built-in private mode, fingerprint defenses, and bundled blockers. Mullvad says private mode is on by default; cookies are discarded after the last private window closes. Bookmarks and extension settings can still persist. Downloaded files do not magically vanish because a private window closes.</li>
+<li>Keep the default browser configuration. Do not install more extensions, remove built-in protections, spoof your user-agent, edit hidden preferences, or pile on “privacy tweaks.” The goal is to resemble other users of the same browser, not create a one-of-a-kind setup.</li>
+<li>If you use a VPN, connect the VPN app <em>before</em> opening sites, and verify its connection. Merely opening Mullvad Browser is not enough. Its default DNS-over-HTTPS setup and an optional VPN-specific DNS change are documented in the installation guide; do not copy a DNS change unless it matches your actual VPN configuration.</li>
+</ol>
+<p><a href="https://mullvad.net/en/browser/hard-facts">Mullvad’s hard facts</a> explain its private mode, bundled defenses, three security levels, and letterboxing. Keep Standard initially for a usable baseline; Safer or Safest intentionally disable more features and can break sites. The source confirms those levels, but a current Windows click-by-click path to the selector was not verified for this guide. Do not edit hidden preferences to imitate it.</p>
+<h3>Tor Browser: browser protections plus the Tor network</h3>
+<ol>
+<li>Download only from the <a href="https://support.torproject.org/tor-browser/getting-started/downloading/">official Tor Project download route</a>. Choose the Windows <strong>.exe</strong>, open it, and complete the installation wizard. Tor recommends verifying the signature; its download/install guide links the verification steps. Keep the installation in Browse's protected user storage. <a href="https://support.torproject.org/tor-browser/getting-started/installing/">Windows instructions</a>.</li>
+<li>Launch Tor Browser and choose <strong>Connect</strong> for an ordinary connection. If Tor is blocked where you are, use the official connection-assistance/bridges guidance, not a random proxy list. <a href="https://support.torproject.org/tor-browser/getting-started/first-launch/">First-launch help</a>.</li>
+<li>Leave the supplied add-ons and browser defenses intact. Do not add extensions or themes, and do not copy your regular browser profile into it. Tor strongly discourages added add-ons because they can undermine its protections. <a href="https://support.torproject.org/tor-browser/features/plugins/">Official add-on guidance</a>.</li>
+<li>The default Security Level is <strong>Standard</strong>. <strong>Safer</strong> disables JavaScript on non-HTTPS sites and limits some fonts/media; <strong>Safest</strong> disables JavaScript by default on all sites and more features. Use these built-in levels if needed rather than inventing your own patchwork. <a href="https://support.torproject.org/tor-browser/features/security-levels/">Official security-level guide</a>.</li>
+<li><strong>Path caveat:</strong> the current desktop security-level guide illustrates the controls in screenshots but does not spell out the full desktop click sequence in its text. Follow those official pictures for your installed version; this page does not guess a version-specific menu path.</li>
+<li>When you need a clean browser identity during a session, Tor's main menu <strong>≡ → New Identity</strong> closes tabs/windows, clears private information such as cookies/history, and uses new circuits. Save any work first. <strong>New Tor Circuit for this Site</strong> is different: it changes that site's route but does not clear private information. Neither undoes a personal login already recorded by a service. <a href="https://support.torproject.org/tor-browser/features/managing-identities/">Managing identities</a>.</li>
+</ol>
+<h3>Window size and letterboxing: a gentle rule, not a scary myth</h3>
+<p>Mullvad Browser and Tor Browser use <strong>letterboxing</strong>: the gray margins around web content group many users into shared page sizes. For a beginner, leave the opening window at its usual size and <strong>do not maximize/fullscreen or resize it just to eliminate those margins</strong>. Leave letterboxing on.</p>
+<p>Importantly, modern letterboxing also helps when a window <em>is</em> resized or maximized. An accidental resize does not instantly reveal your identity. The aim is to avoid unnecessary customization, not to panic about one click. This is verified in <a href="https://mullvad.net/en/browser/hard-facts">Mullvad’s letterboxing explanation</a> and <a href="https://support.torproject.org/tor-browser/features/fingerprinting-protections/">Tor’s current fingerprinting documentation</a>. This letterboxing advice applies to those browsers; it is not a claim that Brave uses the same mechanism.</p>
+<h3>Brave: built-in blocking and fingerprint randomization</h3>
+<ol>
+<li>Download Brave from <a href="https://brave.com/download/">Brave’s official download page</a> and install it in the Browse workspace. Do not import personal passwords, history, or bookmarks, and do not enable sync with your personal devices.</li>
+<li>Keep <strong>Shields</strong> up. To review global controls, use <strong>Main menu → Settings → Shields</strong>. For one site, click the <strong>lion icon</strong> at the right of the address bar. The site panel's <strong>Advanced controls</strong> are optional; leave defaults initially. <a href="https://support.brave.app/hc/en-us/articles/360023646212-How-do-I-configure-global-and-site-specific-Shields-settings">Verified global/per-site paths</a>.</li>
+<li>Brave blocks cross-site cookies and trackers and randomizes fingerprintable browser features by default. Do <strong>not</strong> look for a “Strict fingerprinting” mode: Brave retired it starting with version 1.64. An Aggressive ad/tracker setting is not the old Strict fingerprinting mode. <a href="https://brave.com/shields/">Shields protections</a> · <a href="https://brave.com/privacy-updates/28-sunsetting-strict-fingerprinting-mode/">Official retirement explanation</a>.</li>
+<li>For less browser telemetry, open <strong>Settings → Privacy and Security → Data Collection</strong>, and turn off the offered crash logs, privacy-preserving product analytics (P3A), and daily usage ping. Those are documented controls, unlike random hidden-flag recipes. <a href="https://support.brave.app/hc/en-us/articles/38305898674957-How-do-I-hide-or-disable-features-in-Brave">Current Brave instructions</a>.</li>
+<li>Do not enable Rewards or extra services just for this project. Do not add a collection of extensions. Brave's normal window does not hide your IP; an ordinary private window is not a network anonymity tool either.</li>
+</ol>
+<div class="callout remember"><p class="kicker">Brave Tor windows are not Tor Browser</p><p>Brave itself says its Private Windows with Tor are regular private windows using Tor as a proxy, and do not implement most Tor Browser privacy protections. Use Tor Browser for the Tor route in this guide. <a href="https://support.brave.app/hc/en-us/articles/360018121491-What-is-a-Private-Window-with-Tor-Connectivity">Read Brave’s warning</a>.</p></div>
+<p><strong>Across all choices:</strong> keep the software updated, refuse unnecessary site permissions, and do not sign into personal accounts. If a site does not work, weigh whether you need it in this workspace instead of weakening everything globally. Security/usability settings change; check the linked official guide before changing them.</p>
+</section>
+<section id="network" aria-labelledby="network-title"><h2 id="network-title"><span class="num">05</span>Choose Tor or a VPN for the IP-address job</h2>
+<h3>Route 1: Tor Browser by itself</h3>
+<p>Tor Browser sends its browsing traffic through Tor relays, so a destination normally sees a Tor exit address instead of your home IP. It is free. It does <strong>not</strong> automatically send Windows updates, another browser, a download manager, or every other program through Tor. Only applications configured for Tor are covered. <a href="https://support.torproject.org/tor-browser/security/using-tb-safely/">Tor’s own limits</a>.</p>
+<p>Trade-offs: relay routing can be slower, and sites can identify Tor exits and block them, present CAPTCHAs, or lock accounts for unusual locations. Do not use a personal bank login as a test. <a href="https://support.torproject.org/tor-browser/general/tor-browser-speed/">Speed explanation</a> · <a href="https://support.torproject.org/tor-browser/general/website-blocking-tor-exits/">Site blocking and account warnings</a>.</p>
+<h3>Route 2: a trustworthy VPN app plus Mullvad Browser (or Brave)</h3>
+<ol>
+<li>Choose a VPN provider deliberately. Read its privacy policy, logging claims, supported Windows setup, and independent audit information if available. A VPN is not automatically trustworthy because it says “private.”</li>
+<li>Install and configure its official Windows app while restore is in maintenance mode or before your first baseline. Connect it before browsing. Some apps have split tunneling or exclusions, so do not assume every program is covered.</li>
+<li>Use the provider's official connection check to confirm the intended public IP and DNS behavior. If it offers a kill switch or leak protection, follow <em>that provider's</em> current guide and test it. This page does not invent one universal VPN menu.</li>
+<li>If the VPN disconnects unexpectedly, stop browsing until you know whether traffic is blocked or falling back to your ordinary connection. A browser extension alone may cover only the browser; it is not necessarily equivalent to a full VPN app.</li>
+</ol>
+<p>A VPN encrypts traffic to its server; the site then sees the VPN's exit IP. This shifts trust from your internet service provider to the VPN operator. It does not remove cookies, undo logins, or automatically stop fingerprinting. Performance varies, and VPN exit addresses can also trigger site checks or restrictions. <a href="https://mullvad.net/en/vpn/what-is-vpn">Mullvad explains both the tunnel and the trust trade-off</a>.</p>
+<h3>Do not stack tools carelessly</h3>
+<p>More layers do not automatically mean more privacy. The <a href="https://support.torproject.org/tor-browser/general/vpn-with-tor/">Tor Project generally does not recommend combining a VPN and Tor</a> unless you are an advanced user who knows how to configure both without compromising privacy. For this beginner setup, choose one route and understand it first.</p>
+<div class="callout remember"><p class="kicker">Keep HTTPS</p><p>Tor or a VPN is not a reason to ignore a browser certificate/security warning. HTTPS still protects the connection to the site. A VPN tunnel ends at the VPN, and Tor traffic to ordinary websites exits the Tor network. Do not send sensitive information to plain HTTP sites.</p></div>
+</section>
+<section id="windows-privacy" aria-labelledby="windows-privacy-title"><h2 id="windows-privacy-title"><span class="num">06</span>Turn down Windows data sharing</h2>
+<p>Do this <strong>before the first baseline</strong>, or during a deliberate maintenance session. Check settings while signed in as Browse; some controls are per-user and others need the administrator. Recheck after major updates.</p>
+<p>The following are the Windows 11 paths stated by Microsoft's official support pages checked on November 25, 2026. Labels can differ by update, language, or organization policy. If a page is missing, use Settings search and the linked official article; <strong>do not invent a replacement registry tweak</strong>. A missing or managed switch is not proof that collection is off.</p>
+<div class="rows">
+<article><p class="meta">Diagnostic data / telemetry</p><h3>Keep required; decline optional</h3><p><strong>Start → Settings → Privacy &amp; security → Diagnostics &amp; feedback</strong>. Under <strong>Diagnostic data</strong>, turn off optional diagnostic data (or choose the required-only option shown). Microsoft says Windows still sends required diagnostic data; this is not a “zero telemetry” switch. Optional data can include browsing/activity details and more error information. The support article confirms the page and categories, not one universal switch label for every build. <a href="https://support.microsoft.com/en-us/windows/privacy/diagnostics-feedback-and-privacy-in-windows">Microsoft’s diagnostic-data guide</a>.</p></article>
+<article><p class="meta">Advertising ID</p><h3>Stop apps using this Windows ad identifier</h3><p><strong>Start → Settings → Privacy &amp; security → General</strong>. Turn off <strong>Let apps show me personalized ads by using my advertising ID</strong>. This does not remove all ads, stop every tracker, or erase profiles already held by an advertiser. Microsoft notes that turning it back on resets the ID. <a href="https://support.microsoft.com/en-us/windows/privacy/general-privacy-settings-in-windows">Microsoft’s General privacy settings</a>.</p></article>
+<article><p class="meta">Location</p><h3>Decline location access you do not need</h3><p><strong>Start → Settings → Privacy &amp; security → Location</strong>. As administrator, turn <strong>Location services</strong> off if you do not need device location. For Browse's own account, turn <strong>Let apps access your location</strong> off. Microsoft says the device-level setting may not be visible to non-administrators. Some desktop apps/websites can still infer location by IP address or other means; Windows' toggle is not an IP-hiding tool. <a href="https://support.microsoft.com/en-us/windows/privacy/windows-location-service-and-privacy">Microsoft’s location controls and limitations</a>.</p></article>
+<article><p class="meta">Activity history</p><h3>Stop storing the Windows activity history described here</h3><p><strong>Start → Settings → Privacy &amp; security → Activity history</strong>. Switch <strong>Store my activity history on this device</strong> off. If you want to remove existing entries, next to <strong>Clear activity history for this account</strong>, select <strong>Clear history</strong>. This does not clear a browser's own history or a website's logs. <a href="https://support.microsoft.com/en-us/windows/privacy/windows-activity-history-and-your-privacy">Microsoft’s activity-history instructions</a>.</p></article>
+</div>
+<h3>Two changes in Windows guides worth knowing about</h3>
+<ul>
+<li>Microsoft says <strong>Tailored experiences</strong> is being replaced by <strong>Personalized offers</strong> on newer versions. The diagnostics article still gives a Tailored experiences path. This page does not guess the current Personalized offers path; use the official link from the diagnostics article for your build if you want to review it.</li>
+<li>Microsoft says sending activity history to Microsoft was deprecated for Windows 11 22H2/23H2 with the January 23, 2024 update. Do not hunt for an old <strong>Send my activity history to Microsoft</strong> switch that may no longer exist. Update Windows if you still see legacy options.</li>
+</ul>
+<p><strong>Keep security on.</strong> These settings are not a recommendation to disable Defender, Windows Update, firewall protections, or every Windows service. Turning off security to save a little data can undermine the whole project.</p>
+</section>
+<section id="habits" aria-labelledby="habits-title"><h2 id="habits-title"><span class="num">07</span>Use it like a clean reading desk</h2>
+<ol>
+<li><strong>Start in Browse, not your administrator or personal user.</strong> Confirm the reset tool is active. For the VPN route, connect and verify it first; for Tor, browse inside Tor Browser.</li>
+<li><strong>Never sign into personal accounts on this user.</strong> Keep email, banking, social accounts, shopping, password sync, and cloud storage in the separate personal workspace. That is this guide's separation rule—not a claim that a Tor login reveals your home IP. Logging in tells the service which account you are.</li>
+<li><strong>Do not provide identifying details in forms.</strong> A private connection cannot make a real email address, telephone number, or identifying story anonymous. Avoid reusing identifying usernames or posting habits as well.</li>
+<li><strong>Do not import or sync personal browser data.</strong> Keep the baseline free of saved passwords, personal bookmarks, cookies, and accounts. Do not use the machine to draft sensitive personal documents unless you understand where every copy is stored.</li>
+<li><strong>Be careful with downloads.</strong> Do not run unknown programs or open untrusted documents in another app expecting Tor to protect that app. The Tor Project warns that documents downloaded through Tor (especially DOC and PDF files opened in another app) can load internet resources outside Tor and reveal your real IP. Do not ignore Tor Browser’s warning before opening one. Do not torrent over Tor.</li>
+<li><strong>End with a real restart.</strong> Closing a tab, locking the screen, signing out, or sleeping is not the reboot test. Some tools can reset at logoff, but this setup explicitly relies on a verified reboot reset.</li>
+<li><strong>Maintain the baseline.</strong> Make updates in a clean maintenance session. Never save a new baseline after a normal session: that could preserve the very cookies, files, or malware you intended to discard.</li>
+</ol>
+<p>These habits put the <a href="https://support.torproject.org/tor-browser/security/using-tb-safely/">Tor Project’s best practices</a> and <a href="https://coveryourtracks.eff.org/learn">EFF’s tracking explanation</a> into a deliberately simple routine.</p>
+</section>
+<section id="limits" aria-labelledby="limits-title"><h2 id="limits-title"><span class="num">08</span>What this cannot promise</h2>
+<div class="callout danger"><p class="kicker">No perfect anonymity</p><p>The Tor Project explicitly says perfect anonymity is generally impossible, even with Tor. This is a privacy-improvement project, not a guarantee. If your safety depends on not being identified, do not treat this beginner setup as a complete threat model. <a href="https://support.torproject.org/tor-browser/security/using-tb-safely/">Read Tor’s warning</a>.</p></div>
+<ul>
+<li><strong>It does not erase remote records.</strong> A website, advertiser, account provider, VPN, internet provider, or network operator may retain information it already received. Rebooting your disk cannot recall it.</li>
+<li><strong>Your ISP still exists.</strong> It knows your subscription and can observe connection timing and traffic volume. A correctly working VPN normally hides destinations from the ISP by showing the VPN connection instead; Tor normally shows a connection to Tor rather than the final destination. Neither makes your connection disappear, and sophisticated traffic analysis is outside this guide.</li>
+<li><strong>Logins and behavior link activity.</strong> An account login identifies that account. Reused handles, distinctive writing, timing, and information you volunteer can also connect sessions. Changing IP or resetting cookies does not undo those choices.</li>
+<li><strong>It is still Windows.</strong> A local Browse account does not remove the operating system's required data flows. A Microsoft account signed into another Windows user or added to an app is not “unlinked” by creating Browse. Windows, installed software, administrators, and device management remain part of what you must trust.</li>
+<li><strong>Malware can act before reboot.</strong> It can steal data during the session. A compromised baseline, unprotected drive, firmware problem, or other persistence outside the restored area is not solved merely by rebooting. Do not substitute a restore product for patching, security tools, or careful downloads.</li>
+<li><strong>Rollback is not secure erasure or encryption.</strong> These products restore a usable state. This guide makes no promise against forensic recovery, physical access, theft of the disk, or copies outside protected storage. Windows encryption and backups solve different problems.</li>
+<li><strong>A separate user is not a separate machine.</strong> It helps prevent accidental mixing; it is not a hardened virtual machine or a barrier against the system administrator or every exploit. The computer's hardware and network may remain recognizable.</li>
+<li><strong>Site compatibility is not guaranteed.</strong> Stronger defenses can break video, sign-ins, forms, or entire sites. Some sites block Tor or VPN exits. You must choose a privacy/convenience balance rather than expect a tool to make every site work anonymously.</li>
+</ul>
+<p>Sources: <a href="https://support.torproject.org/tor-browser/security/using-tb-safely/">Tor’s anonymity limitations</a>, <a href="https://support.brave.app/hc/en-us/articles/360018121491-What-is-a-Private-Window-with-Tor-Connectivity">Brave’s monitoring warning</a>, <a href="https://support.microsoft.com/en-us/windows/privacy/diagnostics-feedback-and-privacy-in-windows">Microsoft’s required diagnostic data</a>, <a href="https://mullvad.net/en/vpn/what-is-vpn">VPN trust explanation</a>, and the vendors' restore scope in their manuals/product pages.</p>
+<h3>What was not verified—and where to stop</h3>
+<ul>
+<li>A currently supported free Reboot Restore Rx edition: the official retirement notice says it is no longer offered.</li>
+<li>A full current Reboot Restore Standard installer-screen walkthrough, its compatibility with every Windows release, and a universal encryption-safe configuration. Ask Horizon for your exact machine before installation.</li>
+<li>A current Deep Freeze checkout price, or support beyond the Windows 11 25H2 limit in the checked 2026 manual.</li>
+<li>Current Windows click-by-click updater menus for Mullvad Browser and Brave, the full Tor desktop security-level click sequence in the current guide's text, and a universal path for Microsoft's newer Personalized offers setting. Official prompts/docs, not invented menu names, are the fallback.</li>
+<li>What any particular Windows update or managed device displays, any specific VPN's no-logs claim, and whether this setup resists a particular adversary. No Windows software was installed or tested for this article.</li>
+</ul>
+</section>
+<section id="checklist" aria-labelledby="checklist-title"><h2 id="checklist-title"><span class="num">09</span>Your setup checklist</h2>
+<p>Tick these at your own pace. Ticks are stored only in this browser under <code>dts:library-private-pc:checklist:v1</code>. This page sends no checklist data anywhere.</p>
+<div class="callout remember"><p class="kicker">The checklist follows the same privacy rules</p><p>Private browsers may discard these ticks when all private windows close; reboot-to-restore may discard them at restart. That is expected. Use a paper copy if you want progress to survive without weakening the browser’s private mode. Do not preserve a browsing profile just for this checklist.</p></div>
+<div class="checklist-box" data-key="dts:library-private-pc:checklist:v1"><p class="muted" id="cl-count" aria-live="polite"></p><ul class="checklist"><li><label><input type="checkbox"><span>I have an external backup and know how to recover the PC.</span></label></li><li><label><input type="checkbox"><span>I understand that protected drives affect other Windows users too; this is preferably a dedicated PC.</span></label></li><li><label><input type="checkbox"><span>I created a local user named Browse and verified it is a standard user, not an administrator.</span></label></li><li><label><input type="checkbox"><span>I installed one chosen browser from its official source, without importing or syncing personal data.</span></label></li><li><label><input type="checkbox"><span>I kept the browser’s protections and letterboxing intact and did not add extensions or hidden tweaks.</span></label></li><li><label><input type="checkbox"><span>I chose Tor Browser alone OR a properly configured VPN route, and understand which traffic it covers.</span></label></li><li><label><input type="checkbox"><span>I reviewed Windows diagnostic data, advertising ID, location, and activity history using official paths.</span></label></li><li><label><input type="checkbox"><span>I checked current Windows/disk/encryption compatibility with my chosen restore product.</span></label></li><li><label><input type="checkbox"><span>I completed Windows and browser updates before creating the clean baseline.</span></label></li><li><label><input type="checkbox"><span>I installed just one supported restore tool, set its administrator password, and enabled reset on every reboot/Frozen mode.</span></label></li><li><label><input type="checkbox"><span>I tested that reset-test.txt disappears after Restart and that the installed browser remains.</span></label></li><li><label><input type="checkbox"><span>I will never sign into personal accounts from Browse or save a baseline after an ordinary browsing session.</span></label></li><li><label><input type="checkbox"><span>I have a maintenance plan: start clean, pause reset/thaw, update and reboot, re-baseline/refreeze, then test.</span></label></li><li><label><input type="checkbox"><span>I understand this is rollback, not forensic erasure or perfect anonymity.</span></label></li></ul><button type="button" class="reset" id="cl-reset">Reset checklist</button><p class="muted" id="cl-storage" role="status"></p></div>
+<noscript><p>JavaScript is off, so progress saving and the count will not work. You can still read the guide and use a paper checklist.</p></noscript>
+</section>
+<section id="sources" aria-labelledby="sources-title"><h2 id="sources-title">Sources &amp; checking notes</h2><p>Official material checked November 25, 2026. Brave Help now uses <code>support.brave.app</code>, reached from Brave’s official help content. EFF’s Cover Your Tracks is the one non-vendor educational source. Prices, support limits, menu labels, and product availability can change. Inline links show which source supports each procedure.</p><ol class="refs"><li><a href="https://support.microsoft.com/en-us/windows/security/identity-signin/manage-user-accounts-in-windows">Microsoft: Manage user accounts</a></li><li><a href="https://support.microsoft.com/en-us/windows/install-windows-updates-3c5ae7fc-9fb6-9af1-1984-b5e0412c556a">Microsoft: Install Windows updates</a></li><li><a href="https://support.microsoft.com/en-us/windows/privacy/diagnostics-feedback-and-privacy-in-windows">Microsoft: Diagnostics, feedback, and privacy</a></li><li><a href="https://support.microsoft.com/en-us/windows/privacy/general-privacy-settings-in-windows">Microsoft: General privacy settings (advertising ID)</a></li><li><a href="https://support.microsoft.com/en-us/windows/privacy/windows-location-service-and-privacy">Microsoft: Windows location service and privacy</a></li><li><a href="https://support.microsoft.com/en-us/windows/privacy/windows-activity-history-and-your-privacy">Microsoft: Activity history and your privacy</a></li><li><a href="https://horizondatasys.com/reboot-restore-rx-freeware/">Horizon DataSys: Reboot Restore Rx Freeware retirement</a></li><li><a href="https://horizondatasys.com/reboot-restore-standard/">Horizon DataSys: Reboot Restore Standard</a></li><li><a href="https://horizondatasys.com/create-a-quote/">Horizon DataSys: Current licensing and pricing</a></li><li><a href="https://support.horizondatasys.com/knowledge-base/how-to-install-new-software-perform-patch-management">Horizon DataSys: Patch management (updated October 27, 2026)</a></li><li><a href="https://support.horizondatasys.com/knowledge-base/how-to-manually-set-a-new-baseline">Horizon DataSys: Manually set a new baseline</a></li><li><a href="https://support.horizondatasys.com/knowledge-base/hard-disk-is-encrypted.-setup-cannot-continue-message">Horizon DataSys: Encrypted-disk installation warning</a></li><li><a href="https://www.faronics.com/products/deep-freeze/standard">Faronics: Deep Freeze Standard</a></li><li><a href="https://www.faronics.com/assets/DFS_Manual.pdf">Faronics: Deep Freeze Standard user guide (2026, PDF)</a></li><li><a href="https://support.faronics.com/help/en-ca/29-deep-freeze-windows/103-how-do-i-enable-or-disable-deep-freeze">Faronics: Enable or disable Deep Freeze</a></li><li><a href="https://mullvad.net/en/browser">Mullvad: Browser overview</a></li><li><a href="https://mullvad.net/en/help/install-mullvad-browser">Mullvad: Install Mullvad Browser (updated November 17, 2026)</a></li><li><a href="https://mullvad.net/en/browser/hard-facts">Mullvad: Browser hard facts and letterboxing</a></li><li><a href="https://mullvad.net/en/vpn/what-is-vpn">Mullvad: What is a VPN? (including provider trust)</a></li><li><a href="https://support.torproject.org/tor-browser/getting-started/installing/">Tor Project: Install Tor Browser on Windows</a></li><li><a href="https://support.torproject.org/tor-browser/getting-started/downloading/">Tor Project: Downloading safely</a></li><li><a href="https://support.torproject.org/tor-browser/getting-started/first-launch/">Tor Project: First launch</a></li><li><a href="https://support.torproject.org/tor-browser/getting-started/updating/">Tor Project: Keep Tor Browser up to date</a></li><li><a href="https://support.torproject.org/tor-browser/features/fingerprinting-protections/">Tor Project: Fingerprinting protections and letterboxing</a></li><li><a href="https://support.torproject.org/tor-browser/features/security-levels/">Tor Project: Security levels</a></li><li><a href="https://support.torproject.org/tor-browser/features/plugins/">Tor Project: Plugins and add-ons</a></li><li><a href="https://support.torproject.org/tor-browser/features/managing-identities/">Tor Project: Managing identities</a></li><li><a href="https://support.torproject.org/tor-browser/security/using-tb-safely/">Tor Project: Best practices and anonymity limits</a></li><li><a href="https://support.torproject.org/tor-browser/general/vpn-with-tor/">Tor Project: Tor Browser with VPN</a></li><li><a href="https://support.torproject.org/tor-browser/general/tor-browser-speed/">Tor Project: Tor Browser speed</a></li><li><a href="https://support.torproject.org/tor-browser/general/website-blocking-tor-exits/">Tor Project: Websites blocking Tor exits</a></li><li><a href="https://brave.com/download/">Brave: Official download page</a></li><li><a href="https://brave.com/shields/">Brave: Shields and fingerprint randomization</a></li><li><a href="https://support.brave.app/hc/en-us/articles/360023646212-How-do-I-configure-global-and-site-specific-Shields-settings">Brave Help: Global and per-site Shields settings</a></li><li><a href="https://brave.com/privacy-updates/28-sunsetting-strict-fingerprinting-mode/">Brave: Strict fingerprinting mode retired</a></li><li><a href="https://support.brave.app/hc/en-us/articles/38305898674957-How-do-I-hide-or-disable-features-in-Brave">Brave Help: Disable features and telemetry (April 2026)</a></li><li><a href="https://support.brave.app/hc/en-us/articles/360018121491-What-is-a-Private-Window-with-Tor-Connectivity">Brave Help: Limits of Private Windows with Tor</a></li><li><a href="https://coveryourtracks.eff.org/learn">EFF: Cover Your Tracks — Learn about tracking</a></li></ol><p class="muted">This guide is not affiliated with Microsoft, Horizon DataSys, Faronics, Mullvad, Tor, Brave, or EFF. Product choice, backups, maintenance planning, and the harmless reset test are practical guidance rather than vendor guarantees.</p></section></main><footer><div class="wrap"><p>Dukktape Studios — Library-Style Private Home Computer. A learning guide.</p><p><a href="/#guides">All guides</a> · <a href="#content">Back to top</a></p><p>© 2026 Dukktape Studios</p></div></footer><script>
+(function () {
+  var box = document.querySelector('.checklist-box');
+  if (!box) return;
+  var key = box.getAttribute('data-key');
+  var boxes = Array.prototype.slice.call(box.querySelectorAll('input[type=checkbox]'));
+  var count = document.getElementById('cl-count');
+  var storageNote = document.getElementById('cl-storage');
+  function unavailable() { storageNote.textContent = 'This browser is not allowing progress storage. Your ticks work for this visit only.'; }
+  function load() {
+    try { var saved = JSON.parse(localStorage.getItem(key)); return Array.isArray(saved) ? saved : []; }
+    catch (e) { unavailable(); return []; }
+  }
+  function show() { count.textContent = boxes.filter(function (b) { return b.checked; }).length + ' of ' + boxes.length + ' done'; }
+  function save() { try { localStorage.setItem(key, JSON.stringify(boxes.map(function (b) { return b.checked ? 1 : 0; }))); } catch (e) { unavailable(); } }
+  var saved = load();
+  boxes.forEach(function (b, i) { b.checked = saved[i] === 1; b.addEventListener('change', function () { save(); show(); }); });
+  document.getElementById('cl-reset').addEventListener('click', function () {
+    if (!boxes.some(function (b) { return b.checked; }) || window.confirm('Clear all ticks on this checklist?')) {
+      boxes.forEach(function (b) { b.checked = false; });
+      try { localStorage.removeItem(key); } catch (e) { unavailable(); }
+      show();
+    }
+  });
+  show();
+})();
+</script></body></html>
